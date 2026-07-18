@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../categories/categories_screen.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({super.key});
@@ -33,6 +34,7 @@ class DashboardScreen extends StatelessWidget {
           ),
           itemBuilder: (context, index) {
             final item = items[index];
+
             return Card(
               color: const Color(0xFF1F1F1F),
               shape: RoundedRectangleBorder(
@@ -40,7 +42,16 @@ class DashboardScreen extends StatelessWidget {
               ),
               child: InkWell(
                 borderRadius: BorderRadius.circular(18),
-                onTap: () {},
+                onTap: () {
+                  if (item['title'] == 'Categorías') {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const CategoriesScreen(),
+                      ),
+                    );
+                  }
+                },
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
