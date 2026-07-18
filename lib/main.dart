@@ -1,36 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'screens/splash/splash_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await dotenv.load(fileName: ".env");
-
   await Supabase.initialize(
-    url: dotenv.env['SUPABASE_URL']!,
-    anonKey: dotenv.env['SUPABASE_ANON_KEY']!,
+    url: const String.fromEnvironment(
+      'SUPABASE_URL',
+      defaultValue: 'https://carjmnopcfexpyxdkhoz.supabase.co',
+    ),
+    anonKey: const String.fromEnvironment(
+      'SUPABASE_ANON_KEY',
+      defaultValue: '',
+    ),
   );
 
-  runApp(const MyApp());
+  runApp(const ModasSophieApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class ModasSophieApp extends StatelessWidget {
+  const ModasSophieApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Modas Sophie',
-      home: Scaffold(
-        body: Center(
-          child: Text(
-            'Modas Sophie conectado a Supabase',
-            style: TextStyle(fontSize: 22),
-          ),
-        ),
-      ),
+      home: const SplashScreen(),
     );
   }
 }
