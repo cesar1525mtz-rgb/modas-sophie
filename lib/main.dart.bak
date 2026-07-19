@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import 'screens/auth/auth_gate.dart';
+import 'screens/auth/login_screen.dart';
 import 'theme/app_theme.dart';
 
 Future<void> main() async {
@@ -27,7 +27,7 @@ class ModasSophieApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Modas Sophie',
       theme: AppTheme.theme,
-      home: const AuthGate(),
+      home: const LoginScreen(),
     );
   }
 }
