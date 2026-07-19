@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../categories/categories_screen.dart';
+import 'package:modas_sophie/screens/categories/categories_screen.dart';
 import 'package:modas_sophie/screens/products/products_screen.dart';
 
 class DashboardScreen extends StatelessWidget {
@@ -44,14 +44,14 @@ class DashboardScreen extends StatelessWidget {
               child: InkWell(
                 borderRadius: BorderRadius.circular(18),
                 onTap: () {
-                  if (item['title'] == 'Categorías') {
-                        } else if (item['title'] == 'Productos') {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => const ProductsScreen(),
-                            ),
-                          );
+                  if (item['title'] == 'Productos') {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const ProductsScreen(),
+                      ),
+                    );
+                  } else if (item['title'] == 'Categorías') {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -60,25 +60,26 @@ class DashboardScreen extends StatelessWidget {
                     );
                   }
                 },
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      item['icon'] as IconData,
-                      color: Colors.pink,
-                      size: 48,
-                    ),
-                    const SizedBox(height: 12),
-                    Text(
-                      item['title'] as String,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                      ),
-                    ),
-                  ],
-                ),
+                child:Column(
+  mainAxisAlignment: MainAxisAlignment.center,
+  children: [
+    Icon(
+      item['icon'] as IconData,
+      color: Colors.pink,
+      size: 48,
+    ),
+    const SizedBox(height: 12),
+    Text(
+      item['title'] as String,
+      style: const TextStyle(
+        color: Colors.white,
+        fontWeight: FontWeight.bold,
+        fontSize: 18,
+      ),
+      textAlign: TextAlign.center,
+    ),
+  ],
+),
               ),
             );
           },
@@ -87,3 +88,4 @@ class DashboardScreen extends StatelessWidget {
     );
   }
 }
+
