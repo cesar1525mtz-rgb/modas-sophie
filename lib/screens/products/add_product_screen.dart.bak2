@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import "../../repositories/product_repository.dart";
 
 class AddProductScreen extends StatefulWidget {
   const AddProductScreen({super.key});
@@ -10,8 +9,6 @@ class AddProductScreen extends StatefulWidget {
 
 class _AddProductScreenState extends State<AddProductScreen> {
   final _formKey = GlobalKey<FormState>();
-  final ProductRepository _repository = ProductRepository();
-
 
   final _nombreController = TextEditingController();
   final _descripcionController = TextEditingController();
