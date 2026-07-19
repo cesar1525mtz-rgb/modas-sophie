@@ -58,9 +58,12 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
 
                 if (nombre.isEmpty) return;
 
-                await supabase.from('categorias').insert({
-                  'nombre': nombre,
-                });
+                try {
+        await supabase.from('categorias').insert({'nombre': nombre});
+      } catch (e) {
+        print(e);
+        rethrow;
+      }
 
                 if (mounted) {
                   Navigator.pop(context);

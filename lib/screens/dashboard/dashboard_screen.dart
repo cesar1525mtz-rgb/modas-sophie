@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../categories/categories_screen.dart';
+import 'package:modas_sophie/screens/products/products_screen.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({super.key});
@@ -44,6 +45,13 @@ class DashboardScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(18),
                 onTap: () {
                   if (item['title'] == 'Categorías') {
+                        } else if (item['title'] == 'Productos') {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => const ProductsScreen(),
+                            ),
+                          );
                     Navigator.push(
                       context,
                       MaterialPageRoute(
