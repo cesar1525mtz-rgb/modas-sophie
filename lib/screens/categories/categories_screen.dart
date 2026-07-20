@@ -61,13 +61,12 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                 try {
         await supabase.from('categorias').insert({'nombre': nombre});
       } catch (e) {
-        print(e);
+        debugPrint('$e');
         rethrow;
       }
 
-                if (mounted) {
-                  Navigator.pop(context);
-                }
+                if (!mounted) return;
+Navigator.of(context).pop();
 
                 await cargarCategorias();
               },
