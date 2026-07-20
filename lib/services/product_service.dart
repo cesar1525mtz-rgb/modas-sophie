@@ -14,7 +14,7 @@ class ProductService {
   }
 
   Future<void> createProduct(Map<String, dynamic> product) async {
-    await _supabase.from('productos').insert(product);
+    await _supabase.from('products').insert(product);
   }
 
   Future<void> createVariants(

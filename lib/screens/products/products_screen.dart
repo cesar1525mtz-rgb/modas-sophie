@@ -23,7 +23,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
 
   Future<void> cargarProductos() async {
     final data = await supabase
-        .from('productos')
+        .from('products')
         .select()
         .order('nombre');
 
@@ -84,7 +84,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                           style: const TextStyle(color: Colors.white),
                         ),
                         subtitle: Text(
-                          'Existencia: ${producto['existencia']}',
+                          'Existencia: ${producto['existencia'] ?? 0}',
                           style: const TextStyle(color: Colors.white70),
                         ),
                         trailing: Text(
