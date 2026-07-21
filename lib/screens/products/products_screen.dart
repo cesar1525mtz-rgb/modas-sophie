@@ -23,7 +23,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
 
   Future<void> cargarProductos() async {
     final data = await supabase
-        .from('products')
+        .from('productos')
         .select()
         .order('nombre');
 

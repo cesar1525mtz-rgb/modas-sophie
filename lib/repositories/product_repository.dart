@@ -4,7 +4,7 @@ class ProductRepository {
   final _supabase = Supabase.instance.client;
 
   Future<void> crearProducto(Map<String, dynamic> producto) async {
-    await _supabase.from('products').insert(producto);
+    await _supabase.from('productos').insert(producto);
   }
 
   Future<List<Map<String, dynamic>>> obtenerCategorias() async {
