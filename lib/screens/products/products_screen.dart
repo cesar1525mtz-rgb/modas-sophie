@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:modas_sophie/screens/products/add_product_screen.dart';
+import 'package:modas_sophie/screens/products/product_variants_screen.dart';
 
 class ProductsScreen extends StatefulWidget {
   const ProductsScreen({super.key});
@@ -75,6 +76,14 @@ class _ProductsScreenState extends State<ProductsScreen> {
                       margin: const EdgeInsets.symmetric(
                           horizontal: 16, vertical: 8),
                       child: ListTile(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => ProductVariantsScreen(producto: producto),
+                          ),
+                        ).then((_) => cargarProductos());
+                      },
                         leading: const Icon(
                           Icons.shopping_bag,
                           color: Color(0xFFE91E63),
