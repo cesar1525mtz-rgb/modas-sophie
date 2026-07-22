@@ -25,4 +25,15 @@ class ProductRepository {
         .from('producto_variantes')
         .insert(variantes);
   }
+
+  Future<List<Map<String, dynamic>>> obtenerVariantes(String productoId) async {
+    final data = await _supabase
+        .from('producto_variantes')
+        .select()
+        .eq('producto_id', productoId)
+        .order('color')
+        .order('talla');
+
+    return List<Map<String, dynamic>>.from(data);
+  }
 }
