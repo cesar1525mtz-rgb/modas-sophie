@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:modas_sophie/repositories/product_repository.dart';
 
 class AddVariantScreen extends StatefulWidget {
