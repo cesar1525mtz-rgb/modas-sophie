@@ -92,7 +92,14 @@ class _AddVariantScreenState extends State<AddVariantScreen> {
             ElevatedButton(
               onPressed: () async {
                 try {
-                  await _repository.crearVariantes([
+                  final session = Supabase.instance.client.auth.currentSession;
+ScaffoldMessenger.of(context).showSnackBar(
+  SnackBar(
+    content: Text("SESSION: ${session?.user.id}"),
+  ),
+);
+
+await _repository.crearVariantes([
                     {
                       'producto_id': widget.producto['id'],
                       'color': colorController.text,
