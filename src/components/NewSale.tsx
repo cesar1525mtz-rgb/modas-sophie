@@ -306,9 +306,11 @@ export default function NewSale({ userId, onBack }: NewSaleProps) {
         p_seller_id: userId,
         p_payment_method: paymentMethod,
         p_items: cart.map((item) => ({
-          variant_id: item.variantId,
-          quantity: item.quantity,
-        })),
+        variant_id: item.variantId,
+        quantity: item.quantity,
+        unit_price: item.unitPrice,
+        subtotal: item.unitPrice * item.quantity,
+      })),
         p_notes: null,
       }
     )
