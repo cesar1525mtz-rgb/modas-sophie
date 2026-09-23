@@ -397,22 +397,14 @@ export default function Inventory({
 
               <label>
                 Categoría *
-                <select
-                  value={category}
-                  onChange={(event) =>
-                    setCategory(event.target.value)
-                  }
-                >
-                  <option value="">
-                    Selecciona una categoría
-                  </option>
-
-                  {categories.map((item) => (
-                    <option key={item} value={item}>
-                      {item}
-                    </option>
-                  ))}
-                </select>
+                <input
+                type="text"
+                value={category}
+                onChange={(event) =>
+                  setCategory(event.target.value)
+                }
+                placeholder="Escribe la categoría"
+              />
               </label>
 
               <label>
