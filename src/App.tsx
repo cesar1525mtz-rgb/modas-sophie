@@ -1,129 +1,284 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
+import { supabase } from './lib/supabase'
 
 type Role = 'admin' | 'vendedor'
 
-type User = {
+type AppUser = {
+  id: string
   username: string
-  password: string
   name: string
   role: Role
 }
 
-const testUsers: User[] = [
+type Module = {
+  key: string
+  title: string
+  description: string
+  icon: string
+}
+
+const modules: Module[] = [
   {
-    username: 'admin',
-    password: 'admin123',
-    name: 'Administrador',
-    role: 'admin',
+    key: 'venta',
+    title: 'Nueva venta',
+    description: 'Punto de venta',
+    icon: '🛍️',
   },
   {
-    username: 'vendedor1',
-    password: 'vendedor123',
-    name: 'Vendedor 1',
-    role: 'vendedor',
+    key: 'inventario',
+    title: 'Inventario',
+    description: 'Productos y existencias',
+    icon: '📦',
+  },
+  {
+    key: 'ventas',
+    title: 'Ventas',
+    description: 'Historial y cortes',
+    icon: '🧾',
+  },
+  {
+    key: 'gastos',
+    title: 'Gastos',
+    description: 'Control de gastos',
+    icon: '💳',
+  },
+  {
+    key: 'reportes',
+    title: 'Reportes',
+    description: 'Resultados del negocio',
+    icon: '📊',
+  },
+  {
+    key: 'vendedores',
+    title: 'Vendedores',
+    description: 'Usuarios y permisos',
+    icon: '👥',
+  },
+  {
+    key: 'sucursales',
+    title: 'Sucursales',
+    description: 'Tiendas y existencias',
+    icon: '🏪',
   },
 ]
 
-const modules = [
-  { icon: '🛒', title: 'Nueva venta', text: 'Punto de venta', key: 'venta' },
-  { icon: '📦', title: 'Inventario', text: 'Productos y existencias', key: 'inventario' },
-  { icon: '💰', title: 'Ventas', text: 'Historial y cortes', key: 'ventas' },
-  { icon: '💸', title: 'Gastos', text: 'Control de gastos', key: 'gastos' },
-  { icon: '📊', title: 'Reportes', text: 'Resultados del negocio', key: 'reportes' },
-  { icon: '👥', title: 'Vendedores', text: 'Usuarios y permisos', key: 'vendedores' },
-  { icon: '🏪', title: 'Sucursales', text: 'Tiendas y existencias', key: 'sucursales' },
-]
+async function loadProfile(userId: string): Promise<AppUser> {
+  const { data, error } = await supabase
+    .from('profiles')
+    .select('username, full_name, role, active')
+    .eq('id', userId)
+    .single()
 
-function Login({ onLogin }: { onLogin: (user: User) => void }) {
+  if (error || !data) {
+    throw new Error('Tu usuario no tiene un perfil configurado.')
+  }
+
+  if (data.active === false) {
+    throw new Error('Tu usuario está inactivo.')
+  }
+
+  if (data.role !== 'admin' && data.role !== 'vendedor') {
+    throw new Error('El rol de tu usuario no es válido.')
+  }
+
+  return {
+    id: userId,
+    username: data.username,
+    name: data.full_name || data.username,
+    role: data.role as Role,
+  }
+}
+
+function Login({ onLogin }: { onLogin: (user: AppUser) => void }) {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
+  const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
-  const handleLogin = () => {
-    const user = testUsers.find(
-      (item) =>
-        item.username === username.trim() &&
-        item.password === password
-    )
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault()
 
-    if (!user) {
-      setError('Usuario o contraseña incorrectos.')
+    if (!username.trim() || !password) {
+      setError('Escribe tu usuario y contraseña.')
       return
     }
 
+    setLoading(true)
     setError('')
-    onLogin(user)
+
+    try {
+      const { data: emailData, error: lookupError } = await supabase.rpc(
+        'get_login_email',
+        {
+          p_username: username.trim(),
+        },
+      )
+
+      const email =
+        typeof emailData === 'string' ? emailData : null
+
+      if (lookupError || !email) {
+        throw new Error('Usuario o contraseña incorrectos.')
+      }
+
+      const { data: authData, error: authError } =
+        await supabase.auth.signInWithPassword({
+          email,
+          password,
+        })
+
+      if (authError || !authData.user) {
+        throw new Error('Usuario o contraseña incorrectos.')
+      }
+
+      try {
+        const profile = await loadProfile(authData.user.id)
+        onLogin(profile)
+      } catch (profileError) {
+        await supabase.auth.signOut()
+        throw profileError
+      }
+    } catch (loginError) {
+      const message =
+        loginError instanceof Error
+          ? loginError.message
+          : 'No fue posible iniciar sesión.'
+
+      setError(message)
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
     <main className="login-page">
       <section className="login-card">
-        <div className="login-logo">MS</div>
+        <div className="login-logo">
+          <div className="brand-mark">MS</div>
+        </div>
 
         <h1>MODAS SOPHIE</h1>
-        <p className="login-subtitle">Punto de venta y administración</p>
+        <p className="login-subtitle">Punto de venta</p>
 
-        <div className="login-form">
-          <label>Usuario</label>
+        <form className="login-form" onSubmit={handleSubmit}>
+          <label htmlFor="username">Usuario</label>
           <input
+            id="username"
+            type="text"
             value={username}
             onChange={(event) => setUsername(event.target.value)}
             placeholder="Escribe tu usuario"
             autoComplete="username"
+            disabled={loading}
           />
 
-          <label>Contraseña</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-            placeholder="Escribe tu contraseña"
-            autoComplete="current-password"
-            onKeyDown={(event) => {
-              if (event.key === 'Enter') handleLogin()
-            }}
-          />
+          <label htmlFor="password">Contraseña</label>
 
-          {error && <div className="login-error">{error}</div>}
+          <div className="password-field">
+            <input
+              id="password"
+              type={showPassword ? 'text' : 'password'}
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+              placeholder="Escribe tu contraseña"
+              autoComplete="current-password"
+              disabled={loading}
+            />
 
-          <button className="login-button" onClick={handleLogin}>
-            INICIAR SESIÓN
+            <button
+              type="button"
+              className="password-toggle"
+              onClick={() => setShowPassword((value) => !value)}
+              disabled={loading}
+              aria-label={
+                showPassword
+                  ? 'Ocultar contraseña'
+                  : 'Mostrar contraseña'
+              }
+            >
+              {showPassword ? '🙈' : '👁️'}
+            </button>
+          </div>
+
+          {error && (
+            <div className="login-error">
+              {error}
+            </div>
+          )}
+
+          <button
+            className="login-button"
+            type="submit"
+            disabled={loading}
+          >
+            {loading ? 'Iniciando sesión...' : 'Iniciar sesión'}
           </button>
-        </div>
+        </form>
 
-        <div className="login-info">
-          <strong>Acceso de prueba</strong>
-          <span>Administrador: admin / admin123</span>
-          <span>Vendedor: vendedor1 / vendedor123</span>
-        </div>
+        <p className="login-info">
+          Acceso seguro para el personal de Modas Sophie
+        </p>
       </section>
     </main>
   )
 }
 
-function Dashboard({ user, onLogout }: { user: User; onLogout: () => void }) {
+function Dashboard({
+  user,
+  onLogout,
+}: {
+  user: AppUser
+  onLogout: () => void
+}) {
   const [selected, setSelected] = useState('inicio')
+  const [message, setMessage] = useState('')
 
   const availableModules =
     user.role === 'admin'
       ? modules
       : modules.filter((module) =>
-          ['venta', 'inventario', 'ventas'].includes(module.key)
+          ['venta', 'inventario', 'ventas'].includes(module.key),
         )
 
-  const openModule = (key: string) => {
-    setSelected(key)
+  function openModule(module: Module) {
+    setSelected(module.key)
+    setMessage(`${module.title}: módulo en preparación.`)
 
-    setTimeout(() => {
+    window.setTimeout(() => {
       setSelected('inicio')
-    }, 800)
+      setMessage('')
+    }, 1200)
+  }
+
+  function handleNavigation(key: string) {
+    if (key === 'inicio') {
+      setSelected('inicio')
+      return
+    }
+
+    const module = modules.find((item) => item.key === key)
+
+    if (!module) return
+
+    const allowed =
+      user.role === 'admin' ||
+      ['venta', 'inventario', 'ventas'].includes(module.key)
+
+    if (!allowed) {
+      setMessage('No tienes permisos para acceder a este módulo.')
+      window.setTimeout(() => setMessage(''), 1800)
+      return
+    }
+
+    openModule(module)
   }
 
   return (
     <main className="app-shell">
       <header className="topbar">
-        <div className="brand">
+        <div className="topbar-brand">
           <div className="brand-mark">MS</div>
 
           <div>
@@ -136,121 +291,249 @@ function Dashboard({ user, onLogout }: { user: User; onLogout: () => void }) {
           </div>
         </div>
 
-        <button className="user-button" onClick={onLogout}>
-          👤
+        <button
+          className="user-button"
+          onClick={onLogout}
+          title="Cerrar sesión"
+        >
+          <span>👤</span>
+          <span className="user-button-name">{user.name}</span>
+          <span>↪</span>
         </button>
       </header>
 
-      <section className="hero">
-        <div>
-          <p className="eyebrow">
-            {user.role === 'admin'
-              ? 'PANEL DE ADMINISTRACIÓN'
-              : 'PANEL DE VENDEDOR'}
-          </p>
-
-          <h2>¡Hola, {user.name}! 👋</h2>
-
-          <p>
-            {user.role === 'admin'
-              ? 'Tienes acceso completo al negocio.'
-              : 'Aquí puedes realizar y consultar tus operaciones.'}
-          </p>
+      <section className="dashboard-content">
+        <div className="welcome">
+          <div>
+            <p className="eyebrow">PANEL PRINCIPAL</p>
+            <h2>¡Hola, {user.name}! 👋</h2>
+            <p>Todo listo para comenzar el día.</p>
+          </div>
         </div>
 
         <div className="date-card">
-          <span>HOY</span>
-          <strong>22 SEP 2026</strong>
+          <span>📅</span>
+          <div>
+            <strong>
+              {new Intl.DateTimeFormat('es-MX', {
+                weekday: 'long',
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric',
+              }).format(new Date())}
+            </strong>
+            <small>Resumen de hoy</small>
+          </div>
         </div>
-      </section>
 
-      <section className="stats">
-        <article>
-          <span>💰</span>
-          <div>
-            <small>VENTAS HOY</small>
-            <strong>$0.00</strong>
+        <section className="stats-grid">
+          <article className="stat-card">
+            <span className="stat-icon">💰</span>
+            <div>
+              <small>VENTAS HOY</small>
+              <strong>$0.00</strong>
+            </div>
+          </article>
+
+          <article className="stat-card">
+            <span className="stat-icon">🛍️</span>
+            <div>
+              <small>PRODUCTOS VENDIDOS</small>
+              <strong>0</strong>
+            </div>
+          </article>
+
+          {user.role === 'admin' && (
+            <>
+              <article className="stat-card">
+                <span className="stat-icon">💳</span>
+                <div>
+                  <small>GASTOS HOY</small>
+                  <strong>$0.00</strong>
+                </div>
+              </article>
+
+              <article className="stat-card">
+                <span className="stat-icon">📈</span>
+                <div>
+                  <small>GANANCIA ESTIMADA</small>
+                  <strong>$0.00</strong>
+                </div>
+              </article>
+            </>
+          )}
+        </section>
+
+        <section className="quick-section">
+          <div className="section-heading">
+            <div>
+              <p className="eyebrow">ACCESOS RÁPIDOS</p>
+              <h3>¿Qué deseas hacer?</h3>
+            </div>
           </div>
-        </article>
 
-        <article>
-          <span>🛍️</span>
-          <div>
-            <small>PRODUCTOS VENDIDOS</small>
-            <strong>0</strong>
+          <div className="module-grid">
+            {availableModules.map((module) => (
+              <button
+                key={module.key}
+                className={`module-card ${
+                  selected === module.key ? 'active' : ''
+                }`}
+                onClick={() => openModule(module)}
+              >
+                <span className="module-icon">{module.icon}</span>
+
+                <span className="module-info">
+                  <strong>{module.title}</strong>
+                  <small>{module.description}</small>
+                </span>
+
+                <span className="module-arrow">›</span>
+              </button>
+            ))}
           </div>
-        </article>
+        </section>
 
-        {user.role === 'admin' && (
-          <>
-            <article>
-              <span>💸</span>
-              <div>
-                <small>GASTOS HOY</small>
-                <strong>$0.00</strong>
-              </div>
-            </article>
-
-            <article>
-              <span>📈</span>
-              <div>
-                <small>GANANCIA ESTIMADA</small>
-                <strong>$0.00</strong>
-              </div>
-            </article>
-          </>
+        {message && (
+          <div className="toast">
+            {message}
+          </div>
         )}
       </section>
 
-      <section className="section-heading">
-        <p className="eyebrow">ACCESOS RÁPIDOS</p>
-        <h3>¿Qué quieres hacer?</h3>
-      </section>
-
-      <section className="module-grid">
-        {availableModules.map((module) => (
-          <button
-            className={`module-card ${
-              module.key === 'venta' ? 'primary-card' : ''
-            }`}
-            key={module.key}
-            onClick={() => openModule(module.key)}
-          >
-            <span className="module-icon">{module.icon}</span>
-            <span className="module-title">{module.title}</span>
-            <span className="module-text">{module.text}</span>
-          </button>
-        ))}
-      </section>
-
-      {selected !== 'inicio' && (
-        <div className="toast">
-          <strong>
-            {modules.find((module) => module.key === selected)?.title}
-          </strong>
-          <span>Preparando este módulo…</span>
-        </div>
-      )}
-
       <nav className="bottom-nav">
-        <button className="active">🏠<span>Inicio</span></button>
-        <button onClick={() => openModule('venta')}>🛒<span>Venta</span></button>
-        <button onClick={() => openModule('inventario')}>📦<span>Inventario</span></button>
-        <button onClick={() => openModule('ventas')}>💰<span>Ventas</span></button>
-        <button onClick={() => openModule('reportes')}>📊<span>Reportes</span></button>
+        <button
+          className={selected === 'inicio' ? 'active' : ''}
+          onClick={() => handleNavigation('inicio')}
+        >
+          <span>🏠</span>
+          <small>Inicio</small>
+        </button>
+
+        <button
+          className={selected === 'venta' ? 'active' : ''}
+          onClick={() => handleNavigation('venta')}
+        >
+          <span>🛍️</span>
+          <small>Venta</small>
+        </button>
+
+        <button
+          className={selected === 'inventario' ? 'active' : ''}
+          onClick={() => handleNavigation('inventario')}
+        >
+          <span>📦</span>
+          <small>Inventario</small>
+        </button>
+
+        <button
+          className={selected === 'ventas' ? 'active' : ''}
+          onClick={() => handleNavigation('ventas')}
+        >
+          <span>🧾</span>
+          <small>Ventas</small>
+        </button>
+
+        <button
+          className={selected === 'reportes' ? 'active' : ''}
+          onClick={() => handleNavigation('reportes')}
+        >
+          <span>📊</span>
+          <small>Reportes</small>
+        </button>
       </nav>
     </main>
   )
 }
 
-function App() {
-  const [user, setUser] = useState<User | null>(null)
+function LoadingScreen() {
+  return (
+    <main className="login-page">
+      <section className="login-card">
+        <div className="login-logo">
+          <div className="brand-mark">MS</div>
+        </div>
+
+        <h1>MODAS SOPHIE</h1>
+        <p className="login-subtitle">
+          Cargando...
+        </p>
+      </section>
+    </main>
+  )
+}
+
+export default function App() {
+  const [user, setUser] = useState<AppUser | null>(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    let mounted = true
+
+    async function restoreSession() {
+      try {
+        const {
+          data: { user: authUser },
+        } = await supabase.auth.getUser()
+
+        if (!authUser) {
+          if (mounted) {
+            setUser(null)
+          }
+          return
+        }
+
+        const profile = await loadProfile(authUser.id)
+
+        if (mounted) {
+          setUser(profile)
+        }
+      } catch {
+        await supabase.auth.signOut()
+
+        if (mounted) {
+          setUser(null)
+        }
+      } finally {
+        if (mounted) {
+          setLoading(false)
+        }
+      }
+    }
+
+    restoreSession()
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((event) => {
+      if (event === 'SIGNED_OUT' && mounted) {
+        setUser(null)
+      }
+    })
+
+    return () => {
+      mounted = false
+      subscription.unsubscribe()
+    }
+  }, [])
+
+  async function handleLogout() {
+    await supabase.auth.signOut()
+    setUser(null)
+  }
+
+  if (loading) {
+    return <LoadingScreen />
+  }
 
   if (!user) {
     return <Login onLogin={setUser} />
   }
 
-  return <Dashboard user={user} onLogout={() => setUser(null)} />
+  return (
+    <Dashboard
+      user={user}
+      onLogout={handleLogout}
+    />
+  )
 }
-
-export default App
