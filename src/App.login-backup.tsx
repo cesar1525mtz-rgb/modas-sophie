@@ -158,37 +158,28 @@ function Login({ onLogin }: { onLogin: (user: AppUser) => void }) {
   return (
     <main className="login-page">
       <section className="login-card">
-        <div className="login-brand">
-          <img className="login-logo-image" src="/images/logo-modas-sophie.png" alt="Modas Sophie" />
-          <div>
-              <p>Administración y punto de venta</p>
-          </div>
+        <div className="login-logo">
+          <div className="brand-mark">MS</div>
         </div>
 
-        <div className="login-welcome">
-          <span>Bienvenido</span>
-          <h2>Inicia sesión</h2>
-          <p>Accede de forma segura a tu cuenta.</p>
-        </div>
+        <h1>MODAS SOPHIE</h1>
+        <p className="login-subtitle">Punto de venta</p>
 
         <form className="login-form" onSubmit={handleSubmit}>
           <label htmlFor="username">Usuario</label>
-          <div className="login-input-wrap">
-            <span className="login-input-icon">◉</span>
-            <input
-              id="username"
-              type="text"
-              value={username}
-              onChange={(event) => setUsername(event.target.value)}
-              placeholder="Escribe tu usuario"
-              autoComplete="username"
-              disabled={loading}
-            />
-          </div>
+          <input
+            id="username"
+            type="text"
+            value={username}
+            onChange={(event) => setUsername(event.target.value)}
+            placeholder="Escribe tu usuario"
+            autoComplete="username"
+            disabled={loading}
+          />
 
           <label htmlFor="password">Contraseña</label>
-          <div className="password-field login-input-wrap">
-            <span className="login-input-icon">◆</span>
+
+          <div className="password-field">
             <input
               id="password"
               type={showPassword ? 'text' : 'password'}
@@ -204,20 +195,13 @@ function Login({ onLogin }: { onLogin: (user: AppUser) => void }) {
               className="password-toggle"
               onClick={() => setShowPassword((value) => !value)}
               disabled={loading}
-              aria-label={showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}
+              aria-label={
+                showPassword
+                  ? 'Ocultar contraseña'
+                  : 'Mostrar contraseña'
+              }
             >
-              {showPassword ? '◉' : '○'}
-            </button>
-          </div>
-
-          <div className="login-options">
-            <label className="remember-option">
-              <input type="checkbox" />
-              <span>Recordar sesión</span>
-            </label>
-
-            <button type="button" className="forgot-password">
-              ¿Olvidaste tu contraseña?
+              {showPassword ? '🙈' : '👁️'}
             </button>
           </div>
 
@@ -236,11 +220,12 @@ function Login({ onLogin }: { onLogin: (user: AppUser) => void }) {
           </button>
         </form>
 
-        <div className="login-bottom-space" aria-hidden="true" />
+        <p className="login-info">
+          Acceso seguro para el personal de Modas Sophie
+        </p>
       </section>
     </main>
   )
-
 }
 
 function Dashboard({
@@ -320,7 +305,7 @@ function Dashboard({
     <main className="app-shell">
       <header className="topbar">
         <div className="topbar-brand">
-          <img className="login-logo-image" src="/images/logo-modas-sophie.png" alt="Modas Sophie" />
+          <div className="brand-mark">MS</div>
 
           <div>
             <h1>MODAS SOPHIE</h1>
@@ -492,7 +477,7 @@ function LoadingScreen() {
     <main className="login-page">
       <section className="login-card">
         <div className="login-logo">
-          <img className="login-logo-image" src="/images/logo-modas-sophie.png" alt="Modas Sophie" />
+          <div className="brand-mark">MS</div>
         </div>
 
         <h1>MODAS SOPHIE</h1>
