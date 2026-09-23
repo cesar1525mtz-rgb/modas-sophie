@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import { supabase } from './lib/supabase'
+import Inventory from './components/Inventory'
 
 type Role = 'admin' | 'vendedor'
 
@@ -244,6 +245,12 @@ function Dashboard({
 
   function openModule(module: Module) {
     setSelected(module.key)
+
+    if (module.key === 'inventario') {
+      setMessage('')
+      return
+    }
+
     setMessage(`${module.title}: módulo en preparación.`)
 
     window.setTimeout(() => {
@@ -273,6 +280,15 @@ function Dashboard({
     }
 
     openModule(module)
+  }
+
+  if (selected === 'inventario') {
+    return (
+      <Inventory
+        userRole={user.role}
+        onBack={() => setSelected('inicio')}
+      />
+    )
   }
 
   return (
