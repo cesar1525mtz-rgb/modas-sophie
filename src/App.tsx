@@ -4,6 +4,7 @@ import { supabase } from './lib/supabase'
 import Inventory from './components/Inventory'
 import Sales from './components/Sales';
 import NewSale from './components/NewSale'
+import Expenses from './components/Expenses'
 
 type Role = 'admin' | 'vendedor'
 
@@ -301,6 +302,16 @@ function Dashboard({
   if (selected === 'ventas') {
     return (
       <Sales
+        userRole={user.role}
+        onBack={() => setSelected('inicio')}
+      />
+    )
+  }
+
+  if (selected === 'gastos') {
+    return (
+      <Expenses
+        userId={user.id}
         userRole={user.role}
         onBack={() => setSelected('inicio')}
       />
