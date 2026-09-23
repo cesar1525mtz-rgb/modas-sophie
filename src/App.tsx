@@ -5,6 +5,7 @@ import Inventory from './components/Inventory'
 import Sales from './components/Sales';
 import NewSale from './components/NewSale'
 import Expenses from './components/Expenses'
+import Reports from './components/Reports'
 
 type Role = 'admin' | 'vendedor'
 
@@ -321,6 +322,15 @@ function Dashboard({
   if (selected === 'inventario') {
     return (
       <Inventory
+        userRole={user.role}
+        onBack={() => setSelected('inicio')}
+      />
+    )
+  }
+
+  if (selected === 'reportes') {
+    return (
+      <Reports
         userRole={user.role}
         onBack={() => setSelected('inicio')}
       />
