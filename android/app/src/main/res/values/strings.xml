@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">MODAS SOPHIE</string>
+    <string name="title_activity_main">MODAS SOPHIE</string>
+    <string name="package_name">com.modassophie.app</string>
+    <string name="custom_url_scheme">com.modassophie.app</string>
+</resources>

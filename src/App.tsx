@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import { supabase } from './lib/supabase'
 import Inventory from './components/Inventory'
+import Sales from './components/Sales';
 import NewSale from './components/NewSale'
 
 type Role = 'admin' | 'vendedor'
@@ -276,6 +277,15 @@ function Dashboard({
     return (
       <NewSale
         userId={user.id}
+        userRole={user.role}
+        onBack={() => setSelected('inicio')}
+      />
+    )
+  }
+
+  if (selected === 'ventas') {
+    return (
+      <Sales
         userRole={user.role}
         onBack={() => setSelected('inicio')}
       />
