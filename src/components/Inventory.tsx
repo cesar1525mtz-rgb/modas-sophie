@@ -37,6 +37,7 @@ type Stock = {
 }
 
 type VariantForm = {
+  id?: string
   size: string
   color: string
   barcode: string
@@ -90,6 +91,7 @@ export default function Inventory({
   const [formVariants, setFormVariants] = useState<VariantForm[]>([
     emptyVariant(),
   ])
+  const [editingProductId, setEditingProductId] = useState<string | null>(null)
 
   async function loadInventory() {
     setLoading(true)
@@ -148,6 +150,7 @@ export default function Inventory({
   }, [])
 
   function resetForm() {
+    setEditingProductId(null)
     setName('')
     setSku('')
     setCategory('')
@@ -183,6 +186,53 @@ export default function Inventory({
           : variant,
       ),
     )
+  }
+
+  function editProduct(productId: string) {
+    const product = products.find((item) => item.id === productId)
+
+    if (!product) {
+      setError('No se encontró el producto.')
+      return
+    }
+
+    const productVariants = variants.filter(
+      (variant) => variant.product_id === productId
+    )
+
+    setEditingProductId(productId)
+    setName(product.name)
+    setSku(product.sku || '')
+    setCategory(product.category || '')
+    setCost(String(product.cost))
+    setPrice(String(product.price))
+
+    setFormVariants(
+      productVariants.map((variant) => {
+        const itemStock = stock.find(
+          (entry) =>
+            entry.variant_id === variant.id &&
+            entry.branch_id === branchId
+        )
+
+        return {
+          id: variant.id,
+          size: variant.size || '',
+          color: variant.color || '',
+          barcode: variant.barcode || '',
+          quantity: String(itemStock?.quantity ?? 0),
+          minStock: String(itemStock?.min_stock ?? 0),
+        }
+      })
+    )
+
+    setError('')
+    setSuccess('')
+    setShowForm(true)
+
+    window.setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }, 50)
   }
 
   async function saveProduct(event: React.FormEvent) {
@@ -235,24 +285,35 @@ export default function Inventory({
     setError('')
     setSuccess('')
 
-    const { error: saveError } = await supabase.rpc(
-      'create_product_with_variants',
-      {
-        p_branch_id: branchId,
-        p_sku: sku.trim() || null,
-        p_name: name.trim(),
-        p_category: category,
-        p_cost: numericCost,
-        p_price: numericPrice,
-        p_variants: formVariants.map((variant) => ({
-          size: variant.size.trim(),
-          color: variant.color.trim(),
-          barcode: variant.barcode.trim() || null,
-          quantity: Number(variant.quantity),
-          min_stock: Number(variant.minStock),
-        })),
-      },
-    )
+    const variantsPayload = formVariants.map((variant) => ({
+      id: variant.id || null,
+      size: variant.size.trim(),
+      color: variant.color.trim(),
+      barcode: variant.barcode.trim() || null,
+      quantity: Number(variant.quantity),
+      min_stock: Number(variant.minStock),
+    }))
+
+    const { error: saveError } = editingProductId
+      ? await supabase.rpc('update_product_with_variants', {
+          p_product_id: editingProductId,
+          p_branch_id: branchId,
+          p_sku: sku.trim() || null,
+          p_name: name.trim(),
+          p_category: category,
+          p_cost: numericCost,
+          p_price: numericPrice,
+          p_variants: variantsPayload,
+        })
+      : await supabase.rpc('create_product_with_variants', {
+          p_branch_id: branchId,
+          p_sku: sku.trim() || null,
+          p_name: name.trim(),
+          p_category: category,
+          p_cost: numericCost,
+          p_price: numericPrice,
+          p_variants: variantsPayload,
+        })
 
     if (saveError) {
       if (saveError.message.includes('products_sku_key')) {
@@ -724,6 +785,16 @@ export default function Inventory({
                       )
                     })}
                   </div>
+
+          {userRole === 'admin' && (
+            <button
+              type="button"
+              className="product-edit-button"
+              onClick={() => editProduct(product.id)}
+            >
+              ✏️ Editar
+            </button>
+          )}
                 </article>
               ),
             )}
