@@ -993,3 +993,139 @@ button {
     grid-column: auto;
   }
 }
+
+/* Mejoras del carrito de Nueva Venta en celular */
+.sale-cart {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sale-cart-item {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  padding: 14px;
+  border: 1px solid #ead7e2;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.sale-cart-item > div:first-child {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sale-cart-item > div:first-child strong {
+  font-size: 17px;
+}
+
+.sale-cart-item > div:first-child small {
+  font-size: 13px;
+  color: #777;
+}
+
+.sale-cart-item > div:first-child span {
+  font-size: 14px;
+}
+
+.sale-cart-control {
+  display: grid;
+  grid-template-columns: 90px 1fr auto;
+  align-items: center;
+  gap: 8px;
+}
+
+.sale-cart-control input {
+  width: 90px;
+  min-height: 38px;
+  padding: 8px;
+  border: 1px solid #d8c8d1;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.sale-cart-control strong {
+  font-size: 16px;
+  text-align: right;
+}
+
+.sale-cart-control .danger-button {
+  min-height: 38px;
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+
+@media (max-width: 600px) {
+  .sale-cart-item {
+    padding: 12px;
+  }
+
+  .sale-cart-control {
+    grid-template-columns: 75px 1fr auto;
+  }
+
+  .sale-cart-control input {
+    width: 75px;
+  }
+
+  .sale-cart-control strong {
+    font-size: 15px;
+  }
+
+  .sale-cart-control .danger-button {
+    padding: 8px 10px;
+  }
+}
+
+/* Métodos de pago de Nueva Venta */
+.payment-methods {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.payment-methods > div {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.payment-methods button {
+  flex: 1;
+  min-width: 105px;
+  min-height: 42px;
+  padding: 9px 12px;
+  border: 1px solid #d8c8d1;
+  border-radius: 10px;
+  background: #fff;
+  color: #333;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.payment-methods button:hover {
+  border-color: #d83b8d;
+}
+
+.payment-methods button.active {
+  background: #d83b8d;
+  color: #fff;
+  border-color: #d83b8d;
+  box-shadow: 0 2px 6px rgba(216, 59, 141, 0.25);
+}
+
+@media (max-width: 600px) {
+  .payment-methods > div {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .payment-methods button {
+    width: 100%;
+  }
+}
+

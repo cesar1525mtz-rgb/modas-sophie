@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import { supabase } from './lib/supabase'
 import Inventory from './components/Inventory'
+import NewSale from './components/NewSale'
 
 type Role = 'admin' | 'vendedor'
 
@@ -245,18 +246,7 @@ function Dashboard({
 
   function openModule(module: Module) {
     setSelected(module.key)
-
-    if (module.key === 'inventario') {
-      setMessage('')
-      return
-    }
-
-    setMessage(`${module.title}: módulo en preparación.`)
-
-    window.setTimeout(() => {
-      setSelected('inicio')
-      setMessage('')
-    }, 1200)
+    setMessage('')
   }
 
   function handleNavigation(key: string) {
@@ -280,6 +270,16 @@ function Dashboard({
     }
 
     openModule(module)
+  }
+
+  if (selected === 'venta') {
+    return (
+      <NewSale
+        userId={user.id}
+        userRole={user.role}
+        onBack={() => setSelected('inicio')}
+      />
+    )
   }
 
   if (selected === 'inventario') {
