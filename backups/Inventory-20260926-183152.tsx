@@ -79,23 +79,6 @@ export default function Inventory({
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
-  const [showEntryForm, setShowEntryForm] = useState(false)
-  const [entryVariantId, setEntryVariantId] = useState('')
-  const [entryQuantity, setEntryQuantity] = useState('1')
-  const [entryCost, setEntryCost] = useState('')
-  const [entryNotes, setEntryNotes] = useState('')
-  const [savingEntry, setSavingEntry] = useState(false)
-  const [entryError, setEntryError] = useState('')
-  const [entries, setEntries] = useState<Array<{
-    id: string
-    branch_id: string
-    variant_id: string
-    quantity: number
-    unit_cost: number
-    notes: string | null
-    created_at: string
-  }>>([])
-
 
   const [search, setSearch] = useState('')
   const [categoryFilter, setCategoryFilter] = useState('Todas')
@@ -156,18 +139,6 @@ export default function Inventory({
 
       if (!branchId && safeBranches.length > 0) {
         setBranchId(safeBranches[0].id)
-      }
-    }
-
-    if (userRole === 'admin') {
-      const { data: entryData, error: entryLoadError } = await supabase
-        .from('inventory_entries')
-        .select('id, branch_id, variant_id, quantity, unit_cost, notes, created_at')
-        .order('created_at', { ascending: false })
-        .limit(30)
-
-      if (!entryLoadError) {
-        setEntries((entryData || []) as typeof entries)
       }
     }
 
@@ -365,62 +336,6 @@ export default function Inventory({
     await loadInventory()
     setSaving(false)
 
-    window.setTimeout(() => setSuccess(''), 2500)
-  }
-
-
-  async function saveInventoryEntry() {
-    if (userRole !== 'admin') return
-
-    setEntryError('')
-
-    if (!branchId) {
-      setEntryError('Selecciona una sucursal.')
-      return
-    }
-
-    if (!entryVariantId) {
-      setEntryError('Selecciona el producto y variante.')
-      return
-    }
-
-    const quantity = Number(entryQuantity)
-    const cost = entryCost.trim() === '' ? null : Number(entryCost)
-
-    if (!Number.isInteger(quantity) || quantity <= 0) {
-      setEntryError('La cantidad debe ser un número entero mayor a cero.')
-      return
-    }
-
-    if (cost !== null && (!Number.isFinite(cost) || cost < 0)) {
-      setEntryError('El costo debe ser un número válido.')
-      return
-    }
-
-    setSavingEntry(true)
-
-    const { error: saveEntryError } = await supabase.rpc('add_inventory_entry', {
-      p_branch_id: branchId,
-      p_variant_id: entryVariantId,
-      p_quantity: quantity,
-      p_unit_cost: cost,
-      p_notes: entryNotes.trim() || null,
-    })
-
-    if (saveEntryError) {
-      setEntryError(saveEntryError.message || 'No fue posible registrar la entrada.')
-      setSavingEntry(false)
-      return
-    }
-
-    setEntryVariantId('')
-    setEntryQuantity('1')
-    setEntryCost('')
-    setEntryNotes('')
-    setShowEntryForm(false)
-    setSavingEntry(false)
-    setSuccess('Entrada de mercancía registrada correctamente.')
-    await loadInventory()
     window.setTimeout(() => setSuccess(''), 2500)
   }
 
@@ -761,168 +676,7 @@ export default function Inventory({
         </section>
       )}
 
-  
-    {userRole === 'admin' && (
-      <section className="inventory-list-card" style={{ marginBottom: 16 }}>
-        <div className="inventory-section-title">
-          <div>
-            <span>📦</span>
-            <div>
-              <h3>Entrada de mercancía</h3>
-              <p>Agrega existencias sin registrar una venta ni un gasto.</p>
-            </div>
-          </div>
-          <button
-            type="button"
-            className="inventory-save"
-            onClick={() => {
-              setShowEntryForm((value) => !value)
-              setEntryError('')
-            }}
-          >
-            {showEntryForm ? 'Cerrar' : '+ Nueva entrada'}
-          </button>
-        </div>
-
-        {showEntryForm && (
-          <div className="inventory-form" style={{ marginTop: 14 }}>
-            <label>
-              Producto y variante *
-              <select
-                value={entryVariantId}
-                onChange={(event) => {
-                  const value = event.target.value
-                  setEntryVariantId(value)
-
-                  const variant = variants.find((item) => item.id === value)
-                  if (variant) {
-                    const product = products.find((item) => item.id === variant.product_id)
-                    setEntryCost(product ? String(product.cost ?? '') : '')
-                  }
-                }}
-              >
-                <option value="">Selecciona producto, talla y color</option>
-                {variants.map((variant) => {
-                  const product = products.find((item) => item.id === variant.product_id)
-                  const stockItem = stock.find(
-                    (item) => item.variant_id === variant.id && item.branch_id === branchId
-                  )
-
-                  return (
-                    <option key={variant.id} value={variant.id}>
-                      {(product?.name || 'Producto') +
-                        ' · ' +
-                        (variant.size || 'Sin talla') +
-                        ' · ' +
-                        (variant.color || 'Sin color') +
-                        ' · Stock: ' +
-                        (stockItem?.quantity || 0)}
-                    </option>
-                  )
-                })}
-              </select>
-            </label>
-
-            <label>
-              Cantidad recibida *
-              <input
-                type="number"
-                min="1"
-                step="1"
-                value={entryQuantity}
-                onChange={(event) => setEntryQuantity(event.target.value)}
-              />
-            </label>
-
-            <label>
-              Costo por pieza
-              <input
-                type="number"
-                min="0"
-                step="0.01"
-                value={entryCost}
-                onChange={(event) => setEntryCost(event.target.value)}
-                placeholder="Se usa el costo del producto"
-              />
-            </label>
-
-            <label>
-              Nota
-              <input
-                type="text"
-                value={entryNotes}
-                onChange={(event) => setEntryNotes(event.target.value)}
-                placeholder="Ej. Compra proveedor"
-              />
-            </label>
-
-            {entryError && (
-              <p style={{ color: '#b00020', fontWeight: 700 }}>
-                {entryError}
-              </p>
-            )}
-
-            <button
-              type="button"
-              className="inventory-save"
-              disabled={savingEntry}
-              onClick={saveInventoryEntry}
-            >
-              {savingEntry ? 'Registrando...' : 'Registrar entrada'}
-            </button>
-          </div>
-        )}
-      </section>
-    )}
-
-    {userRole === 'admin' && entries.length > 0 && (
-      <section className="inventory-list-card" style={{ marginBottom: 16 }}>
-        <div className="inventory-section-title">
-          <div>
-            <span>🧾</span>
-            <div>
-              <h3>Historial de entradas</h3>
-              <p>Últimas entradas registradas.</p>
-            </div>
-          </div>
-        </div>
-
-        <div style={{ display: 'grid', gap: 10, marginTop: 12 }}>
-          {entries.slice(0, 10).map((entry) => {
-            const variant = variants.find((item) => item.id === entry.variant_id)
-            const product = variant
-              ? products.find((item) => item.id === variant.product_id)
-              : undefined
-
-            return (
-              <div
-                key={entry.id}
-                style={{
-                  padding: 12,
-                  border: '1px solid var(--ms-border)',
-                  borderRadius: 12,
-                  background: 'var(--ms-white)',
-                }}
-              >
-                <strong>{product?.name || 'Producto'}</strong>
-                <div style={{ fontSize: 13, marginTop: 4 }}>
-                  {variant?.size || 'Sin talla'} · {variant?.color || 'Sin color'}
-                </div>
-                <div style={{ fontSize: 13, marginTop: 4 }}>
-                  +{entry.quantity} piezas · Costo ${Number(entry.unit_cost).toFixed(2)}
-                </div>
-                <div style={{ fontSize: 12, color: 'var(--ms-text-soft)', marginTop: 4 }}>
-                  {new Date(entry.created_at).toLocaleString('es-MX')}
-                  {entry.notes ? ` · ${entry.notes}` : ''}
-                </div>
-              </div>
-            )
-          })}
-        </div>
-      </section>
-    )}
-
-    <section className="inventory-list-card">
+      <section className="inventory-list-card">
         <div className="inventory-section-title">
           <div>
             <span>📦</span>

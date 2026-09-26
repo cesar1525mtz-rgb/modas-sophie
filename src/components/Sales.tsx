@@ -11,6 +11,7 @@ type SalesProps = {
 
 type Sale = {
   id: string
+  folio: number
   branch_id: string
   seller_id: string
   total: number
@@ -77,7 +78,7 @@ export default function Sales({ userRole, onBack }: SalesProps) {
     ] = await Promise.all([
       supabase
         .from('sales')
-        .select('id,branch_id,seller_id,total,payment_method,notes,created_at')
+        .select('id,folio,branch_id,seller_id,total,payment_method,notes,created_at')
         .order('created_at', { ascending: false }),
 
       supabase
@@ -294,8 +295,8 @@ export default function Sales({ userRole, onBack }: SalesProps) {
         </div>
 
         <div className="sales-filters">
-          <label>
-            Buscar
+          <label className="sales-filter-field">
+            <span>Buscar</span>
             <input
               value={search}
               onChange={(event) => setSearch(event.target.value)}
@@ -303,8 +304,8 @@ export default function Sales({ userRole, onBack }: SalesProps) {
             />
           </label>
 
-          <label>
-            Método de pago
+          <label className="sales-filter-field">
+            <span>Método de pago</span>
             <select
               value={paymentFilter}
               onChange={(event) => setPaymentFilter(event.target.value)}
@@ -327,7 +328,7 @@ export default function Sales({ userRole, onBack }: SalesProps) {
             {filteredSales.map((sale) => (
               <article className="sale-history-card" key={sale.id}>
                 <div className="sale-history-main">
-                  <strong>Folio: {sale.id.slice(0, 8).toUpperCase()}</strong>
+                  <strong>Folio: {`F${String(sale.folio).padStart(4, '0')}`}</strong>
 
                   <small>
                     {new Date(sale.created_at).toLocaleString('es-MX')}
@@ -366,7 +367,7 @@ export default function Sales({ userRole, onBack }: SalesProps) {
             <div>
               <h2>Detalle de venta</h2>
               <p>
-                Folio completo: <strong>{selectedSale.id}</strong>
+                Folio completo: <strong>{`F${String(selectedSale.folio).padStart(4, '0')}`}</strong>
               </p>
             </div>
           </div>
@@ -402,18 +403,23 @@ export default function Sales({ userRole, onBack }: SalesProps) {
 
                 return (
                   <article className="sale-detail-item" key={item.id}>
-                    <div>
-                      <strong>{product.name}</strong>
-                      <small>{product.detail}</small>
-                    </div>
+  <div className="sale-detail-product">
+    <strong>{product.name}</strong>
+    <small>{product.detail}</small>
+  </div>
 
-                    <div>
-                      <span>
-                        {item.quantity} × ${Number(item.unit_price).toFixed(2)}
-                      </span>
-                      <strong>${Number(item.subtotal).toFixed(2)}</strong>
-                    </div>
-                  </article>
+  <div className="sale-detail-line">
+    <span className="sale-detail-quantity">
+      Cantidad: {item.quantity}
+    </span>
+    <span className="sale-detail-price">
+      Precio: ${Number(item.unit_price).toFixed(2)}
+    </span>
+    <strong className="sale-detail-subtotal">
+      Subtotal: ${Number(item.subtotal).toFixed(2)}
+    </strong>
+  </div>
+</article>
                 )
               })}
             </div>

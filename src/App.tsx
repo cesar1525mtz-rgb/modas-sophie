@@ -178,7 +178,7 @@ function Login({ onLogin }: { onLogin: (user: AppUser) => void }) {
         <form className="login-form" onSubmit={handleSubmit}>
           <label htmlFor="username">Usuario</label>
           <div className="login-input-wrap">
-            <span className="login-input-icon">◉</span>
+
             <input
               id="username"
               type="text"
@@ -210,7 +210,17 @@ function Login({ onLogin }: { onLogin: (user: AppUser) => void }) {
               disabled={loading}
               aria-label={showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}
             >
-              {showPassword ? '◉' : '○'}
+              {showPassword ? (
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z" fill="none" stroke="currentColor" strokeWidth="1.8"/>
+    <circle cx="12" cy="12" r="2.8" fill="none" stroke="currentColor" strokeWidth="1.8"/>
+  </svg>
+) : (
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M3 3l18 18" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
+    <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z" fill="none" stroke="currentColor" strokeWidth="1.8"/>
+  </svg>
+)}
             </button>
           </div>
 
@@ -269,36 +279,13 @@ function Dashboard({
     setMessage('')
   }
 
-  function handleNavigation(key: string) {
-    if (key === 'inicio') {
-      setSelected('inicio')
-      return
-    }
 
-    const module = modules.find((item) => item.key === key)
-
-    if (!module) return
-
-    const allowed =
-      user.role === 'admin' ||
-      ['venta', 'inventario', 'ventas'].includes(module.key)
-
-    if (!allowed) {
-      setMessage('No tienes permisos para acceder a este módulo.')
-      window.setTimeout(() => setMessage(''), 1800)
-      return
-    }
-
-    openModule(module)
-  }
 
   if (selected === 'venta') {
     return (
-      <NewSale
-        userId={user.id}
-        userRole={user.role}
-        onBack={() => setSelected('inicio')}
-      />
+      <NewSale userId={user.id} userRole={user.role}
+          onBack={() => setSelected('inicio')}
+        />
     )
   }
 
@@ -483,47 +470,7 @@ function Dashboard({
         )}
       </section>
 
-      <nav className="bottom-nav">
-        <button
-          className={selected === 'inicio' ? 'active' : ''}
-          onClick={() => handleNavigation('inicio')}
-        >
-          <span>🏠</span>
-          <small>Inicio</small>
-        </button>
 
-        <button
-          className={selected === 'venta' ? 'active' : ''}
-          onClick={() => handleNavigation('venta')}
-        >
-          <span>🛍️</span>
-          <small>Venta</small>
-        </button>
-
-        <button
-          className={selected === 'inventario' ? 'active' : ''}
-          onClick={() => handleNavigation('inventario')}
-        >
-          <span>📦</span>
-          <small>Inventario</small>
-        </button>
-
-        <button
-          className={selected === 'ventas' ? 'active' : ''}
-          onClick={() => handleNavigation('ventas')}
-        >
-          <span>🧾</span>
-          <small>Ventas</small>
-        </button>
-
-        <button
-          className={selected === 'reportes' ? 'active' : ''}
-          onClick={() => handleNavigation('reportes')}
-        >
-          <span>📊</span>
-          <small>Reportes</small>
-        </button>
-      </nav>
     </main>
   )
 }

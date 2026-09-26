@@ -60,7 +60,7 @@ const categories = [
   'Otros',
 ]
 
-export default function NewSale({ userId, onBack }: NewSaleProps) {
+export default function NewSale({ onBack }: NewSaleProps) {
   const [branches, setBranches] = useState<Branch[]>([])
   const [branchId, setBranchId] = useState('')
   const [products, setProducts] = useState<Product[]>([])
@@ -69,18 +69,19 @@ export default function NewSale({ userId, onBack }: NewSaleProps) {
 
   const [search, setSearch] = useState('')
   const [category, setCategory] = useState('Todas')
-  const [selectedVariantId, setSelectedVariantId] = useState('')
-  const [quantity, setQuantity] = useState('1')
+
+  const [selectedProductId, setSelectedProductId] = useState('')
+  const [selectedSize, setSelectedSize] = useState('')
+  const [selectedColor, setSelectedColor] = useState('')
 
   const [cart, setCart] = useState<CartItem[]>([])
-  const [paymentMethod, setPaymentMethod] = useState<
-    'efectivo' | 'tarjeta' | 'transferencia'
-  >('efectivo')
+  const [paymentMethod, setPaymentMethod] =
+    useState<'efectivo' | 'tarjeta' | 'transferencia'>('efectivo')
 
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
-  const [message, setMessage] = useState('')
   const [error, setError] = useState('')
+  const [message, setMessage] = useState('')
 
   async function loadData() {
     setLoading(true)
@@ -97,15 +98,18 @@ export default function NewSale({ userId, onBack }: NewSaleProps) {
         .select('id,name')
         .eq('active', true)
         .order('name'),
+
       supabase
         .from('products')
         .select('id,name,sku,category,price,active')
         .eq('active', true)
         .order('name'),
+
       supabase
         .from('product_variants')
         .select('id,product_id,size,color,barcode')
         .order('created_at'),
+
       supabase
         .from('inventory')
         .select('branch_id,variant_id,quantity'),
@@ -114,13 +118,14 @@ export default function NewSale({ userId, onBack }: NewSaleProps) {
     if (branchError || productError || variantError || stockError) {
       setError(
         branchError?.message ||
-          productError?.message ||
-          variantError?.message ||
-          stockError?.message ||
-          'No fue posible cargar los productos.'
+        productError?.message ||
+        variantError?.message ||
+        stockError?.message ||
+        'No fue posible cargar los productos.'
       )
     } else {
       const safeBranches = (branchData || []) as Branch[]
+
       setBranches(safeBranches)
       setProducts((productData || []) as Product[])
       setVariants((variantData || []) as Variant[])
@@ -145,29 +150,30 @@ export default function NewSale({ userId, onBack }: NewSaleProps) {
       const matchesCategory =
         category === 'Todas' || product.category === category
 
+      if (!term) {
+        return matchesCategory
+      }
+
       const name = (product.name || '').toLowerCase()
       const sku = (product.sku || '').toLowerCase()
 
-      const matchesSearch =
-        !term ||
-        name.includes(term) ||
-        sku.includes(term)
-
-      return matchesCategory && matchesSearch
+      return matchesCategory &&
+        (name.includes(term) || sku.includes(term))
     })
   }, [products, search, category])
 
-  const availableVariants = useMemo(() => {
-    if (!selectedVariantId) return []
+  const selectedProduct = useMemo(
+    () => products.find((product) => product.id === selectedProductId),
+    [products, selectedProductId]
+  )
+
+  const productVariants = useMemo(() => {
+    if (!selectedProductId || !branchId) return []
 
     return variants
-      .filter((variant) => variant.id === selectedVariantId)
+      .filter((variant) => variant.product_id === selectedProductId)
       .map((variant) => {
-        const product = products.find(
-          (item) => item.id === variant.product_id
-        )
-
-        const inventory = stock.find(
+        const itemStock = stock.find(
           (item) =>
             item.branch_id === branchId &&
             item.variant_id === variant.id
@@ -175,13 +181,34 @@ export default function NewSale({ userId, onBack }: NewSaleProps) {
 
         return {
           variant,
-          product,
-          available: inventory?.quantity || 0,
+          available: itemStock?.quantity ?? 0,
         }
       })
-  }, [selectedVariantId, variants, products, stock, branchId])
+      .filter((item) => item.available > 0)
+  }, [selectedProductId, branchId, variants, stock])
 
-  const selectedData = availableVariants[0]
+  const availableSizes = useMemo(() => {
+    const values = productVariants
+      .map((item) => item.variant.size?.trim() || 'Sin talla')
+
+    return [...new Set(values)]
+  }, [productVariants])
+
+  const variantsForSelectedSize = useMemo(() => {
+    if (!selectedSize) return productVariants
+
+    return productVariants.filter(
+      (item) =>
+        (item.variant.size?.trim() || 'Sin talla') === selectedSize
+    )
+  }, [productVariants, selectedSize])
+
+  const availableColors = useMemo(() => {
+    const values = variantsForSelectedSize
+      .map((item) => item.variant.color?.trim() || 'Sin color')
+
+    return [...new Set(values)]
+  }, [variantsForSelectedSize])
 
   const total = useMemo(
     () =>
@@ -192,103 +219,53 @@ export default function NewSale({ userId, onBack }: NewSaleProps) {
     [cart]
   )
 
-  function addToCart() {
-    setError('')
-    setMessage('')
-
-    if (!selectedData?.product) {
-      setError('Selecciona un producto.')
-      return
-    }
-
-    const requested = Number(quantity)
-
-    if (!Number.isInteger(requested) || requested <= 0) {
-      setError('La cantidad debe ser mayor a cero.')
-      return
-    }
-
-    if (selectedData.available < requested) {
-      setError(
-        `Existencia insuficiente. Disponible: ${selectedData.available}.`
-      )
-      return
-    }
-
-    const variant = selectedData.variant
-    const product = selectedData.product
-
-    setCart((current) => {
-      const existing = current.find(
-        (item) => item.variantId === variant.id
-      )
-
-      if (existing) {
-        const newQuantity = existing.quantity + requested
-
-        if (newQuantity > selectedData.available) {
-          setError(
-            `No puedes agregar más de ${selectedData.available} piezas.`
-          )
-          return current
-        }
-
-        return current.map((item) =>
-          item.variantId === variant.id
-            ? { ...item, quantity: newQuantity }
-            : item
-        )
-      }
-
-      return [
-        ...current,
-        {
-          variantId: variant.id,
-          productName: product.name,
-          sku: product.sku || '',
-          size: variant.size || 'Sin talla',
-          color: variant.color || 'Sin color',
-          unitPrice: Number(product.price),
-          quantity: requested,
-          available: selectedData.available,
-        },
-      ]
-    })
-
-    setQuantity('1')
-    setSelectedVariantId('')
+  function clearSelection() {
+    setSelectedProductId('')
+    setSelectedSize('')
+    setSelectedColor('')
   }
 
-  function removeFromCart(variantId: string) {
-    setCart((current) =>
-      current.filter((item) => item.variantId !== variantId)
-    )
+  function selectProduct(productId: string) {
+    setError('')
+    setMessage('')
+    setSelectedProductId(productId)
+    setSelectedSize('')
+    setSelectedColor('')
   }
 
   function changeCartQuantity(variantId: string, value: number) {
+    setError('')
+
     setCart((current) =>
-      current.map((item) => {
-        if (item.variantId !== variantId) return item
-
-        const newQuantity = Math.max(
-          1,
-          Math.min(value, item.available)
-        )
-
-        return {
-          ...item,
-          quantity: newQuantity,
+      current.flatMap((item) => {
+        if (item.variantId !== variantId) {
+          return [item]
         }
+
+        const nextQuantity = item.quantity + value
+
+        if (nextQuantity <= 0) {
+          return []
+        }
+
+        if (nextQuantity > item.available) {
+          setError(
+            `Solo hay ${item.available} pieza${item.available === 1 ? '' : 's'} disponibles.`
+          )
+          return [item]
+        }
+
+        return [{ ...item, quantity: nextQuantity }]
       })
     )
   }
 
-  async function saveSale() {
+  async function registerSale() {
     setError('')
     setMessage('')
 
     if (!branchId) {
-      setError('No hay una sucursal disponible.')
+      setError('Selecciona una sucursal.')
       return
     }
 
@@ -303,26 +280,27 @@ export default function NewSale({ userId, onBack }: NewSaleProps) {
       'create_sale_with_items',
       {
         p_branch_id: branchId,
-        p_seller_id: userId,
         p_payment_method: paymentMethod,
         p_items: cart.map((item) => ({
-        variant_id: item.variantId,
-        quantity: item.quantity,
-        unit_price: item.unitPrice,
-        subtotal: item.unitPrice * item.quantity,
-      })),
+          variant_id: item.variantId,
+          quantity: item.quantity,
+          unit_price: item.unitPrice,
+        })),
         p_notes: null,
       }
     )
 
     if (saveError) {
-      setError(saveError.message || 'No fue posible registrar la venta.')
+      setError(
+        saveError.message || 'No fue posible registrar la venta.'
+      )
       setSaving(false)
       return
     }
 
     setMessage(`Venta registrada correctamente. Folio: ${data}`)
     setCart([])
+    clearSelection()
     setSaving(false)
 
     await loadData()
@@ -342,24 +320,38 @@ export default function NewSale({ userId, onBack }: NewSaleProps) {
     <main className="inventory-page">
       <header className="inventory-header">
         <div>
-          <button type="button" className="back-button" onClick={onBack}>
+          <button
+            type="button"
+            className="button"
+            onClick={onBack}
+          >
             ← Volver
           </button>
+
           <p className="eyebrow">MODAS SOPHIE</p>
           <h1>Nueva venta</h1>
-          <p>Registra una venta y descuenta automáticamente el inventario.</p>
+          <p>Busca el modelo, selecciona talla y color.</p>
         </div>
       </header>
 
-      {error && <div className="inventory-message error">{error}</div>}
-      {message && <div className="inventory-message success">{message}</div>}
+      {error && (
+        <div className="inventory-message error">
+          {error}
+        </div>
+      )}
+
+      {message && (
+        <div className="inventory-message success">
+          {message}
+        </div>
+      )}
 
       <section className="inventory-form-card">
         <div className="section-title">
           <span>🛍️</span>
           <div>
-            <h2>Agregar productos</h2>
-            <p>Busca el producto y selecciona su variante.</p>
+            <h2>Buscar producto</h2>
+            <p>Selecciona primero el modelo.</p>
           </div>
         </div>
 
@@ -368,7 +360,11 @@ export default function NewSale({ userId, onBack }: NewSaleProps) {
             Sucursal
             <select
               value={branchId}
-              onChange={(event) => setBranchId(event.target.value)}
+              onChange={(event) => {
+                setBranchId(event.target.value)
+                clearSelection()
+                setCart([])
+              }}
             >
               {branches.map((branch) => (
                 <option key={branch.id} value={branch.id}>
@@ -379,7 +375,7 @@ export default function NewSale({ userId, onBack }: NewSaleProps) {
           </label>
 
           <label>
-            Buscar producto o SKU
+            Buscar por nombre o SKU
             <input
               value={search}
               onChange={(event) => setSearch(event.target.value)}
@@ -400,92 +396,226 @@ export default function NewSale({ userId, onBack }: NewSaleProps) {
               ))}
             </select>
           </label>
-
-          <label>
-            Producto / talla / color
-            <select
-              value={selectedVariantId}
-              onChange={(event) =>
-                setSelectedVariantId(event.target.value)
-              }
-            >
-              <option value="">Selecciona una variante</option>
-
-              {visibleProducts.flatMap((product) =>
-                variants
-                  .filter((variant) => variant.product_id === product.id)
-                  .map((variant) => {
-                    const itemStock = stock.find(
-                      (item) =>
-                        item.branch_id === branchId &&
-                        item.variant_id === variant.id
-                    )
-
-                    const available = itemStock?.quantity || 0
-
-                    return (
-                      <option
-                        key={variant.id}
-                        value={variant.id}
-                        disabled={available <= 0}
-                      >
-                        {product.name}
-                        {product.sku ? ` · ${product.sku}` : ''}
-                        {' · '}
-                        {variant.size || 'Sin talla'}
-                        {' · '}
-                        {variant.color || 'Sin color'}
-                        {' · '}
-                        {available} disponibles
-                      </option>
-                    )
-                  })
-              )}
-            </select>
-          </label>
-
-          <label>
-            Cantidad
-            <input
-              type="number"
-              min="1"
-              value={quantity}
-              onChange={(event) => setQuantity(event.target.value)}
-            />
-          </label>
         </div>
 
-        {selectedData?.product && (
-          <div className="sale-selected-product">
-            <strong>{selectedData.product.name}</strong>
-            <span>
-              {selectedData.variant.size || 'Sin talla'} ·{' '}
-              {selectedData.variant.color || 'Sin color'}
-            </span>
-            <span>
-              Precio: ${Number(selectedData.product.price).toFixed(2)}
-            </span>
-            <span>
-              Existencia: {selectedData.available}
-            </span>
+        {search.trim() && (
+          <div className="sale-product-results">
+            {visibleProducts.length === 0 ? (
+              <div className="sale-product-empty">
+                No se encontraron productos.
+              </div>
+            ) : (
+              visibleProducts.map((product) => {
+                const productStock = variants
+                  .filter((variant) => variant.product_id === product.id)
+                  .reduce((sum, variant) => {
+                    const item = stock.find(
+                      (entry) =>
+                        entry.branch_id === branchId &&
+                        entry.variant_id === variant.id
+                    )
+
+                    return sum + (item?.quantity || 0)
+                  }, 0)
+
+                return (
+                  <button
+                    key={product.id}
+                    type="button"
+                    className={`sale-product-result ${
+                      selectedProductId === product.id
+                        ? 'selected'
+                        : ''
+                    }`}
+                    disabled={productStock <= 0}
+                    onClick={() => selectProduct(product.id)}
+                  >
+                    <span className="sale-product-result-info">
+                      <strong>{product.name}</strong>
+                      <small>
+                        {product.sku
+                          ? `SKU: ${product.sku}`
+                          : 'Sin SKU'}
+                        {' · '}
+                        {productStock} disponible
+                        {productStock === 1 ? '' : 's'}
+                      </small>
+                    </span>
+
+                    <span className="sale-product-result-price">
+                      ${Number(product.price).toFixed(2)}
+                    </span>
+
+                    <span className="sale-product-result-arrow">
+                      →
+                    </span>
+                  </button>
+                )
+              })
+            )}
           </div>
         )}
-
-        <button
-          type="button"
-          className="primary-button"
-          onClick={addToCart}
-        >
-          + Agregar al carrito
-        </button>
       </section>
+
+      {selectedProduct && (
+        <section className="inventory-form-card sale-variant-card">
+          <div className="section-title">
+            <span>👕</span>
+            <div>
+              <h2>{selectedProduct.name}</h2>
+              <p>
+                {selectedProduct.sku
+                  ? `SKU: ${selectedProduct.sku}`
+                  : 'Sin SKU'}
+              </p>
+            </div>
+          </div>
+
+          {productVariants.length === 0 ? (
+            <div className="sale-product-empty">
+              Este modelo no tiene existencias disponibles.
+            </div>
+          ) : (
+            <>
+              <div className="sale-choice-group">
+                <strong>Talla</strong>
+                <div className="sale-choice-grid">
+                  {availableSizes.map((size) => (
+                    <button
+                      key={size}
+                      type="button"
+                      className={`sale-choice-button ${
+                        selectedSize === size ? 'selected' : ''
+                      }`}
+                      onClick={() => {
+                        setError('')
+                        setSelectedSize(size)
+                        setSelectedColor('')
+                      }}
+                    >
+                      {size}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {selectedSize && (
+                <div className="sale-choice-group">
+                  <strong>Color</strong>
+                  <div className="sale-choice-grid">
+                    {availableColors.map((color) => {
+                      const option = variantsForSelectedSize.find(
+                        (item) =>
+                          (item.variant.color?.trim() ||
+                            'Sin color') === color
+                      )
+
+                      return (
+                        <button
+                          key={color}
+                          type="button"
+                          className={`sale-choice-button ${
+                            selectedColor === color
+                              ? 'selected'
+                              : ''
+                          }`}
+                          onClick={() => {
+                            setError('')
+                            setSelectedColor(color)
+
+                            if (option) {
+                              setTimeout(() => {
+                                const variant = option.variant
+                                const existing = cart.find(
+                                  (item) =>
+                                    item.variantId === variant.id
+                                )
+
+                                const newQuantity =
+                                  (existing?.quantity || 0) + 1
+
+                                if (
+                                  newQuantity >
+                                  option.available
+                                ) {
+                                  setError(
+                                    `No puedes agregar más de ${option.available} pieza${option.available === 1 ? '' : 's'}.`
+                                  )
+                                  return
+                                }
+
+                                if (existing) {
+                                  setCart((current) =>
+                                    current.map((item) =>
+                                      item.variantId === variant.id
+                                        ? {
+                                            ...item,
+                                            quantity: newQuantity,
+                                          }
+                                        : item
+                                    )
+                                  )
+                                } else {
+                                  setCart((current) => [
+                                    ...current,
+                                    {
+                                      variantId: variant.id,
+                                      productName:
+                                        selectedProduct.name,
+                                      sku:
+                                        selectedProduct.sku || '',
+                                      size:
+                                        variant.size?.trim() ||
+                                        'Sin talla',
+                                      color:
+                                        variant.color?.trim() ||
+                                        'Sin color',
+                                      unitPrice: Number(
+                                        selectedProduct.price
+                                      ),
+                                      quantity: 1,
+                                      available:
+                                        option.available,
+                                    },
+                                  ])
+                                }
+
+                                setSelectedSize('')
+                                setSelectedColor('')
+                              }, 0)
+                            }
+                          }}
+                        >
+                          {color}
+                        </button>
+                      )
+                    })}
+                  </div>
+                </div>
+              )}
+            </>
+          )}
+        </section>
+      )}
 
       <section className="inventory-list-card">
         <div className="section-title">
           <span>🛒</span>
           <div>
             <h2>Carrito</h2>
-            <p>{cart.length} producto(s)</p>
+            <p>
+              {cart.reduce(
+                (sum, item) => sum + item.quantity,
+                0
+              )}{' '}
+              producto
+              {cart.reduce(
+                (sum, item) => sum + item.quantity,
+                0
+              ) === 1
+                ? ''
+                : 's'}
+            </p>
           </div>
         </div>
 
@@ -496,11 +626,15 @@ export default function NewSale({ userId, onBack }: NewSaleProps) {
         ) : (
           <div className="sale-cart">
             {cart.map((item) => (
-              <article className="sale-cart-item" key={item.variantId}>
+              <article
+                className="sale-cart-item"
+                key={item.variantId}
+              >
                 <div>
                   <strong>{item.productName}</strong>
                   <small>
-                    {item.sku || 'Sin SKU'} · {item.size} · {item.color}
+                    {item.sku || 'Sin SKU'} · {item.size} ·{' '}
+                    {item.color}
                   </small>
                   <small>
                     ${item.unitPrice.toFixed(2)} c/u
@@ -508,33 +642,43 @@ export default function NewSale({ userId, onBack }: NewSaleProps) {
                 </div>
 
                 <div className="sale-cart-controls">
-                  <input
-                    type="number"
-                    min="1"
-                    max={item.available}
-                    value={item.quantity}
-                    onChange={(event) =>
+                  <button
+                    type="button"
+                    className="sale-quantity-button"
+                    aria-label="Disminuir cantidad"
+                    onClick={() =>
                       changeCartQuantity(
                         item.variantId,
-                        Number(event.target.value)
+                        -1
                       )
                     }
-                  />
+                  >
+                    −
+                  </button>
 
-                  <strong>
-                    ${(item.unitPrice * item.quantity).toFixed(2)}
-                  </strong>
+                  <strong>{item.quantity}</strong>
 
                   <button
                     type="button"
-                    className="danger-button"
-                    onClick={() => removeFromCart(item.variantId)}
+                    className="sale-quantity-button"
+                    aria-label="Aumentar cantidad"
+                    onClick={() =>
+                      changeCartQuantity(
+                        item.variantId,
+                        1
+                      )
+                    }
                   >
-                    Eliminar
+                    +
                   </button>
                 </div>
+
+                <strong className="sale-cart-subtotal">
+                  $
+                  {(item.unitPrice * item.quantity).toFixed(2)}
+                </strong>
               </article>
-          ))}
+            ))}
           </div>
         )}
 
@@ -543,22 +687,34 @@ export default function NewSale({ userId, onBack }: NewSaleProps) {
           <strong>${total.toFixed(2)}</strong>
         </div>
 
-        <div className="payment-methods">
+        <div className="sale-payment">
           <strong>Método de pago</strong>
 
-          <div>
+          <div className="sale-payment-buttons">
             <button
               type="button"
-              className={paymentMethod === 'efectivo' ? 'active' : ''}
-              onClick={() => setPaymentMethod('efectivo')}
+              className={
+                paymentMethod === 'efectivo'
+                  ? 'selected'
+                  : ''
+              }
+              onClick={() =>
+                setPaymentMethod('efectivo')
+              }
             >
               💵 Efectivo
             </button>
 
             <button
               type="button"
-              className={paymentMethod === 'tarjeta' ? 'active' : ''}
-              onClick={() => setPaymentMethod('tarjeta')}
+              className={
+                paymentMethod === 'tarjeta'
+                  ? 'selected'
+                  : ''
+              }
+              onClick={() =>
+                setPaymentMethod('tarjeta')
+              }
             >
               💳 Tarjeta
             </button>
@@ -566,22 +722,28 @@ export default function NewSale({ userId, onBack }: NewSaleProps) {
             <button
               type="button"
               className={
-                paymentMethod === 'transferencia' ? 'active' : ''
+                paymentMethod === 'transferencia'
+                  ? 'selected'
+                  : ''
               }
-              onClick={() => setPaymentMethod('transferencia')}
+              onClick={() =>
+                setPaymentMethod('transferencia')
+              }
             >
-              📲 Transferencia
+              🏦 Transferencia
             </button>
           </div>
         </div>
 
         <button
           type="button"
-          className="primary-button sale-save-button"
+          className="inventory-save sale-register-button"
           disabled={saving || cart.length === 0}
-          onClick={saveSale}
+          onClick={registerSale}
         >
-          {saving ? 'Registrando venta...' : '✓ Registrar venta'}
+          {saving
+            ? 'Registrando venta...'
+            : `Registrar venta · $${total.toFixed(2)}`}
         </button>
       </section>
     </main>

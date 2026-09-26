@@ -994,134 +994,692 @@ button {
   }
 }
 
-/* Mejoras del carrito de Nueva Venta en celular */
+/* ===== NUEVA VENTA - CARRITO MÓVIL ===== */
+
 .sale-cart {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
 
 .sale-cart-item {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 10px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
   padding: 14px;
-  border: 1px solid #ead7e2;
-  border-radius: 12px;
-  background: #fff;
+  border: 1px solid #ead8e1;
+  border-radius: 14px;
+  background: #ffffff;
 }
 
 .sale-cart-item > div:first-child {
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
 
 .sale-cart-item > div:first-child strong {
-  font-size: 17px;
+  font-size: 16px;
+  color: #292929;
+  overflow-wrap: anywhere;
 }
 
 .sale-cart-item > div:first-child small {
   font-size: 13px;
-  color: #777;
+  color: #77727a;
+  line-height: 1.35;
 }
 
-.sale-cart-item > div:first-child span {
-  font-size: 14px;
-}
-
-.sale-cart-control {
-  display: grid;
-  grid-template-columns: 90px 1fr auto;
+.sale-cart-controls {
+  display: flex;
   align-items: center;
-  gap: 8px;
+  justify-content: flex-end;
+  gap: 10px;
 }
 
-.sale-cart-control input {
-  width: 90px;
-  min-height: 38px;
-  padding: 8px;
-  border: 1px solid #d8c8d1;
-  border-radius: 8px;
+.sale-cart-quantity {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px;
+  border: 1px solid #ead8e1;
+  border-radius: 12px;
+  background: #fff6fa;
+}
+
+.sale-quantity-button {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: 9px;
+  background: #e90083;
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sale-quantity-button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.sale-quantity-value {
+  min-width: 30px;
   text-align: center;
+  font-size: 17px;
+  color: #171717;
 }
 
-.sale-cart-control strong {
-  font-size: 16px;
+.sale-cart-line-total {
+  min-width: 82px;
   text-align: right;
-}
-
-.sale-cart-control .danger-button {
-  min-height: 38px;
-  padding: 8px 12px;
-  border-radius: 8px;
+  font-size: 16px;
+  color: #171717;
+  white-space: nowrap;
 }
 
 @media (max-width: 600px) {
   .sale-cart-item {
-    padding: 12px;
+    grid-template-columns: 1fr;
+    gap: 12px;
   }
 
-  .sale-cart-control {
-    grid-template-columns: 75px 1fr auto;
+  .sale-cart-controls {
+    width: 100%;
+    justify-content: space-between;
   }
 
-  .sale-cart-control input {
-    width: 75px;
+  .sale-cart-quantity {
+    flex-shrink: 0;
   }
 
-  .sale-cart-control strong {
+  .sale-quantity-button {
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+  }
+
+  .sale-cart-line-total {
+    min-width: 0;
+    font-size: 17px;
+  }
+}
+
+/* ===== VENTAS - DISEÑO MÓVIL LIMPIO ===== */
+
+@media (max-width: 600px) {
+  .sales-list {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .sale-history-card {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .sale-history-main {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
+  .sale-history-main strong {
+    display: block;
     font-size: 15px;
+    margin-bottom: 4px;
   }
 
-  .sale-cart-control .danger-button {
-    padding: 8px 10px;
+  .sale-history-main small {
+    display: block;
+    margin-bottom: 5px;
+    line-height: 1.4;
+  }
+
+  .sale-history-main span {
+    display: block;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+  }
+
+  .sale-history-total {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    margin-top: 8px;
+  }
+
+  .sale-history-total strong {
+    font-size: 16px;
+    margin: 0;
+  }
+
+  .sale-history-total button {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .sale-history-card input,
+  .sale-history-card select {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .sale-detail-card {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .sale-detail-summary {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .sale-detail-summary span {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    line-height: 1.5;
+  }
+
+  .sale-detail-card p {
+    line-height: 1.5;
+    margin: 8px 0;
+    overflow-wrap: anywhere;
   }
 }
 
-/* Métodos de pago de Nueva Venta */
-.payment-methods {
+/* ===== VENTAS - AJUSTE DE LECTURA EN CELULAR ===== */
+
+@media (max-width: 600px) {
+
+  .sales-list {
+    font-size: 14px;
+  }
+
+  .sale-history-card {
+    padding: 14px;
+  }
+
+  .sale-history-main strong {
+    font-size: 14px;
+    line-height: 1.3;
+  }
+
+  .sale-history-main small {
+    font-size: 12px;
+  }
+
+  .sale-history-main span {
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  .sale-history-card input {
+    width: 100%;
+    height: 40px;
+    font-size: 14px;
+    margin: 6px 0;
+  }
+
+  .sale-history-card select {
+    width: 100%;
+    height: 40px;
+    font-size: 14px;
+    margin: 4px 0 8px;
+  }
+
+  .sale-history-total {
+    gap: 8px;
+  }
+
+  .sale-history-total strong {
+    font-size: 16px;
+  }
+
+  .sale-history-total button {
+    height: 40px;
+    font-size: 14px;
+  }
+
+  .sale-detail-card {
+    padding: 14px;
+  }
+
+  .sale-detail-card h2 {
+    font-size: 20px;
+    margin-bottom: 12px;
+  }
+
+  .sale-detail-summary {
+    gap: 6px;
+  }
+
+  .sale-detail-summary span {
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  .sale-detail-card p {
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 6px 0;
+  }
+
+  .sale-detail-card button {
+    font-size: 14px;
+    min-height: 38px;
+  }
+}
+
+
+/* ===== FILTROS DE VENTAS EN CELULAR ===== */
+@media (max-width: 600px) {
+  .sale-history-card label {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .sale-history-card label input,
+  .sale-history-card label select {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin-top: 5px;
+  }
+}
+
+
+/* ===== FILTROS VENTAS - CELULAR ===== */
+@media (max-width: 600px) {
+  .sales-filters {
+    width: 100%;
+    display: block;
+  }
+
+  .sales-filter-field {
+    display: block !important;
+    width: 100%;
+    margin-bottom: 12px;
+  }
+
+  .sales-filter-field span {
+    display: block;
+    width: 100%;
+    margin-bottom: 5px;
+  }
+
+  .sales-filter-field input,
+  .sales-filter-field select {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+}
+
+
+/* ===== LOGIN - AJUSTE DEFINITIVO PARA CELULAR ===== */
+
+.login-page {
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-top: 12px;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 20px 16px;
 }
 
-.payment-methods > div {
+.login-card {
+  width: 100%;
+  max-width: 390px;
+  box-sizing: border-box;
+  padding: 24px 20px;
+  margin: 0 auto;
+}
+
+.login-logo {
+  width: 100%;
   display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 18px;
 }
 
-.payment-methods button {
-  flex: 1;
-  min-width: 105px;
-  min-height: 42px;
-  padding: 9px 12px;
-  border: 1px solid #d8c8d1;
-  border-radius: 10px;
-  background: #fff;
-  color: #333;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.15s ease;
+.login-logo-image {
+  display: block;
+  width: min(100%, 250px);
+  max-width: 250px;
+  height: auto;
+  object-fit: contain;
 }
 
-.payment-methods button:hover {
-  border-color: #d83b8d;
+.login-welcome {
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.payment-methods button.active {
-  background: #d83b8d;
-  color: #fff;
-  border-color: #d83b8d;
-  box-shadow: 0 2px 6px rgba(216, 59, 141, 0.25);
+.login-welcome h2 {
+  font-size: 24px;
+  line-height: 1.2;
+  margin: 0 0 8px;
+}
+
+.login-welcome p {
+  font-size: 14px;
+  line-height: 1.4;
+  margin: 0 0 16px;
+}
+
+.login-input-wrap {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.login-input-wrap input {
+  width: 100%;
+  min-height: 44px;
+  box-sizing: border-box;
+}
+
+.login-options {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.login-button {
+  width: 100%;
+  min-height: 48px;
+  box-sizing: border-box;
 }
 
 @media (max-width: 600px) {
-  .payment-methods > div {
+  .login-page {
+    padding: 16px 12px;
+  }
+
+  .login-card {
+    width: 100%;
+    max-width: 390px;
+    padding: 22px 18px;
+  }
+
+  .login-logo-image {
+    width: min(100%, 230px);
+    max-width: 230px;
+  }
+}
+
+
+/* ===== IDENTIDAD VISUAL GLOBAL - MODAS SOPHIE ===== */
+
+:root {
+  --ms-magenta: #e90083;
+  --ms-pink: #f52b91;
+  --ms-pink-light: #fff6fa;
+  --ms-pink-soft: #fde8f2;
+  --ms-black: #171717;
+  --ms-text: #292929;
+  --ms-text-soft: #77727a;
+  --ms-gold: #c9962e;
+  --ms-gold-light: #e7bd5a;
+  --ms-white: #ffffff;
+  --ms-border: #ead8e1;
+}
+
+/* Base general */
+body {
+  background: var(--ms-pink-light);
+  color: var(--ms-text);
+}
+
+/* Botones principales */
+button {
+  font-family: inherit;
+}
+
+
+/* ===== LOGIN - ACABADO ELEGANTE MODAS SOPHIE ===== */
+
+.login-input-wrap {
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.login-input-wrap input {
+  width: 100%;
+  min-height: 48px;
+  padding: 0 48px 0 16px;
+  box-sizing: border-box;
+  border: 1px solid var(--ms-border);
+  border-radius: 14px;
+  background: var(--ms-white);
+  color: var(--ms-text);
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.login-input-wrap input:focus {
+  border-color: var(--ms-magenta);
+  box-shadow: 0 0 0 3px rgba(233, 0, 131, 0.10);
+}
+
+.password-toggle {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--ms-magenta);
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.login-options {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  margin-top: 14px;
+}
+
+.remember-option {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--ms-text-soft);
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.remember-option input[type="checkbox"] {
+  width: 17px;
+  height: 17px;
+  margin: 0;
+  accent-color: var(--ms-magenta);
+}
+
+.forgot-password {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--ms-magenta);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.login-button {
+  margin-top: 18px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--ms-magenta), var(--ms-pink));
+}
+
+@media (max-width: 600px) {
+  .login-options {
+    align-items: flex-start;
+  }
+
+  .remember-option,
+  .forgot-password {
+    font-size: 12px;
+  }
+}
+
+
+
+/* ===== LOGIN - LIMPIEZA FINAL DE ICONOS ===== */
+
+.login-input-icon {
+  display: none !important;
+}
+
+.password-toggle {
+  color: var(--ms-magenta) !important;
+  font-size: 18px !important;
+}
+
+.login-logo-image {
+  max-width: 220px;
+}
+
+
+/* ===== LOGO LOGIN - CENTRADO ===== */
+.login-logo {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-logo-image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Métodos de pago - selección visible */
+.payment-methods {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.payment-methods button {
+  border: 1px solid var(--ms-border);
+  border-radius: 12px;
+  background: var(--ms-white);
+  color: var(--ms-text);
+  font-weight: 600;
+  padding: 10px 14px;
+  min-height: 46px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.payment-methods button.active {
+  background: var(--ms-magenta);
+  color: var(--ms-white);
+  border-color: var(--ms-magenta);
+  box-shadow: 0 0 0 2px rgba(233, 0, 131, 0.15);
+}
+
+.payment-methods button:hover {
+  border-color: var(--ms-magenta);
+}
+
+.payment-methods button.active:hover {
+  background: var(--ms-magenta);
+  color: var(--ms-white);
+}
+
+@media (max-width: 600px) {
+  .payment-methods {
     display: grid;
     grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .payment-methods button {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+
+/* Métodos de pago - selección visible */
+.payment-methods {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.payment-methods button {
+  border: 1px solid var(--ms-border);
+  border-radius: 12px;
+  background: var(--ms-white);
+  color: var(--ms-text);
+  font-weight: 600;
+  padding: 10px 14px;
+  min-height: 46px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.payment-methods button.active {
+  background: var(--ms-magenta);
+  color: var(--ms-white);
+  border-color: var(--ms-magenta);
+  box-shadow: 0 0 0 2px rgba(233, 0, 131, 0.15);
+}
+
+.payment-methods button:hover {
+  border-color: var(--ms-magenta);
+}
+
+@media (max-width: 600px) {
+  .payment-methods {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
   }
 
   .payment-methods button {
@@ -1129,3 +1687,252 @@ button {
   }
 }
 
+
+/* ===== DETALLE DE VENTA EN CELULAR ===== */
+.sale-detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--ms-border, #ead8e1);
+}
+
+.sale-detail-product {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sale-detail-product strong {
+  font-size: 16px;
+  line-height: 1.3;
+}
+
+.sale-detail-product small {
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--ms-text-soft, #77727a);
+}
+
+.sale-detail-line {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.sale-detail-quantity,
+.sale-detail-price {
+  display: block;
+}
+
+.sale-detail-subtotal {
+  display: block;
+  font-size: 15px;
+  margin-top: 2px;
+}
+
+.sale-detail-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--ms-border, #ead8e1);
+}
+
+
+/* ===== DASHBOARD - ENCABEZADO PROFESIONAL ===== */
+
+.topbar {
+  min-height: 72px;
+  padding: 10px 16px;
+}
+
+.topbar-brand {
+  gap: 10px;
+}
+
+.topbar-brand .login-logo-image {
+  width: 54px;
+  height: 54px;
+  max-width: 54px;
+  object-fit: contain;
+}
+
+.topbar-brand h1 {
+  font-size: 16px;
+  line-height: 1.1;
+}
+
+.topbar-brand span {
+  margin-top: 3px;
+  font-size: 11px;
+}
+
+.user-button {
+  max-width: 130px;
+  padding: 6px;
+  font-size: 12px;
+}
+
+.dashboard-content {
+  padding: 18px 16px 28px;
+}
+
+@media (max-width: 500px) {
+  .topbar {
+    min-height: 68px;
+    padding: 8px 14px;
+  }
+
+  .topbar-brand .login-logo-image {
+    width: 48px;
+    height: 48px;
+    max-width: 48px;
+  }
+
+  .topbar-brand h1 {
+    font-size: 15px;
+  }
+
+  .topbar-brand span {
+    font-size: 10px;
+  }
+
+  .user-button {
+    max-width: 115px;
+    padding: 5px;
+  }
+
+  .dashboard-content {
+    padding: 16px 14px 24px;
+  }
+}
+
+
+/* RESULTADOS DEL BUSCADOR DE NUEVA VENTA */
+
+.sale-product-results {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: -4px;
+  margin-bottom: 4px;
+}
+
+.sale-product-result {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border: 1px solid var(--ms-border, #ead8e1);
+  border-radius: 14px;
+  background: #fff;
+  color: var(--ms-text, #292929);
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.sale-product-result:active {
+  background: var(--ms-pink-light, #fff6fa);
+}
+
+.sale-product-result:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.sale-product-result-info {
+  min-width: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.sale-product-result-info strong {
+  font-size: 15px;
+  line-height: 1.25;
+}
+
+.sale-product-result-info small {
+  color: var(--ms-text-soft, #77727a);
+  font-size: 12px;
+  line-height: 1.25;
+}
+
+.sale-product-result-price {
+  flex-shrink: 0;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--ms-magenta, #e90083);
+}
+
+.sale-product-result-arrow {
+  flex-shrink: 0;
+  color: var(--ms-magenta, #e90083);
+  font-size: 24px;
+  line-height: 1;
+}
+
+.sale-product-empty {
+  padding: 12px 14px;
+  border: 1px dashed var(--ms-border, #ead8e1);
+  border-radius: 14px;
+  background: #fff;
+  color: var(--ms-text-soft, #77727a);
+  font-size: 14px;
+}
+
+
+/* Métodos de pago - selección visual clara */
+.sale-payment-buttons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.sale-payment-buttons button {
+  min-height: 52px;
+  border: 2px solid var(--ms-border);
+  border-radius: 14px;
+  background: var(--ms-white);
+  color: var(--ms-text);
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.sale-payment-buttons button:hover {
+  border-color: var(--ms-pink);
+}
+
+.sale-payment-buttons button.selected {
+  background: var(--ms-magenta);
+  border-color: var(--ms-magenta);
+  color: var(--ms-white);
+  box-shadow: 0 4px 12px rgba(233, 0, 131, 0.25);
+  transform: translateY(-1px);
+}
+
+.sale-payment-buttons button.selected::after {
+  content: " ✓";
+  font-weight: 900;
+}
+
+@media (max-width: 420px) {
+  .sale-payment-buttons {
+    grid-template-columns: 1fr;
+  }
+
+  .sale-payment-buttons button {
+    min-height: 48px;
+  }
+}
