@@ -693,30 +693,9 @@ export default function NewSale({ onBack }: NewSaleProps) {
         )}
 
         <div className="sale-total">
-      <div>
-        <span>Subtotal</span>
-        <strong>${total.toFixed(2)}</strong>
-      </div>
-
-      <div>
-        <label htmlFor="sale-discount">Descuento</label>
-        <input
-          id="sale-discount"
-          type="number"
-          min="0"
-          step="0.01"
-          value={discount}
-          onChange={(e) => setDiscount(e.target.value)}
-          placeholder="0.00"
-          inputMode="decimal"
-        />
-      </div>
-
-      <div>
-        <span>Total</span>
-        <strong>${finalTotal.toFixed(2)}</strong>
-      </div>
-    </div>
+          <span>Total</span>
+          <strong>${total.toFixed(2)}</strong>
+        </div>
 
         <div className="sale-payment">
           <strong>Método de pago</strong>
@@ -774,7 +753,7 @@ export default function NewSale({ onBack }: NewSaleProps) {
         >
           {saving
             ? 'Registrando venta...'
-            : `Registrar venta · $${finalTotal.toFixed(2)}`}
+            : `Registrar venta · $${total.toFixed(2)}`}
         </button>
       </section>
     </main>
