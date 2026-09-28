@@ -352,6 +352,90 @@ export default function Sales({ userRole, onBack }: SalesProps) {
                   >
                     Ver detalle
                   </button>
+            {selectedSale && selectedSale!.id === sale.id && (
+              <section className="inventory-list-card sale-detail-card">
+                <div className="section-title">
+                  <span>🔎</span>
+                  <div>
+                    <h2>Detalle de venta</h2>
+                    <p>
+                      Folio completo:{' '}
+                      <strong>
+                        {`F${String(selectedSale!.folio).padStart(4, '0')}`}
+                      </strong>
+                    </p>
+                  </div>
+                </div>
+
+                <div className="sale-detail-summary">
+                  <span>
+                    <strong>Fecha:</strong>{' '}
+                    {new Date(selectedSale!.created_at).toLocaleString('es-MX')}
+                  </span>
+
+                  <span>
+                    <strong>Vendedor:</strong>{' '}
+                    {getSellerName(selectedSale!.seller_id)}
+                  </span>
+
+                  <span>
+                    <strong>Sucursal:</strong>{' '}
+                    {getBranchName(selectedSale!.branch_id)}
+                  </span>
+
+                  <span>
+                    <strong>Pago:</strong>{' '}
+                    {getPaymentName(selectedSale!.payment_method)}
+                  </span>
+                </div>
+
+                {loadingItems ? (
+                  <div className="inventory-empty">
+                    Cargando productos...
+                  </div>
+                ) : (
+                  <div className="sale-detail-items">
+                    {items.map((item) => {
+                      const product = getProductName(item.variant_id)
+
+                      return (
+                        <article
+                          className="sale-detail-item"
+                          key={item.id}
+                        >
+                          <div className="sale-detail-product">
+                            <strong>{product.name}</strong>
+                            <small>{product.detail}</small>
+                          </div>
+
+                          <div className="sale-detail-line">
+                            <span className="sale-detail-quantity">
+                              Cantidad: {item.quantity}
+                            </span>
+
+                            <span className="sale-detail-price">
+                              Precio: ${Number(item.unit_price).toFixed(2)}
+                            </span>
+
+                            <strong className="sale-detail-subtotal">
+                              Subtotal: ${Number(item.subtotal).toFixed(2)}
+                            </strong>
+                          </div>
+                        </article>
+                      )
+                    })}
+                  </div>
+                )}
+
+                <div className="sale-detail-total">
+                  <span>Total</span>
+                  <strong>
+                    ${Number(selectedSale!.total).toFixed(2)}
+                  </strong>
+                </div>
+              </section>
+            )}
+
                 </div>
               </article>
             ))}
@@ -359,7 +443,7 @@ export default function Sales({ userRole, onBack }: SalesProps) {
         )}
       </section>
 
-      {selectedSale && (
+      {false && selectedSale && (
         <section className="inventory-list-card sale-detail-card">
           <div className="section-title">
             <span>🔎</span>
@@ -367,7 +451,7 @@ export default function Sales({ userRole, onBack }: SalesProps) {
             <div>
               <h2>Detalle de venta</h2>
               <p>
-                Folio completo: <strong>{`F${String(selectedSale.folio).padStart(4, '0')}`}</strong>
+                Folio completo: <strong>{`F${String(selectedSale!.folio).padStart(4, '0')}`}</strong>
               </p>
             </div>
           </div>
@@ -375,22 +459,22 @@ export default function Sales({ userRole, onBack }: SalesProps) {
           <div className="sale-detail-summary">
             <span>
               <strong>Fecha:</strong>{' '}
-              {new Date(selectedSale.created_at).toLocaleString('es-MX')}
+              {new Date(selectedSale!.created_at).toLocaleString('es-MX')}
             </span>
 
             <span>
               <strong>Vendedor:</strong>{' '}
-              {getSellerName(selectedSale.seller_id)}
+              {getSellerName(selectedSale!.seller_id)}
             </span>
 
             <span>
               <strong>Sucursal:</strong>{' '}
-              {getBranchName(selectedSale.branch_id)}
+              {getBranchName(selectedSale!.branch_id)}
             </span>
 
             <span>
               <strong>Pago:</strong>{' '}
-              {getPaymentName(selectedSale.payment_method)}
+              {getPaymentName(selectedSale!.payment_method)}
             </span>
           </div>
 
@@ -427,7 +511,7 @@ export default function Sales({ userRole, onBack }: SalesProps) {
 
           <div className="sale-detail-total">
             <span>Total</span>
-            <strong>${Number(selectedSale.total).toFixed(2)}</strong>
+            <strong>${Number(selectedSale!.total).toFixed(2)}</strong>
           </div>
 
           <button type="button" className="back-button" onClick={closeDetails}>
