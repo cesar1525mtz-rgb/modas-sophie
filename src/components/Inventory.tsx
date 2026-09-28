@@ -491,7 +491,7 @@ export default function Inventory({
           <p>Productos y existencias</p>
         </div>
 
-        {userRole === 'admin' && (
+{userRole === 'admin' && (
           <button
             className="inventory-new-button"
             onClick={() => {
@@ -1013,6 +1013,8 @@ export default function Inventory({
                   >
                     {totalStock} piezas
                   </div>
+
+
 
                   <div className="product-variants">
                     {productVariants.map((variant) => {
