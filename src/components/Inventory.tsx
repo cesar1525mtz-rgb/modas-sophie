@@ -230,6 +230,7 @@ export default function Inventory({
     )
 
     setEditingProductId(productId)
+  setShowForm(true)
     setName(product.name)
     setSku(product.sku || '')
     setCategory(product.category || '')
@@ -517,13 +518,28 @@ export default function Inventory({
       )}
 
       {userRole === 'admin' && showForm && (
-        <section className="inventory-form-card">
+    <section
+      className="inventory-form-card"
+      style={{
+        ...(editingProductId
+          ? {
+              position: "fixed",
+              inset: 0,
+              zIndex: 9999,
+              overflowY: "auto",
+              background: "var(--ms-white, #ffffff)",
+              padding: 16,
+              boxSizing: "border-box"
+            }
+          : {})
+      }}
+    >
           <div className="inventory-section-title">
             <div>
               <span>📦</span>
               <div>
-                <h3>Nuevo producto</h3>
-                <p>Registra el producto y sus variantes.</p>
+                <h3>{editingProductId ? 'Editar producto' : 'Nuevo producto'}</h3>
+                <p>{editingProductId ? 'Modifica los datos y variantes del producto.' : 'Registra el producto y sus variantes.'}</p>
               </div>
             </div>
           </div>
@@ -763,7 +779,13 @@ export default function Inventory({
 
   
     {userRole === 'admin' && (
-      <section className="inventory-list-card" style={{ marginBottom: 16 }}>
+      <section
+          className="inventory-list-card"
+          style={{
+            marginBottom: 16,
+            display: editingProductId ? 'none' : undefined,
+          }}
+        >
         <div className="inventory-section-title">
           <div>
             <span>📦</span>
@@ -1016,7 +1038,55 @@ export default function Inventory({
 
 
 
-                  <div className="product-variants">
+                  
+          {(() => {
+            const hasLowStock = productVariants.some((variant) => {
+              const itemStock = stock.find(
+                (entry) =>
+                  entry.variant_id === variant.id &&
+                  entry.branch_id === branchId
+              )
+
+              const quantity = Number(itemStock?.quantity ?? 0)
+              const minStock = Number(itemStock?.min_stock ?? 0)
+
+              return quantity > 0 && minStock > 0 && quantity <= minStock
+            })
+
+            const stockLabel =
+              totalStock === 0
+                ? '🔴 Agotado'
+                : hasLowStock
+                  ? '🟡 Stock bajo'
+                  : '🟢 Stock disponible'
+
+            const stockBackground =
+              totalStock === 0
+                ? '#fde8e8'
+                : hasLowStock
+                  ? '#fff4cc'
+                  : '#e8f7ee'
+
+            return (
+              <div
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  padding: '6px 10px',
+                  marginTop: 8,
+                  marginBottom: 8,
+                  borderRadius: 999,
+                  background: stockBackground,
+                  fontSize: 13,
+                  fontWeight: 700
+                }}
+              >
+                {stockLabel}
+              </div>
+            )
+          })()}
+
+          <div className="product-variants">
                     {productVariants.map((variant) => {
                       const item = stock.find(
                         (entry) =>
