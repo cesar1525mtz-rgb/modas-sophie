@@ -8,6 +8,7 @@ import Expenses from './components/Expenses'
 import Reports from './components/Reports'
 import Sucursales from './components/Sucursales'
 import Vendedores from './components/Vendedores'
+import CorteCaja from './components/CorteCaja'
 
 type Role = 'admin' | 'vendedor'
 
@@ -43,6 +44,12 @@ const modules: Module[] = [
     title: 'Ventas',
     description: 'Historial y cortes',
     icon: '🧾',
+  },
+  {
+    key: 'corte',
+    title: 'Corte de caja',
+    description: 'Cierre y efectivo del día',
+    icon: '💰',
   },
   {
     key: 'gastos',
@@ -292,6 +299,15 @@ function Dashboard({
   if (selected === 'ventas') {
     return (
       <Sales
+        userRole={user.role}
+        onBack={() => setSelected('inicio')}
+      />
+    )
+  }
+
+  if (selected === 'corte') {
+    return (
+      <CorteCaja
         userRole={user.role}
         onBack={() => setSelected('inicio')}
       />
