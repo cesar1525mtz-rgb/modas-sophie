@@ -109,6 +109,7 @@ export default function Inventory({
     emptyVariant(),
   ])
   const [editingProductId, setEditingProductId] = useState<string | null>(null)
+  const [selectedProductId, setSelectedProductId] = useState<string | null>(null)
 
   async function loadInventory() {
     setLoading(true)
@@ -475,6 +476,55 @@ export default function Inventory({
     search,
     categoryFilter,
   ])
+
+const inventorySummary = useMemo(() => {
+  let totalPieces = 0
+  let lowStock = 0
+  let outOfStock = 0
+
+  products.forEach((product) => {
+    const productVariants = variants.filter(
+      (variant) => variant.product_id === product.id
+    )
+
+    let productHasLowStock = false
+    let productHasStock = false
+
+    productVariants.forEach((variant) => {
+      const itemStock = stock.find(
+        (entry) =>
+          entry.variant_id === variant.id &&
+          entry.branch_id === branchId
+      )
+
+      const quantity = Number(itemStock?.quantity ?? 0)
+      const minStock = Number(itemStock?.min_stock ?? 0)
+
+      totalPieces += quantity
+
+      if (quantity > 0) {
+        productHasStock = true
+
+        if (minStock > 0 && quantity <= minStock) {
+          productHasLowStock = true
+        }
+      }
+    })
+
+    if (!productHasStock) {
+      outOfStock += 1
+    } else if (productHasLowStock) {
+      lowStock += 1
+    }
+  })
+
+  return {
+    totalProducts: products.length,
+    totalPieces,
+    lowStock,
+    outOfStock,
+  }
+}, [products, variants, stock, branchId])
 
   return (
     <main className="inventory-page">
@@ -958,7 +1008,48 @@ export default function Inventory({
           </div>
         </div>
 
-        <div className="inventory-filters">
+        
+<div
+  style={{
+    display: 'grid',
+    gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
+    gap: 12,
+    marginBottom: 20,
+  }}
+>
+  {[
+    ['📦 Productos', inventorySummary.totalProducts, '#fce7f3'],
+    ['🧮 Piezas', inventorySummary.totalPieces, '#e0f2fe'],
+    ['🟡 Stock bajo', inventorySummary.lowStock, '#fef3c7'],
+    ['🔴 Agotados', inventorySummary.outOfStock, '#fee2e2'],
+  ].map(([label, value, color]) => (
+    <div
+      key={String(label)}
+      style={{
+        background: String(color),
+        borderRadius: 14,
+        padding: 16,
+        minWidth: 0,
+      }}
+    >
+      <div style={{ fontSize: 13, fontWeight: 600 }}>
+        {label}
+      </div>
+      <div
+        style={{
+          fontSize: 27,
+          fontWeight: 800,
+          marginTop: 8,
+          color: '#292524',
+        }}
+      >
+        {value}
+      </div>
+    </div>
+  ))}
+</div>
+
+<div className="inventory-filters">
           <input
             value={search}
             onChange={(event) =>
@@ -1004,9 +1095,15 @@ export default function Inventory({
             {rows.map(
               ({ product, variants: productVariants, totalStock }) => (
                 <article
-                  className="product-row"
-                  key={product.id}
-                >
+              className="product-row"
+              key={product.id}
+              onClick={() =>
+                setSelectedProductId((current) =>
+                  current === product.id ? null : product.id
+                )
+              }
+              style={{ cursor: 'pointer' }}
+            >
                   <div className="product-main">
                     <div className="product-icon">👕</div>
 
@@ -1104,11 +1201,139 @@ export default function Inventory({
                     })}
                   </div>
 
-          {userRole === 'admin' && (
+          
+      {selectedProductId === product.id && (
+        <div
+          onClick={(event) => event.stopPropagation()}
+          style={{
+            marginTop: 14,
+            padding: 16,
+            borderRadius: 16,
+            background: '#ffffff',
+            border: '1px solid #eadde6',
+            boxShadow: '0 4px 14px rgba(0,0,0,.06)'
+          }}
+        >
+          <div style={{ fontSize: 18, fontWeight: 800, marginBottom: 12 }}>
+            📦 Detalle del producto
+          </div>
+
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
+              gap: 10
+            }}
+          >
+            <div>
+              <small>Precio de venta</small>
+              <div style={{ fontSize: 18, fontWeight: 800 }}>
+                ${Number(product.price).toFixed(2)}
+              </div>
+            </div>
+
+            <div>
+              <small>Costo</small>
+              <div style={{ fontSize: 18, fontWeight: 800 }}>
+                ${Number(product.cost).toFixed(2)}
+              </div>
+            </div>
+
+            <div>
+              <small>Ganancia por pieza</small>
+              <div style={{ fontSize: 18, fontWeight: 800 }}>
+                ${(Number(product.price) - Number(product.cost)).toFixed(2)}
+              </div>
+            </div>
+
+            <div>
+              <small>Existencia total</small>
+              <div style={{ fontSize: 18, fontWeight: 800 }}>
+                {totalStock} piezas
+              </div>
+            </div>
+          </div>
+
+          <div
+            style={{
+              marginTop: 14,
+              padding: 12,
+              borderRadius: 12,
+              background: '#f8f8f8'
+            }}
+          >
+            <div style={{ fontWeight: 700, marginBottom: 8 }}>
+              📊 Valor del inventario
+            </div>
+
+            <div>
+              Costo de mercancía:
+              <strong> ${(Number(product.cost) * totalStock).toFixed(2)}</strong>
+            </div>
+
+            <div style={{ marginTop: 4 }}>
+              Venta potencial:
+              <strong> ${(Number(product.price) * totalStock).toFixed(2)}</strong>
+            </div>
+
+            <div style={{ marginTop: 4 }}>
+              Ganancia potencial:
+              <strong>
+                ${((Number(product.price) - Number(product.cost)) * totalStock).toFixed(2)}
+              </strong>
+            </div>
+          </div>
+
+          <div style={{ marginTop: 14 }}>
+            <div style={{ fontWeight: 700, marginBottom: 8 }}>
+              👕 Tallas, colores y existencias
+            </div>
+
+            <div style={{ display: 'grid', gap: 8 }}>
+              {productVariants.map((variant) => {
+                const itemStock = stock.find(
+                  (entry) =>
+                    entry.variant_id === variant.id &&
+                    entry.branch_id === branchId
+                )
+
+                return (
+                  <div
+                    key={variant.id}
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      padding: '10px 12px',
+                      borderRadius: 10,
+                      background: '#f8f8f8'
+                    }}
+                  >
+                    <span>
+                      {variant.size || 'Sin talla'}
+                      {' · '}
+                      {variant.color || 'Sin color'}
+                    </span>
+
+                    <strong>
+                      {Number(itemStock?.quantity ?? 0)} piezas
+                    </strong>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        </div>
+      )}
+
+{userRole === 'admin' && (
             <button
               type="button"
               className="product-edit-button"
-              onClick={() => editProduct(product.id)}
+              onClick={(event) => {
+              event.stopPropagation()
+              editProduct(product.id)
+            }}
             >
               ✏️ Editar
             </button>

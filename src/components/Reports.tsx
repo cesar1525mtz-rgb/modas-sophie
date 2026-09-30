@@ -29,6 +29,8 @@ type SaleItem = {
 type Variant = {
   id: string
   product_id: string
+  size?: string | null
+  color?: string | null
 }
 
 type Product = {
@@ -215,9 +217,11 @@ export default function Reports({ userRole, onBack }: ReportsProps) {
     .filter((sale) => sale.payment_method === 'transferencia')
     .reduce((sum, sale) => sum + Number(sale.total), 0)
 
-  const stockBajo = inventory.filter(
+  const stockBajoItems = inventory.filter(
     (item) => Number(item.quantity) <= Number(item.min_stock),
-  ).length
+  )
+
+  const stockBajo = stockBajoItems.length
 
   const periodLabel =
     period === 'hoy'
@@ -306,6 +310,38 @@ export default function Reports({ userRole, onBack }: ReportsProps) {
                 <strong>Productos con stock bajo:</strong> {stockBajo}
               </span>
             </div>
+
+      {stockBajoItems.length > 0 && (
+        <div className="sale-detail-summary" style={{ marginTop: 14 }}>
+          <span style={{ display: "block", marginBottom: 8 }}>
+            <strong>⚠️ Productos con stock bajo</strong>
+          </span>
+          {stockBajoItems.map((item) => {
+            const variant = variantMap.get(item.variant_id)
+            const product = variant ? productMap.get(variant.product_id) : undefined
+
+            return (
+              <div
+                key={item.variant_id}
+                style={{
+                  padding: "10px 0",
+                  borderTop: "1px solid #eadde5",
+                }}
+              >
+                <strong>{product?.name || "Producto"}</strong>
+                <div>
+                  {variant?.size || "Sin talla"} · {variant?.color || "Sin color"}
+                </div>
+                <div>
+                  Existencias: <strong>{Number(item.quantity)}</strong>
+                  {" · "}
+                  Mínimo: {Number(item.min_stock)}
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      )}
 
             <div className="sale-detail-summary">
               <span>

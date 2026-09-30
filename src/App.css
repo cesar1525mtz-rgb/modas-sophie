@@ -1936,3 +1936,46 @@ button {
     min-height: 48px;
   }
 }
+
+/* ===== CORRECCIÓN FORMULARIO INVENTARIO EN MÓVIL ===== */
+@media (max-width: 600px) {
+  .inventory-form {
+    display: grid;
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+  }
+
+  .inventory-form label {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-width: 0;
+    gap: 6px;
+    line-height: 1.25;
+  }
+
+  .inventory-form input,
+  .inventory-form select,
+  .inventory-form textarea {
+    width: 100% !important;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
+  .inventory-form textarea {
+    min-height: 80px;
+    resize: vertical;
+  }
+
+  .inventory-form-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .inventory-form-actions button {
+    width: 100%;
+  }
+}
+
