@@ -79,7 +79,7 @@ export default function Sales({ userRole, onBack }: SalesProps) {
     ] = await Promise.all([
       supabase
         .from('sales')
-        .select('id,folio,branch_id,seller_id,total,payment_method,notes,created_at')
+        .select('id,folio,branch_id,seller_id,total,discount,payment_method,notes,created_at')
         .order('created_at', { ascending: false }),
 
       supabase
@@ -428,12 +428,36 @@ export default function Sales({ userRole, onBack }: SalesProps) {
                   </div>
                 )}
 
-                <div className="sale-detail-total">
-                  <span>Total</span>
-                  <strong>
-                    ${Number(selectedSale!.total).toFixed(2)}
-                  </strong>
+                {(() => {
+              const subtotalDetalle = items.reduce(
+                (sum, item) => sum + Number(item.subtotal || 0),
+                0
+              )
+
+              const totalVenta = Number(selectedSale!.total || 0)
+              const descuento = subtotalDetalle - totalVenta
+
+              return descuento > 0.009 ? (
+                <div
+                  className="sale-detail-total"
+                  style={{
+                    borderTop: '1px solid #ddd',
+                    marginTop: 12,
+                    paddingTop: 12,
+                  }}
+                >
+                  <span>Descuento</span>
+                  <strong>-${descuento.toFixed(2)}</strong>
                 </div>
+              ) : null
+            })()}
+
+            <div className="sale-detail-total">
+              <span>Total</span>
+              <strong>
+                ${Number(selectedSale!.total).toFixed(2)}
+              </strong>
+            </div>
               </section>
             )}
 
@@ -510,19 +534,28 @@ export default function Sales({ userRole, onBack }: SalesProps) {
             </div>
           )}
 
-          {Number(selectedSale!.discount ?? 0) > 0 && (
-            <div
-              className="sale-detail-total"
-              style={{
-                borderTop: '1px solid #ddd',
-                marginTop: 12,
-                paddingTop: 12,
-              }}
-            >
-              <span>Descuento</span>
-              <strong>-${Number(selectedSale!.discount).toFixed(2)}</strong>
-            </div>
-          )}
+          {(() => {
+            const subtotalDetalle = items.reduce(
+              (sum, item) => sum + Number(item.subtotal || 0),
+              0
+            )
+            const descuentoCalculado =
+              subtotalDetalle - Number(selectedSale!.total || 0)
+
+            return descuentoCalculado > 0.009 ? (
+              <div
+                className="sale-detail-total"
+                style={{
+                  borderTop: '1px solid #ddd',
+                  marginTop: 12,
+                  paddingTop: 12,
+                }}
+              >
+                <span>Descuento</span>
+                <strong>-${descuentoCalculado.toFixed(2)}</strong>
+              </div>
+            ) : null
+          })()}
 
           <div className="sale-detail-total">
             <span>Total</span>

@@ -34,6 +34,10 @@ export default function CorteCaja({ onBack }: CorteCajaProps) {
   const [sales, setSales] = useState<Sale[]>([])
   const [expenses, setExpenses] = useState<Expense[]>([])
   const [cashCounted, setCashCounted] = useState('')
+  const [selectedDate, setSelectedDate] = useState(() => {
+    const now = new Date()
+    return now.toISOString().slice(0, 10)
+  })
   const [loading, setLoading] = useState(true)
   const [message, setMessage] = useState('')
 
@@ -80,12 +84,26 @@ export default function CorteCaja({ onBack }: CorteCajaProps) {
     loadData()
   }, [loadData])
 
+  const filteredSales = useMemo(() => {
+    return sales.filter((sale) => {
+      const date = new Date(sale.created_at).toISOString().slice(0, 10)
+      return date === selectedDate
+    })
+  }, [sales, selectedDate])
+
+  const filteredExpenses = useMemo(() => {
+    return expenses.filter((expense) => {
+      const date = new Date(expense.created_at).toISOString().slice(0, 10)
+      return date === selectedDate
+    })
+  }, [expenses, selectedDate])
+
   const efectivo = useMemo(
     () =>
-      sales
+      filteredSales
         .filter((sale) => sale.payment_method === 'efectivo')
         .reduce((sum, sale) => sum + Number(sale.total), 0),
-    [sales]
+    [filteredSales]
   )
 
   const tarjeta = useMemo(
@@ -93,7 +111,7 @@ export default function CorteCaja({ onBack }: CorteCajaProps) {
       sales
         .filter((sale) => sale.payment_method === 'tarjeta')
         .reduce((sum, sale) => sum + Number(sale.total), 0),
-    [sales]
+    [filteredSales]
   )
 
   const transferencia = useMemo(
@@ -101,7 +119,7 @@ export default function CorteCaja({ onBack }: CorteCajaProps) {
       sales
         .filter((sale) => sale.payment_method === 'transferencia')
         .reduce((sum, sale) => sum + Number(sale.total), 0),
-    [sales]
+    [filteredSales]
   )
 
   const otras = useMemo(
@@ -120,8 +138,12 @@ export default function CorteCaja({ onBack }: CorteCajaProps) {
   const totalVentas = efectivo + tarjeta + transferencia + otras
 
   const totalGastos = useMemo(
-    () => expenses.reduce((sum, expense) => sum + Number(expense.amount), 0),
-    [expenses]
+    () =>
+      filteredExpenses.reduce(
+        (sum, expense) => sum + Number(expense.amount),
+        0
+      ),
+    [filteredExpenses]
   )
 
   // Por ahora los gastos se consideran salidas de efectivo.
@@ -148,6 +170,41 @@ export default function CorteCaja({ onBack }: CorteCajaProps) {
 
           <span className="eyebrow">MODAS SOPHIE</span>
           <h1>💰 Corte de caja</h1>
+
+        <section className="inventory-section">
+          <label
+            htmlFor="corte-date"
+            style={{
+              display: 'block',
+              fontWeight: 600,
+              marginBottom: '8px',
+            }}
+          >
+            📅 Fecha del corte
+          </label>
+
+          <input
+            id="corte-date"
+            type="date"
+            value={selectedDate}
+            onChange={(event) => {
+              setSelectedDate(event.target.value)
+              setCashCounted('')
+            }}
+            style={{
+              width: '100%',
+              boxSizing: 'border-box',
+              padding: '14px',
+              borderRadius: '14px',
+              border: '1px solid #ddd',
+              fontSize: '18px',
+            }}
+          />
+
+          <div style={{ marginTop: '8px', color: '#777' }}>
+            Mostrando únicamente las ventas y gastos de esta fecha.
+          </div>
+        </section>
           <p>Resumen de movimientos del día.</p>
         </div>
       </div>
