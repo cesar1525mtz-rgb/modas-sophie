@@ -108,7 +108,7 @@ export default function CorteCaja({ onBack }: CorteCajaProps) {
 
   const tarjeta = useMemo(
     () =>
-      sales
+      filteredSales
         .filter((sale) => sale.payment_method === 'tarjeta')
         .reduce((sum, sale) => sum + Number(sale.total), 0),
     [filteredSales]
@@ -116,7 +116,7 @@ export default function CorteCaja({ onBack }: CorteCajaProps) {
 
   const transferencia = useMemo(
     () =>
-      sales
+      filteredSales
         .filter((sale) => sale.payment_method === 'transferencia')
         .reduce((sum, sale) => sum + Number(sale.total), 0),
     [filteredSales]
@@ -124,7 +124,7 @@ export default function CorteCaja({ onBack }: CorteCajaProps) {
 
   const otras = useMemo(
     () =>
-      sales
+      filteredSales
         .filter(
           (sale) =>
             !['efectivo', 'tarjeta', 'transferencia'].includes(
@@ -132,7 +132,7 @@ export default function CorteCaja({ onBack }: CorteCajaProps) {
             )
         )
         .reduce((sum, sale) => sum + Number(sale.total), 0),
-    [sales]
+    [filteredSales]
   )
 
   const totalVentas = efectivo + tarjeta + transferencia + otras
