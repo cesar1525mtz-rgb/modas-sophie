@@ -15,6 +15,7 @@ type Sale = {
   branch_id: string
   seller_id: string
   total: number
+  discount: number
   payment_method: string
   notes: string | null
   created_at: string
@@ -506,6 +507,20 @@ export default function Sales({ userRole, onBack }: SalesProps) {
 </article>
                 )
               })}
+            </div>
+          )}
+
+          {Number(selectedSale!.discount ?? 0) > 0 && (
+            <div
+              className="sale-detail-total"
+              style={{
+                borderTop: '1px solid #ddd',
+                marginTop: 12,
+                paddingTop: 12,
+              }}
+            >
+              <span>Descuento</span>
+              <strong>-${Number(selectedSale!.discount).toFixed(2)}</strong>
             </div>
           )}
 
