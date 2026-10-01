@@ -273,6 +273,10 @@ function Dashboard({
 }) {
   const [selected, setSelected] = useState('inicio')
   const [message, setMessage] = useState('')
+  const [salesToday, setSalesToday] = useState(0)
+  const [productsSoldToday, setProductsSoldToday] = useState(0)
+  const [expensesToday, setExpensesToday] = useState(0)
+  const [loadingStats, setLoadingStats] = useState(true)
 
   const availableModules =
     user.role === 'admin'
@@ -281,18 +285,105 @@ function Dashboard({
           ['venta', 'inventario', 'ventas'].includes(module.key),
         )
 
+  useEffect(() => {
+    async function loadDashboard() {
+      setLoadingStats(true)
+
+      const now = new Date()
+      const startOfDay = new Date(now)
+      startOfDay.setHours(0, 0, 0, 0)
+
+      const endOfDay = new Date(startOfDay)
+      endOfDay.setDate(endOfDay.getDate() + 1)
+
+      const [salesResult, expensesResult] = await Promise.all([
+        supabase
+          .from('sales')
+          .select('id,total')
+          .gte('created_at', startOfDay.toISOString())
+          .lt('created_at', endOfDay.toISOString()),
+
+        supabase
+          .from('expenses')
+          .select('amount')
+          .gte('created_at', startOfDay.toISOString())
+          .lt('created_at', endOfDay.toISOString()),
+      ])
+
+      if (salesResult.error) {
+        setMessage(`No se pudieron cargar las ventas: ${salesResult.error.message}`)
+        setLoadingStats(false)
+        return
+      }
+
+      if (expensesResult.error) {
+        setMessage(`No se pudieron cargar los gastos: ${expensesResult.error.message}`)
+        setLoadingStats(false)
+        return
+      }
+
+      const sales = salesResult.data ?? []
+      const expenses = expensesResult.data ?? []
+
+      const totalSales = sales.reduce(
+        (sum, sale) => sum + Number(sale.total ?? 0),
+        0,
+      )
+
+      const totalExpenses = expenses.reduce(
+        (sum, expense) => sum + Number(expense.amount ?? 0),
+        0,
+      )
+
+      let totalProducts = 0
+
+      if (sales.length > 0) {
+        const saleIds = sales.map((sale) => sale.id)
+
+        const { data: items, error: itemsError } = await supabase
+          .from('sale_items')
+          .select('quantity')
+          .in('sale_id', saleIds)
+
+        if (!itemsError) {
+          totalProducts = (items ?? []).reduce(
+            (sum, item) => sum + Number(item.quantity ?? 0),
+            0,
+          )
+        }
+      }
+
+      setSalesToday(totalSales)
+      setProductsSoldToday(totalProducts)
+      setExpensesToday(totalExpenses)
+      setLoadingStats(false)
+    }
+
+    loadDashboard()
+
+    const handleDataUpdated = () => {
+      loadDashboard()
+    }
+
+    window.addEventListener('modas-sophie-data-updated', handleDataUpdated)
+
+    return () => {
+      window.removeEventListener('modas-sophie-data-updated', handleDataUpdated)
+    }
+  }, [user.id])
+
   function openModule(module: Module) {
     setSelected(module.key)
     setMessage('')
   }
 
-
-
   if (selected === 'venta') {
     return (
-      <NewSale userId={user.id} userRole={user.role}
-          onBack={() => setSelected('inicio')}
-        />
+      <NewSale
+        userId={user.id}
+        userRole={user.role}
+        onBack={() => setSelected('inicio')}
+      />
     )
   }
 
@@ -360,30 +451,28 @@ function Dashboard({
     )
   }
 
+  const resultToday = salesToday - expensesToday
+
   return (
     <main className="app-shell">
       <header className="topbar">
         <div className="topbar-brand">
-          <img className="login-logo-image" src="/images/logo-modas-sophie.png" alt="Modas Sophie" />
+          <img
+            className="login-logo-image"
+            src="/images/logo-modas-sophie.png"
+            alt="Modas Sophie"
+          />
 
           <div>
             <h1>MODAS SOPHIE</h1>
             <span>
-              {user.role === 'admin'
-                ? 'Administrador'
-                : 'Punto de venta'}
+              {user.role === 'admin' ? 'Administrador' : 'Punto de venta'}
             </span>
           </div>
         </div>
 
-        <button
-          className="user-button"
-          onClick={onLogout}
-          title="Cerrar sesión"
-        >
-          <span>👤</span>
-          <span className="user-button-name">{user.name}</span>
-          <span>↪</span>
+        <button className="user-button" onClick={onLogout}>
+          Salir
         </button>
       </header>
 
@@ -391,23 +480,23 @@ function Dashboard({
         <div className="welcome">
           <div>
             <p className="eyebrow">PANEL PRINCIPAL</p>
-            <h2>¡Hola, {user.name}! 👋</h2>
-            <p>Todo listo para comenzar el día.</p>
+            <h2>Hola, {user.name}! 👋</h2>
+            <p>Resumen de la actividad de hoy.</p>
           </div>
-        </div>
 
-        <div className="date-card">
-          <span>📅</span>
-          <div>
-            <strong>
-              {new Intl.DateTimeFormat('es-MX', {
-                weekday: 'long',
-                day: 'numeric',
-                month: 'long',
-                year: 'numeric',
-              }).format(new Date())}
-            </strong>
-            <small>Resumen de hoy</small>
+          <div className="date-card">
+            <span>📅</span>
+            <div>
+              <strong>
+                {new Intl.DateTimeFormat('es-MX', {
+                  weekday: 'long',
+                  day: 'numeric',
+                  month: 'long',
+                  year: 'numeric',
+                }).format(new Date())}
+              </strong>
+              <small>Resumen de hoy</small>
+            </div>
           </div>
         </div>
 
@@ -416,7 +505,9 @@ function Dashboard({
             <span className="stat-icon">💰</span>
             <div>
               <small>VENTAS HOY</small>
-              <strong>$0.00</strong>
+              <strong>
+                {loadingStats ? 'Cargando...' : `$${salesToday.toFixed(2)}`}
+              </strong>
             </div>
           </article>
 
@@ -424,25 +515,33 @@ function Dashboard({
             <span className="stat-icon">🛍️</span>
             <div>
               <small>PRODUCTOS VENDIDOS</small>
-              <strong>0</strong>
+              <strong>
+                {loadingStats ? 'Cargando...' : productsSoldToday}
+              </strong>
             </div>
           </article>
 
           {user.role === 'admin' && (
             <>
               <article className="stat-card">
-                <span className="stat-icon">💳</span>
+                <span className="stat-icon">💸</span>
                 <div>
                   <small>GASTOS HOY</small>
-                  <strong>$0.00</strong>
+                  <strong>
+                    {loadingStats
+                      ? 'Cargando...'
+                      : `$${expensesToday.toFixed(2)}`}
+                  </strong>
                 </div>
               </article>
 
               <article className="stat-card">
-                <span className="stat-icon">📈</span>
+                <span className="stat-icon">📊</span>
                 <div>
-                  <small>GANANCIA ESTIMADA</small>
-                  <strong>$0.00</strong>
+                  <small>RESULTADO DEL DÍA</small>
+                  <strong>
+                    {loadingStats ? 'Cargando...' : `$${resultToday.toFixed(2)}`}
+                  </strong>
                 </div>
               </article>
             </>
@@ -479,14 +578,8 @@ function Dashboard({
           </div>
         </section>
 
-        {message && (
-          <div className="toast">
-            {message}
-          </div>
-        )}
+        {message && <div className="toast">{message}</div>}
       </section>
-
-
     </main>
   )
 }

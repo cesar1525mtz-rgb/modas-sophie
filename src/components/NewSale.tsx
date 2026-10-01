@@ -84,6 +84,8 @@ export default function NewSale({ onBack }: NewSaleProps) {
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
   const [message, setMessage] = useState('')
+  const [saleCompleted, setSaleCompleted] = useState(false)
+  const [saleFolio, setSaleFolio] = useState('')
 
   async function loadData() {
     setLoading(true)
@@ -272,6 +274,8 @@ export default function NewSale({ onBack }: NewSaleProps) {
   async function registerSale() {
     setError('')
     setMessage('')
+    setSaleCompleted(false)
+    setSaleFolio('')
 
     if (!branchId) {
       setError('Selecciona una sucursal.')
@@ -308,12 +312,121 @@ export default function NewSale({ onBack }: NewSaleProps) {
       return
     }
 
-    setMessage(`Venta registrada correctamente. Folio: ${data}`)
+    setSaleFolio(String(data))
+    setSaleCompleted(true)
     setCart([])
     clearSelection()
     setSaving(false)
 
     await loadData()
+
+    window.dispatchEvent(
+      new Event('modas-sophie-data-updated')
+    )
+  }
+
+  if (saleCompleted) {
+    return (
+      <main className="inventory-page">
+        <section
+          style={{
+            minHeight: '70vh',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '24px',
+          }}
+        >
+          <div
+            style={{
+              width: '100%',
+              maxWidth: '520px',
+              textAlign: 'center',
+              background: '#ffffff',
+              borderRadius: '28px',
+              padding: '40px 24px',
+              boxShadow: '0 12px 35px rgba(0,0,0,0.08)',
+              border: '1px solid #f0e1e9',
+            }}
+          >
+            <div
+              style={{
+                width: '100px',
+                height: '100px',
+                margin: '0 auto 24px',
+                borderRadius: '50%',
+                background: '#e8f8ee',
+                color: '#20a464',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '58px',
+                fontWeight: 800,
+              }}
+            >
+              ✓
+            </div>
+
+            <h1
+              style={{
+                margin: '0 0 12px',
+                fontSize: '32px',
+                color: '#2f2930',
+              }}
+            >
+              ¡Venta registrada!
+            </h1>
+
+            <p
+              style={{
+                margin: '0 0 10px',
+                fontSize: '18px',
+                color: '#77717a',
+              }}
+            >
+              La venta se registró correctamente.
+            </p>
+
+            <p
+              style={{
+                margin: '0 0 30px',
+                fontSize: '17px',
+                color: '#55505a',
+              }}
+            >
+              Folio: <strong>{saleFolio}</strong>
+            </p>
+
+            <button
+              type="button"
+              onClick={() => {
+                setSaleCompleted(false)
+                setSaleFolio('')
+                setError('')
+                setMessage('')
+                setCart([])
+                clearSelection()
+                loadData()
+              }}
+              style={{
+                width: '100%',
+                minHeight: '58px',
+                border: 'none',
+                borderRadius: '16px',
+                background: '#20a464',
+                color: '#ffffff',
+                fontSize: '18px',
+                fontWeight: 700,
+                cursor: 'pointer',
+                boxShadow: '0 6px 16px rgba(32,164,100,0.25)',
+              }}
+            >
+              Registrar nueva venta
+            </button>
+          </div>
+        </section>
+      </main>
+    )
   }
 
   if (loading) {

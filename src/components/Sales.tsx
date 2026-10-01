@@ -112,6 +112,16 @@ export default function Sales({ userRole, onBack }: SalesProps) {
 
   useEffect(() => {
     loadSales()
+
+    const handleDataUpdated = () => {
+      loadSales()
+    }
+
+    window.addEventListener('modas-sophie-data-updated', handleDataUpdated)
+
+    return () => {
+      window.removeEventListener('modas-sophie-data-updated', handleDataUpdated)
+    }
   }, [])
 
   async function openSale(saleId: string) {
