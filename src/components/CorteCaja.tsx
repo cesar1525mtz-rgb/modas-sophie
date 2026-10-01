@@ -380,10 +380,10 @@ export default function CorteCaja({ onBack }: CorteCajaProps) {
 
                 <div style={{ marginTop: '6px' }}>
                   {diferencia === 0
-                    ? '✅ La caja coincide.'
-                    : diferencia > 0
-                      ? '⬆️ Hay efectivo de más.'
-                      : '⬇️ Falta efectivo en caja.'}
+  ? '✅ Caja cuadrada'
+  : diferencia > 0
+  ? `🟢 Sobrante de ${money(diferencia)}`
+  : `🔴 Faltante de ${money(Math.abs(diferencia))}`}
                 </div>
               </div>
             )}
