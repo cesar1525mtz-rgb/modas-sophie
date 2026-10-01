@@ -177,6 +177,16 @@ export default function Inventory({
 
   useEffect(() => {
     loadInventory()
+
+    const handleDataUpdated = () => {
+      loadInventory()
+    }
+
+    window.addEventListener('modas-sophie-data-updated', handleDataUpdated)
+
+    return () => {
+      window.removeEventListener('modas-sophie-data-updated', handleDataUpdated)
+    }
   }, [])
 
   function resetForm() {
