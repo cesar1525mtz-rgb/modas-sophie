@@ -82,6 +82,16 @@ export default function CorteCaja({ onBack }: CorteCajaProps) {
 
   useEffect(() => {
     loadData()
+
+    const handleDataUpdated = () => {
+      loadData()
+    }
+
+    window.addEventListener('modas-sophie-data-updated', handleDataUpdated)
+
+    return () => {
+      window.removeEventListener('modas-sophie-data-updated', handleDataUpdated)
+    }
   }, [loadData])
 
   const filteredSales = useMemo(() => {
