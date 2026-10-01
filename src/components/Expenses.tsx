@@ -61,6 +61,16 @@ export default function Expenses({ userId, userRole, onBack }: Props) {
 
   useEffect(() => {
     loadExpenses()
+
+    const handleDataUpdated = () => {
+      loadExpenses()
+    }
+
+    window.addEventListener('modas-sophie-data-updated', handleDataUpdated)
+
+    return () => {
+      window.removeEventListener('modas-sophie-data-updated', handleDataUpdated)
+    }
   }, [])
 
   async function saveExpense() {
@@ -102,6 +112,10 @@ export default function Expenses({ userId, userRole, onBack }: Props) {
     setSaving(false)
 
     await loadExpenses()
+
+    window.dispatchEvent(
+      new Event('modas-sophie-data-updated')
+    )
   }
 
   const total = expenses.reduce(
