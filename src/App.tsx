@@ -9,6 +9,7 @@ import Reports from './components/Reports'
 import Sucursales from './components/Sucursales'
 import Vendedores from './components/Vendedores'
 import CorteCaja from './components/CorteCaja'
+import Caja from './components/Caja'
 
 type Role = 'admin' | 'vendedor'
 
@@ -27,6 +28,13 @@ type Module = {
 }
 
 const modules: Module[] = [
+  {
+    key: 'caja',
+    title: 'Caja',
+    description: 'Abrir y cerrar caja',
+    icon: '💰',
+  },
+
   {
     key: 'venta',
     title: 'Nueva venta',
@@ -399,6 +407,16 @@ function Dashboard({
   if (selected === 'corte') {
     return (
       <CorteCaja
+        userRole={user.role}
+        onBack={() => setSelected('inicio')}
+      />
+    )
+  }
+
+  if (selected === 'caja') {
+    return (
+      <Caja
+        userId={user.id}
         userRole={user.role}
         onBack={() => setSelected('inicio')}
       />

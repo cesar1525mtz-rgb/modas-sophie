@@ -89,6 +89,23 @@ export default function Expenses({ userId, userRole, onBack }: Props) {
       return
     }
 
+    const { data: cashRegister, error: cashRegisterError } = await supabase
+      .from('cash_registers')
+      .select('id')
+      .eq('branch_id', branchId)
+      .eq('status', 'open')
+      .maybeSingle()
+
+    if (cashRegisterError) {
+      setMessage(cashRegisterError.message)
+      return
+    }
+
+    if (!cashRegister) {
+      setMessage('No hay una caja abierta. Abre la caja antes de registrar un gasto.')
+      return
+    }
+
     setSaving(true)
 
     const { error } = await supabase
@@ -98,6 +115,7 @@ export default function Expenses({ userId, userRole, onBack }: Props) {
         created_by: userId,
         description: cleanDescription,
         amount: numericAmount,
+        cash_register_id: cashRegister.id,
       })
 
     if (error) {

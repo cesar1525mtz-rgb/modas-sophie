@@ -287,6 +287,23 @@ export default function NewSale({ onBack }: NewSaleProps) {
       return
     }
 
+    const { data: cashRegister, error: cashRegisterError } = await supabase
+      .from('cash_registers')
+      .select('id')
+      .eq('branch_id', branchId)
+      .eq('status', 'open')
+      .maybeSingle()
+
+    if (cashRegisterError) {
+      setError(cashRegisterError.message)
+      return
+    }
+
+    if (!cashRegister) {
+      setError('No hay una caja abierta. Abre la caja antes de registrar una venta.')
+      return
+    }
+
     setSaving(true)
 
     const { data, error: saveError } = await supabase.rpc(
@@ -300,6 +317,7 @@ export default function NewSale({ onBack }: NewSaleProps) {
           unit_price: item.unitPrice,
         })),
         p_discount: discountAmount,
+        p_cash_register_id: cashRegister.id,
         p_notes: null,
       }
     )
