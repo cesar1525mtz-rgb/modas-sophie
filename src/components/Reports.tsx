@@ -9,6 +9,7 @@ type ReportsProps = {
 type Sale = {
   id: string
   total: number
+  discount: number
   payment_method: string
   created_at: string
   seller_id: string
@@ -61,6 +62,16 @@ export default function Reports({ userRole, onBack }: ReportsProps) {
 
   useEffect(() => {
     loadReports()
+
+    const handleDataUpdated = () => {
+      loadReports()
+    }
+
+    window.addEventListener('modas-sophie-data-updated', handleDataUpdated)
+
+    return () => {
+      window.removeEventListener('modas-sophie-data-updated', handleDataUpdated)
+    }
   }, [])
 
   async function loadReports() {
@@ -77,7 +88,7 @@ export default function Reports({ userRole, onBack }: ReportsProps) {
     ] = await Promise.all([
       supabase
         .from('sales')
-        .select('id,total,payment_method,created_at,seller_id')
+        .select('id,total,discount,payment_method,created_at,seller_id')
         .order('created_at', { ascending: false }),
 
       supabase
@@ -217,6 +228,20 @@ export default function Reports({ userRole, onBack }: ReportsProps) {
     .filter((sale) => sale.payment_method === 'transferencia')
     .reduce((sum, sale) => sum + Number(sale.total), 0)
 
+  const otros = filteredSales
+    .filter(
+      (sale) =>
+        !['efectivo', 'tarjeta', 'transferencia'].includes(
+          sale.payment_method
+        )
+    )
+    .reduce((sum, sale) => sum + Number(sale.total), 0)
+
+  const totalDescuentos = filteredSales.reduce(
+    (sum, sale) => sum + Number(sale.discount || 0),
+    0
+  )
+
   const stockBajoItems = inventory.filter(
     (item) => Number(item.quantity) <= Number(item.min_stock),
   )
@@ -297,6 +322,18 @@ export default function Reports({ userRole, onBack }: ReportsProps) {
                 <small>Utilidad</small>
                 <strong>${utilidad.toFixed(2)}</strong>
               </article>
+
+        <article className="stat-card">
+          <span>💰</span>
+          <small>Otros</small>
+          <strong>${otros.toFixed(2)}</strong>
+        </article>
+
+        <article className="stat-card">
+          <span>🏷️</span>
+          <small>Descuentos</small>
+          <strong>${totalDescuentos.toFixed(2)}</strong>
+        </article>
             </div>
 
             <div className="sale-detail-summary">
