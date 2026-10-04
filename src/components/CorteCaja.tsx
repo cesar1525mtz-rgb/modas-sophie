@@ -20,19 +20,22 @@ type Expense = {
   created_at: string
 }
 
-function money(value: number) {
-  return `$${value.toFixed(2)}`
+type CashRegister = {
+  id: string
+  branch_id: string
+  opening_cash: number
+  status: string
+  opened_at: string
 }
 
-function todayStart() {
-  const date = new Date()
-  date.setHours(0, 0, 0, 0)
-  return date.toISOString()
+function money(value: number) {
+  return `$${value.toFixed(2)}`
 }
 
 export default function CorteCaja({ onBack }: CorteCajaProps) {
   const [sales, setSales] = useState<Sale[]>([])
   const [expenses, setExpenses] = useState<Expense[]>([])
+  const [cashRegister, setCashRegister] = useState<CashRegister | null>(null)
   const [cashCounted, setCashCounted] = useState('')
   const [selectedDate, setSelectedDate] = useState(() => {
     const now = new Date()
@@ -45,39 +48,91 @@ export default function CorteCaja({ onBack }: CorteCajaProps) {
     setLoading(true)
     setMessage('')
 
-    const start = todayStart()
+    try {
+      const { data: authData, error: authError } = await supabase.auth.getUser()
 
-    const [salesResult, expensesResult] = await Promise.all([
-      supabase
-        .from('sales')
-        .select('id,total,payment_method,created_at')
-        .gte('created_at', start)
-        .order('created_at', { ascending: true }),
+      if (authError || !authData.user) {
+        setMessage('No se pudo identificar al usuario actual.')
+        setSales([])
+        setExpenses([])
+        setCashRegister(null)
+        return
+      }
 
-      supabase
-        .from('expenses')
-        .select('id,amount,description,created_at')
-        .gte('created_at', start)
-        .order('created_at', { ascending: true }),
-    ])
+      const { data: userData, error: userError } = await supabase
+        .from('users')
+        .select('branch_id')
+        .eq('id', authData.user.id)
+        .maybeSingle()
 
-    if (salesResult.error) {
-      setMessage(`Error al cargar ventas: ${salesResult.error.message}`)
-    } else {
-      setSales((salesResult.data || []) as Sale[])
-    }
+      if (userError) {
+        setMessage(`Error al cargar sucursal: ${userError.message}`)
+        return
+      }
 
-    if (expensesResult.error) {
-      setMessage((current) =>
-        current
-          ? `${current} | Error al cargar gastos: ${expensesResult.error?.message}`
-          : `Error al cargar gastos: ${expensesResult.error?.message}`
+      if (!userData?.branch_id) {
+        setMessage('El usuario no tiene una sucursal asignada.')
+        setSales([])
+        setExpenses([])
+        setCashRegister(null)
+        return
+      }
+
+      const { data: registerData, error: registerError } = await supabase
+        .from('cash_registers')
+        .select('id,branch_id,opening_cash,status,opened_at')
+        .eq('branch_id', userData.branch_id)
+        .eq('status', 'open')
+        .maybeSingle()
+
+      if (registerError) {
+        setMessage(`Error al cargar caja: ${registerError.message}`)
+        return
+      }
+
+      const currentRegister = (registerData ?? null) as CashRegister | null
+      setCashRegister(currentRegister)
+
+      if (!currentRegister) {
+        setSales([])
+        setExpenses([])
+        return
+      }
+
+      const [salesResult, expensesResult] = await Promise.all([
+        supabase
+          .from('sales')
+          .select('id,total,payment_method,created_at,cash_register_id')
+          .eq('cash_register_id', currentRegister.id)
+          .order('created_at', { ascending: true }),
+
+        supabase
+          .from('expenses')
+          .select('id,amount,description,created_at,cash_register_id')
+          .eq('cash_register_id', currentRegister.id)
+          .order('created_at', { ascending: true }),
+      ])
+
+      if (salesResult.error) {
+        setMessage(`Error al cargar ventas: ${salesResult.error.message}`)
+      } else {
+        setSales((salesResult.data || []) as Sale[])
+      }
+
+      if (expensesResult.error) {
+        setMessage(`Error al cargar gastos: ${expensesResult.error.message}`)
+      } else {
+        setExpenses((expensesResult.data || []) as Expense[])
+      }
+    } catch (error) {
+      setMessage(
+        error instanceof Error
+          ? error.message
+          : 'Ocurrió un error al cargar el corte.'
       )
-    } else {
-      setExpenses((expensesResult.data || []) as Expense[])
+    } finally {
+      setLoading(false)
     }
-
-    setLoading(false)
   }, [])
 
   useEffect(() => {
@@ -156,8 +211,12 @@ export default function CorteCaja({ onBack }: CorteCajaProps) {
     [filteredExpenses]
   )
 
-  // Por ahora los gastos se consideran salidas de efectivo.
-  const efectivoEsperado = efectivo - totalGastos
+  // El efectivo esperado parte del fondo inicial,
+  // suma las ventas en efectivo y resta los gastos de esta caja.
+  const efectivoEsperado =
+    Number(cashRegister?.opening_cash ?? 0) +
+    efectivo -
+    totalGastos
 
   const contado = Number(cashCounted || 0)
   const diferencia =

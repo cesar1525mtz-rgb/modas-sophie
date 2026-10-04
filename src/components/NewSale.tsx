@@ -86,6 +86,66 @@ export default function NewSale({ onBack }: NewSaleProps) {
   const [message, setMessage] = useState('')
   const [saleCompleted, setSaleCompleted] = useState(false)
   const [saleFolio, setSaleFolio] = useState('')
+  const [draftReady, setDraftReady] = useState(false)
+
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('modas-sophie-new-sale-draft')
+
+      if (saved) {
+        const draft = JSON.parse(saved)
+
+        if (typeof draft.branchId === 'string') setBranchId(draft.branchId)
+        if (typeof draft.search === 'string') setSearch(draft.search)
+        if (typeof draft.category === 'string') setCategory(draft.category)
+        if (typeof draft.selectedProductId === 'string') setSelectedProductId(draft.selectedProductId)
+        if (typeof draft.selectedSize === 'string') setSelectedSize(draft.selectedSize)
+        if (typeof draft.selectedColor === 'string') setSelectedColor(draft.selectedColor)
+        if (Array.isArray(draft.cart)) setCart(draft.cart)
+        if (['efectivo', 'tarjeta', 'transferencia'].includes(draft.paymentMethod)) {
+          setPaymentMethod(draft.paymentMethod)
+        }
+        if (typeof draft.discount === 'string') setDiscount(draft.discount)
+      }
+    } catch {
+      localStorage.removeItem('modas-sophie-new-sale-draft')
+    }
+
+    setDraftReady(true)
+  }, [])
+
+  useEffect(() => {
+    if (!draftReady) return
+
+    const draft = {
+      branchId,
+      search,
+      category,
+      selectedProductId,
+      selectedSize,
+      selectedColor,
+      cart,
+      paymentMethod,
+      discount,
+    }
+
+    localStorage.setItem(
+      'modas-sophie-new-sale-draft',
+      JSON.stringify(draft)
+    )
+  }, [
+    draftReady,
+    branchId,
+    search,
+    category,
+    selectedProductId,
+    selectedSize,
+    selectedColor,
+    cart,
+    paymentMethod,
+    discount,
+  ])
+
 
   async function loadData() {
     setLoading(true)
@@ -333,6 +393,7 @@ export default function NewSale({ onBack }: NewSaleProps) {
     setSaleFolio(String(data))
     setSaleCompleted(true)
     setCart([])
+    localStorage.removeItem('modas-sophie-new-sale-draft')
     clearSelection()
     setSaving(false)
 

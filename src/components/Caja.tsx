@@ -45,8 +45,12 @@ export default function Caja({ userId, userRole, onBack }: CajaProps) {
   const [branchId, setBranchId] = useState('')
   const [cashRegister, setCashRegister] = useState<CashRegister | null>(null)
 
-  const [openingCash, setOpeningCash] = useState('')
-  const [cashCounted, setCashCounted] = useState('')
+  const [openingCash, setOpeningCash] = useState(() => {
+    return localStorage.getItem('modas-sophie-opening-cash') ?? ''
+  })
+  const [cashCounted, setCashCounted] = useState(() => {
+    return localStorage.getItem('modas-sophie-cash-counted') ?? ''
+  })
 
   const [sales, setSales] = useState<Sale[]>([])
   const [expenses, setExpenses] = useState<Expense[]>([])
@@ -164,6 +168,14 @@ export default function Caja({ userId, userRole, onBack }: CajaProps) {
     [expenses]
   )
 
+  useEffect(() => {
+    localStorage.setItem('modas-sophie-opening-cash', openingCash)
+  }, [openingCash])
+
+  useEffect(() => {
+    localStorage.setItem('modas-sophie-cash-counted', cashCounted)
+  }, [cashCounted])
+
   const efectivoEsperado = useMemo(
     () =>
       Number(cashRegister?.opening_cash ?? 0) +
@@ -215,6 +227,7 @@ export default function Caja({ userId, userRole, onBack }: CajaProps) {
     }
 
     setOpeningCash('')
+    localStorage.removeItem('modas-sophie-opening-cash')
     setMessage('Caja abierta correctamente.')
     setSaving(false)
 
@@ -265,6 +278,7 @@ export default function Caja({ userId, userRole, onBack }: CajaProps) {
     }
 
     setCashCounted('')
+    localStorage.removeItem('modas-sophie-cash-counted')
     setMessage('Caja cerrada correctamente.')
     setSaving(false)
 
