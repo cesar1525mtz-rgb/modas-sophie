@@ -6,6 +6,11 @@ type CorteCajaProps = {
   onBack: () => void
 }
 
+type Branch = {
+  id: string
+  name: string
+}
+
 type Sale = {
   id: string
   total: number
@@ -32,108 +37,141 @@ function money(value: number) {
   return `$${value.toFixed(2)}`
 }
 
+function localDateKey(date: Date = new Date()) {
+  const year = date.getFullYear()
+  const month = String(date.getMonth() + 1).padStart(2, '0')
+  const day = String(date.getDate()).padStart(2, '0')
+
+  return `${year}-${month}-${day}`
+}
+
+
 export default function CorteCaja({ onBack }: CorteCajaProps) {
   const [sales, setSales] = useState<Sale[]>([])
   const [expenses, setExpenses] = useState<Expense[]>([])
   const [cashRegister, setCashRegister] = useState<CashRegister | null>(null)
+  const [, setBranches] = useState<Branch[]>([])
+  const [branchId, setBranchId] = useState('')
   const [cashCounted, setCashCounted] = useState('')
-  const [selectedDate, setSelectedDate] = useState(() => {
-    const now = new Date()
-    return now.toISOString().slice(0, 10)
-  })
+  const [openingCash, setOpeningCash] = useState('')
+  const [selectedDate, setSelectedDate] = useState(() => localDateKey())
   const [loading, setLoading] = useState(true)
   const [message, setMessage] = useState('')
+  const [, setError] = useState('')
 
   const loadData = useCallback(async () => {
     setLoading(true)
+    setError('')
     setMessage('')
 
     try {
       const { data: authData, error: authError } = await supabase.auth.getUser()
 
       if (authError || !authData.user) {
-        setMessage('No se pudo identificar al usuario actual.')
+        setError('No se pudo identificar al usuario actual.')
+        setLoading(false)
+        return
+      }
+
+      const { data: branchData, error: branchError } = await supabase
+        .from('branches')
+        .select('id,name')
+        .eq('active', true)
+        .order('name')
+
+      if (branchError) {
+        setError(`Error al cargar sucursales: ${branchError.message}`)
+        setLoading(false)
+        return
+      }
+
+      const safeBranches = (branchData ?? []) as Branch[]
+      setBranches(safeBranches)
+
+      const currentBranchId = branchId || safeBranches[0]?.id || ''
+
+      if (!currentBranchId) {
+        setCashRegister(null)
         setSales([])
         setExpenses([])
-        setCashRegister(null)
+        setLoading(false)
         return
       }
 
-      const { data: userData, error: userError } = await supabase
-        .from('users')
-        .select('branch_id')
-        .eq('id', authData.user.id)
-        .maybeSingle()
+      if (!branchId) {
+        setBranchId(currentBranchId)
+      }
 
-      if (userError) {
-        setMessage(`Error al cargar sucursal: ${userError.message}`)
+      /*
+       * Primero buscamos una caja abierta.
+       * Si no existe, buscamos la última caja cerrada
+       * correspondiente a la fecha seleccionada.
+       */
+      const { data: openRegisterData, error: openRegisterError } =
+        await supabase
+          .from('cash_registers')
+          .select(
+            'id,branch_id,opened_by,opened_at,opening_cash,status,closed_by,closed_at,counted_cash,expected_cash,difference'
+          )
+          .eq('branch_id', currentBranchId)
+          .eq('status', 'open')
+          .maybeSingle()
+
+      if (openRegisterError) {
+        setError(`Error al cargar caja: ${openRegisterError.message}`)
+        setLoading(false)
         return
       }
 
-      if (!userData?.branch_id) {
-        setMessage('El usuario no tiene una sucursal asignada.')
-        setSales([])
-        setExpenses([])
-        setCashRegister(null)
-        return
-      }
+      let currentRegister = openRegisterData as CashRegister | null
+    // IMPORTANTE:
+    // Solo una caja con status = 'open' puede ser la caja actual.
+    // Una caja cerrada se conserva en la base de datos como historial,
+    // pero nunca vuelve a aparecer como caja abierta.
 
-      const { data: registerData, error: registerError } = await supabase
-        .from('cash_registers')
-        .select('id,branch_id,opening_cash,status,opened_at')
-        .eq('branch_id', userData.branch_id)
-        .eq('status', 'open')
-        .maybeSingle()
+    setCashRegister(currentRegister)
 
-      if (registerError) {
-        setMessage(`Error al cargar caja: ${registerError.message}`)
-        return
-      }
-
-      const currentRegister = (registerData ?? null) as CashRegister | null
-      setCashRegister(currentRegister)
+    if (!currentRegister) {
+      setSales([])
+      setExpenses([])
+      setLoading(false)
+      return
+    }
 
       if (!currentRegister) {
         setSales([])
         setExpenses([])
+        setLoading(false)
         return
       }
 
-      const [salesResult, expensesResult] = await Promise.all([
-        supabase
-          .from('sales')
-          .select('id,total,payment_method,created_at,cash_register_id')
-          .eq('cash_register_id', currentRegister.id)
-          .order('created_at', { ascending: true }),
+      const { data: salesData, error: salesError } = await supabase
+        .from('sales')
+        .select('id,total,payment_method,created_at,cash_register_id')
+        .eq('cash_register_id', currentRegister.id)
+        .order('created_at', { ascending: true })
 
-        supabase
-          .from('expenses')
-          .select('id,amount,description,created_at,cash_register_id')
-          .eq('cash_register_id', currentRegister.id)
-          .order('created_at', { ascending: true }),
-      ])
+      const { data: expensesData, error: expensesError } = await supabase
+        .from('expenses')
+        .select('id,amount,description,created_at,cash_register_id')
+        .eq('cash_register_id', currentRegister.id)
+        .order('created_at', { ascending: true })
 
-      if (salesResult.error) {
-        setMessage(`Error al cargar ventas: ${salesResult.error.message}`)
+      if (salesError) {
+        setMessage(`Error al cargar ventas: ${salesError.message}`)
       } else {
-        setSales((salesResult.data || []) as Sale[])
+        setSales((salesData ?? []) as Sale[])
       }
 
-      if (expensesResult.error) {
-        setMessage(`Error al cargar gastos: ${expensesResult.error.message}`)
+      if (expensesError) {
+        setMessage(`Error al cargar gastos: ${expensesError.message}`)
       } else {
-        setExpenses((expensesResult.data || []) as Expense[])
+        setExpenses((expensesData ?? []) as Expense[])
       }
-    } catch (error) {
-      setMessage(
-        error instanceof Error
-          ? error.message
-          : 'Ocurrió un error al cargar el corte.'
-      )
     } finally {
       setLoading(false)
     }
-  }, [])
+  }, [branchId, selectedDate])
 
   useEffect(() => {
     loadData()
@@ -151,14 +189,14 @@ export default function CorteCaja({ onBack }: CorteCajaProps) {
 
   const filteredSales = useMemo(() => {
     return sales.filter((sale) => {
-      const date = new Date(sale.created_at).toISOString().slice(0, 10)
+      const date = localDateKey(new Date(sale.created_at))
       return date === selectedDate
     })
   }, [sales, selectedDate])
 
   const filteredExpenses = useMemo(() => {
     return expenses.filter((expense) => {
-      const date = new Date(expense.created_at).toISOString().slice(0, 10)
+      const date = localDateKey(new Date(expense.created_at))
       return date === selectedDate
     })
   }, [expenses, selectedDate])
@@ -229,6 +267,121 @@ export default function CorteCaja({ onBack }: CorteCajaProps) {
     year: 'numeric',
   })
 
+  const handleOpenCash = async () => {
+    setMessage('')
+
+    const amount = Number(openingCash)
+
+    if (!Number.isFinite(amount) || amount < 0) {
+      setMessage('Ingresa un fondo inicial válido.')
+      return
+    }
+
+    try {
+      setLoading(true)
+
+      const { data: authData, error: authError } =
+        await supabase.auth.getUser()
+
+      if (authError || !authData.user) {
+        setMessage('No se pudo identificar al usuario actual.')
+        return
+      }
+
+      if (!branchId) {
+        setMessage('No hay una sucursal activa seleccionada.')
+        return
+      }
+
+      const { error: insertError } = await supabase
+        .from('cash_registers')
+        .insert({
+          branch_id: branchId,
+          opened_by: authData.user.id,
+          opening_cash: amount,
+          status: 'open',
+        })
+
+      if (insertError) {
+        if (
+          insertError.message.toLowerCase().includes('one_open_cash_register') ||
+          insertError.message.toLowerCase().includes('duplicate')
+        ) {
+          setMessage('Ya existe una caja abierta para esta sucursal.')
+        } else {
+          setMessage(`No se pudo abrir la caja: ${insertError.message}`)
+        }
+        return
+      }
+
+      setOpeningCash('')
+      setMessage('✅ Caja abierta correctamente.')
+      await loadData()
+      window.dispatchEvent(new Event('modas-sophie-data-updated'))
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleCloseCash = async () => {
+    setMessage('')
+
+    if (!cashRegister) {
+      setMessage('No hay una caja abierta.')
+      return
+    }
+
+    if (cashCounted.trim() === '') {
+      setMessage('Ingresa el efectivo contado antes de cerrar la caja.')
+      return
+    }
+
+    const counted = Number(cashCounted)
+
+    if (!Number.isFinite(counted) || counted < 0) {
+      setMessage('Ingresa un efectivo contado válido.')
+      return
+    }
+
+    try {
+      setLoading(true)
+
+      const { data: authData, error: authError } =
+        await supabase.auth.getUser()
+
+      if (authError || !authData.user) {
+        setMessage('No se pudo identificar al usuario actual.')
+        return
+      }
+
+      const { error: closeError } = await supabase
+        .from('cash_registers')
+        .update({
+          status: 'closed',
+          closed_by: authData.user.id,
+          closed_at: new Date().toISOString(),
+          counted_cash: counted,
+          expected_cash: efectivoEsperado,
+          difference: counted - efectivoEsperado,
+        })
+        .eq('id', cashRegister.id)
+
+      if (closeError) {
+        setMessage(`No se pudo cerrar la caja: ${closeError.message}`)
+        return
+      }
+
+      setCashCounted('')
+      setMessage('✅ Caja cerrada correctamente.')
+      setCashRegister(null)
+      setSales([])
+      setExpenses([])
+      window.dispatchEvent(new Event('modas-sophie-data-updated'))
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return (
     <main className="inventory-page">
       <div className="inventory-header">
@@ -274,6 +427,192 @@ export default function CorteCaja({ onBack }: CorteCajaProps) {
             Mostrando únicamente las ventas y gastos de esta fecha.
           </div>
         </section>
+          <section className="inventory-section">
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                gap: '12px',
+                flexWrap: 'wrap',
+              }}
+            >
+              <div>
+                <h2 style={{ marginBottom: '4px' }}>
+                  {cashRegister ? '🟢 Caja abierta' : '🔴 Caja cerrada'}
+                </h2>
+
+                {cashRegister ? (
+                  <div style={{ color: '#777' }}>
+                    Fondo inicial: <strong>{money(Number(cashRegister.opening_cash))}</strong>
+                    {' · '}
+                    Apertura: {new Date(cashRegister.opened_at).toLocaleString('es-MX')}
+                  </div>
+                ) : (
+                  <div style={{ color: '#777' }}>
+                    Abre la caja para comenzar a registrar ventas y gastos.
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {!cashRegister ? (
+              <div
+                style={{
+                  marginTop: '18px',
+                  padding: '18px',
+                  borderRadius: '14px',
+                  background: '#f7f7f7',
+                  border: '1px solid #e5e5e5',
+                }}
+              >
+                <label
+                  htmlFor="opening-cash"
+                  style={{
+                    display: 'block',
+                    fontWeight: 600,
+                    marginBottom: '8px',
+                  }}
+                >
+                  💵 Fondo inicial de caja
+                </label>
+
+                <input
+                  id="opening-cash"
+                  type="number"
+                  min="0"
+                  step="0.01"
+                  inputMode="decimal"
+                  value={openingCash}
+                  onChange={(event) => setOpeningCash(event.target.value)}
+                  placeholder="Ej. 500"
+                  style={{
+                    width: '100%',
+                    boxSizing: 'border-box',
+                    padding: '14px',
+                    borderRadius: '12px',
+                    border: '1px solid #ddd',
+                    fontSize: '18px',
+                  }}
+                />
+
+                <button
+                  type="button"
+                  onClick={handleOpenCash}
+                  disabled={loading}
+                  style={{
+                    width: '100%',
+                    marginTop: '12px',
+                    padding: '14px',
+                    border: 'none',
+                    borderRadius: '12px',
+                    background: '#198754',
+                    color: '#fff',
+                    fontWeight: 700,
+                    fontSize: '16px',
+                  }}
+                >
+                  {loading ? 'Abriendo caja...' : '🟢 Abrir caja'}
+                </button>
+              </div>
+            ) : (
+              <div
+                style={{
+                  marginTop: '18px',
+                  padding: '18px',
+                  borderRadius: '14px',
+                  background: '#f7f7f7',
+                  border: '1px solid #e5e5e5',
+                }}
+              >
+                <div style={{ marginBottom: '14px' }}>
+                  <strong>Efectivo esperado en caja</strong>
+                  <div style={{ fontSize: '30px', fontWeight: 700, marginTop: '4px' }}>
+                    {money(efectivoEsperado)}
+                  </div>
+                </div>
+
+                <label
+                  htmlFor="cash-counted"
+                  style={{
+                    display: 'block',
+                    fontWeight: 600,
+                    marginBottom: '8px',
+                  }}
+                >
+                  💵 Efectivo contado
+                </label>
+
+                <input
+                  id="cash-counted"
+                  type="number"
+                  min="0"
+                  step="0.01"
+                  inputMode="decimal"
+                  value={cashCounted}
+                  onChange={(event) => setCashCounted(event.target.value)}
+                  placeholder="Ej. 615"
+                  style={{
+                    width: '100%',
+                    boxSizing: 'border-box',
+                    padding: '14px',
+                    borderRadius: '12px',
+                    border: '1px solid #ddd',
+                    fontSize: '18px',
+                  }}
+                />
+
+                {diferencia !== null && (
+                  <div
+                    style={{
+                      marginTop: '16px',
+                      padding: '16px',
+                      borderRadius: '12px',
+                      textAlign: 'center',
+                      background: diferencia === 0 ? '#eaf7ee' : '#fff7e6',
+                      border: '1px solid #ddd',
+                    }}
+                  >
+                    <div style={{ color: '#777' }}>Diferencia del corte</div>
+
+                    <strong style={{ fontSize: '30px' }}>
+                      {diferencia >= 0 ? '+' : ''}
+                      {money(diferencia)}
+                    </strong>
+
+                    <div style={{ marginTop: '6px' }}>
+                      {diferencia === 0
+                        ? '✅ Caja cuadrada'
+                        : diferencia > 0
+                        ? `🟢 Sobrante de ${money(diferencia)}`
+                        : `🔴 Faltante de ${money(Math.abs(diferencia))}`}
+                    </div>
+                  </div>
+                )}
+
+                <button
+                  type="button"
+                  onClick={handleCloseCash}
+                  disabled={loading || cashCounted.trim() === ''}
+                  style={{
+                    width: '100%',
+                    marginTop: '14px',
+                    padding: '14px',
+                    border: 'none',
+                    borderRadius: '12px',
+                    background: '#dc3545',
+                    color: '#fff',
+                    fontWeight: 700,
+                    fontSize: '16px',
+                    opacity: loading || cashCounted.trim() === '' ? 0.6 : 1,
+                  }}
+                >
+                  {loading ? 'Cerrando caja...' : '🔒 Cerrar caja'}
+                </button>
+              </div>
+            )}
+          </section>
+
           <p>Resumen de movimientos del día.</p>
         </div>
       </div>
@@ -378,75 +717,6 @@ export default function CorteCaja({ onBack }: CorteCajaProps) {
             </div>
           </section>
 
-          <section className="inventory-section">
-            <h2>💵 Contar caja</h2>
-            <p style={{ color: '#777' }}>
-              Introduce cuánto efectivo tienes físicamente en la caja.
-            </p>
-
-            <label
-              htmlFor="cash-counted"
-              style={{
-                display: 'block',
-                marginTop: '16px',
-                fontWeight: 600,
-              }}
-            >
-              Efectivo contado
-            </label>
-
-            <input
-              id="cash-counted"
-              type="number"
-              min="0"
-              step="0.01"
-              inputMode="decimal"
-              value={cashCounted}
-              onChange={(event) => setCashCounted(event.target.value)}
-              placeholder="0.00"
-              style={{
-                width: '100%',
-                boxSizing: 'border-box',
-                marginTop: '8px',
-                padding: '16px',
-                borderRadius: '14px',
-                border: '1px solid #ddd',
-                fontSize: '22px',
-              }}
-            />
-
-            {diferencia !== null && (
-              <div
-                style={{
-                  marginTop: '16px',
-                  padding: '18px',
-                  borderRadius: '18px',
-                  background:
-                    diferencia === 0
-                      ? '#e9f8ef'
-                      : diferencia > 0
-                        ? '#eef6ff'
-                        : '#fff0f0',
-                  border: '1px solid #ddd',
-                }}
-              >
-                <div style={{ color: '#777' }}>Diferencia del corte</div>
-
-                <strong style={{ fontSize: '30px' }}>
-                  {diferencia >= 0 ? '+' : ''}
-                  {money(diferencia)}
-                </strong>
-
-                <div style={{ marginTop: '6px' }}>
-                  {diferencia === 0
-  ? '✅ Caja cuadrada'
-  : diferencia > 0
-  ? `🟢 Sobrante de ${money(diferencia)}`
-  : `🔴 Faltante de ${money(Math.abs(diferencia))}`}
-                </div>
-              </div>
-            )}
-          </section>
 
           <section className="inventory-section">
             <h2>🧾 Gastos del día</h2>
