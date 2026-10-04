@@ -193,19 +193,25 @@ export default function Caja({ userId, userRole, onBack }: CajaProps) {
     setError('')
     setMessage('')
 
-    const amount = Number(openingCash)
-
     if (!branchId) {
       setError('Selecciona una sucursal.')
       return
     }
 
-    if (!Number.isFinite(amount) || amount < 0) {
-      setError('Ingresa un efectivo inicial válido.')
-      return
-    }
+    
+  if (openingCash.trim() === '') {
+    setError('Ingresa el efectivo inicial para abrir la caja.')
+    return
+  }
 
-    setSaving(true)
+  const amount = Number(openingCash)
+
+  if (!Number.isFinite(amount) || amount < 0) {
+    setError('Ingresa un efectivo inicial válido.')
+    return
+  }
+
+setSaving(true)
 
     const { error: insertError } = await supabase
       .from('cash_registers')
