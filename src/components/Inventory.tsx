@@ -86,6 +86,8 @@ export default function Inventory({
   const [entryNotes, setEntryNotes] = useState('')
   const [savingEntry, setSavingEntry] = useState(false)
   const [entryError, setEntryError] = useState('')
+  const [showEntriesHistory, setShowEntriesHistory] = useState(false)
+
   const [entries, setEntries] = useState<Array<{
     id: string
     branch_id: string
@@ -958,6 +960,104 @@ const inventorySummary = useMemo(() => {
     )}
 
     {userRole === 'admin' && entries.length > 0 && (
+        <>
+          <section className="inventory-history-preview">
+            <div className="inventory-section-title">
+              <div>
+                <span>📋</span>
+                <div>
+                  <h3>Historial de entradas</h3>
+                  <p>{entries.length} entradas registradas</p>
+                </div>
+              </div>
+
+              <button
+                type="button"
+                className="inventory-history-button"
+                onClick={() => setShowEntriesHistory(true)}
+              >
+                Ver historial →
+              </button>
+            </div>
+          </section>
+
+          {showEntriesHistory && (
+            <div className="inventory-history-screen">
+              <div className="inventory-history-header">
+                <button
+                  type="button"
+                  className="inventory-history-back"
+                  onClick={() => setShowEntriesHistory(false)}
+                >
+                  ← Volver a inventario
+                </button>
+
+                <div>
+                  <span>📋</span>
+                  <h2>Historial de entradas</h2>
+                  <p>Registro completo de entradas de mercancía</p>
+                </div>
+              </div>
+
+              <div className="inventory-history-list">
+                {entries.map((entry) => {
+                  const variant = variants.find(
+                    (item) => item.id === entry.variant_id
+                  )
+
+                  const product = variant
+                    ? products.find(
+                        (item) => item.id === variant.product_id
+                      )
+                    : undefined
+
+                  return (
+                    <div
+                      key={entry.id}
+                      className="inventory-history-item"
+                    >
+                      <div className="inventory-history-item-top">
+                        <strong>
+                          {product?.name || 'Producto'}
+                        </strong>
+
+                        <span>
+                          +{entry.quantity} piezas
+                        </span>
+                      </div>
+
+                      <div className="inventory-history-item-info">
+                        {variant?.size || 'Sin talla'} ·{' '}
+                        {variant?.color || 'Sin color'}
+                      </div>
+
+                      <div className="inventory-history-item-details">
+                        <span>
+                          Costo $
+                          {Number(entry.unit_cost).toFixed(2)}
+                        </span>
+
+                        <span>
+                          {new Date(entry.created_at).toLocaleString(
+                            'es-MX'
+                          )}
+                        </span>
+                      </div>
+
+                      {entry.notes && (
+                        <div className="inventory-history-item-note">
+                          {entry.notes}
+                        </div>
+                      )}
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+          )}
+        </>
+      )}
+
       <section className="inventory-list-card" style={{ marginBottom: 16 }}>
         <div className="inventory-section-title">
           <div>
@@ -1002,7 +1102,6 @@ const inventorySummary = useMemo(() => {
           })}
         </div>
       </section>
-    )}
 
     <section className="inventory-list-card">
         <div className="inventory-section-title">
