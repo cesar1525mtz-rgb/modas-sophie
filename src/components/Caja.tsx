@@ -264,7 +264,7 @@ setSaving(true)
 
     setSaving(true)
 
-    const { error: updateError } = await supabase
+    const { data: closedRegister, error: updateError } = await supabase
       .from('cash_registers')
       .update({
         status: 'closed',
@@ -276,9 +276,19 @@ setSaving(true)
       })
       .eq('id', cashRegister.id)
       .eq('status', 'open')
+      .select('id,status,closed_at')
+      .maybeSingle()
 
     if (updateError) {
-      setError(updateError.message)
+      setError(`No se pudo cerrar la caja: ${updateError.message}`)
+      setSaving(false)
+      return
+    }
+
+    if (!closedRegister || closedRegister.status !== 'closed') {
+      setError(
+        'La caja no pudo cerrarse realmente en la base de datos. Verifica los permisos de la caja e inténtalo nuevamente.'
+      )
       setSaving(false)
       return
     }

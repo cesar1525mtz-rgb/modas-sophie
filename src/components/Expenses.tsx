@@ -44,9 +44,29 @@ export default function Expenses({ userId, userRole, onBack }: Props) {
 
     setBranchId(branch.id)
 
+    const { data: cashRegister, error: cashRegisterError } = await supabase
+      .from('cash_registers')
+      .select('id')
+      .eq('branch_id', branch.id)
+      .eq('status', 'open')
+      .maybeSingle()
+
+    if (cashRegisterError) {
+      setMessage(cashRegisterError.message)
+      setLoading(false)
+      return
+    }
+
+    if (!cashRegister) {
+      setExpenses([])
+      setLoading(false)
+      return
+    }
+
     const { data, error } = await supabase
       .from('expenses')
-      .select('id, description, amount, created_at, created_by')
+      .select('id, description, amount, created_at, created_by, cash_register_id')
+      .eq('cash_register_id', cashRegister.id)
       .order('created_at', { ascending: false })
 
     if (error) {
