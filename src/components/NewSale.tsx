@@ -884,36 +884,134 @@ export default function NewSale({ onBack }: NewSaleProps) {
           </div>
         )}
 
-        <div className="sale-total">
-      <div>
-        <span>Subtotal</span>
-        <strong>${total.toFixed(2)}</strong>
-      </div>
+        <div
+  className="sale-total"
+  style={{
+    display: 'grid',
+    gridTemplateColumns: 'minmax(0, 1fr) 86px minmax(0, 1fr)',
+    alignItems: 'center',
+    gap: '5px',
+    width: '100%',
+    maxWidth: '100%',
+    minWidth: 0,
+    padding: '14px 8px',
+    boxSizing: 'border-box',
+    overflow: 'hidden',
+  }}
+>
+  <div
+    style={{
+      minWidth: 0,
+      textAlign: 'center',
+      overflow: 'hidden',
+    }}
+  >
+    <span
+      style={{
+        display: 'block',
+        fontSize: '13px',
+        lineHeight: '1.1',
+        whiteSpace: 'nowrap',
+      }}
+    >
+      Subtotal
+    </span>
+    <strong
+      style={{
+        display: 'block',
+        fontSize: '20px',
+        lineHeight: '1.1',
+        whiteSpace: 'nowrap',
+      }}
+    >
+      ${total.toFixed(2)}
+    </strong>
+  </div>
 
-      <div>
-        <label htmlFor="sale-discount">Descuento</label>
-        <input
-          id="sale-discount"
-          type="number"
-          min="0"
-          step="0.01"
-          value={discount}
-          onChange={(e) => setDiscount(e.target.value)}
-          placeholder="0.00"
-          inputMode="decimal"
-        />
-      </div>
+  <div
+    style={{
+      minWidth: 0,
+      textAlign: 'center',
+    }}
+  >
+    <label
+      htmlFor="sale-discount"
+      style={{
+        display: 'block',
+        fontSize: '12px',
+        lineHeight: '1.1',
+        marginBottom: '4px',
+        whiteSpace: 'nowrap',
+      }}
+    >
+      Descuento
+    </label>
+    <input
+      id="sale-discount"
+      type="number"
+      min="0"
+      step="0.01"
+      value={discount}
+      onChange={(e) => setDiscount(e.target.value)}
+      placeholder="0.00"
+      inputMode="decimal"
+      style={{
+        display: 'block',
+        width: '82px',
+        maxWidth: '82px',
+        height: '34px',
+        padding: '4px',
+        margin: '0 auto',
+        boxSizing: 'border-box',
+        textAlign: 'center',
+        fontSize: '15px',
+      }}
+    />
+  </div>
 
-      <div>
-        <span>Total</span>
-        <strong>${finalTotal.toFixed(2)}</strong>
-      </div>
-    </div>
+  <div
+    style={{
+      minWidth: 0,
+      textAlign: 'center',
+      overflow: 'hidden',
+    }}
+  >
+    <span
+      style={{
+        display: 'block',
+        fontSize: '13px',
+        lineHeight: '1.1',
+        whiteSpace: 'nowrap',
+      }}
+    >
+      Total
+    </span>
+    <strong
+      style={{
+        display: 'block',
+        fontSize: '20px',
+        lineHeight: '1.1',
+        whiteSpace: 'nowrap',
+      }}
+    >
+      ${finalTotal.toFixed(2)}
+    </strong>
+  </div>
+</div>
 
-        <div className="sale-payment">
+<div className="sale-payment">
           <strong>Método de pago</strong>
 
-          <div className="sale-payment-buttons">
+          <div
+        className="sale-payment-buttons"
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
+          gap: '8px',
+          width: '100%',
+          boxSizing: 'border-box'
+        }}
+      >
             <button
               type="button"
               className={
@@ -958,9 +1056,33 @@ export default function NewSale({ onBack }: NewSaleProps) {
           </div>
         </div>
 
-        <button
-          type="button"
-          className="inventory-save sale-register-button"
+        <button type="button" className="new-sale-register-button-final"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '100%',
+            maxWidth: '100%',
+            minWidth: 0,
+            height: '60px',
+            minHeight: '60px',
+            margin: '14px 0 0 0',
+            padding: '0 18px',
+            boxSizing: 'border-box',
+            border: '0',
+            borderRadius: '15px',
+            background: '#e6008c',
+            color: '#ffffff',
+            fontSize: '17px',
+            fontWeight: 800,
+            lineHeight: 1,
+            textAlign: 'center',
+            whiteSpace: 'nowrap',
+            cursor: 'pointer',
+            appearance: 'none',
+            WebkitAppearance: 'none',
+            boxShadow: '0 5px 14px rgba(220, 0, 120, 0.20)',
+          }}
           disabled={saving || cart.length === 0}
           onClick={registerSale}
         >

@@ -546,34 +546,6 @@ body {
 
 .sale-payment-buttons button.selected,
 .sale-payment-buttons button[aria-pressed="true"] {
-  background: #a27d91;
-  border-color: #a27d91;
-  color: #fff;
-}
-
-/* Botón registrar venta */
-.sale-register-button {
-  width: 100%;
-  min-height: 58px;
-  margin-top: 20px;
-  border: 0;
-  border-radius: 17px;
-  background: linear-gradient(135deg, #a27d91, #8f687f);
-  color: #fff;
-  font-size: 17px;
-  font-weight: 800;
-  box-shadow: 0 8px 20px rgba(143, 104, 127, .25);
-}
-
-.sale-register-button:active {
-  transform: scale(.985);
-}
-
-.sale-register-button:disabled {
-  opacity: .55;
-  box-shadow: none;
-}
-
 /* Pantallas pequeñas */
 @media (max-width: 520px) {
   .sale-choice-grid {
@@ -683,22 +655,6 @@ body {
 }
 
 .sale-payment-buttons button {
-  min-height: 43px;
-  height: 43px;
-  border-radius: 11px;
-  font-size: 12px;
-  padding: 5px 4px;
-}
-
-/* Botón registrar venta compacto */
-.sale-register-button {
-  min-height: 50px;
-  height: 50px;
-  margin-top: 13px;
-  border-radius: 14px;
-  font-size: 16px;
-}
-
 /* Menos espacio general en móvil */
 @media (max-width: 520px) {
 
@@ -721,15 +677,6 @@ body {
   }
 
   .sale-payment-buttons button {
-    min-height: 42px;
-    height: 42px;
-  }
-
-  .sale-register-button {
-    min-height: 48px;
-    height: 48px;
-    margin-top: 11px;
-  }
 }
 
 
@@ -4443,46 +4390,6 @@ main:not(.login-page) .inventory-back {
 
 main:not(.login-page) .back-button:hover,
 main:not(.login-page) .inventory-back:hover {
-  color: var(--ms-pink-dark);
-  border-color: #efc4db;
-}
-
-/* ---------- BOTONES PRINCIPALES ---------- */
-
-main:not(.login-page) .primary-button,
-main:not(.login-page) .inventory-new-button,
-main:not(.login-page) .inventory-entry-button,
-main:not(.login-page) .inventory-save,
-main:not(.login-page) .sale-register-button,
-main:not(.login-page) button[type="submit"] {
-  min-height: 52px;
-  border: 0;
-  border-radius: 16px;
-  background: linear-gradient(135deg, var(--ms-pink), var(--ms-pink-dark));
-  color: #fff;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 17px;
-  font-weight: 700;
-  box-shadow: var(--ms-shadow-button);
-  transition: transform .15s ease, box-shadow .15s ease;
-}
-
-main:not(.login-page) .primary-button:hover,
-main:not(.login-page) .inventory-new-button:hover,
-main:not(.login-page) .inventory-entry-button:hover,
-main:not(.login-page) .inventory-save:hover,
-main:not(.login-page) .sale-register-button:hover,
-main:not(.login-page) button[type="submit"]:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 12px 25px rgba(236, 0, 140, .23);
-}
-
-/* ---------- BOTONES SECUNDARIOS ---------- */
-
-main:not(.login-page) button:not(.primary-button):not(.inventory-new-button):not(.inventory-entry-button):not(.inventory-save):not(.sale-register-button):not([type="submit"]) {
-  border-radius: 16px;
-}
-
 /* ---------- CAMPOS ---------- */
 
 main:not(.login-page) input,
@@ -4895,20 +4802,7 @@ main:not(.login-page) .quick-section {
   main:not(.login-page) input,
   main:not(.login-page) select,
   main:not(.login-page) textarea {
-    width: 100% !important;
-    min-width: 0 !important;
-  }
-
-  /* Botones */
-  main:not(.login-page) .primary-button,
-  main:not(.login-page) .inventory-new-button,
-  main:not(.login-page) .inventory-entry-button,
-  main:not(.login-page) .inventory-save,
-  main:not(.login-page) .sale-register-button {
-    min-height: 52px !important;
-  }
-
-  /* Evitar columnas demasiado estrechas */
+/* Evitar columnas demasiado estrechas */
   main:not(.login-page) .form-grid,
   main:not(.login-page) .inventory-form {
     grid-template-columns: minmax(0, 1fr) !important;
@@ -5050,56 +4944,7 @@ main.inventory-page {
 /* ===== VOLVER ===== */
 
 .back-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 48px;
-  margin: 0 0 18px;
-  padding: 0 22px;
-  border: 1px solid var(--ms-border);
-  border-radius: 18px;
-  background: var(--ms-white);
-  color: var(--ms-text);
-  font-size: 17px;
-  font-weight: 500;
-  box-shadow: 0 4px 12px rgba(0,0,0,.04);
-}
-
-/* ===== BOTONES ===== */
-
-.primary-button,
-.inventory-new-button,
-.inventory-entry-button,
-.sale-register-button {
-  min-height: 50px;
-  padding: 0 24px;
-  border: 0;
-  border-radius: 16px;
-  background: linear-gradient(135deg, var(--ms-pink), var(--ms-pink-dark));
-  color: white;
-  font-weight: 700;
-  font-size: 17px;
-  box-shadow: 0 10px 22px rgba(233, 21, 135, 0.18);
-}
-
 .secondary-button {
-  min-height: 50px;
-  padding: 0 22px;
-  border: 1px solid var(--ms-border);
-  border-radius: 16px;
-  background: var(--ms-white);
-  color: var(--ms-text);
-  font-size: 16px;
-  font-weight: 600;
-}
-
-.primary-button:hover,
-.inventory-new-button:hover,
-.inventory-entry-button:hover,
-.sale-register-button:hover {
-  background: linear-gradient(135deg, var(--ms-pink-dark), #b70863);
-}
-
 /* ===== TARJETAS ===== */
 
 .inventory-card,
@@ -5418,18 +5263,7 @@ button.selected {
   }
 
   .section-heading h2 {
-    font-size: 24px;
-  }
-
-  .primary-button,
-  .inventory-new-button,
-  .inventory-entry-button,
-  .sale-register-button,
-  .secondary-button {
-    width: 100%;
-  }
-
-  .product-row {
+.product-row {
     grid-template-columns: 56px minmax(0, 1fr);
   }
 
@@ -7307,4 +7141,1075 @@ main.cash-cut-page .inventory-section .inventory-empty::before,
 main.cash-cut-page .inventory-section .inventory-empty::after {
   display: none !important;
   content: none !important;
+}
+
+/* =========================================================
+   NUEVA VENTA — INTERFAZ COMPACTA Y FORMAL
+   Solo presentación. No modifica la lógica.
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+  /* ---------- CABECERA ---------- */
+
+  .inventory-page .inventory-header {
+    margin-bottom: 14px !important;
+  }
+
+  .inventory-page .inventory-header h1 {
+    font-size: 34px !important;
+    line-height: 1.05 !important;
+    margin: 2px 0 4px !important;
+  }
+
+  .inventory-page .inventory-header .eyebrow {
+    font-size: 14px !important;
+    letter-spacing: .04em !important;
+  }
+
+  .inventory-page .inventory-header p {
+    font-size: 17px !important;
+    line-height: 1.35 !important;
+    margin: 4px 0 0 !important;
+  }
+
+  /* ---------- TARJETAS PRINCIPALES ---------- */
+
+  .inventory-page .inventory-form-card,
+  .inventory-page .inventory-list-card {
+    border-radius: 22px !important;
+    padding: 18px !important;
+    margin-bottom: 14px !important;
+    box-shadow: 0 2px 10px rgba(50, 30, 45, .06) !important;
+  }
+
+  .inventory-page .section-title {
+    margin-bottom: 12px !important;
+  }
+
+  .inventory-page .section-title h2 {
+    font-size: 27px !important;
+    line-height: 1.1 !important;
+    margin: 0 !important;
+  }
+
+  .inventory-page .section-title p {
+    font-size: 15px !important;
+    margin-top: 5px !important;
+  }
+
+  /* ---------- BUSCADOR ---------- */
+
+  .inventory-page .inventory-fields {
+    gap: 10px !important;
+  }
+
+  .inventory-page label {
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    margin-bottom: 5px !important;
+  }
+
+  .inventory-page input,
+  .inventory-page select {
+    min-height: 50px !important;
+    height: 50px !important;
+    border-radius: 14px !important;
+    font-size: 16px !important;
+    padding: 0 14px !important;
+  }
+
+  /* ---------- RESULTADOS DE PRODUCTO ---------- */
+
+  .inventory-page .sale-product-results {
+    gap: 7px !important;
+    margin-top: 8px !important;
+  }
+
+  .inventory-page .sale-product-result {
+    min-height: 66px !important;
+    padding: 10px 13px !important;
+    border-radius: 14px !important;
+  }
+
+  .inventory-page .sale-product-result-info {
+    gap: 2px !important;
+  }
+
+  .inventory-page .sale-product-result-info strong {
+    font-size: 17px !important;
+  }
+
+  .inventory-page .sale-product-result-info span {
+    font-size: 13px !important;
+  }
+
+  .inventory-page .sale-product-result-price {
+    font-size: 18px !important;
+    font-weight: 800 !important;
+    white-space: nowrap !important;
+  }
+
+  .inventory-page .sale-product-result-arrow {
+    font-size: 24px !important;
+  }
+
+  /* ---------- SELECCIÓN DE TALLA Y COLOR ---------- */
+
+  .inventory-page .sale-choice-group {
+    margin-top: 12px !important;
+  }
+
+  .inventory-page .sale-choice-group > strong {
+    font-size: 14px !important;
+  }
+
+  .inventory-page .sale-choice-grid {
+    gap: 7px !important;
+    margin-top: 7px !important;
+  }
+
+  .inventory-page .sale-choice-button {
+    min-height: 46px !important;
+    padding: 8px 10px !important;
+    border-radius: 12px !important;
+    font-size: 15px !important;
+  }
+
+  /* ---------- CARRITO ---------- */
+
+  .inventory-page .inventory-list-card:has(.sale-cart) {
+    padding-bottom: 14px !important;
+  }
+
+  .inventory-page .sale-cart {
+    gap: 8px !important;
+  }
+
+  .inventory-page .sale-cart-item {
+    padding: 10px !important;
+    border-radius: 13px !important;
+  }
+
+  .inventory-page .sale-cart-item strong {
+    font-size: 15px !important;
+  }
+
+  .inventory-page .sale-cart-item small {
+    font-size: 12px !important;
+  }
+
+  .inventory-page .sale-cart-controls {
+    gap: 5px !important;
+  }
+
+  .inventory-page .sale-quantity-button {
+    width: 34px !important;
+    height: 34px !important;
+    min-width: 34px !important;
+    border-radius: 10px !important;
+  }
+
+  .inventory-page .sale-cart-subtotal {
+    font-size: 16px !important;
+    font-weight: 800 !important;
+  }
+
+  /* ---------- CARRITO VACÍO ---------- */
+
+  .inventory-page .inventory-empty {
+    min-height: 120px !important;
+    padding: 24px 10px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+  }
+
+  .inventory-page .inventory-empty p {
+    font-size: 15px !important;
+    margin: 0 !important;
+  }
+
+  /* ---------- RESUMEN DE LA VENTA ---------- */
+
+  .inventory-page .sale-total {
+    display: grid !important;
+    grid-template-columns: 1fr auto !important;
+    gap: 8px 14px !important;
+    align-items: center !important;
+    padding: 15px !important;
+    margin-top: 10px !important;
+    border-radius: 16px !important;
+  }
+
+  .inventory-page .sale-total > div {
+    font-size: 16px !important;
+  }
+
+  .inventory-page .sale-total strong {
+    font-size: 22px !important;
+  }
+
+  .inventory-page .sale-total label {
+    margin: 0 !important;
+  }
+
+  .inventory-page .sale-total input {
+    width: 115px !important;
+    min-height: 44px !important;
+    height: 44px !important;
+    font-size: 16px !important;
+  }
+
+  /* El total queda visualmente destacado */
+  .inventory-page .sale-total > div:last-child {
+    font-size: 20px !important;
+    font-weight: 700 !important;
+  }
+
+  .inventory-page .sale-total > div:last-child strong {
+    font-size: 28px !important;
+  }
+
+  /* ---------- MÉTODO DE PAGO ---------- */
+
+  .inventory-page .sale-payment {
+    margin-top: 14px !important;
+  }
+
+  .inventory-page .sale-payment > strong {
+    display: block !important;
+    font-size: 15px !important;
+    margin-bottom: 8px !important;
+  }
+
+  .inventory-page .sale-payment-buttons {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 7px !important;
+  }
+
+  .inventory-page .sale-payment-buttons button {
+/* ---------- EVITAR ESPACIOS EXAGERADOS ---------- */
+
+  .inventory-page .inventory-list-card {
+    min-height: 0 !important;
+  }
+
+  .inventory-page .inventory-list-card > h2 {
+    margin-bottom: 6px !important;
+  }
+
+  /* ---------- BOTÓN VOLVER ---------- */
+
+  .inventory-page .inventory-header button {
+    min-height: 44px !important;
+    border-radius: 13px !important;
+    font-size: 15px !important;
+  }
+}
+
+/* Pantallas un poco más grandes: mantiene el aspecto compacto */
+@media (min-width: 701px) and (max-width: 1100px) {
+  .inventory-page .sale-payment-buttons {
+}
+
+
+
+/* =========================================================
+   NUEVA VENTA — RESUMEN DE CARRITO CORREGIDO
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+  .inventory-page .sale-total {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) minmax(120px, auto) !important;
+    grid-template-rows: auto auto !important;
+    gap: 10px 14px !important;
+    align-items: center !important;
+    padding: 16px !important;
+    margin-top: 12px !important;
+    border-radius: 16px !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Subtotal */
+  .inventory-page .sale-total > div:first-child {
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+    min-width: 0 !important;
+    display: flex !important;
+    align-items: baseline !important;
+    gap: 5px !important;
+    white-space: nowrap !important;
+  }
+
+  .inventory-page .sale-total > div:first-child strong {
+    font-size: 22px !important;
+  }
+
+  /* Descuento */
+  .inventory-page .sale-total > div:nth-child(2) {
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+    min-width: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-end !important;
+    gap: 4px !important;
+  }
+
+  .inventory-page .sale-total > div:nth-child(2) label {
+    margin: 0 !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+  }
+
+  .inventory-page .sale-total > div:nth-child(2) input {
+    width: 118px !important;
+    height: 44px !important;
+    min-height: 44px !important;
+    padding: 0 12px !important;
+    border-radius: 12px !important;
+    box-sizing: border-box !important;
+    font-size: 16px !important;
+  }
+
+  /* Total */
+  .inventory-page .sale-total > div:last-child {
+    grid-column: 1 / -1 !important;
+    grid-row: 2 !important;
+    display: flex !important;
+    align-items: baseline !important;
+    justify-content: flex-end !important;
+    gap: 7px !important;
+    padding-top: 5px !important;
+    border-top: 1px solid rgba(150, 100, 130, .14) !important;
+    font-size: 18px !important;
+    font-weight: 700 !important;
+  }
+
+  .inventory-page .sale-total > div:last-child strong {
+    font-size: 28px !important;
+    line-height: 1 !important;
+  }
+
+  /* Métodos de pago */
+  .inventory-page .sale-payment {
+    margin-top: 14px !important;
+  }
+
+  .inventory-page .sale-payment-buttons {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 7px !important;
+  }
+
+  .inventory-page .sale-payment-buttons button {
+}
+
+/* Nueva venta — botón principal centrado */
+@media (max-width: 700px) {
+}
+
+/* =========================================================
+   BOTÓN REGISTRAR VENTA — AJUSTE FINAL
+   ========================================================= */
+
+@media (max-width: 700px) {
+}
+
+
+
+
+
+/* BOTON REGISTRAR VENTA - DEFINITIVO */
+.inventory-page .inventory-save.sale-register-button {
+  display: flex !important;
+  width: calc(100% - 32px) !important;
+  max-width: none !important;
+  min-width: 0 !important;
+  height: 64px !important;
+  min-height: 64px !important;
+
+  margin: 18px 16px 8px 16px !important;
+  padding: 0 20px !important;
+
+  box-sizing: border-box !important;
+  align-items: center !important;
+  justify-content: center !important;
+  align-self: stretch !important;
+
+  border-radius: 17px !important;
+  font-size: 19px !important;
+  font-weight: 800 !important;
+  text-align: center !important;
+}
+
+
+/* =========================================================
+   NUEVA VENTA - CORRECCION FINAL PARA TELEFONO
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+  main.inventory-page {
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+    box-sizing: border-box !important;
+  }
+
+  main.inventory-page > * {
+    max-width: none !important;
+  }
+
+  main.inventory-page .inventory-list-card,
+  main.inventory-page .inventory-form-card,
+  main.inventory-page .inventory-section,
+  main.inventory-page .sale-cart,
+  main.inventory-page section {
+    max-width: none !important;
+    box-sizing: border-box !important;
+  }
+
+  main.inventory-page .sale-register-button {
+    display: flex !important;
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    height: 64px !important;
+    min-height: 64px !important;
+
+    margin: 18px 0 8px 0 !important;
+    padding: 0 18px !important;
+
+    box-sizing: border-box !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+    align-self: stretch !important;
+
+    border-radius: 17px !important;
+    font-size: 19px !important;
+    font-weight: 800 !important;
+    text-align: center !important;
+  }
+}
+
+/* En teléfonos pequeños */
+@media (max-width: 600px) {
+
+  main.inventory-page {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+  }
+
+  main.inventory-page .sale-register-button {
+    width: 100% !important;
+    height: 62px !important;
+    min-height: 62px !important;
+    margin: 16px 0 6px 0 !important;
+  }
+}
+
+
+/* =========================================================
+   NUEVA VENTA — DISEÑO MÓVIL FINAL
+   ========================================================= */
+
+@media (max-width: 900px) {
+  main.inventory-page {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    min-width: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
+  }
+
+  main.inventory-page > * {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  main.inventory-page .inventory-list-card,
+  main.inventory-page .inventory-form-card,
+  main.inventory-page .inventory-section,
+  main.inventory-page .sale-cart {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  main.inventory-page .sale-register-button {
+    display: flex !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    height: 64px !important;
+    min-height: 64px !important;
+    margin: 18px 0 4px !important;
+    padding: 0 18px !important;
+    box-sizing: border-box !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    border-radius: 17px !important;
+    font-size: 19px !important;
+    font-weight: 800 !important;
+  }
+}
+
+@media (max-width: 600px) {
+  main.inventory-page {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+
+  main.inventory-page > * {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+
+/* =========================================================
+   NUEVA VENTA — PRESENTACIÓN FINAL PARA TELÉFONO
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+  /* Contenedor de Nueva venta */
+  main.inventory-page {
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
+  }
+
+  /* Tarjetas */
+  main.inventory-page .inventory-list-card,
+  main.inventory-page .inventory-form-card,
+  main.inventory-page .inventory-section,
+  main.inventory-page .sale-cart {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  /* -------------------------------------------------------
+     MÉTODOS DE PAGO
+     Tres botones en una sola fila
+     ------------------------------------------------------- */
+
+  main.inventory-page .sale-payment-buttons {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 8px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  main.inventory-page .sale-payment-buttons button {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    height: 60px !important;
+    min-height: 60px !important;
+    padding: 6px 4px !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+    border-radius: 15px !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  /* -------------------------------------------------------
+     REGISTRAR VENTA
+     Botón grande y centrado
+     ------------------------------------------------------- */
+
+  main.inventory-page .new-sale-register-button {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    width: 94% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+
+    height: 68px !important;
+    min-height: 68px !important;
+
+    margin: 18px auto 8px auto !important;
+    padding: 0 18px !important;
+
+    box-sizing: border-box !important;
+
+    border-radius: 18px !important;
+
+    font-size: 19px !important;
+    font-weight: 800 !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+  }
+}
+
+@media (max-width: 430px) {
+
+  main.inventory-page .sale-payment-buttons {
+    gap: 6px !important;
+  }
+
+  main.inventory-page .sale-payment-buttons button {
+    height: 58px !important;
+    min-height: 58px !important;
+    font-size: 14px !important;
+    padding: 5px 2px !important;
+  }
+
+  main.inventory-page .new-sale-register-button {
+    width: 94% !important;
+    height: 66px !important;
+    min-height: 66px !important;
+    font-size: 18px !important;
+  }
+}
+
+/* =========================================================
+   NUEVA VENTA — CORRECCIÓN DEFINITIVA DE ANCHO EN TELÉFONO
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+  /* Sacar Nueva Venta de cualquier contenedor estrecho */
+  main.inventory-page {
+    position: relative !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+
+    width: 100vw !important;
+    max-width: 100vw !important;
+    min-width: 100vw !important;
+
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
+  }
+
+  /* Todas las tarjetas usan el ancho real del teléfono */
+  main.inventory-page > section,
+  main.inventory-page .inventory-form-card,
+  main.inventory-page .inventory-list-card,
+  main.inventory-page .sale-cart,
+  main.inventory-page .inventory-section {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Métodos de pago */
+  main.inventory-page .sale-payment-buttons {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    width: 100% !important;
+    gap: 8px !important;
+    box-sizing: border-box !important;
+  }
+
+  main.inventory-page .sale-payment-buttons button {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    height: 58px !important;
+    min-height: 58px !important;
+    margin: 0 !important;
+    padding: 4px !important;
+    box-sizing: border-box !important;
+    border-radius: 15px !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+  }
+
+  /* Botón Registrar venta */
+  main.inventory-page .new-sale-register-button {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    width: 94% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+
+    height: 68px !important;
+    min-height: 68px !important;
+
+    margin: 18px auto 8px auto !important;
+    padding: 0 16px !important;
+
+    box-sizing: border-box !important;
+
+    background: #ec168c !important;
+    background-color: #ec168c !important;
+    color: #ffffff !important;
+
+    border: 0 !important;
+    border-radius: 18px !important;
+
+    font-size: 19px !important;
+    font-weight: 800 !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+
+    box-shadow: 0 6px 16px rgba(236, 22, 140, 0.25) !important;
+  }
+
+  main.inventory-page .new-sale-register-button:disabled {
+    background: #ec168c !important;
+    color: #ffffff !important;
+    opacity: 0.55 !important;
+  }
+}
+
+@media (max-width: 430px) {
+  main.inventory-page .sale-payment-buttons {
+    gap: 6px !important;
+  }
+
+  main.inventory-page .sale-payment-buttons button {
+    font-size: 13px !important;
+    height: 56px !important;
+    min-height: 56px !important;
+  }
+
+  main.inventory-page .new-sale-register-button {
+    width: 94% !important;
+    height: 66px !important;
+    min-height: 66px !important;
+    font-size: 18px !important;
+  }
+}
+
+
+/* ===== BOTON FINAL REGISTRAR VENTA ===== */
+main.inventory-page .new-sale-register-button-final {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  height: 62px !important;
+  min-height: 62px !important;
+  margin: 18px 0 0 !important;
+  padding: 0 18px !important;
+  box-sizing: border-box !important;
+  border: 0 !important;
+  border-radius: 16px !important;
+  background: #e6008c !important;
+  color: #ffffff !important;
+  font-size: 18px !important;
+  font-weight: 800 !important;
+  line-height: 1 !important;
+  text-align: center !important;
+  white-space: nowrap !important;
+  cursor: pointer !important;
+  box-shadow: 0 5px 14px rgba(220, 0, 120, 0.20) !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+}
+
+.new-sale-register-button-final:disabled {
+  opacity: 0.55 !important;
+  cursor: not-allowed !important;
+}
+
+@media (max-width: 430px) {
+  main.inventory-page .new-sale-register-button-final {
+    width: 100% !important;
+    height: 60px !important;
+    min-height: 60px !important;
+    margin-top: 14px !important;
+    font-size: 17px !important;
+    border-radius: 15px !important;
+  }
+}
+
+/* =========================================================
+   MODAS SOPHIE - BOTÓN REGISTRAR VENTA DEFINITIVO
+   ========================================================= */
+
+button.new-sale-register-button-final,
+main.inventory-page button.new-sale-register-button-final {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+
+  height: 62px !important;
+  min-height: 62px !important;
+
+  margin: 16px 0 0 0 !important;
+  padding: 0 18px !important;
+
+  box-sizing: border-box !important;
+
+  border: 0 !important;
+  border-radius: 16px !important;
+
+  background: #e6008c !important;
+  color: #ffffff !important;
+
+  font-family: inherit !important;
+  font-size: 18px !important;
+  font-weight: 800 !important;
+  line-height: 1 !important;
+
+  text-align: center !important;
+  white-space: nowrap !important;
+
+  appearance: none !important;
+  -webkit-appearance: none !important;
+
+  cursor: pointer !important;
+
+  box-shadow: 0 5px 14px rgba(220, 0, 120, 0.20) !important;
+}
+
+button.new-sale-register-button-final:disabled,
+main.inventory-page button.new-sale-register-button-final:disabled {
+  background: #e6008c !important;
+  color: #ffffff !important;
+  opacity: 0.55 !important;
+  cursor: not-allowed !important;
+}
+
+@media (max-width: 430px) {
+  button.new-sale-register-button-final,
+  main.inventory-page button.new-sale-register-button-final {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 60px !important;
+    min-height: 60px !important;
+    margin-top: 14px !important;
+    border-radius: 15px !important;
+    font-size: 17px !important;
+  }
+}
+
+
+
+/* ===== TARJETA SUBTOTAL / DESCUENTO / TOTAL ===== */
+.sale-total {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) 100px minmax(0, 1fr) !important;
+  align-items: center !important;
+  gap: 10px !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+}
+
+.sale-total > div {
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+}
+
+.sale-total > div:first-child,
+.sale-total > div:last-child {
+  text-align: center !important;
+  white-space: nowrap !important;
+}
+
+.sale-total > div:first-child span,
+.sale-total > div:last-child span {
+  display: block !important;
+  font-size: 15px !important;
+  line-height: 1.1 !important;
+}
+
+.sale-total > div:first-child strong,
+.sale-total > div:last-child strong {
+  display: block !important;
+  font-size: 24px !important;
+  line-height: 1.1 !important;
+  white-space: nowrap !important;
+}
+
+.sale-total > div:nth-child(2) {
+  text-align: center !important;
+}
+
+.sale-total > div:nth-child(2) label {
+  display: block !important;
+  font-size: 14px !important;
+  line-height: 1.1 !important;
+  margin-bottom: 5px !important;
+  white-space: nowrap !important;
+}
+
+.sale-total > div:nth-child(2) input {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: 38px !important;
+  padding: 6px 8px !important;
+  box-sizing: border-box !important;
+  text-align: center !important;
+  font-size: 16px !important;
+  border-radius: 8px !important;
+}
+
+@media (max-width: 430px) {
+  .sale-total {
+    grid-template-columns: minmax(0, 1fr) 92px minmax(0, 1fr) !important;
+    gap: 6px !important;
+    padding: 14px !important;
+  }
+
+  .sale-total > div:first-child strong,
+  .sale-total > div:last-child strong {
+    font-size: 21px !important;
+  }
+
+  .sale-total > div:first-child span,
+  .sale-total > div:last-child span {
+    font-size: 14px !important;
+  }
+
+  .sale-total > div:nth-child(2) label {
+    font-size: 13px !important;
+  }
+}
+
+
+/* ===== CORRECCIÓN DEFINITIVA DE RESUMEN DE VENTA ===== */
+.sale-total {
+  display: grid !important;
+  grid-template-columns: 1fr 90px 1fr !important;
+  gap: 6px !important;
+  align-items: center !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  padding: 14px 12px !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+}
+
+.sale-total > div {
+  width: auto !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+}
+
+.sale-total > div:nth-child(1),
+.sale-total > div:nth-child(3) {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+}
+
+.sale-total > div:nth-child(1) span,
+.sale-total > div:nth-child(3) span {
+  font-size: 13px !important;
+  line-height: 1.1 !important;
+  white-space: nowrap !important;
+}
+
+.sale-total > div:nth-child(1) strong,
+.sale-total > div:nth-child(3) strong {
+  font-size: 21px !important;
+  line-height: 1.1 !important;
+  white-space: nowrap !important;
+}
+
+.sale-total > div:nth-child(2) {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+}
+
+.sale-total > div:nth-child(2) label {
+  font-size: 13px !important;
+  line-height: 1.1 !important;
+  margin: 0 0 4px 0 !important;
+  white-space: nowrap !important;
+}
+
+.sale-total > div:nth-child(2) input {
+  display: block !important;
+  width: 82px !important;
+  max-width: 82px !important;
+  min-width: 0 !important;
+  height: 36px !important;
+  padding: 4px 5px !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+  text-align: center !important;
+  font-size: 16px !important;
+}
+
+@media (max-width: 430px) {
+  .sale-total {
+    grid-template-columns: minmax(0, 1fr) 88px minmax(0, 1fr) !important;
+    gap: 4px !important;
+    padding: 13px 8px !important;
+  }
+
+  .sale-total > div:nth-child(1) strong,
+  .sale-total > div:nth-child(3) strong {
+    font-size: 19px !important;
+  }
+
+  .sale-total > div:nth-child(1) span,
+  .sale-total > div:nth-child(3) span {
+    font-size: 12px !important;
+  }
+
+  .sale-total > div:nth-child(2) input {
+    width: 78px !important;
+    max-width: 78px !important;
+  }
 }
