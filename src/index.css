@@ -8213,3 +8213,143 @@ main.inventory-page button.new-sale-register-button-final:disabled {
     max-width: 78px !important;
   }
 }
+
+/* AJUSTE FINAL INVENTARIO - ESPACIADO Y VARIANTES */
+
+.inventory-page form.inventory-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.inventory-page form.inventory-form > label {
+  margin: 0;
+}
+
+.inventory-page form.inventory-form label {
+  gap: 8px;
+}
+
+.inventory-page .inventory-simple-stock,
+.inventory-page .inventory-variants-section {
+  padding: 18px;
+  border-radius: 16px;
+}
+
+.inventory-page .inventory-simple-stock h3,
+.inventory-page .inventory-variants-section h3 {
+  margin: 0 0 6px;
+}
+
+.inventory-page .inventory-simple-stock p,
+.inventory-page .inventory-variants-section > p {
+  margin: 0 0 18px;
+}
+
+.inventory-page .variant-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.inventory-page .variant-card {
+  margin: 0;
+  padding: 18px;
+}
+
+.inventory-page .variant-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.inventory-page .variant-fields {
+  display: grid;
+  gap: 14px;
+}
+
+.inventory-page .variant-fields label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.inventory-page .variant-add {
+  margin-top: 16px;
+}
+
+.inventory-page .inventory-form-actions {
+  display: flex;
+  gap: 14px;
+  margin-top: 4px;
+}
+
+@media (max-width: 600px) {
+  .inventory-page form.inventory-form {
+    gap: 18px;
+  }
+
+  .inventory-page .inventory-simple-stock,
+  .inventory-page .inventory-variants-section {
+    padding: 16px;
+  }
+
+  .inventory-page .variant-card {
+    padding: 16px;
+  }
+
+  .inventory-page .inventory-form-actions {
+    flex-direction: column;
+  }
+}
+
+
+
+/* AJUSTE PRODUCTOS SIN VARIANTES */
+
+.inventory-page .inventory-simple-stock {
+  padding: 18px;
+  border-radius: 16px;
+}
+
+.inventory-page .inventory-simple-stock .variant-heading {
+  margin-bottom: 18px;
+}
+
+.inventory-page .inventory-simple-stock .variant-fields {
+  gap: 14px;
+}
+
+.inventory-page .inventory-simple-stock .variant-add {
+  margin-top: 18px;
+}
+
+.inventory-page .inventory-variants-section {
+  padding: 18px;
+  border-radius: 16px;
+}
+
+.inventory-page .inventory-variants-section .variant-heading {
+  margin-bottom: 18px;
+}
+
+.inventory-page .inventory-variants-section .variant-list {
+  gap: 16px;
+}
+
+.inventory-page .inventory-variants-section .variant-card {
+  padding: 18px;
+}
+
+@media (max-width: 600px) {
+  .inventory-page .inventory-simple-stock,
+  .inventory-page .inventory-variants-section {
+    padding: 16px;
+  }
+
+  .inventory-page .inventory-variants-section .variant-card {
+    padding: 16px;
+  }
+}

@@ -110,6 +110,9 @@ export default function Inventory({
   const [formVariants, setFormVariants] = useState<VariantForm[]>([
     emptyVariant(),
   ])
+  const [showVariants, setShowVariants] = useState(false)
+  const [initialQuantity, setInitialQuantity] = useState('0')
+  const [initialMinStock, setInitialMinStock] = useState('0')
   const [editingProductId, setEditingProductId] = useState<string | null>(null)
   const [selectedProductId, setSelectedProductId] = useState<string | null>(null)
 
@@ -199,10 +202,18 @@ export default function Inventory({
     setCost('')
     setPrice('')
     setFormVariants([emptyVariant()])
+    setShowVariants(false)
+    setInitialQuantity('0')
+    setInitialMinStock('0')
     setError('')
   }
 
+  function enableVariants() {
+    setShowVariants(true)
+  }
+
   function addVariant() {
+    setShowVariants(true)
     setFormVariants((current) => [
       ...current,
       emptyVariant(),
@@ -211,7 +222,11 @@ export default function Inventory({
 
   function removeVariant(index: number) {
     setFormVariants((current) => {
-      if (current.length === 1) return current
+      if (current.length <= 1) {
+        setShowVariants(false)
+        return [emptyVariant()]
+      }
+
       return current.filter((_, itemIndex) => itemIndex !== index)
     })
   }
@@ -309,6 +324,14 @@ export default function Inventory({
       return
     }
 
+    let variantsPayload
+
+  if (showVariants) {
+    if (formVariants.length === 0) {
+      setError('Agrega al menos una variante.')
+      return
+    }
+
     for (const variant of formVariants) {
       if (!variant.size.trim() || !variant.color.trim()) {
         setError('Cada variante debe tener talla y color.')
@@ -324,11 +347,7 @@ export default function Inventory({
       }
     }
 
-    setSaving(true)
-    setError('')
-    setSuccess('')
-
-    const variantsPayload = formVariants.map((variant) => ({
+    variantsPayload = formVariants.map((variant) => ({
       id: variant.id || null,
       size: variant.size.trim(),
       color: variant.color.trim(),
@@ -336,6 +355,30 @@ export default function Inventory({
       quantity: Number(variant.quantity),
       min_stock: Number(variant.minStock),
     }))
+  } else {
+    if (
+      Number(initialQuantity) < 0 ||
+      Number(initialMinStock) < 0
+    ) {
+      setError('La existencia y el stock mínimo no pueden ser negativos.')
+      return
+    }
+
+    variantsPayload = [
+      {
+        id: null,
+        size: '',
+        color: '',
+        barcode: null,
+        quantity: Number(initialQuantity),
+        min_stock: Number(initialMinStock),
+      },
+    ]
+  }
+
+  setSaving(true)
+    setError('')
+    setSuccess('')
 
     const { error: saveError } = editingProductId
       ? await supabase.rpc('update_product_with_variants', {
@@ -764,128 +807,506 @@ const inventorySummary = useMemo(() => {
               </label>
             </div>
 
-            <div className="variant-heading">
-              <div>
-                <h3>Variantes</h3>
-                <p>
-                  Agrega talla, color, código de barras y existencia.
-                </p>
-              </div>
-            </div>
 
-            <div className="variant-list">
-              {formVariants.map((variant, index) => (
-                <div
-                  className="variant-card"
-                  key={index}
-                >
-                  <div className="variant-card-header">
-                    <strong>
-                      Variante {index + 1}
-                    </strong>
+            {!showVariants ? (
 
-                    {formVariants.length > 1 && (
-                      <button
-                        type="button"
-                        className="variant-remove"
-                        onClick={() =>
-                          removeVariant(index)
-                        }
-                      >
-                        Eliminar
-                      </button>
-                    )}
+
+              <div className="inventory-simple-stock">
+
+
+                <div className="variant-heading">
+
+
+                  <div>
+
+
+                    <h3>Existencia del producto</h3>
+
+
+                    <p>
+
+
+                      Este producto no usa tallas ni colores.
+
+
+                    </p>
+
+
                   </div>
 
-                  <div className="variant-fields">
-                    <label>
-                      Talla *
-                      <input
-                        value={variant.size}
-                        onChange={(event) =>
-                          updateVariant(
-                            index,
-                            'size',
-                            event.target.value,
-                          )
-                        }
-                        placeholder="Ej. 32"
-                      />
-                    </label>
 
-                    <label>
-                      Color *
-                      <input
-                        value={variant.color}
-                        onChange={(event) =>
-                          updateVariant(
-                            index,
-                            'color',
-                            event.target.value,
-                          )
-                        }
-                        placeholder="Ej. Azul marino"
-                      />
-                    </label>
-
-                    <label>
-                      Código de barras
-                      <input
-                        value={variant.barcode}
-                        onChange={(event) =>
-                          updateVariant(
-                            index,
-                            'barcode',
-                            event.target.value,
-                          )
-                        }
-                        placeholder="7501234567890"
-                      />
-                    </label>
-
-                    <label>
-                      Existencia inicial *
-                      <input
-                        type="number"
-                        min="0"
-                        value={variant.quantity}
-                        onChange={(event) =>
-                          updateVariant(
-                            index,
-                            'quantity',
-                            event.target.value,
-                          )
-                        }
-                      />
-                    </label>
-
-                    <label>
-                      Stock mínimo
-                      <input
-                        type="number"
-                        min="0"
-                        value={variant.minStock}
-                        onChange={(event) =>
-                          updateVariant(
-                            index,
-                            'minStock',
-                            event.target.value,
-                          )
-                        }
-                      />
-                    </label>
-                  </div>
                 </div>
-              ))}
-            </div>
 
-            <button
-              type="button"
-              className="variant-add"
-              onClick={addVariant}
-            >
-              + Agregar otra variante
-            </button>
+
+            
+
+
+                <div className="variant-fields">
+
+
+                  <label>
+
+
+                    Existencia inicial *
+
+
+                    <input
+
+
+                      type="number"
+
+
+                      min="0"
+
+
+                      value={initialQuantity}
+
+
+                      onChange={(event) =>
+
+
+                        setInitialQuantity(event.target.value)
+
+
+                      }
+
+
+                    />
+
+
+                  </label>
+
+
+            
+
+
+                  <label>
+
+
+                    Stock mínimo
+
+
+                    <input
+
+
+                      type="number"
+
+
+                      min="0"
+
+
+                      value={initialMinStock}
+
+
+                      onChange={(event) =>
+
+
+                        setInitialMinStock(event.target.value)
+
+
+                      }
+
+
+                    />
+
+
+                  </label>
+
+
+                </div>
+
+
+            
+
+
+                <button
+
+
+                  type="button"
+
+
+                  className="variant-add"
+
+
+                  onClick={enableVariants}
+
+
+                >
+
+
+                  + Agregar variantes
+
+
+                </button>
+
+
+              </div>
+
+
+            ) : (
+
+
+              <div className="inventory-variants-section">
+
+
+                <div className="variant-heading">
+
+
+                  <div>
+
+
+                    <h3>Variantes</h3>
+
+
+                    <p>
+
+
+                      Agrega talla, color, código de barras y existencia.
+
+
+                    </p>
+
+
+                  </div>
+
+
+                </div>
+
+
+            
+
+
+                <div className="variant-list">
+
+
+                  {formVariants.map((variant, index) => (
+
+
+                    <div
+
+
+                      className="variant-card"
+
+
+                      key={index}
+
+
+                    >
+
+
+                      <div className="variant-card-header">
+
+
+                        <strong>Variante {index + 1}</strong>
+
+
+            
+
+
+                        {formVariants.length > 1 && (
+
+
+                          <button
+
+
+                            type="button"
+
+
+                            className="variant-remove"
+
+
+                            onClick={() => removeVariant(index)}
+
+
+                          >
+
+
+                            Eliminar
+
+
+                          </button>
+
+
+                        )}
+
+
+                      </div>
+
+
+            
+
+
+                      <div className="variant-fields">
+
+
+                        <label>
+
+
+                          Talla *
+
+
+                          <input
+
+
+                            value={variant.size}
+
+
+                            onChange={(event) =>
+
+
+                              updateVariant(
+
+
+                                index,
+
+
+                                'size',
+
+
+                                event.target.value,
+
+
+                              )
+
+
+                            }
+
+
+                            placeholder="Ej. 32"
+
+
+                          />
+
+
+                        </label>
+
+
+            
+
+
+                        <label>
+
+
+                          Color *
+
+
+                          <input
+
+
+                            value={variant.color}
+
+
+                            onChange={(event) =>
+
+
+                              updateVariant(
+
+
+                                index,
+
+
+                                'color',
+
+
+                                event.target.value,
+
+
+                              )
+
+
+                            }
+
+
+                            placeholder="Ej. Azul marino"
+
+
+                          />
+
+
+                        </label>
+
+
+            
+
+
+                        <label>
+
+
+                          Código de barras
+
+
+                          <input
+
+
+                            value={variant.barcode}
+
+
+                            onChange={(event) =>
+
+
+                              updateVariant(
+
+
+                                index,
+
+
+                                'barcode',
+
+
+                                event.target.value,
+
+
+                              )
+
+
+                            }
+
+
+                            placeholder="7501234567890"
+
+
+                          />
+
+
+                        </label>
+
+
+            
+
+
+                        <label>
+
+
+                          Existencia inicial *
+
+
+                          <input
+
+
+                            type="number"
+
+
+                            min="0"
+
+
+                            value={variant.quantity}
+
+
+                            onChange={(event) =>
+
+
+                              updateVariant(
+
+
+                                index,
+
+
+                                'quantity',
+
+
+                                event.target.value,
+
+
+                              )
+
+
+                            }
+
+
+                          />
+
+
+                        </label>
+
+
+            
+
+
+                        <label>
+
+
+                          Stock mínimo
+
+
+                          <input
+
+
+                            type="number"
+
+
+                            min="0"
+
+
+                            value={variant.minStock}
+
+
+                            onChange={(event) =>
+
+
+                              updateVariant(
+
+
+                                index,
+
+
+                                'minStock',
+
+
+                                event.target.value,
+
+
+                              )
+
+
+                            }
+
+
+                          />
+
+
+                        </label>
+
+
+                      </div>
+
+
+                    </div>
+
+
+                  ))}
+
+
+                </div>
+
+
+            
+
+
+                <button
+
+
+                  type="button"
+
+
+                  className="variant-add"
+
+
+                  onClick={addVariant}
+
+
+                >
+
+
+                  + Agregar otra variante
+
+
+                </button>
+
+
+              </div>
+
+
+            )}
 
             <div className="inventory-form-actions">
               <button
