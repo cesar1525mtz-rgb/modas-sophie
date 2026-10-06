@@ -539,7 +539,81 @@ const inventorySummary = useMemo(() => {
 }, [products, variants, stock, branchId])
 
   return (
-    <main className="inventory-page">
+    <>
+      {showEntriesHistory && (
+        <div className="inventory-history-screen">
+          <div className="inventory-history-header">
+            <button
+              type="button"
+              className="inventory-history-back"
+              onClick={() => setShowEntriesHistory(false)}
+            >
+              ← Volver a inventario
+            </button>
+
+            <div>
+              <span>📋</span>
+              <h2>Historial de entradas</h2>
+              <p>Registro completo de entradas de mercancía</p>
+            </div>
+          </div>
+
+          <div className="inventory-history-list">
+            {entries.map((entry) => {
+              const variant = variants.find(
+                (item) => item.id === entry.variant_id
+              )
+
+              const product = variant
+                ? products.find((item) => item.id === variant.product_id)
+                : undefined
+
+              return (
+                <div key={entry.id} className="inventory-history-item">
+                  <div className="inventory-history-item-main">
+                    <strong>{product?.name || "Producto"}</strong>
+                    <span>
+                      {variant
+                        ? `${variant.size || ""} · ${variant.color || ""}`
+                        : "Variante"}
+                    </span>
+                  </div>
+
+                  <div className="inventory-history-item-info">
+                    <strong>
+                      +{entry.quantity} pieza{entry.quantity === 1 ? "" : "s"}
+                    </strong>
+                    <span>
+                      Costo ${Number(entry.unit_cost || 0).toFixed(2)}
+                    </span>
+                    <span>
+                      {entry.created_at
+                        ? new Date(entry.created_at).toLocaleString("es-MX", {
+                            day: "2-digit",
+                            month: "2-digit",
+                            year: "numeric",
+                            hour: "2-digit",
+                            minute: "2-digit",
+                            hour12: true,
+                          })
+                        : ""}
+                    </span>
+                  </div>
+
+                  {entry.notes && (
+                    <p className="inventory-history-item-notes">
+                      {entry.notes}
+                    </p>
+                  )}
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      )}
+
+      {!showEntriesHistory && (
+        <main className={`inventory-page ${editingProductId ? "inventory-page-editing" : ""}`}>
       <header className="inventory-header">
         <button
           className="inventory-back"
@@ -842,7 +916,7 @@ const inventorySummary = useMemo(() => {
   
     {userRole === 'admin' && (
       <section
-          className="inventory-list-card"
+          className="inventory-list-card inventory-entry-card"
           style={{
             marginBottom: 16,
             display: editingProductId ? 'none' : undefined,
@@ -959,149 +1033,7 @@ const inventorySummary = useMemo(() => {
       </section>
     )}
 
-    {userRole === 'admin' && entries.length > 0 && (
-        <>
-          <section className="inventory-history-preview">
-            <div className="inventory-section-title">
-              <div>
-                <span>📋</span>
-                <div>
-                  <h3>Historial de entradas</h3>
-                  <p>{entries.length} entradas registradas</p>
-                </div>
-              </div>
-
-              <button
-                type="button"
-                className="inventory-history-button"
-                onClick={() => setShowEntriesHistory(true)}
-              >
-                Ver historial →
-              </button>
-            </div>
-          </section>
-
-          {showEntriesHistory && (
-            <div className="inventory-history-screen">
-              <div className="inventory-history-header">
-                <button
-                  type="button"
-                  className="inventory-history-back"
-                  onClick={() => setShowEntriesHistory(false)}
-                >
-                  ← Volver a inventario
-                </button>
-
-                <div>
-                  <span>📋</span>
-                  <h2>Historial de entradas</h2>
-                  <p>Registro completo de entradas de mercancía</p>
-                </div>
-              </div>
-
-              <div className="inventory-history-list">
-                {entries.map((entry) => {
-                  const variant = variants.find(
-                    (item) => item.id === entry.variant_id
-                  )
-
-                  const product = variant
-                    ? products.find(
-                        (item) => item.id === variant.product_id
-                      )
-                    : undefined
-
-                  return (
-                    <div
-                      key={entry.id}
-                      className="inventory-history-item"
-                    >
-                      <div className="inventory-history-item-top">
-                        <strong>
-                          {product?.name || 'Producto'}
-                        </strong>
-
-                        <span>
-                          +{entry.quantity} piezas
-                        </span>
-                      </div>
-
-                      <div className="inventory-history-item-info">
-                        {variant?.size || 'Sin talla'} ·{' '}
-                        {variant?.color || 'Sin color'}
-                      </div>
-
-                      <div className="inventory-history-item-details">
-                        <span>
-                          Costo $
-                          {Number(entry.unit_cost).toFixed(2)}
-                        </span>
-
-                        <span>
-                          {new Date(entry.created_at).toLocaleString(
-                            'es-MX'
-                          )}
-                        </span>
-                      </div>
-
-                      {entry.notes && (
-                        <div className="inventory-history-item-note">
-                          {entry.notes}
-                        </div>
-                      )}
-                    </div>
-                  )
-                })}
-              </div>
-            </div>
-          )}
-        </>
-      )}
-
-      <section className="inventory-list-card" style={{ marginBottom: 16 }}>
-        <div className="inventory-section-title">
-          <div>
-            <span>🧾</span>
-            <div>
-              <h3>Historial de entradas</h3>
-              <p>Últimas entradas registradas.</p>
-            </div>
-          </div>
-        </div>
-
-        <div style={{ display: 'grid', gap: 10, marginTop: 12 }}>
-          {entries.slice(0, 10).map((entry) => {
-            const variant = variants.find((item) => item.id === entry.variant_id)
-            const product = variant
-              ? products.find((item) => item.id === variant.product_id)
-              : undefined
-
-            return (
-              <div
-                key={entry.id}
-                style={{
-                  padding: 12,
-                  border: '1px solid var(--ms-border)',
-                  borderRadius: 12,
-                  background: 'var(--ms-white)',
-                }}
-              >
-                <strong>{product?.name || 'Producto'}</strong>
-                <div style={{ fontSize: 13, marginTop: 4 }}>
-                  {variant?.size || 'Sin talla'} · {variant?.color || 'Sin color'}
-                </div>
-                <div style={{ fontSize: 13, marginTop: 4 }}>
-                  +{entry.quantity} piezas · Costo ${Number(entry.unit_cost).toFixed(2)}
-                </div>
-                <div style={{ fontSize: 12, color: 'var(--ms-text-soft)', marginTop: 4 }}>
-                  {new Date(entry.created_at).toLocaleString('es-MX')}
-                  {entry.notes ? ` · ${entry.notes}` : ''}
-                </div>
-              </div>
-            )
-          })}
-        </div>
-      </section>
+    
 
     <section className="inventory-list-card">
         <div className="inventory-section-title">
@@ -1453,6 +1385,35 @@ const inventorySummary = useMemo(() => {
           </div>
         )}
       </section>
-    </main>
+        
+
+{userRole === 'admin' && entries.length > 0 && !showEntriesHistory && (
+        <>
+          <section className="inventory-history-preview">
+            <div className="inventory-section-title">
+              <div>
+                <span>📋</span>
+                <div>
+                  <h3>Historial de entradas</h3>
+                  <p>{entries.length} entradas registradas</p>
+                </div>
+              </div>
+
+              <button
+                type="button"
+                className="inventory-history-button"
+                onClick={() => setShowEntriesHistory(true)}
+              >
+                Ver historial →
+              </button>
+            </div>
+          </section>
+
+    
+        </>
+      )}
+</main>
+      )}
+    </>
   )
 }

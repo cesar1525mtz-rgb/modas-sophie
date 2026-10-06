@@ -213,8 +213,7 @@ export default function Expenses({ userId, userRole, onBack }: Props) {
             type="button"
             className="primary-button"
             onClick={saveExpense}
-            disabled={saving}
-          >
+            disabled={saving} style={{ marginTop: "18px" }}>
             {saving ? 'Guardando...' : 'Registrar gasto'}
           </button>
 

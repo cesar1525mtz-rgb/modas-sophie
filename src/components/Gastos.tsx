@@ -308,7 +308,7 @@ function Gastos({ userRole, onBack }: Props) {
             </label>
           </div>
 
-          <div className="product-actions">
+          <div className="product-actions expense-actions">
             <button
               className="primary-button"
               onClick={saveExpense}

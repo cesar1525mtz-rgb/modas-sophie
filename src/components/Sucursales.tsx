@@ -150,7 +150,7 @@ export default function Sucursales({ userRole, onBack }: Props) {
   }
 
   return (
-    <main className="page">
+    <main className="page sucursales-page">
       <div className="page-header">
         <div>
           <button className="back-button" onClick={onBack}>

@@ -383,7 +383,7 @@ export default function CorteCaja({ onBack }: CorteCajaProps) {
   }
 
   return (
-    <main className="inventory-page">
+    <main className="inventory-page cash-cut-page">
       <div className="inventory-header">
         <div>
           <button type="button" className="back-button" onClick={onBack}>
@@ -391,7 +391,7 @@ export default function CorteCaja({ onBack }: CorteCajaProps) {
           </button>
 
           <span className="eyebrow">MODAS SOPHIE</span>
-          <h1>💰 Corte de caja</h1>
+          <h1>Corte de caja</h1>
 
         <section className="inventory-section">
           <label
@@ -402,7 +402,7 @@ export default function CorteCaja({ onBack }: CorteCajaProps) {
               marginBottom: '8px',
             }}
           >
-            📅 Fecha del corte
+            Fecha del corte
           </label>
 
           <input
@@ -540,7 +540,7 @@ export default function CorteCaja({ onBack }: CorteCajaProps) {
                     marginBottom: '8px',
                   }}
                 >
-                  💵 Efectivo contado
+                  Efectivo contado
                 </label>
 
                 <input
@@ -719,7 +719,7 @@ export default function CorteCaja({ onBack }: CorteCajaProps) {
 
 
           <section className="inventory-section">
-            <h2>🧾 Gastos del día</h2>
+            <h2>Gastos del día</h2>
 
             {expenses.length === 0 ? (
               <div className="inventory-empty">

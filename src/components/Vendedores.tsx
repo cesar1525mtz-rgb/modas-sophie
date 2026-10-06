@@ -120,7 +120,7 @@ export default function Vendedores({ userRole, onBack }: VendedoresProps) {
 
   if (userRole !== 'admin') {
     return (
-      <main className="app-shell">
+      <main className="app-shell vendedores-page">
         <button className="back-button" onClick={onBack}>
           ← Volver
         </button>

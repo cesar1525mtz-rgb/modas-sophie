@@ -307,7 +307,7 @@ setSaving(true)
 
   if (loading) {
     return (
-      <main className="inventory-page">
+      <main className="inventory-page caja-page">
         <section className="inventory-empty">
           <div>Cargando caja...</div>
         </section>
@@ -316,7 +316,7 @@ setSaving(true)
   }
 
   return (
-    <main className="inventory-page">
+    <main className="inventory-page caja-page">
       <div className="inventory-header">
         <div>
           <button
@@ -328,7 +328,7 @@ setSaving(true)
           </button>
 
           <span className="eyebrow">MODAS SOPHIE</span>
-          <h1>💰 Caja</h1>
+          <h1>Caja</h1>
         </div>
       </div>
 
