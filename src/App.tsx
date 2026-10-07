@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import './App.css'
+import './theme.css'
 import { supabase } from './lib/supabase'
 import Inventory from './components/Inventory'
 import Sales from './components/Sales';

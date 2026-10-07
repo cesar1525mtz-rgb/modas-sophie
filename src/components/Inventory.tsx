@@ -584,77 +584,288 @@ const inventorySummary = useMemo(() => {
   return (
     <>
       {showEntriesHistory && (
-        <div className="inventory-history-screen">
-          <div className="inventory-history-header">
+        <div
+          style={{
+            minHeight: '100dvh',
+            width: '100%',
+            background: '#fff7fa',
+            boxSizing: 'border-box',
+            padding: '16px',
+            color: '#292329',
+          }}
+        >
+          <div
+            style={{
+              maxWidth: 720,
+              margin: '0 auto',
+            }}
+          >
             <button
               type="button"
-              className="inventory-history-back"
               onClick={() => setShowEntriesHistory(false)}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 8,
+                minHeight: 44,
+                padding: '10px 16px',
+                marginBottom: 18,
+                background: '#ffffff',
+                color: '#7f3157',
+                border: '1px solid #d9a0b8',
+                borderRadius: 12,
+                fontFamily: 'inherit',
+                fontSize: 15,
+                fontWeight: 600,
+                boxShadow: '0 2px 8px rgba(80,30,50,0.08)',
+                cursor: 'pointer',
+              }}
             >
               ← Volver a inventario
             </button>
 
-            <div>
-              <span>📋</span>
-              <h2>Historial de entradas</h2>
-              <p>Registro completo de entradas de mercancía</p>
+            <div
+              style={{
+                background: 'linear-gradient(135deg, #8f3d63 0%, #a94f76 100%)',
+                color: '#ffffff',
+                borderRadius: 18,
+                padding: '20px 18px',
+                marginBottom: 18,
+                boxShadow: '0 8px 22px rgba(90,35,60,0.16)',
+              }}
+            >
+              <div
+                style={{
+                  fontSize: 13,
+                  fontWeight: 700,
+                  letterSpacing: '0.08em',
+                  textTransform: 'uppercase',
+                  opacity: 0.9,
+                  marginBottom: 6,
+                }}
+              >
+                MODAS SOPHIE
+              </div>
+
+              <h2
+                style={{
+                  margin: 0,
+                  fontSize: 27,
+                  lineHeight: 1.15,
+                  fontWeight: 700,
+                }}
+              >
+                Historial de entradas
+              </h2>
+
+              <p
+                style={{
+                  margin: '8px 0 0',
+                  fontSize: 14,
+                  lineHeight: 1.4,
+                  opacity: 0.92,
+                }}
+              >
+                Registro completo de entradas de mercancía
+              </p>
             </div>
-          </div>
 
-          <div className="inventory-history-list">
-            {entries.map((entry) => {
-              const variant = variants.find(
-                (item) => item.id === entry.variant_id
-              )
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                gap: 12,
+                marginBottom: 12,
+              }}
+            >
+              <strong
+                style={{
+                  fontSize: 17,
+                  color: '#552238',
+                }}
+              >
+                {entries.length} {entries.length === 1 ? 'entrada registrada' : 'entradas registradas'}
+              </strong>
+            </div>
 
-              const product = variant
-                ? products.find((item) => item.id === variant.product_id)
-                : undefined
+            <div
+              style={{
+                display: 'grid',
+                gap: 12,
+              }}
+            >
+              {entries.map((entry) => {
+                const variant = variants.find(
+                  (item) => item.id === entry.variant_id
+                )
 
-              return (
-                <div key={entry.id} className="inventory-history-item">
-                  <div className="inventory-history-item-main">
-                    <strong>{product?.name || "Producto"}</strong>
-                    <span>
-                      {variant
-                        ? `${variant.size || ""} · ${variant.color || ""}`
-                        : "Variante"}
-                    </span>
-                  </div>
+                const product = variant
+                  ? products.find((item) => item.id === variant.product_id)
+                  : undefined
 
-                  <div className="inventory-history-item-info">
-                    <strong>
-                      +{entry.quantity} pieza{entry.quantity === 1 ? "" : "s"}
-                    </strong>
-                    <span>
-                      Costo ${Number(entry.unit_cost || 0).toFixed(2)}
-                    </span>
-                    <span>
-                      {entry.created_at
-                        ? new Date(entry.created_at).toLocaleString("es-MX", {
-                            day: "2-digit",
-                            month: "2-digit",
-                            year: "numeric",
-                            hour: "2-digit",
-                            minute: "2-digit",
-                            hour12: true,
-                          })
-                        : ""}
-                    </span>
-                  </div>
+                const variantText =
+                  variant && (variant.size || variant.color)
+                    ? [
+                        variant.size ? `Talla: ${variant.size}` : '',
+                        variant.color ? `Color: ${variant.color}` : '',
+                      ]
+                        .filter(Boolean)
+                        .join(' · ')
+                    : 'Producto sin variantes'
 
-                  {entry.notes && (
-                    <p className="inventory-history-item-notes">
-                      {entry.notes}
-                    </p>
-                  )}
-                </div>
-              )
-            })}
+                const entryDate = entry.created_at
+                  ? new Date(entry.created_at).toLocaleString('es-MX', {
+                      day: '2-digit',
+                      month: '2-digit',
+                      year: 'numeric',
+                      hour: '2-digit',
+                      minute: '2-digit',
+                      hour12: true,
+                    })
+                  : ''
+
+                return (
+                  <article
+                    key={entry.id}
+                    style={{
+                      background: '#ffffff',
+                      border: '1px solid #ead2dc',
+                      borderRadius: 16,
+                      padding: 16,
+                      boxShadow: '0 3px 12px rgba(80,30,50,0.07)',
+                    }}
+                  >
+                    <div
+                      style={{
+                        marginBottom: 12,
+                      }}
+                    >
+                      <div
+                        style={{
+                          fontSize: 18,
+                          fontWeight: 700,
+                          lineHeight: 1.25,
+                          color: '#4d2035',
+                          marginBottom: 5,
+                        }}
+                      >
+                        {product?.name || 'Producto'}
+                      </div>
+
+                      <div
+                        style={{
+                          fontSize: 14,
+                          color: '#765665',
+                          lineHeight: 1.35,
+                        }}
+                      >
+                        {variantText}
+                      </div>
+                    </div>
+
+                    <div
+                      style={{
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
+                        gap: 10,
+                      }}
+                    >
+                      <div
+                        style={{
+                          background: '#fff7fa',
+                          borderRadius: 10,
+                          padding: '10px 11px',
+                        }}
+                      >
+                        <div
+                          style={{
+                            fontSize: 12,
+                            color: '#8a6876',
+                            marginBottom: 3,
+                          }}
+                        >
+                          Cantidad
+                        </div>
+
+                        <strong
+                          style={{
+                            fontSize: 16,
+                            color: '#552238',
+                          }}
+                        >
+                          +{entry.quantity} {entry.quantity === 1 ? 'pieza' : 'piezas'}
+                        </strong>
+                      </div>
+
+                      <div
+                        style={{
+                          background: '#fff7fa',
+                          borderRadius: 10,
+                          padding: '10px 11px',
+                        }}
+                      >
+                        <div
+                          style={{
+                            fontSize: 12,
+                            color: '#8a6876',
+                            marginBottom: 3,
+                          }}
+                        >
+                          Costo unitario
+                        </div>
+
+                        <strong
+                          style={{
+                            fontSize: 16,
+                            color: '#552238',
+                          }}
+                        >
+                          ${Number(entry.unit_cost || 0).toFixed(2)}
+                        </strong>
+                      </div>
+                    </div>
+
+                    <div
+                      style={{
+                        marginTop: 11,
+                        paddingTop: 10,
+                        borderTop: '1px solid #f0dfe6',
+                        fontSize: 13,
+                        color: '#765665',
+                      }}
+                    >
+                      <strong style={{ color: '#552238' }}>
+                        Fecha:
+                      </strong>{' '}
+                      {entryDate}
+                    </div>
+
+                    {entry.notes && (
+                      <div
+                        style={{
+                          marginTop: 10,
+                          padding: '10px 12px',
+                          background: '#faf2f6',
+                          borderRadius: 10,
+                          fontSize: 14,
+                          lineHeight: 1.4,
+                          color: '#5e4651',
+                        }}
+                      >
+                        <strong style={{ color: '#552238' }}>
+                          Nota:
+                        </strong>{' '}
+                        {entry.notes}
+                      </div>
+                    )}
+                  </article>
+                )
+              })}
+            </div>
           </div>
         </div>
       )}
-
       {!showEntriesHistory && (
         <main className={`inventory-page ${editingProductId ? "inventory-page-editing" : ""}`}>
       <header className="inventory-header">
@@ -705,7 +916,13 @@ const inventorySummary = useMemo(() => {
               position: "fixed",
               inset: 0,
               zIndex: 9999,
-              overflowY: "auto",
+            width: "100vw",
+            height: "100dvh",
+            maxHeight: "100dvh",
+            overflowY: "auto",
+            overflowX: "hidden",
+            overscrollBehavior: "contain",
+            WebkitOverflowScrolling: "touch",
               background: "var(--ms-white, #ffffff)",
               padding: 16,
               boxSizing: "border-box"
@@ -1381,24 +1598,64 @@ const inventorySummary = useMemo(() => {
                 }}
               >
                 <option value="">Selecciona producto, talla y color</option>
-                {variants.map((variant) => {
-                  const product = products.find((item) => item.id === variant.product_id)
-                  const stockItem = stock.find(
-                    (item) => item.variant_id === variant.id && item.branch_id === branchId
-                  )
+            {variants
+              .filter((variant) => {
+                const sameProduct = variants.filter(
+                  (item) => item.product_id === variant.product_id
+                )
 
+                const hasRealVariant = sameProduct.some(
+                  (item) =>
+                    !!item.size?.trim() ||
+                    !!item.color?.trim()
+                )
+
+                // Si el producto tiene tallas o colores reales,
+                // ocultar completamente la variante base.
+                if (hasRealVariant) {
                   return (
-                    <option key={variant.id} value={variant.id}>
-                      {(product?.name || 'Producto') +
-                        ' · ' +
-                        (variant.size || 'Sin talla') +
-                        ' · ' +
-                        (variant.color || 'Sin color') +
-                        ' · Stock: ' +
-                        (stockItem?.quantity || 0)}
-                    </option>
+                    !!variant.size?.trim() ||
+                    !!variant.color?.trim()
                   )
-                })}
+                }
+
+                // Producto sin tallas ni colores:
+                // conservar solamente su primera variante base.
+                const firstBaseVariant = sameProduct.find(
+                  (item) =>
+                    !item.size?.trim() &&
+                    !item.color?.trim()
+                )
+
+                return (
+                  !variant.size?.trim() &&
+                  !variant.color?.trim() &&
+                  variant.id === firstBaseVariant?.id
+                )
+              })
+              .map((variant) => {
+                const product = products.find(
+                  (item) => item.id === variant.product_id
+                )
+
+                const stockItem = stock.find(
+                  (item) =>
+                    item.variant_id === variant.id &&
+                    item.branch_id === branchId
+                )
+
+                return (
+                  <option key={variant.id} value={variant.id}>
+                    {(product?.name || 'Producto') +
+                      ' · ' +
+                      (variant.size || 'Sin talla') +
+                      ' · ' +
+                      (variant.color || 'Sin color') +
+                      ' · Stock: ' +
+                      (stockItem?.quantity || 0)}
+                  </option>
+                )
+              })}
               </select>
             </label>
 
@@ -1645,154 +1902,112 @@ const inventorySummary = useMemo(() => {
             )
           })()}
 
-          <div className="product-variants">
-                    {productVariants.map((variant) => {
-                      const item = stock.find(
-                        (entry) =>
-                          entry.variant_id === variant.id &&
-                          entry.branch_id === branchId,
-                      )
-
-                      return (
-                        <span key={variant.id}>
-                          {variant.size || 'Sin talla'} ·{' '}
-                          {variant.color || 'Sin color'} ·{' '}
-                          {item?.quantity || 0}
-                        </span>
-                      )
-                    })}
-                  </div>
-
-          
-      {selectedProductId === product.id && (
-        <div
-          onClick={(event) => event.stopPropagation()}
-          style={{
-            marginTop: 14,
-            padding: 16,
-            borderRadius: 16,
-            background: '#ffffff',
-            border: '1px solid #eadde6',
-            boxShadow: '0 4px 14px rgba(0,0,0,.06)'
-          }}
-        >
-          <div style={{ fontSize: 18, fontWeight: 800, marginBottom: 12 }}>
-            📦 Detalle del producto
-          </div>
-
+          {selectedProductId === product.id && (
+  <div
+    className="inventory-product-detail"
+    onClick={(event) => event.stopPropagation()}
+    style={{
+      gridColumn: '1 / -1',
+      width: '100%',
+      boxSizing: 'border-box',
+      marginTop: 12,
+      padding: 14,
+      borderRadius: 16,
+      background: '#fff7fa',
+      border: '1px solid #ead2dc',
+    }}
+  >
+    {productVariants.some(
+          (variant) =>
+            variant.size?.trim() || variant.color?.trim()
+        ) && (
           <div
+      style={{
+        fontSize: 18,
+        fontWeight: 800,
+        marginBottom: 12,
+      }}
+    >
+      👕 Variantes disponibles
+    </div>
+        )}
+
+    <div
+      style={{
+        display: 'grid',
+        gap: 8,
+      }}
+    >
+      {productVariants.map((variant) => {
+        if (!variant.size?.trim() && !variant.color?.trim()) {
+          return null
+        }
+
+        const itemStock = stock.find(
+          (entry) =>
+            entry.variant_id === variant.id &&
+            entry.branch_id === branchId
+        )
+
+        const quantity = Number(itemStock?.quantity ?? 0)
+
+        return (
+          <div
+            key={variant.id}
             style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
-              gap: 10
+              display: 'flex',
+              color: '#4d2035',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              gap: 12,
+              padding: '10px 12px',
+              borderRadius: 10,
+              background: '#ffffff',
+              border: '1px solid #ead2dc',
             }}
           >
-            <div>
-              <small>Precio de venta</small>
-              <div style={{ fontSize: 18, fontWeight: 800 }}>
-                ${Number(product.price).toFixed(2)}
-              </div>
-            </div>
+            <span style={{ fontWeight: 600 }}>
+              {variant.size || 'Sin talla'}
+              {' · '}
+              {variant.color || 'Sin color'}
+            </span>
 
-            <div>
-              <small>Costo</small>
-              <div style={{ fontSize: 18, fontWeight: 800 }}>
-                ${Number(product.cost).toFixed(2)}
-              </div>
-            </div>
-
-            <div>
-              <small>Ganancia por pieza</small>
-              <div style={{ fontSize: 18, fontWeight: 800 }}>
-                ${(Number(product.price) - Number(product.cost)).toFixed(2)}
-              </div>
-            </div>
-
-            <div>
-              <small>Existencia total</small>
-              <div style={{ fontSize: 18, fontWeight: 800 }}>
-                {totalStock} piezas
-              </div>
-            </div>
+            <strong style={{ whiteSpace: 'nowrap' }}>
+              {quantity} piezas
+            </strong>
           </div>
-
-          <div
-            style={{
-              marginTop: 14,
-              padding: 12,
-              borderRadius: 12,
-              background: '#f8f8f8'
-            }}
-          >
-            <div style={{ fontWeight: 700, marginBottom: 8 }}>
-              📊 Valor del inventario
-            </div>
-
-            <div>
-              Costo de mercancía:
-              <strong> ${(Number(product.cost) * totalStock).toFixed(2)}</strong>
-            </div>
-
-            <div style={{ marginTop: 4 }}>
-              Venta potencial:
-              <strong> ${(Number(product.price) * totalStock).toFixed(2)}</strong>
-            </div>
-
-            <div style={{ marginTop: 4 }}>
-              Ganancia potencial:
-              <strong>
-                ${((Number(product.price) - Number(product.cost)) * totalStock).toFixed(2)}
-              </strong>
-            </div>
-          </div>
-
-          <div style={{ marginTop: 14 }}>
-            <div style={{ fontWeight: 700, marginBottom: 8 }}>
-              👕 Tallas, colores y existencias
-            </div>
-
-            <div style={{ display: 'grid', gap: 8 }}>
-              {productVariants.map((variant) => {
-                const itemStock = stock.find(
-                  (entry) =>
-                    entry.variant_id === variant.id &&
-                    entry.branch_id === branchId
-                )
-
-                return (
-                  <div
-                    key={variant.id}
-                    style={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      padding: '10px 12px',
-                      borderRadius: 10,
-                      background: '#f8f8f8'
-                    }}
-                  >
-                    <span>
-                      {variant.size || 'Sin talla'}
-                      {' · '}
-                      {variant.color || 'Sin color'}
-                    </span>
-
-                    <strong>
-                      {Number(itemStock?.quantity ?? 0)} piezas
-                    </strong>
-                  </div>
-                )
-              })}
-            </div>
-          </div>
-        </div>
-      )}
+        )
+      })}
+    </div>
+  </div>
+)}
 
 {userRole === 'admin' && (
             <button
-              type="button"
-              className="product-edit-button"
-              onClick={(event) => {
+  type="button"
+  className="product-edit-button product-edit-button-final"
+  style={{
+    width: 'fit-content',
+    minWidth: 0,
+    maxWidth: 'none',
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: '8px 16px',
+    minHeight: 40,
+    marginTop: 12,
+    marginLeft: 'auto',
+    background: '#8f3d63',
+    color: '#ffffff',
+    border: '1px solid #b85a82',
+    borderRadius: 9,
+    fontSize: 15,
+    fontWeight: 600,
+    whiteSpace: 'nowrap',
+    boxSizing: 'border-box',
+    boxShadow: '0 3px 10px rgba(0,0,0,0.18)',
+  }}
+  onClick={(event) => {
               event.stopPropagation()
               editProduct(product.id)
             }}
@@ -1821,12 +2036,32 @@ const inventorySummary = useMemo(() => {
               </div>
 
               <button
-                type="button"
-                className="inventory-history-button"
-                onClick={() => setShowEntriesHistory(true)}
-              >
-                Ver historial →
-              </button>
+              type="button"
+              className="inventory-history-button"
+              onClick={() => setShowEntriesHistory(true)}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: 'fit-content',
+                minHeight: 42,
+                padding: '10px 18px',
+                marginTop: 8,
+                background: '#8f3d63',
+                color: '#ffffff',
+                border: '1px solid #b85a82',
+                borderRadius: 10,
+                fontFamily: 'inherit',
+                fontSize: 15,
+                fontWeight: 600,
+                lineHeight: 1.2,
+                boxShadow: '0 4px 12px rgba(0,0,0,0.14)',
+                cursor: 'pointer',
+                boxSizing: 'border-box',
+              }}
+            >
+              Ver historial →
+            </button>
             </div>
           </section>
 

@@ -8353,3 +8353,2436 @@ main.inventory-page button.new-sale-register-button-final:disabled {
     padding: 16px;
   }
 }
+
+/* AJUSTE FINAL - ESPACIO DE TARJETAS DE INVENTARIO */
+@media (max-width: 600px) {
+  main.app-shell .inventory-list .product-row {
+    gap: 10px !important;
+    padding: 12px !important;
+    margin-bottom: 14px !important;
+  }
+
+  main.app-shell .inventory-list .product-row .product-info {
+    gap: 5px !important;
+  }
+
+  main.app-shell .inventory-list .product-row .product-actions {
+    gap: 10px !important;
+    margin-top: 8px !important;
+  }
+}
+
+
+/* =========================================================
+   INVENTARIO - PRODUCTOS COMPACTOS SIN IMAGEN
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  /* Tarjeta compacta */
+  main.app-shell .inventory-list .product-row {
+    grid-template-columns: minmax(0, 1fr) auto !important;
+    gap: 8px 12px !important;
+    padding: 14px !important;
+    margin-bottom: 10px !important;
+    border-radius: 16px !important;
+  }
+
+  /* Ocultar imagen del producto */
+  main.app-shell .inventory-list .product-row .product-icon {
+    display: none !important;
+  }
+
+  /* Información principal */
+  main.app-shell .inventory-list .product-row .product-main {
+    min-width: 0 !important;
+    display: block !important;
+  }
+
+  main.app-shell .inventory-list .product-row .product-info {
+    min-width: 0 !important;
+    gap: 3px !important;
+  }
+
+  main.app-shell .inventory-list .product-row .product-info strong {
+    font-size: 17px !important;
+    line-height: 1.2 !important;
+  }
+
+  main.app-shell .inventory-list .product-row .product-info small {
+    font-size: 13px !important;
+    line-height: 1.25 !important;
+  }
+
+  /* Precio */
+  main.app-shell .inventory-list .product-row .product-price {
+    font-size: 18px !important;
+    font-weight: 800 !important;
+    white-space: nowrap !important;
+    align-self: start !important;
+  }
+
+  /* Piezas */
+  main.app-shell .inventory-list .product-row .product-stock {
+    margin-top: 3px !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+  }
+
+  /* Botón editar formal */
+  main.app-shell .inventory-list .product-row .product-actions {
+    display: flex !important;
+    justify-content: flex-end !important;
+    align-items: center !important;
+    gap: 0 !important;
+    margin: 0 !important;
+  }
+
+  main.app-shell .inventory-list .product-row .product-actions button {
+    width: auto !important;
+    min-width: 88px !important;
+    padding: 9px 14px !important;
+    border-radius: 10px !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    box-shadow: none !important;
+  }
+
+  /* Variantes: compactas cuando el producto está abierto */
+  main.app-shell .inventory-list .product-row .product-variants {
+    grid-column: 1 / -1 !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+    margin-top: 5px !important;
+  }
+
+  main.app-shell .inventory-list .product-row .product-variants span {
+    padding: 5px 9px !important;
+    border-radius: 8px !important;
+    font-size: 12px !important;
+  }
+}
+
+
+/* =========================================================
+   INVENTARIO - DETALLE DE PRODUCTO COMPACTO Y ELEGANTE
+   ========================================================= */
+
+.inventory-page .inventory-product-detail {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  margin-top: 16px !important;
+  padding: 18px !important;
+  border-radius: 18px !important;
+  overflow: hidden !important;
+}
+
+.inventory-page .inventory-product-detail > div:first-child {
+  font-size: 20px !important;
+  line-height: 1.2 !important;
+  margin-bottom: 14px !important;
+}
+
+.inventory-page .inventory-product-detail .inventory-detail-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 14px !important;
+  margin-bottom: 14px !important;
+}
+
+.inventory-page .inventory-product-detail .inventory-detail-grid > div {
+  min-width: 0 !important;
+}
+
+.inventory-page .inventory-product-detail small {
+  display: block !important;
+  margin-bottom: 5px !important;
+  line-height: 1.25 !important;
+}
+
+.inventory-page .inventory-product-detail .inventory-detail-value {
+  font-size: 19px !important;
+  font-weight: 800 !important;
+  line-height: 1.2 !important;
+}
+
+.inventory-page .inventory-product-detail .inventory-value-card {
+  width: 100% !important;
+  box-sizing: border-box !important;
+  padding: 14px !important;
+  margin: 4px 0 16px !important;
+  border-radius: 16px !important;
+}
+
+.inventory-page .inventory-product-detail .inventory-value-card strong {
+  display: block !important;
+  margin-bottom: 5px !important;
+}
+
+.inventory-page .inventory-product-detail .inventory-variants-title {
+  margin: 0 0 10px !important;
+  font-size: 17px !important;
+  line-height: 1.25 !important;
+}
+
+.inventory-page .inventory-product-detail .inventory-variant-row {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  padding: 11px 14px !important;
+  margin: 0 0 9px !important;
+  border-radius: 13px !important;
+}
+
+.inventory-page .inventory-product-detail .inventory-variant-row:last-child {
+  margin-bottom: 0 !important;
+}
+
+.inventory-page .inventory-product-detail .inventory-variant-stock {
+  font-weight: 800 !important;
+  white-space: nowrap !important;
+}
+
+.inventory-page .inventory-product-detail .inventory-edit-button {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  min-height: 46px !important;
+  margin-top: 16px !important;
+  padding: 10px 16px !important;
+  border-radius: 12px !important;
+  border: 1px solid rgba(255,255,255,.18) !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  letter-spacing: .1px !important;
+  box-sizing: border-box !important;
+  cursor: pointer !important;
+}
+
+@media (max-width: 600px) {
+  .inventory-page .inventory-product-detail {
+    padding: 16px !important;
+    margin-top: 14px !important;
+    border-radius: 16px !important;
+  }
+
+  .inventory-page .inventory-product-detail .inventory-detail-grid {
+    gap: 12px !important;
+  }
+
+  .inventory-page .inventory-product-detail .inventory-detail-value {
+    font-size: 18px !important;
+  }
+
+  .inventory-page .inventory-product-detail .inventory-value-card {
+    padding: 13px !important;
+  }
+
+  .inventory-page .inventory-product-detail .inventory-variant-row {
+    padding: 10px 12px !important;
+  }
+}
+
+
+/* =========================================================
+   INVENTARIO - DETALLE DE PRODUCTO FINAL
+   ========================================================= */
+
+.inventory-page .inventory-product-detail {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  margin-top: 14px !important;
+  padding: 16px !important;
+  border-radius: 18px !important;
+  border: 1px solid rgba(255,255,255,.14) !important;
+  background: rgba(255,255,255,.025) !important;
+  box-shadow: none !important;
+}
+
+.inventory-page .inventory-product-detail > div:first-child {
+  margin-bottom: 14px !important;
+}
+
+.inventory-page .inventory-product-detail button {
+  min-height: 42px !important;
+  border-radius: 10px !important;
+  font-weight: 700 !important;
+  letter-spacing: .1px !important;
+}
+
+.inventory-page .inventory-product-detail .inventory-variant-row {
+  padding: 10px 12px !important;
+  margin-top: 8px !important;
+  border-radius: 12px !important;
+}
+
+@media (max-width: 600px) {
+  .inventory-page .inventory-product-detail {
+    margin-top: 12px !important;
+    padding: 14px !important;
+    border-radius: 16px !important;
+  }
+}
+
+
+/* =========================================================
+   INVENTARIO - DETALLE ABIERTO A ANCHO COMPLETO
+   ========================================================= */
+
+.inventory-page .inventory-product-detail {
+  grid-column: 1 / -1 !important;
+  width: 100% !important;
+  max-width: none !important;
+  box-sizing: border-box !important;
+}
+
+/* El botón Editar que queda después del detalle */
+.inventory-page .inventory-product-detail ~ button {
+  grid-column: 1 / -1 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 12px 0 0 !important;
+  min-height: 44px !important;
+  border-radius: 11px !important;
+  font-size: 17px !important;
+  font-weight: 700 !important;
+  box-sizing: border-box !important;
+}
+
+/* Detalle más compacto y limpio */
+.inventory-page .inventory-product-detail > div {
+  box-sizing: border-box;
+}
+
+.inventory-page .inventory-product-detail .inventory-variant-row {
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* En teléfono: aprovechar todo el ancho */
+@media (max-width: 600px) {
+
+  .inventory-page .inventory-product-detail {
+    grid-column: 1 / -1 !important;
+    width: 100% !important;
+    padding: 14px !important;
+    margin-top: 12px !important;
+  }
+
+  .inventory-page .inventory-product-detail ~ button {
+    grid-column: 1 / -1 !important;
+    width: 100% !important;
+    margin-top: 10px !important;
+  }
+
+}
+
+
+/* =========================================================
+   INVENTARIO - DETALLE COMPACTO AL ABRIR PRODUCTO
+   ========================================================= */
+
+.inventory-page .inventory-product-detail {
+  width: 100% !important;
+  box-sizing: border-box !important;
+  margin-top: 12px !important;
+  padding: 14px !important;
+  border-radius: 16px !important;
+}
+
+/* Ocultar información secundaria para mantener Inventario compacto:
+   precio, costo, ganancia y valor del inventario */
+.inventory-page .inventory-product-detail > div:nth-child(2),
+.inventory-page .inventory-product-detail > div:nth-child(3) {
+  display: none !important;
+}
+
+/* Título del detalle */
+.inventory-page .inventory-product-detail > div:first-child {
+  margin-bottom: 12px !important;
+}
+
+/* Título de variantes */
+.inventory-page .inventory-product-detail > div:nth-child(4) {
+  margin-top: 8px !important;
+  margin-bottom: 8px !important;
+}
+
+/* Variantes */
+.inventory-page .inventory-product-detail > div:nth-child(5) {
+  display: grid !important;
+  gap: 8px !important;
+}
+
+.inventory-page .inventory-product-detail > div:nth-child(5) > div {
+  padding: 10px 12px !important;
+  border-radius: 10px !important;
+}
+
+/* Botón Editar */
+.inventory-page .inventory-product-detail + .product-edit-button {
+  width: 100% !important;
+  min-height: 42px !important;
+  margin-top: 10px !important;
+  border-radius: 10px !important;
+  font-weight: 700 !important;
+  letter-spacing: .1px !important;
+}
+
+
+/* INVENTARIO - BOTÓN EDITAR COMPACTO */
+.inventory-page .product-edit-button {
+  width: auto !important;
+  min-width: 0 !important;
+  max-width: max-content !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 8px 16px !important;
+  min-height: 42px !important;
+  margin: 12px 0 0 auto !important;
+  border-radius: 8px !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  white-space: nowrap !important;
+  box-sizing: border-box !important;
+}
+
+
+/* CORRECCIÓN DEFINITIVA - EDITAR COMPACTO */
+.inventory-page .inventory-product-card .product-edit-button {
+  width: fit-content !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 8px 16px !important;
+  min-height: 42px !important;
+  margin: 12px 0 0 auto !important;
+  border-radius: 8px !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  white-space: nowrap !important;
+  box-sizing: border-box !important;
+}
+
+
+/* CORRECCIÓN EXACTA DEL BOTÓN EDITAR */
+.inventory-page .inventory-product-detail + .product-edit-button {
+  width: fit-content !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 8px 16px !important;
+  min-height: 42px !important;
+  margin: 12px 0 0 auto !important;
+  border-radius: 8px !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  white-space: nowrap !important;
+  box-sizing: border-box !important;
+}
+
+
+/* ESTILO FINAL - BOTÓN EDITAR MODAS SOPHIE */
+.inventory-page .inventory-product-card .product-edit-button {
+  width: fit-content !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  padding: 8px 16px !important;
+  min-height: 40px !important;
+  margin: 12px 0 0 auto !important;
+
+  background: #8f3d63 !important;
+  color: #ffffff !important;
+  border: 1px solid #b85a82 !important;
+  border-radius: 9px !important;
+
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  white-space: nowrap !important;
+  box-sizing: border-box !important;
+
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.18) !important;
+  transition: transform 0.15s ease, background 0.15s ease !important;
+}
+
+.inventory-page .inventory-product-card .product-edit-button:active {
+  transform: scale(0.96) !important;
+  background: #74304f !important;
+}
+
+
+/* ESTILO FINAL - BOTÓN EDITAR MODAS SOPHIE */
+.inventory-page .inventory-product-card .product-edit-button {
+  width: fit-content !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  padding: 8px 16px !important;
+  min-height: 40px !important;
+  margin: 12px 0 0 auto !important;
+
+  background: #8f3d63 !important;
+  color: #ffffff !important;
+  border: 1px solid #b85a82 !important;
+  border-radius: 9px !important;
+
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  white-space: nowrap !important;
+  box-sizing: border-box !important;
+
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.18) !important;
+  transition: transform 0.15s ease, background 0.15s ease !important;
+}
+
+.inventory-page .inventory-product-card .product-edit-button:active {
+  transform: scale(0.96) !important;
+  background: #74304f !important;
+}
+
+
+/* BOTÓN EDITAR - ESTILO FINAL */
+.inventory-page .product-edit-button-final {
+  width: fit-content !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  height: 42px !important;
+
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  padding: 8px 18px !important;
+  margin: 12px 0 0 auto !important;
+
+  background: #8f3d63 !important;
+  background-color: #8f3d63 !important;
+  color: #ffffff !important;
+
+  border: 1px solid #b85a82 !important;
+  border-radius: 9px !important;
+
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  line-height: 1 !important;
+  white-space: nowrap !important;
+
+  box-sizing: border-box !important;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.18) !important;
+}
+
+.inventory-page .product-edit-button-final:hover {
+  background: #a44770 !important;
+  background-color: #a44770 !important;
+}
+
+.inventory-page .product-edit-button-final:active {
+  background: #74304f !important;
+  background-color: #74304f !important;
+  transform: scale(0.96);
+}
+
+/* =========================================================
+   INVENTARIO - AJUSTE VISUAL DEFINITIVO
+   ========================================================= */
+
+/* BOTÓN HISTORIAL */
+.inventory-page .inventory-history-button {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  width: auto !important;
+  min-width: 0 !important;
+  min-height: 42px !important;
+
+  margin: 8px 0 0 0 !important;
+  padding: 10px 18px !important;
+
+  background: #8f3d63 !important;
+  background-color: #8f3d63 !important;
+
+  color: #ffffff !important;
+
+  border: 1px solid #b85a82 !important;
+  border-radius: 10px !important;
+
+  font-family: inherit !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  line-height: 1.2 !important;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.14) !important;
+
+  cursor: pointer !important;
+}
+
+.inventory-page .inventory-history-button:hover {
+  background: #7d3356 !important;
+  background-color: #7d3356 !important;
+}
+
+.inventory-page .inventory-history-button:active {
+  transform: scale(0.97) !important;
+}
+
+
+/* ENTRADA DE MERCANCÍA */
+.inventory-page .inventory-entry-card {
+  padding: 14px 16px !important;
+  margin-bottom: 12px !important;
+}
+
+.inventory-page .inventory-entry-card .inventory-section-title {
+  margin-bottom: 4px !important;
+}
+
+.inventory-page .inventory-entry-card .inventory-save {
+  width: fit-content !important;
+  min-width: 0 !important;
+  min-height: 40px !important;
+  padding: 9px 18px !important;
+  margin-top: 4px !important;
+}
+
+
+/* ESTADÍSTICAS */
+.inventory-page .inventory-list-card > .inventory-section-title + div {
+  gap: 10px !important;
+  margin-bottom: 12px !important;
+}
+
+/* Sobrescribe los padding y tamaños inline de las cuatro tarjetas */
+.inventory-page .inventory-list-card > .inventory-section-title + div > div {
+  padding: 12px !important;
+  min-width: 0 !important;
+  border-radius: 14px !important;
+}
+
+/* Nombre de cada estadística */
+.inventory-page .inventory-list-card > .inventory-section-title + div > div > div:first-child {
+  font-size: 13px !important;
+  font-weight: 600 !important;
+}
+
+/* Número de cada estadística */
+.inventory-page .inventory-list-card > .inventory-section-title + div > div > div:last-child {
+  font-size: 24px !important;
+  margin-top: 4px !important;
+}
+
+
+/* HISTORIAL: MENOS ESPACIO AL FINAL */
+.inventory-page .inventory-history-preview {
+  padding-bottom: 12px !important;
+}
+
+
+/* =========================================================
+   MODAS SOPHIE — DASHBOARD PREMIUM 01
+   Solo presentación visual. No modifica lógica.
+   ========================================================= */
+
+.app-shell {
+  background:
+    radial-gradient(circle at 50% 0%, rgba(221, 76, 137, 0.08), transparent 34%),
+    #fff8fb !important;
+}
+
+/* Encabezado principal */
+.app-shell > header {
+  background: rgba(255, 255, 255, 0.96) !important;
+  border-bottom: 1px solid rgba(143, 61, 99, 0.10) !important;
+  box-shadow: 0 4px 18px rgba(80, 35, 58, 0.05) !important;
+}
+
+/* Contenedor del Dashboard */
+.app-shell main {
+  background: transparent !important;
+}
+
+/* Encabezados */
+.app-shell .section-heading {
+  margin-bottom: 12px !important;
+}
+
+.app-shell .section-heading p {
+  margin-bottom: 5px !important;
+  color: #9b7187 !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  letter-spacing: 1.5px !important;
+  text-transform: uppercase !important;
+}
+
+.app-shell .section-heading h2 {
+  color: #30232b !important;
+  font-size: 26px !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.4px !important;
+}
+
+/* Tarjeta de fecha */
+.app-shell .date-card {
+  margin-top: 8px !important;
+  margin-bottom: 18px !important;
+  padding: 16px 18px !important;
+  min-height: 82px !important;
+  border: 1px solid rgba(143, 61, 99, 0.12) !important;
+  border-radius: 22px !important;
+  background: rgba(255, 255, 255, 0.92) !important;
+  box-shadow: 0 8px 24px rgba(80, 35, 58, 0.06) !important;
+}
+
+.app-shell .date-card > span {
+  width: 50px !important;
+  height: 50px !important;
+  display: grid !important;
+  place-items: center !important;
+  border-radius: 15px !important;
+  background: #fff0f6 !important;
+  font-size: 25px !important;
+}
+
+.app-shell .date-card strong {
+  color: #40313a !important;
+  font-size: 17px !important;
+  font-weight: 700 !important;
+}
+
+.app-shell .date-card small {
+  color: #9a8791 !important;
+  font-size: 13px !important;
+}
+
+/* =========================================================
+   INDICADORES DEL DÍA
+   ========================================================= */
+
+.app-shell .dashboard-stats {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 10px !important;
+  margin-bottom: 22px !important;
+}
+
+.app-shell .dashboard-stats .stat-card {
+  position: relative !important;
+  min-height: 104px !important;
+  padding: 15px !important;
+  overflow: hidden !important;
+  border: 1px solid rgba(143, 61, 99, 0.11) !important;
+  border-radius: 20px !important;
+  background: #ffffff !important;
+  box-shadow: 0 7px 20px rgba(80, 35, 58, 0.055) !important;
+}
+
+.app-shell .dashboard-stats .stat-card::after {
+  content: "" !important;
+  position: absolute !important;
+  width: 72px !important;
+  height: 72px !important;
+  right: -22px !important;
+  bottom: -24px !important;
+  border-radius: 50% !important;
+  background: rgba(220, 79, 137, 0.07) !important;
+  pointer-events: none !important;
+}
+
+.app-shell .dashboard-stats .stat-icon {
+  width: 38px !important;
+  height: 38px !important;
+  display: grid !important;
+  place-items: center !important;
+  margin-bottom: 9px !important;
+  border-radius: 12px !important;
+  background: #fff0f6 !important;
+  font-size: 19px !important;
+}
+
+.app-shell .dashboard-stats .stat-card small {
+  display: block !important;
+  margin-bottom: 4px !important;
+  color: #9b8791 !important;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.8px !important;
+}
+
+.app-shell .dashboard-stats .stat-card strong {
+  display: block !important;
+  color: #30232b !important;
+  font-size: 23px !important;
+  line-height: 1.05 !important;
+  font-weight: 750 !important;
+  letter-spacing: -0.5px !important;
+}
+
+/* =========================================================
+   ACCESOS RÁPIDOS
+   ========================================================= */
+
+.app-shell .quick-section {
+  margin-top: 6px !important;
+}
+
+.app-shell .module-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 11px !important;
+}
+
+.app-shell .module-card {
+  position: relative !important;
+  min-height: 142px !important;
+  padding: 17px !important;
+  border: 1px solid rgba(143, 61, 99, 0.12) !important;
+  border-radius: 21px !important;
+  background: #ffffff !important;
+  box-shadow: 0 7px 20px rgba(80, 35, 58, 0.055) !important;
+  transition: transform 0.16s ease, box-shadow 0.16s ease !important;
+}
+
+.app-shell .module-card:active {
+  transform: scale(0.98) !important;
+}
+
+.app-shell .module-icon {
+  width: 43px !important;
+  height: 43px !important;
+  display: grid !important;
+  place-items: center !important;
+  margin-bottom: 13px !important;
+  border-radius: 13px !important;
+  background: #fff0f6 !important;
+  font-size: 21px !important;
+}
+
+.app-shell .module-info strong {
+  display: block !important;
+  margin-bottom: 4px !important;
+  color: #30232b !important;
+  font-size: 17px !important;
+  font-weight: 700 !important;
+}
+
+.app-shell .module-info small {
+  display: block !important;
+  color: #9a8791 !important;
+  font-size: 12px !important;
+  line-height: 1.35 !important;
+}
+
+.app-shell .module-arrow {
+  color: #a34b72 !important;
+  font-size: 21px !important;
+}
+
+/* =========================================================
+   TELÉFONO
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  .app-shell {
+    padding-bottom: 24px !important;
+  }
+
+  .app-shell .section-heading h2 {
+    font-size: 25px !important;
+  }
+
+  .app-shell .date-card {
+    margin-bottom: 15px !important;
+    padding: 14px 15px !important;
+    min-height: 76px !important;
+    border-radius: 19px !important;
+  }
+
+  .app-shell .date-card > span {
+    width: 46px !important;
+    height: 46px !important;
+    font-size: 22px !important;
+  }
+
+  .app-shell .date-card strong {
+    font-size: 15px !important;
+  }
+
+  .app-shell .dashboard-stats {
+    gap: 9px !important;
+    margin-bottom: 20px !important;
+  }
+
+  .app-shell .dashboard-stats .stat-card {
+    min-height: 96px !important;
+    padding: 13px !important;
+    border-radius: 18px !important;
+  }
+
+  .app-shell .dashboard-stats .stat-icon {
+    width: 35px !important;
+    height: 35px !important;
+    margin-bottom: 7px !important;
+    font-size: 17px !important;
+  }
+
+  .app-shell .dashboard-stats .stat-card strong {
+    font-size: 21px !important;
+  }
+
+  .app-shell .module-grid {
+    gap: 10px !important;
+  }
+
+  .app-shell .module-card {
+    min-height: 132px !important;
+    padding: 15px !important;
+    border-radius: 19px !important;
+  }
+
+  .app-shell .module-icon {
+    width: 40px !important;
+    height: 40px !important;
+    margin-bottom: 11px !important;
+    font-size: 19px !important;
+  }
+
+  .app-shell .module-info strong {
+    font-size: 16px !important;
+  }
+
+  .app-shell .module-info small {
+    font-size: 11px !important;
+  }
+}
+
+
+/* =========================================================
+   MODAS SOPHIE — DASHBOARD PREMIUM 01
+   Diseño boutique / punto de venta móvil
+   ========================================================= */
+
+/* Fondo y área principal */
+.app-shell {
+  background:
+    radial-gradient(circle at 85% 0%, rgba(191, 72, 126, 0.08), transparent 32%),
+    linear-gradient(180deg, #fffafd 0%, #fff7fb 100%) !important;
+}
+
+/* Encabezado superior */
+.app-shell .topbar {
+  min-height: 72px !important;
+  padding: 12px 20px !important;
+  background: rgba(255, 255, 255, 0.96) !important;
+  border-bottom: 1px solid rgba(139, 58, 96, 0.12) !important;
+  box-shadow: 0 4px 18px rgba(104, 43, 73, 0.06) !important;
+}
+
+/* Marca */
+.app-shell .topbar-brand {
+  gap: 12px !important;
+}
+
+.app-shell .topbar-brand h1 {
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.2px !important;
+  color: #30252c !important;
+}
+
+.app-shell .topbar-brand span {
+  color: #9a7487 !important;
+  font-size: 12px !important;
+}
+
+/* Contenido */
+.app-shell > section,
+.app-shell > .page,
+.app-shell > .app-content,
+.app-shell > .content {
+  max-width: 1180px !important;
+}
+
+/* Encabezado de sección */
+.app-shell .section-heading {
+  margin-bottom: 16px !important;
+}
+
+.app-shell .section-heading p {
+  margin-bottom: 5px !important;
+  color: #9b7186 !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  letter-spacing: 1.5px !important;
+}
+
+.app-shell .section-heading h2,
+.app-shell .section-heading h3 {
+  color: #33282f !important;
+  letter-spacing: -0.5px !important;
+}
+
+/* Tarjeta de fecha */
+.app-shell .date-card {
+  display: flex !important;
+  align-items: center !important;
+  gap: 14px !important;
+  min-height: 74px !important;
+  margin-bottom: 18px !important;
+  padding: 14px 16px !important;
+  border: 1px solid rgba(139, 58, 96, 0.12) !important;
+  border-radius: 20px !important;
+  background: rgba(255,255,255,0.92) !important;
+  box-shadow: 0 8px 24px rgba(101, 43, 71, 0.07) !important;
+}
+
+.app-shell .date-card > span {
+  flex: 0 0 44px !important;
+  width: 44px !important;
+  height: 44px !important;
+  display: grid !important;
+  place-items: center !important;
+  border-radius: 14px !important;
+  background: #fff0f7 !important;
+  font-size: 21px !important;
+}
+
+.app-shell .date-card strong {
+  color: #40343b !important;
+  font-size: 15px !important;
+}
+
+.app-shell .date-card small {
+  display: block !important;
+  margin-top: 3px !important;
+  color: #9c8a93 !important;
+}
+
+/* =========================================================
+   INDICADORES
+   ========================================================= */
+
+.app-shell .dashboard-stats,
+.app-shell .stats-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 10px !important;
+  margin-bottom: 24px !important;
+}
+
+.app-shell .dashboard-stats .stat-card,
+.app-shell .stats-grid .stat-card {
+  min-height: 92px !important;
+  padding: 14px !important;
+  border: 1px solid rgba(139, 58, 96, 0.11) !important;
+  border-radius: 20px !important;
+  background: #ffffff !important;
+  box-shadow: 0 7px 20px rgba(101, 43, 71, 0.06) !important;
+}
+
+.app-shell .dashboard-stats .stat-card:first-child,
+.app-shell .stats-grid .stat-card:first-child {
+  border-top: 3px solid #b33f78 !important;
+}
+
+.app-shell .dashboard-stats .stat-card:nth-child(2),
+.app-shell .stats-grid .stat-card:nth-child(2) {
+  border-top: 3px solid #d38aad !important;
+}
+
+.app-shell .dashboard-stats .stat-card:nth-child(3),
+.app-shell .stats-grid .stat-card:nth-child(3) {
+  border-top: 3px solid #c8a05a !important;
+}
+
+.app-shell .dashboard-stats .stat-card:nth-child(4),
+.app-shell .stats-grid .stat-card:nth-child(4) {
+  border-top: 3px solid #7c9d8b !important;
+}
+
+.app-shell .dashboard-stats .stat-icon,
+.app-shell .stats-grid .stat-icon {
+  width: 36px !important;
+  height: 36px !important;
+  margin-bottom: 8px !important;
+  display: grid !important;
+  place-items: center !important;
+  border-radius: 12px !important;
+  background: #fff1f7 !important;
+  font-size: 18px !important;
+}
+
+.app-shell .dashboard-stats .stat-card small,
+.app-shell .stats-grid .stat-card small {
+  display: block !important;
+  color: #9a8991 !important;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  letter-spacing: .7px !important;
+}
+
+.app-shell .dashboard-stats .stat-card strong,
+.app-shell .stats-grid .stat-card strong {
+  display: block !important;
+  margin-top: 3px !important;
+  color: #30272d !important;
+  font-size: 22px !important;
+  line-height: 1.1 !important;
+  font-weight: 750 !important;
+}
+
+/* =========================================================
+   ACCESOS RÁPIDOS
+   ========================================================= */
+
+.app-shell .quick-section {
+  margin-top: 4px !important;
+}
+
+.app-shell .quick-section .section-heading {
+  margin-bottom: 12px !important;
+}
+
+.app-shell .quick-section .section-heading h3 {
+  font-size: 24px !important;
+  margin: 0 !important;
+}
+
+.app-shell .module-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 10px !important;
+}
+
+/* Tarjetas de acceso */
+.app-shell .module-card {
+  position: relative !important;
+  min-height: 128px !important;
+  padding: 15px !important;
+  border: 1px solid rgba(139, 58, 96, 0.13) !important;
+  border-left: 4px solid #c56b94 !important;
+  border-radius: 20px !important;
+  background: #ffffff !important;
+  box-shadow: 0 8px 22px rgba(101, 43, 71, 0.06) !important;
+  transition: transform .15s ease, box-shadow .15s ease !important;
+}
+
+.app-shell .module-card:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 12px 28px rgba(101, 43, 71, 0.10) !important;
+}
+
+/* Primera fila: funciones principales */
+.app-shell .module-card:nth-child(1),
+.app-shell .module-card:nth-child(2),
+.app-shell .module-card:nth-child(3),
+.app-shell .module-card:nth-child(4) {
+  border-left-color: #a83269 !important;
+}
+
+.app-shell .module-icon {
+  width: 40px !important;
+  height: 40px !important;
+  margin-bottom: 10px !important;
+  display: grid !important;
+  place-items: center !important;
+  border-radius: 13px !important;
+  background: #fff0f6 !important;
+  font-size: 20px !important;
+}
+
+.app-shell .module-info {
+  display: block !important;
+  min-width: 0 !important;
+}
+
+.app-shell .module-info strong {
+  display: block !important;
+  color: #352b31 !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+}
+
+.app-shell .module-info small {
+  display: block !important;
+  margin-top: 4px !important;
+  color: #9b8b93 !important;
+  font-size: 11px !important;
+  line-height: 1.25 !important;
+}
+
+.app-shell .module-arrow {
+  position: absolute !important;
+  right: 14px !important;
+  bottom: 13px !important;
+  color: #b05a80 !important;
+  font-size: 20px !important;
+}
+
+/* Pantallas pequeñas */
+@media (max-width: 420px) {
+  .app-shell .topbar {
+    padding: 10px 16px !important;
+  }
+
+  .app-shell .dashboard-stats,
+  .app-shell .stats-grid,
+  .app-shell .module-grid {
+    gap: 8px !important;
+  }
+
+  .app-shell .dashboard-stats .stat-card,
+  .app-shell .stats-grid .stat-card {
+    min-height: 88px !important;
+    padding: 12px !important;
+  }
+
+  .app-shell .module-card {
+    min-height: 120px !important;
+    padding: 13px !important;
+  }
+
+  .app-shell .module-info strong {
+    font-size: 15px !important;
+  }
+}
+
+
+
+
+/* =========================================================
+   MODAS SOPHIE — DASHBOARD PREMIUM REAL
+   Solo presentación. No modifica lógica.
+   ========================================================= */
+
+.app-shell {
+  background:
+    linear-gradient(180deg, #fffafd 0%, #fff7fb 48%, #fffafd 100%) !important;
+}
+
+/* Encabezado */
+.app-shell .topbar {
+  background: rgba(255,255,255,.97) !important;
+  border-bottom: 1px solid #eadde5 !important;
+  box-shadow: 0 2px 14px rgba(100,45,75,.06) !important;
+}
+
+/* Encabezado principal */
+.app-shell .section-heading {
+  margin-bottom: 12px !important;
+}
+
+.app-shell .section-heading h2 {
+  color: #30232b !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.4px !important;
+}
+
+.app-shell .section-heading p {
+  color: #9a7c8c !important;
+  font-weight: 600 !important;
+  letter-spacing: 1.3px !important;
+}
+
+/* Tarjeta de fecha */
+.app-shell .date-card {
+  background: linear-gradient(135deg, #ffffff 0%, #fff8fc 100%) !important;
+  border: 1px solid #eadde5 !important;
+  box-shadow: 0 8px 24px rgba(111,52,82,.07) !important;
+}
+
+/* Resumen */
+.app-shell .dashboard-stats,
+.app-shell .stats-grid {
+  gap: 12px !important;
+  margin-bottom: 22px !important;
+}
+
+.app-shell .dashboard-stats .stat-card,
+.app-shell .stats-grid .stat-card {
+  position: relative !important;
+  overflow: hidden !important;
+  background: #ffffff !important;
+  border: 1px solid #eadde5 !important;
+  border-radius: 20px !important;
+  box-shadow: 0 8px 24px rgba(111,52,82,.07) !important;
+  min-height: 104px !important;
+  padding: 16px !important;
+}
+
+.app-shell .dashboard-stats .stat-card::after,
+.app-shell .stats-grid .stat-card::after {
+  content: "" !important;
+  position: absolute !important;
+  width: 72px !important;
+  height: 72px !important;
+  right: -22px !important;
+  bottom: -24px !important;
+  border-radius: 50% !important;
+  background: #fff0f7 !important;
+  pointer-events: none !important;
+}
+
+.app-shell .dashboard-stats .stat-icon,
+.app-shell .stats-grid .stat-icon {
+  width: 38px !important;
+  height: 38px !important;
+  border-radius: 13px !important;
+  background: #fff0f7 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.app-shell .dashboard-stats .stat-card small,
+.app-shell .stats-grid .stat-card small {
+  color: #a08492 !important;
+  font-weight: 700 !important;
+  letter-spacing: .7px !important;
+}
+
+.app-shell .dashboard-stats .stat-card strong,
+.app-shell .stats-grid .stat-card strong {
+  color: #30232b !important;
+  font-weight: 750 !important;
+}
+
+/* Accesos rápidos */
+.app-shell .quick-section {
+  margin-top: 4px !important;
+}
+
+.app-shell .module-grid {
+  gap: 12px !important;
+}
+
+.app-shell .module-card {
+  position: relative !important;
+  overflow: hidden !important;
+  min-height: 132px !important;
+  padding: 16px !important;
+  border-radius: 20px !important;
+  border: 1px solid #eadde5 !important;
+  border-left: 5px solid #b85a82 !important;
+  background: #ffffff !important;
+  box-shadow: 0 8px 22px rgba(111,52,82,.065) !important;
+  transition: transform .18s ease, box-shadow .18s ease !important;
+}
+
+.app-shell .module-card:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 12px 28px rgba(111,52,82,.11) !important;
+}
+
+.app-shell .module-icon {
+  width: 42px !important;
+  height: 42px !important;
+  border-radius: 14px !important;
+  background: #fff0f7 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.app-shell .module-info strong {
+  color: #30232b !important;
+  font-weight: 700 !important;
+}
+
+.app-shell .module-info small {
+  color: #a08492 !important;
+}
+
+.app-shell .module-arrow {
+  color: #b85a82 !important;
+  font-weight: 700 !important;
+}
+
+/* Teléfono */
+@media (max-width: 600px) {
+  .app-shell .dashboard-stats,
+  .app-shell .stats-grid {
+    gap: 10px !important;
+    margin-bottom: 18px !important;
+  }
+
+  .app-shell .dashboard-stats .stat-card,
+  .app-shell .stats-grid .stat-card {
+    min-height: 96px !important;
+    padding: 14px !important;
+    border-radius: 18px !important;
+  }
+
+  .app-shell .module-grid {
+    gap: 10px !important;
+  }
+
+  .app-shell .module-card {
+    min-height: 124px !important;
+    padding: 14px !important;
+    border-radius: 18px !important;
+  }
+}
+
+
+/* =========================================================
+   MODAS SOPHIE — DASHBOARD PREMIUM
+   BLOQUE ESPECIFICO FINAL
+   ========================================================= */
+
+main.app-shell {
+  background: #fff7fb !important;
+}
+
+/* Encabezado */
+main.app-shell > header.topbar {
+  background: #ffffff !important;
+  border-bottom: 1px solid #e7d5df !important;
+  box-shadow: 0 4px 18px rgba(111, 52, 82, 0.08) !important;
+}
+
+/* Zona principal */
+main.app-shell > .dashboard-page,
+main.app-shell > .page,
+main.app-shell > .content {
+  background: transparent !important;
+}
+
+/* Encabezado del Dashboard */
+main.app-shell .section-heading {
+  margin-top: 4px !important;
+  margin-bottom: 14px !important;
+}
+
+main.app-shell .section-heading h2 {
+  color: #2f2029 !important;
+  font-size: 30px !important;
+  font-weight: 750 !important;
+  letter-spacing: -0.7px !important;
+}
+
+main.app-shell .section-heading p {
+  color: #967687 !important;
+}
+
+/* Tarjeta de fecha */
+main.app-shell .date-card {
+  background: linear-gradient(135deg, #ffffff 0%, #fff1f7 100%) !important;
+  border: 1px solid #e6d2dd !important;
+  border-radius: 22px !important;
+  box-shadow: 0 10px 28px rgba(111, 52, 82, 0.09) !important;
+}
+
+/* Estadísticas */
+main.app-shell .dashboard-stats,
+main.app-shell .stats-grid {
+  gap: 12px !important;
+}
+
+main.app-shell .dashboard-stats .stat-card,
+main.app-shell .stats-grid .stat-card {
+  background: linear-gradient(145deg, #ffffff 0%, #fff8fb 100%) !important;
+  border: 1px solid #e4cfd9 !important;
+  border-radius: 22px !important;
+  box-shadow: 0 10px 28px rgba(111, 52, 82, 0.10) !important;
+  min-height: 108px !important;
+  padding: 17px !important;
+}
+
+main.app-shell .dashboard-stats .stat-card small,
+main.app-shell .stats-grid .stat-card small {
+  color: #956f81 !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  letter-spacing: 1px !important;
+}
+
+main.app-shell .dashboard-stats .stat-card strong,
+main.app-shell .stats-grid .stat-card strong {
+  color: #2d2028 !important;
+  font-size: 23px !important;
+  font-weight: 800 !important;
+}
+
+main.app-shell .dashboard-stats .stat-icon,
+main.app-shell .stats-grid .stat-icon {
+  background: #fff0f6 !important;
+  border: 1px solid #f0d8e3 !important;
+  border-radius: 14px !important;
+}
+
+/* Título de accesos */
+main.app-shell .quick-section .section-heading {
+  margin-top: 8px !important;
+  margin-bottom: 14px !important;
+}
+
+/* Tarjetas de acceso */
+main.app-shell .module-grid {
+  gap: 12px !important;
+}
+
+main.app-shell .module-card {
+  background: #ffffff !important;
+  border: 1px solid #e2ced8 !important;
+  border-left: 6px solid #a33f6c !important;
+  border-radius: 22px !important;
+  box-shadow: 0 10px 25px rgba(111, 52, 82, 0.09) !important;
+  min-height: 136px !important;
+  padding: 17px !important;
+}
+
+main.app-shell .module-card:hover {
+  background: #fff5f9 !important;
+  border-left-color: #8f315d !important;
+  box-shadow: 0 14px 30px rgba(111, 52, 82, 0.14) !important;
+}
+
+main.app-shell .module-icon {
+  background: #fff0f6 !important;
+  border: 1px solid #f0d8e3 !important;
+  border-radius: 15px !important;
+}
+
+main.app-shell .module-info strong {
+  color: #30212a !important;
+  font-size: 17px !important;
+  font-weight: 750 !important;
+}
+
+main.app-shell .module-info small {
+  color: #967887 !important;
+  font-size: 12px !important;
+}
+
+main.app-shell .module-arrow {
+  color: #a33f6c !important;
+  font-size: 22px !important;
+}
+
+/* Móvil */
+@media (max-width: 600px) {
+  main.app-shell .dashboard-stats,
+  main.app-shell .stats-grid {
+    gap: 10px !important;
+  }
+
+  main.app-shell .dashboard-stats .stat-card,
+  main.app-shell .stats-grid .stat-card {
+    min-height: 104px !important;
+    padding: 15px !important;
+    border-radius: 20px !important;
+  }
+
+  main.app-shell .module-card {
+    min-height: 132px !important;
+    padding: 15px !important;
+    border-radius: 20px !important;
+  }
+}
+
+
+/* =========================================================
+   MODAS SOPHIE — DASHBOARD FINAL
+   Corrección de prioridad CSS
+   Solo presentación — no modifica lógica
+   ========================================================= */
+
+main.app-shell .dashboard-page {
+  background: #fff7fb !important;
+}
+
+main.app-shell .section-heading {
+  margin-top: 8px !important;
+  margin-bottom: 14px !important;
+}
+
+main.app-shell .section-heading h2 {
+  color: #30232b !important;
+  font-size: 30px !important;
+  font-weight: 750 !important;
+  letter-spacing: -0.7px !important;
+}
+
+main.app-shell .section-heading p {
+  color: #967687 !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.3px !important;
+}
+
+/* Fecha */
+main.app-shell .date-card {
+  background: linear-gradient(135deg, #ffffff 0%, #fff8fc 100%) !important;
+  border: 1px solid #eadde3 !important;
+  border-radius: 22px !important;
+  box-shadow: 0 10px 26px rgba(111, 52, 82, 0.09) !important;
+  min-height: 104px !important;
+  padding: 17px !important;
+}
+
+/* Estadísticas */
+main.app-shell .dashboard-stats,
+main.app-shell .stats-grid {
+  gap: 12px !important;
+  margin-bottom: 18px !important;
+}
+
+main.app-shell .dashboard-stats .stat-card,
+main.app-shell .stats-grid .stat-card {
+  position: relative !important;
+  overflow: hidden !important;
+  background: linear-gradient(145deg, #ffffff 0%, #fff8fb 100%) !important;
+  border: 1px solid #eadde3 !important;
+  border-radius: 22px !important;
+  box-shadow: 0 10px 28px rgba(111, 52, 82, 0.10) !important;
+  min-height: 108px !important;
+  padding: 17px !important;
+}
+
+main.app-shell .dashboard-stats .stat-card::after,
+main.app-shell .stats-grid .stat-card::after {
+  content: "" !important;
+  position: absolute !important;
+  width: 72px !important;
+  height: 72px !important;
+  right: -22px !important;
+  bottom: -24px !important;
+  border-radius: 50% !important;
+  background: #fff0f7 !important;
+  pointer-events: none !important;
+}
+
+main.app-shell .dashboard-stats .stat-card small,
+main.app-shell .stats-grid .stat-card small {
+  color: #967687 !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.8px !important;
+}
+
+main.app-shell .dashboard-stats .stat-card strong,
+main.app-shell .stats-grid .stat-card strong {
+  color: #30232b !important;
+  font-size: 23px !important;
+  font-weight: 800 !important;
+}
+
+main.app-shell .dashboard-stats .stat-icon,
+main.app-shell .stats-grid .stat-icon {
+  width: 38px !important;
+  height: 38px !important;
+  border-radius: 13px !important;
+  background: #fff0f7 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* Accesos rápidos */
+main.app-shell .quick-section {
+  margin-top: 8px !important;
+}
+
+main.app-shell .module-grid {
+  gap: 12px !important;
+}
+
+main.app-shell .module-card {
+  position: relative !important;
+  overflow: hidden !important;
+  min-height: 136px !important;
+  padding: 17px !important;
+  background: #ffffff !important;
+  border: 1px solid #eadde5 !important;
+  border-left: 6px solid #b85a82 !important;
+  border-radius: 22px !important;
+  box-shadow: 0 10px 25px rgba(111, 52, 82, 0.09) !important;
+  transition: transform .18s ease, box-shadow .18s ease !important;
+}
+
+main.app-shell .module-card:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 12px 28px rgba(111, 52, 82, 0.14) !important;
+}
+
+main.app-shell .module-icon {
+  width: 42px !important;
+  height: 42px !important;
+  border-radius: 14px !important;
+  background: #fff0f7 !important;
+}
+
+main.app-shell .module-info strong {
+  color: #30232b !important;
+  font-weight: 700 !important;
+}
+
+main.app-shell .module-info small {
+  color: #a08492 !important;
+}
+
+main.app-shell .module-arrow {
+  color: #b85a82 !important;
+  font-weight: 700 !important;
+}
+
+@media (max-width: 600px) {
+  main.app-shell .dashboard-stats,
+  main.app-shell .stats-grid {
+    gap: 10px !important;
+  }
+
+  main.app-shell .dashboard-stats .stat-card,
+  main.app-shell .stats-grid .stat-card {
+    min-height: 104px !important;
+    padding: 15px !important;
+  }
+
+  main.app-shell .module-grid {
+    gap: 10px !important;
+  }
+
+  main.app-shell .module-card {
+    min-height: 132px !important;
+    padding: 15px !important;
+    border-radius: 20px !important;
+  }
+}
+
+
+/* =========================================================
+   MODAS SOPHIE — DASHBOARD FINAL
+   Corrección de prioridad CSS
+   Solo presentación — no modifica lógica
+   ========================================================= */
+
+main.app-shell .dashboard-page {
+  background: #fff7fb !important;
+}
+
+main.app-shell .section-heading {
+  margin-top: 8px !important;
+  margin-bottom: 14px !important;
+}
+
+main.app-shell .section-heading h2 {
+  color: #30232b !important;
+  font-size: 30px !important;
+  font-weight: 750 !important;
+  letter-spacing: -0.7px !important;
+}
+
+main.app-shell .section-heading p {
+  color: #967687 !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.3px !important;
+}
+
+/* Fecha */
+main.app-shell .date-card {
+  background: linear-gradient(135deg, #ffffff 0%, #fff8fc 100%) !important;
+  border: 1px solid #eadde3 !important;
+  border-radius: 22px !important;
+  box-shadow: 0 10px 26px rgba(111, 52, 82, 0.09) !important;
+  min-height: 104px !important;
+  padding: 17px !important;
+}
+
+/* Estadísticas */
+main.app-shell .dashboard-stats,
+main.app-shell .stats-grid {
+  gap: 12px !important;
+  margin-bottom: 18px !important;
+}
+
+main.app-shell .dashboard-stats .stat-card,
+main.app-shell .stats-grid .stat-card {
+  position: relative !important;
+  overflow: hidden !important;
+  background: linear-gradient(145deg, #ffffff 0%, #fff8fb 100%) !important;
+  border: 1px solid #eadde3 !important;
+  border-radius: 22px !important;
+  box-shadow: 0 10px 28px rgba(111, 52, 82, 0.10) !important;
+  min-height: 108px !important;
+  padding: 17px !important;
+}
+
+main.app-shell .dashboard-stats .stat-card::after,
+main.app-shell .stats-grid .stat-card::after {
+  content: "" !important;
+  position: absolute !important;
+  width: 72px !important;
+  height: 72px !important;
+  right: -22px !important;
+  bottom: -24px !important;
+  border-radius: 50% !important;
+  background: #fff0f7 !important;
+  pointer-events: none !important;
+}
+
+main.app-shell .dashboard-stats .stat-card small,
+main.app-shell .stats-grid .stat-card small {
+  color: #967687 !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.8px !important;
+}
+
+main.app-shell .dashboard-stats .stat-card strong,
+main.app-shell .stats-grid .stat-card strong {
+  color: #30232b !important;
+  font-size: 23px !important;
+  font-weight: 800 !important;
+}
+
+main.app-shell .dashboard-stats .stat-icon,
+main.app-shell .stats-grid .stat-icon {
+  width: 38px !important;
+  height: 38px !important;
+  border-radius: 13px !important;
+  background: #fff0f7 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* Accesos rápidos */
+main.app-shell .quick-section {
+  margin-top: 8px !important;
+}
+
+main.app-shell .module-grid {
+  gap: 12px !important;
+}
+
+main.app-shell .module-card {
+  position: relative !important;
+  overflow: hidden !important;
+  min-height: 136px !important;
+  padding: 17px !important;
+  background: #ffffff !important;
+  border: 1px solid #eadde5 !important;
+  border-left: 6px solid #b85a82 !important;
+  border-radius: 22px !important;
+  box-shadow: 0 10px 25px rgba(111, 52, 82, 0.09) !important;
+  transition: transform .18s ease, box-shadow .18s ease !important;
+}
+
+main.app-shell .module-card:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 12px 28px rgba(111, 52, 82, 0.14) !important;
+}
+
+main.app-shell .module-icon {
+  width: 42px !important;
+  height: 42px !important;
+  border-radius: 14px !important;
+  background: #fff0f7 !important;
+}
+
+main.app-shell .module-info strong {
+  color: #30232b !important;
+  font-weight: 700 !important;
+}
+
+main.app-shell .module-info small {
+  color: #a08492 !important;
+}
+
+main.app-shell .module-arrow {
+  color: #b85a82 !important;
+  font-weight: 700 !important;
+}
+
+@media (max-width: 600px) {
+  main.app-shell .dashboard-stats,
+  main.app-shell .stats-grid {
+    gap: 10px !important;
+  }
+
+  main.app-shell .dashboard-stats .stat-card,
+  main.app-shell .stats-grid .stat-card {
+    min-height: 104px !important;
+    padding: 15px !important;
+  }
+
+  main.app-shell .module-grid {
+    gap: 10px !important;
+  }
+
+  main.app-shell .module-card {
+    min-height: 132px !important;
+    padding: 15px !important;
+    border-radius: 20px !important;
+  }
+}
+
+
+/* =========================================================
+   MODAS SOPHIE — TEMA MAESTRO UNIFICADO
+   Solo presentación. NO modifica lógica.
+   ========================================================= */
+
+:root {
+  --ms-bg: #fff7fb;
+  --ms-surface: #ffffff;
+  --ms-surface-soft: #fff0f7;
+  --ms-primary: #8f3d63;
+  --ms-primary-dark: #71304e;
+  --ms-primary-soft: #f8ddea;
+  --ms-border: #ead7e0;
+  --ms-text: #30232b;
+  --ms-muted: #8a7b83;
+  --ms-success: #3d8a63;
+  --ms-danger: #b44b62;
+  --ms-shadow: 0 8px 24px rgba(111, 52, 82, .09);
+  --ms-radius: 18px;
+}
+
+/* ---------- BASE ---------- */
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--ms-bg) !important;
+  color: var(--ms-text);
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ---------- CONTENEDORES PRINCIPALES ---------- */
+
+.app-shell,
+.inventory-page,
+.cash-page,
+.cash-cut-page,
+.expenses-page,
+.sales-page,
+.reports-page,
+.sucursales-page,
+.vendedores-page {
+  background: var(--ms-bg) !important;
+  color: var(--ms-text);
+}
+
+/* ---------- ENCABEZADOS ---------- */
+
+.inventory-header,
+.page-header,
+.page-heading,
+.inventory-header,
+.topbar {
+  background: var(--ms-surface) !important;
+  border-color: var(--ms-border) !important;
+}
+
+.inventory-header h1,
+.page-header h1,
+.page-heading h1,
+.section-title,
+.section-heading h2,
+.section-heading h3 {
+  color: var(--ms-text) !important;
+}
+
+.inventory-header p,
+.page-header p,
+.page-heading p,
+.section-heading p {
+  color: var(--ms-muted) !important;
+}
+
+/* ---------- BOTÓN VOLVER ---------- */
+
+.back-button {
+  color: var(--ms-primary) !important;
+  background: transparent !important;
+  border-color: transparent !important;
+  font-weight: 700 !important;
+}
+
+.back-button:hover,
+.back-button:active {
+  color: var(--ms-primary-dark) !important;
+}
+
+/* ---------- TARJETAS ---------- */
+
+.inventory-list-card,
+.inventory-form-card,
+.inventory-entry-card,
+.inventory-variants-section,
+.inventory-form,
+.inventory-section,
+.sale-history-card,
+.sale-history-main,
+.sale-detail-card,
+.sale-detail-summary,
+.sale-cart,
+.sale-total,
+.panel,
+.product-card,
+.module-card,
+.stat-card,
+.cash-card,
+.form-card {
+  background: var(--ms-surface) !important;
+  border: 1px solid var(--ms-border) !important;
+  border-radius: var(--ms-radius) !important;
+  box-shadow: var(--ms-shadow) !important;
+}
+
+/* ---------- SECCIONES ---------- */
+
+.inventory-section-title,
+.section-title,
+.section-heading {
+  color: var(--ms-text) !important;
+}
+
+.inventory-section-title small,
+.section-title small {
+  color: var(--ms-muted) !important;
+}
+
+/* ---------- BOTONES PRINCIPALES ---------- */
+
+.primary-button,
+.inventory-new-button,
+.inventory-entry-button,
+.sale-button,
+.form-button,
+button.primary-button {
+  background: var(--ms-primary) !important;
+  color: #ffffff !important;
+  border: 1px solid var(--ms-primary) !important;
+  border-radius: 12px !important;
+  font-weight: 700 !important;
+  box-shadow: 0 5px 14px rgba(143, 61, 99, .20) !important;
+}
+
+.primary-button:hover,
+.inventory-new-button:hover,
+.inventory-entry-button:hover,
+.sale-button:hover,
+.form-button:hover {
+  background: var(--ms-primary-dark) !important;
+}
+
+/* ---------- BOTONES SECUNDARIOS ---------- */
+
+.secondary-button,
+.inventory-cancel,
+.inventory-form-actions button[type="button"] {
+  background: #ffffff !important;
+  color: var(--ms-primary) !important;
+  border: 1px solid var(--ms-border) !important;
+  border-radius: 12px !important;
+  font-weight: 700 !important;
+}
+
+/* ---------- BOTONES DE ACCIÓN ---------- */
+
+.product-actions button,
+.inventory-product-actions button,
+.inventory-actions button {
+  border-radius: 10px !important;
+}
+
+.inventory-history-button {
+  background: var(--ms-primary) !important;
+  color: #ffffff !important;
+  border-color: var(--ms-primary) !important;
+  border-radius: 11px !important;
+  font-weight: 700 !important;
+}
+
+/* ---------- FORMULARIOS ---------- */
+
+.inventory-fields,
+.inventory-form-grid,
+.form-grid,
+.sale-fields,
+.inventory-filter,
+.inventory-filters {
+  gap: 12px !important;
+}
+
+.inventory-fields input,
+.inventory-fields select,
+.inventory-fields textarea,
+.inventory-filters input,
+.inventory-filters select,
+.inventory-form input,
+.inventory-form select,
+.inventory-form textarea,
+.form-grid input,
+.form-grid select,
+.form-grid textarea,
+.form-control,
+input,
+select,
+textarea {
+  border: 1px solid var(--ms-border) !important;
+  border-radius: 11px !important;
+  background: #ffffff !important;
+  color: var(--ms-text) !important;
+}
+
+.inventory-fields input:focus,
+.inventory-fields select:focus,
+.inventory-fields textarea:focus,
+.inventory-filters input:focus,
+.inventory-filters select:focus,
+.inventory-form input:focus,
+.inventory-form select:focus,
+.inventory-form textarea:focus,
+.form-grid input:focus,
+.form-grid select:focus,
+.form-grid textarea:focus,
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--ms-primary) !important;
+  box-shadow: 0 0 0 3px rgba(143, 61, 99, .10) !important;
+  outline: none !important;
+}
+
+/* ---------- FILTROS ---------- */
+
+.inventory-filters {
+  background: var(--ms-surface) !important;
+  border: 1px solid var(--ms-border) !important;
+  border-radius: 14px !important;
+}
+
+/* ---------- INVENTARIO ---------- */
+
+.inventory-list-card,
+.inventory-entry-card {
+  overflow: hidden;
+}
+
+.inventory-simple-stock,
+.inventory-product-stock {
+  color: var(--ms-primary) !important;
+  font-weight: 800 !important;
+}
+
+.variant-card,
+.variant-list,
+.inventory-variants-section {
+  background: #fffafd !important;
+}
+
+.variant-card-header {
+  border-color: var(--ms-border) !important;
+}
+
+.variant-heading,
+.variant-title {
+  color: var(--ms-text) !important;
+}
+
+/* ---------- NUEVA VENTA ---------- */
+
+.sale-product-results,
+.sale-product-result,
+.sale-product-card,
+.sale-variant-card,
+.sale-cart,
+.sale-detail {
+  border-color: var(--ms-border) !important;
+}
+
+.sale-choice-group,
+.sale-choice-grid {
+  gap: 10px !important;
+}
+
+.sale-choice-group button,
+.sale-choice-grid button {
+  border: 1px solid var(--ms-border) !important;
+  border-radius: 11px !important;
+  background: #ffffff !important;
+  color: var(--ms-text) !important;
+}
+
+.sale-choice-group button.active,
+.sale-choice-grid button.active,
+.sale-choice-group button.selected,
+.sale-choice-grid button.selected {
+  background: var(--ms-primary-soft) !important;
+  border-color: var(--ms-primary) !important;
+  color: var(--ms-primary-dark) !important;
+}
+
+/* ---------- VENTAS / HISTORIAL ---------- */
+
+.sales-list,
+.sale-history-list {
+  gap: 12px !important;
+}
+
+.sale-history-card {
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+
+.sale-history-card:hover {
+  transform: translateY(-1px);
+}
+
+/* ---------- ESTADÍSTICAS ---------- */
+
+.dashboard-stats,
+.stats-grid {
+  gap: 12px !important;
+}
+
+.dashboard-stats .stat-card,
+.stats-grid .stat-card {
+  background: var(--ms-surface) !important;
+  border: 1px solid var(--ms-border) !important;
+  border-radius: 18px !important;
+  box-shadow: var(--ms-shadow) !important;
+}
+
+.stat-card strong {
+  color: var(--ms-text) !important;
+}
+
+.stat-card small,
+.stat-card .small {
+  color: var(--ms-muted) !important;
+}
+
+/* ---------- GASTOS ---------- */
+
+.product-list,
+.product-card,
+.product-row,
+.gastos-list,
+.expenses-list {
+  border-color: var(--ms-border) !important;
+}
+
+.product-price,
+.product-info strong,
+.product-main strong {
+  color: var(--ms-text) !important;
+}
+
+.product-actions {
+  gap: 8px !important;
+}
+
+/* ---------- CAJA ---------- */
+
+.cash-page,
+.cash-cut-page {
+  color: var(--ms-text);
+}
+
+.cash-page .panel,
+.cash-cut-page .panel,
+.cash-page .stat-card,
+.cash-cut-page .stat-card {
+  background: var(--ms-surface) !important;
+  border-color: var(--ms-border) !important;
+  border-radius: var(--ms-radius) !important;
+  box-shadow: var(--ms-shadow) !important;
+}
+
+/* ---------- REPORTES ---------- */
+
+.reports-page .dashboard-stats,
+.reports-page .stats-grid {
+  gap: 12px !important;
+}
+
+.reports-page .stat-card {
+  background: var(--ms-surface) !important;
+}
+
+/* ---------- SUCURSALES ---------- */
+
+.sucursales-page .panel,
+.sucursales-page .product-card,
+.sucursales-page .empty-state {
+  background: var(--ms-surface) !important;
+  border-color: var(--ms-border) !important;
+  border-radius: var(--ms-radius) !important;
+  box-shadow: var(--ms-shadow) !important;
+}
+
+/* ---------- VENDEDORES ---------- */
+
+.vendedores-page .product-row,
+.vendedores-page .inventory-list,
+.vendedores-page .panel {
+  background: var(--ms-surface) !important;
+  border-color: var(--ms-border) !important;
+  border-radius: var(--ms-radius) !important;
+}
+
+/* ---------- MENSAJES ---------- */
+
+.inventory-success,
+.success-message,
+.form-message.success {
+  background: #edf8f1 !important;
+  color: #2f754f !important;
+  border: 1px solid #c9e8d5 !important;
+  border-radius: 11px !important;
+}
+
+.inventory-error,
+.error-message,
+.form-message.error {
+  background: #fff0f3 !important;
+  color: var(--ms-danger) !important;
+  border: 1px solid #f0cbd4 !important;
+  border-radius: 11px !important;
+}
+
+/* ---------- ESTADOS VACÍOS ---------- */
+
+.inventory-empty,
+.empty-state {
+  background: var(--ms-surface) !important;
+  border: 1px dashed var(--ms-border) !important;
+  border-radius: var(--ms-radius) !important;
+  color: var(--ms-muted) !important;
+}
+
+/* ---------- LOGIN ---------- */
+
+.login-page {
+  background:
+    radial-gradient(circle at top right, #f8ddea 0, transparent 34%),
+    linear-gradient(180deg, #fff7fb 0%, #ffffff 100%) !important;
+}
+
+.login-card {
+  background: #ffffff !important;
+  border: 1px solid var(--ms-border) !important;
+  border-radius: 24px !important;
+  box-shadow: 0 14px 35px rgba(111, 52, 82, .12) !important;
+}
+
+.login-button {
+  background: var(--ms-primary) !important;
+  color: #ffffff !important;
+  border-radius: 12px !important;
+  border: 1px solid var(--ms-primary) !important;
+  font-weight: 700 !important;
+}
+
+.login-button:hover {
+  background: var(--ms-primary-dark) !important;
+}
+
+.login-input-wrap input {
+  border-color: var(--ms-border) !important;
+}
+
+.login-input-wrap input:focus {
+  border-color: var(--ms-primary) !important;
+  box-shadow: 0 0 0 3px rgba(143, 61, 99, .10) !important;
+}
+
+/* ---------- MÓVIL ---------- */
+
+@media (max-width: 600px) {
+
+  .inventory-page,
+  .cash-page,
+  .cash-cut-page,
+  .expenses-page,
+  .sales-page,
+  .reports-page,
+  .sucursales-page,
+  .vendedores-page {
+    padding-bottom: 24px !important;
+  }
+
+  .inventory-header,
+  .page-header,
+  .page-heading {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  .inventory-section,
+  .inventory-form-card,
+  .inventory-entry-card,
+  .inventory-list-card,
+  .panel,
+  .sale-cart,
+  .sale-history-card,
+  .sale-detail-card,
+  .sale-detail-summary {
+    border-radius: 16px !important;
+  }
+
+  .dashboard-stats,
+  .stats-grid {
+    gap: 10px !important;
+  }
+
+  .stat-card {
+    border-radius: 16px !important;
+  }
+
+  .primary-button,
+  .secondary-button,
+  .inventory-new-button,
+  .inventory-entry-button,
+  .inventory-history-button,
+  .sale-button,
+  .form-button {
+    min-height: 42px;
+  }
+}
+
+/* =========================================================
+   FIN DEL TEMA MAESTRO MODAS SOPHIE
+   ========================================================= */
+
