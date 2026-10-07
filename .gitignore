@@ -36,3 +36,6 @@ dist-ssr
 # Archivos locales de revisión y respaldos
 *revision.txt
 *.respaldo*
+
+# Respaldos con sufijo -respaldo
+*-respaldo
