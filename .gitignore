@@ -32,3 +32,7 @@ dist-ssr
 *.backup
 *.estado-actual
 *.historial-respaldo
+
+# Archivos locales de revisión y respaldos
+*revision.txt
+*.respaldo*
