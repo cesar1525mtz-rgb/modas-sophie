@@ -26,3 +26,9 @@ dist-ssr
 # Respaldos locales creados durante el desarrollo
 *.antes-*
 *.respaldo*
+
+# Respaldos locales adicionales
+*-backup
+*.backup
+*.estado-actual
+*.historial-respaldo
