@@ -354,63 +354,35 @@ setSaving(true)
             ))}
           </select>
 
-          <div
-            style={{
-              marginTop: '18px',
-              padding: '18px',
-              borderRadius: '18px',
-              background: '#f7f7fb',
-              border: '1px solid #ead5e0',
-            }}
-          >
-            <strong>Sucursal actual</strong>
-            <div style={{ fontSize: '20px', marginTop: '6px' }}>
-              {branchName}
-            </div>
+          <div className="cash-branch-current">
+            <span>Sucursal actual</span>
+            <strong>{branchName}</strong>
           </div>
         </section>
       )}
 
       {error && (
-        <section className="inventory-section">
-          <div
-            style={{
-              padding: '14px',
-              borderRadius: '14px',
-              background: '#fff1f1',
-              border: '1px solid #e5a5a5',
-              color: '#a40000',
-            }}
-          >
-            {error}
-          </div>
+        <section className="inventory-section cash-message-card">
+          <div className="cash-error-message">{error}</div>
         </section>
       )}
 
       {message && (
-        <section className="inventory-section">
-          <div
-            style={{
-              padding: '14px',
-              borderRadius: '14px',
-              background: '#effaf1',
-              border: '1px solid #a8d5ae',
-              color: '#176b25',
-            }}
-          >
-            {message}
-          </div>
+        <section className="inventory-section cash-message-card">
+          <div className="cash-success-message">{message}</div>
         </section>
       )}
 
       {!cashRegister ? (
         userRole === 'admin' ? (
-          <section className="inventory-section">
-            <h2>🟢 Abrir caja</h2>
-
-            <p style={{ color: '#777' }}>
-              Introduce el efectivo con el que comienzas a trabajar.
-            </p>
+          <section className="inventory-section cash-action-card">
+            <div className="cash-card-heading">
+              <div className="cash-status-icon cash-status-open">●</div>
+              <div>
+                <h2>Abrir caja</h2>
+                <p>Introduce el efectivo con el que comienzas a trabajar.</p>
+              </div>
+            </div>
 
             <label htmlFor="opening-cash">
               Efectivo inicial
@@ -425,65 +397,59 @@ setSaving(true)
               value={openingCash}
               onChange={(event) => setOpeningCash(event.target.value)}
               placeholder="0.00"
-              style={{
-                width: '100%',
-                boxSizing: 'border-box',
-                marginTop: '8px',
-                padding: '16px',
-                borderRadius: '14px',
-                border: '1px solid #ddd',
-                fontSize: '22px',
-              }}
+
+              className="cash-number-input"
             />
 
             <button
               type="button"
+              className="cash-action-button cash-open-button"
               onClick={abrirCaja}
               disabled={saving}
-              style={{
-                width: '100%',
-                marginTop: '16px',
-                padding: '16px',
-                borderRadius: '14px',
-                border: 'none',
-                fontSize: '18px',
-                fontWeight: 700,
-                cursor: 'pointer',
-              }}
             >
               {saving ? 'Abriendo caja...' : '🟢 Abrir caja'}
             </button>
           </section>
         ) : (
-          <section className="inventory-section">
-            <h2>🔒 Caja compartida</h2>
-
-            <p style={{ color: '#777' }}>
-              La caja de esta sucursal es compartida.
-              El administrador es quien abre y cierra la caja.
-            </p>
+          <section className="inventory-section cash-shared-card">
+            <div className="cash-card-heading">
+              <div className="cash-status-icon cash-status-shared">●</div>
+              <div>
+                <h2>Caja compartida</h2>
+                <p>
+                  La caja de esta sucursal es compartida.
+                  El administrador es quien abre y cierra la caja.
+                </p>
+              </div>
+            </div>
           </section>
         )
       ) : (
         <>
-          <section className="inventory-section">
-            <h2>🟢 Caja abierta</h2>
+          <section className="inventory-section cash-open-card">
+            <div className="cash-card-heading">
+              <div className="cash-status-icon cash-status-open">●</div>
+              <div>
+                <h2>Caja abierta</h2>
+                <p>Resumen de movimientos de la caja actual.</p>
+              </div>
+            </div>
 
-            <div className="sale-detail-summary">
-              <span>
-                <strong>Efectivo inicial:</strong>{' '}
-                {money(Number(cashRegister.opening_cash))}
-              </span>
+            <div className="cash-summary-list">
+              <div className="cash-summary-row">
+                <span>Efectivo inicial</span>
+                <strong>{money(Number(cashRegister.opening_cash))}</strong>
+              </div>
 
-              <span>
-                <strong>Ventas en efectivo:</strong>{' '}
-                {money(efectivoVentas)}
-              </span>
+              <div className="cash-summary-row">
+                <span>Ventas en efectivo</span>
+                <strong>{money(efectivoVentas)}</strong>
+              </div>
 
-              <span>
-                <strong>Gastos:</strong>{' '}
-                {money(totalGastos)}
-              </span>
+              <div className="cash-summary-row">
+                <span>Gastos</span>
+                <strong>{money(totalGastos)}</strong>
+              </div>
             </div>
 
             <div
@@ -507,12 +473,14 @@ setSaving(true)
           </section>
 
           {userRole === 'admin' && (
-          <section className="inventory-section">
-            <h2>🔴 Cerrar caja</h2>
-
-            <p style={{ color: '#777' }}>
-              Cuenta físicamente el efectivo e introdúcelo aquí.
-            </p>
+          <section className="inventory-section cash-close-card">
+            <div className="cash-card-heading">
+              <div className="cash-status-icon cash-status-close">●</div>
+              <div>
+                <h2>Cerrar caja</h2>
+                <p>Cuenta físicamente el efectivo e introdúcelo aquí.</p>
+              </div>
+            </div>
 
             <label htmlFor="cash-counted">
               Efectivo contado
@@ -529,15 +497,8 @@ setSaving(true)
                 setCashCounted(event.target.value)
               }
               placeholder="0.00"
-              style={{
-                width: '100%',
-                boxSizing: 'border-box',
-                marginTop: '8px',
-                padding: '16px',
-                borderRadius: '14px',
-                border: '1px solid #ddd',
-                fontSize: '22px',
-              }}
+
+              className="cash-number-input"
             />
 
             {diferencia !== null && (
@@ -574,18 +535,9 @@ setSaving(true)
 
             <button
               type="button"
+              className="cash-action-button cash-close-button"
               onClick={cerrarCaja}
               disabled={saving}
-              style={{
-                width: '100%',
-                marginTop: '16px',
-                padding: '16px',
-                borderRadius: '14px',
-                border: 'none',
-                fontSize: '18px',
-                fontWeight: 700,
-                cursor: 'pointer',
-              }}
             >
               {saving ? 'Cerrando caja...' : '🔴 Cerrar caja'}
             </button>
@@ -595,10 +547,8 @@ setSaving(true)
       )}
 
       {userRole === 'admin' && (
-        <section className="inventory-section">
-          <p style={{ color: '#777', margin: 0 }}>
-            Administrador: puedes abrir y cerrar la caja.
-          </p>
+        <section className="inventory-section cash-admin-note">
+          <p>Administrador: puedes abrir y cerrar la caja.</p>
         </section>
       )}
     </main>

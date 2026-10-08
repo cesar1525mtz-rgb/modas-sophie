@@ -3768,3 +3768,359 @@ textarea {
     font-size: 12px;
   }
 }
+
+
+
+/* MODAS SOPHIE — CAJA UNIFICADA */
+
+.caja-page {
+  width: 100%;
+}
+
+.cash-select {
+  width: 100%;
+  min-height: 42px;
+  box-sizing: border-box;
+  padding: 10px 12px;
+  border: 1px solid var(--ms-border);
+  border-radius: var(--ms-radius-control);
+  background: #fff;
+  color: var(--ms-text);
+  font: inherit;
+  font-size: 14px;
+}
+
+.cash-branch-current {
+  width: 100%;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  margin-top: 14px;
+  padding: 14px;
+
+  border: 1px solid var(--ms-border-light);
+  border-radius: 14px;
+  background: var(--ms-pink-soft);
+
+  text-align: center;
+}
+
+.cash-branch-current span {
+  color: var(--ms-text-soft);
+  font-size: 12px;
+}
+
+.cash-branch-current strong {
+  margin-top: 4px;
+  color: var(--ms-text);
+  font-size: 17px;
+}
+
+.cash-message-card {
+  padding: 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+.cash-error-message,
+.cash-success-message {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 14px;
+  border-radius: 12px;
+  font-size: 13px;
+  line-height: 1.4;
+  font-weight: 700;
+}
+
+.cash-error-message {
+  border: 1px solid #e5bfc6;
+  background: #fff3f4;
+  color: #a40000;
+}
+
+.cash-success-message {
+  border: 1px solid #c6e4cc;
+  background: #f1fbf3;
+  color: #176b25;
+}
+
+.cash-card-heading {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  margin-bottom: 15px;
+}
+
+.cash-card-heading > div:last-child {
+  min-width: 0;
+}
+
+.cash-card-heading h2 {
+  margin: 0;
+  color: var(--ms-text);
+  font-size: 17px;
+  line-height: 1.2;
+  font-weight: 800;
+}
+
+.cash-card-heading p {
+  margin: 4px 0 0;
+  color: var(--ms-text-soft);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.cash-status-icon {
+  width: 32px;
+  height: 32px;
+  flex: 0 0 32px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 10px;
+
+  font-size: 17px;
+  line-height: 1;
+}
+
+.cash-status-open {
+  background: #eef9f0;
+  color: #24903b;
+}
+
+.cash-status-shared {
+  background: #f4f1ff;
+  color: #7155c7;
+}
+
+.cash-status-close {
+  background: #fff1f2;
+  color: #c63d50;
+}
+
+.cash-number-input {
+  width: 100%;
+  box-sizing: border-box;
+
+  min-height: 50px;
+  margin-top: 7px;
+
+  padding: 10px 13px;
+
+  border: 1px solid var(--ms-border);
+  border-radius: 12px;
+
+  background: #fff;
+  color: var(--ms-text);
+
+  font: inherit;
+  font-size: 21px;
+  font-weight: 700;
+
+  text-align: center;
+}
+
+.cash-number-input:focus {
+  border-color: var(--ms-magenta);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(233, 0, 131, 0.08);
+}
+
+.cash-action-button {
+  width: 100%;
+  min-height: 46px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-top: 14px;
+  padding: 10px 14px;
+
+  border-radius: 12px;
+
+  font-size: 14px;
+  font-weight: 800;
+
+  cursor: pointer;
+}
+
+.cash-open-button {
+  border: 1px solid var(--ms-magenta);
+  background: var(--ms-magenta);
+  color: #fff;
+}
+
+.cash-close-button {
+  border: 1px solid #c83d50;
+  background: #c83d50;
+  color: #fff;
+}
+
+.cash-action-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.cash-summary-list {
+  width: 100%;
+  margin-top: 4px;
+}
+
+.cash-summary-row {
+  min-height: 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+
+  padding: 8px 0;
+
+  border-bottom: 1px solid var(--ms-border-light);
+}
+
+.cash-summary-row:last-child {
+  border-bottom: 0;
+}
+
+.cash-summary-row span {
+  color: var(--ms-text-soft);
+  font-size: 13px;
+}
+
+.cash-summary-row strong {
+  color: var(--ms-text);
+  font-size: 14px;
+  font-weight: 800;
+  text-align: right;
+}
+
+.cash-expected-card {
+  width: 100%;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  margin-top: 14px;
+  padding: 16px;
+
+  border: 1px solid #f0d3e2;
+  border-radius: 14px;
+
+  background: var(--ms-pink-soft);
+
+  text-align: center;
+}
+
+.cash-expected-card span {
+  color: var(--ms-text-soft);
+  font-size: 12px;
+}
+
+.cash-expected-card strong {
+  margin-top: 5px;
+  color: var(--ms-magenta);
+  font-size: 28px;
+  line-height: 1.1;
+  font-weight: 900;
+}
+
+.cash-difference-card {
+  width: 100%;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  margin-top: 14px;
+  padding: 15px;
+
+  border-radius: 14px;
+
+  text-align: center;
+}
+
+.cash-difference-card span {
+  color: var(--ms-text-soft);
+  font-size: 12px;
+}
+
+.cash-difference-card strong {
+  margin-top: 5px;
+  font-size: 19px;
+  line-height: 1.25;
+  font-weight: 900;
+}
+
+.cash-difference-even {
+  border: 1px solid #bfe1c6;
+  background: #f1fbf3;
+}
+
+.cash-difference-even strong {
+  color: #26743a;
+}
+
+.cash-difference-surplus {
+  border: 1px solid #c9d9ef;
+  background: #f2f7ff;
+}
+
+.cash-difference-surplus strong {
+  color: #3169a7;
+}
+
+.cash-difference-shortage {
+  border: 1px solid #e6c1c8;
+  background: #fff3f4;
+}
+
+.cash-difference-shortage strong {
+  color: #c33b52;
+}
+
+.cash-admin-note {
+  padding: 11px 14px;
+  background: #faf7f9;
+  text-align: center;
+}
+
+.cash-admin-note p {
+  margin: 0;
+  color: var(--ms-text-soft);
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+@media (max-width: 700px) {
+  .cash-number-input {
+    min-height: 48px;
+    font-size: 20px;
+  }
+
+  .cash-expected-card strong {
+    font-size: 25px;
+  }
+
+  .cash-summary-row {
+    min-height: 38px;
+  }
+
+  .cash-difference-card strong {
+    font-size: 17px;
+  }
+}
