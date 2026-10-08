@@ -2402,3 +2402,540 @@ button {
   }
 }
 
+
+
+
+/* =========================================================
+   MODAS SOPHIE — SISTEMA VISUAL GLOBAL
+   Base visual: INVENTARIO
+   Aplicación completa: vendedor + administrador
+   ========================================================= */
+
+/* ---------- VARIABLES GLOBALES ---------- */
+
+:root {
+  --ms-magenta: #e90083;
+  --ms-pink: #f52b91;
+  --ms-pink-light: #fff6fa;
+  --ms-pink-soft: #fde8f2;
+
+  --ms-text: #292929;
+  --ms-text-dark: #302a30;
+  --ms-text-soft: #77727a;
+  --ms-text-muted: #9b9098;
+
+  --ms-white: #ffffff;
+  --ms-background: #fff8fc;
+  --ms-border: #ead8e1;
+  --ms-border-light: #eee3e9;
+
+  --ms-success: #39804a;
+  --ms-success-bg: #effaf2;
+
+  --ms-danger: #c52849;
+  --ms-danger-bg: #fff0f2;
+
+  --ms-warning: #a66b00;
+  --ms-warning-bg: #fff8e8;
+
+  --ms-radius-page: 16px;
+  --ms-radius-card: 16px;
+  --ms-radius-control: 11px;
+
+  --ms-page-max: 1180px;
+
+  --ms-page-x: 14px;
+  --ms-page-top: 16px;
+  --ms-page-bottom: 30px;
+
+  --ms-card-padding: 14px;
+  --ms-section-gap: 12px;
+
+  --ms-button-height: 42px;
+}
+
+/* ---------- BASE ---------- */
+
+body {
+  background: var(--ms-background);
+  color: var(--ms-text);
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+
+/* ---------- CONTENEDOR GENERAL ---------- */
+
+.app-shell {
+  min-height: 100vh;
+  background: var(--ms-background);
+}
+
+.app-shell > .page-header,
+.app-shell > .inventory-card,
+.app-shell > .inventory-section,
+.app-shell > .form-card,
+.app-shell > .list-card,
+.app-shell > .inventory-list-card,
+.app-shell > .inventory-form-card,
+.app-shell > .form-message,
+.app-shell > .inventory-message,
+.app-shell > .inventory-success,
+.app-shell > .inventory-error {
+  width: min(
+    calc(100% - (var(--ms-page-x) * 2)),
+    var(--ms-page-max)
+  );
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ---------- ENCABEZADOS ---------- */
+
+.page-header,
+.inventory-header {
+  width: min(
+    calc(100% - (var(--ms-page-x) * 2)),
+    var(--ms-page-max)
+  );
+  margin: 0 auto var(--ms-section-gap);
+}
+
+.page-header {
+  padding: 0;
+}
+
+.page-header .brand-mini,
+.inventory-header .eyebrow,
+.page-header .eyebrow {
+  display: block;
+  margin-bottom: 4px;
+  color: #a27d91;
+  font-size: 10px;
+  line-height: 1.2;
+  font-weight: 800;
+  letter-spacing: .9px;
+}
+
+.page-header h1,
+.inventory-header h2 {
+  margin: 0;
+  color: var(--ms-text-dark);
+  font-size: 22px;
+  line-height: 1.2;
+  font-weight: 800;
+  letter-spacing: -.35px;
+}
+
+.page-header p,
+.inventory-header p:not(.eyebrow) {
+  margin: 5px 0 0;
+  color: var(--ms-text-muted);
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+/* ---------- BOTÓN VOLVER GLOBAL ---------- */
+
+.back-button,
+.inventory-back {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 36px;
+  margin: 0 0 8px;
+  padding: 6px 0;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--ms-magenta);
+  font-size: 13px;
+  line-height: 1;
+  font-weight: 800;
+  box-shadow: none;
+}
+
+.back-button:hover,
+.back-button:focus,
+.back-button:active,
+.inventory-back:hover,
+.inventory-back:focus,
+.inventory-back:active {
+  background: var(--ms-pink-light);
+  color: var(--ms-magenta);
+  outline: none;
+}
+
+/* ---------- TARJETAS GLOBALES ---------- */
+
+.inventory-card,
+.inventory-section,
+.form-card,
+.list-card,
+.inventory-form-card,
+.inventory-list-card {
+  width: min(
+    calc(100% - (var(--ms-page-x) * 2)),
+    var(--ms-page-max)
+  );
+  margin: 0 auto var(--section-gap, 12px);
+  padding: var(--ms-card-padding);
+  border: 1px solid var(--ms-border);
+  border-radius: var(--ms-radius-card);
+  background: var(--ms-white);
+  box-shadow: 0 5px 20px rgba(92, 45, 72, .04);
+}
+
+/* ---------- TÍTULOS DE TARJETA ---------- */
+
+.section-heading,
+.inventory-section-title {
+  margin-bottom: 10px;
+}
+
+.section-heading > div,
+.inventory-section-title > div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-heading h2,
+.section-heading h3,
+.inventory-section-title h2,
+.inventory-section-title h3 {
+  margin: 0;
+  color: var(--ms-text-dark);
+  font-size: 17px;
+  line-height: 1.2;
+  font-weight: 800;
+}
+
+.section-heading p,
+.inventory-section-title p {
+  margin: 3px 0 0;
+  color: var(--ms-text-muted);
+  font-size: 11px;
+  line-height: 1.25;
+}
+
+.section-icon,
+.inventory-section-title > div > span {
+  width: 38px;
+  height: 38px;
+  min-width: 38px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: var(--ms-pink-light);
+  font-size: 17px;
+}
+
+/* ---------- BOTONES GLOBALES ---------- */
+
+.primary-button,
+.inventory-save,
+.inventory-new-button {
+  min-height: var(--ms-button-height);
+  padding: 0 14px;
+  border: 0;
+  border-radius: var(--ms-radius-control);
+  background: linear-gradient(
+    135deg,
+    var(--ms-magenta),
+    var(--ms-pink)
+  );
+  color: #fff;
+  font-size: 13px;
+  line-height: 1;
+  font-weight: 800;
+  box-shadow: 0 6px 16px rgba(233, 0, 131, .16);
+  transition:
+    transform .12s ease,
+    box-shadow .12s ease,
+    opacity .12s ease;
+}
+
+.primary-button:hover,
+.inventory-save:hover,
+.inventory-new-button:hover {
+  box-shadow: 0 8px 19px rgba(233, 0, 131, .21);
+}
+
+.primary-button:active,
+.inventory-save:active,
+.inventory-new-button:active {
+  transform: translateY(1px);
+}
+
+.secondary-button,
+.inventory-cancel {
+  min-height: var(--ms-button-height);
+  padding: 0 14px;
+  border: 1px solid var(--ms-border);
+  border-radius: var(--ms-radius-control);
+  background: #f7f0f4;
+  color: #6f646c;
+  font-size: 13px;
+  line-height: 1;
+  font-weight: 800;
+}
+
+.danger-button {
+  min-height: var(--ms-button-height);
+  padding: 0 14px;
+  border: 1px solid #f0c8d1;
+  border-radius: var(--ms-radius-control);
+  background: var(--ms-danger-bg);
+  color: var(--ms-danger);
+  font-size: 13px;
+  line-height: 1;
+  font-weight: 800;
+}
+
+.primary-button:disabled,
+.secondary-button:disabled,
+.danger-button:disabled,
+.inventory-save:disabled,
+.inventory-new-button:disabled {
+  opacity: .55;
+  cursor: not-allowed;
+}
+
+/* ---------- CAMPOS ---------- */
+
+.inventory-fields input,
+.inventory-fields select,
+.variant-fields input,
+.inventory-filters input,
+.inventory-filters select,
+.form-grid input,
+.form-grid select,
+.inventory-card input,
+.inventory-card select,
+.inventory-section input,
+.inventory-section select {
+  min-height: 42px;
+  border: 1px solid #e7dce3;
+  border-radius: var(--ms-radius-control);
+  background: #fff;
+  color: var(--ms-text);
+  font-size: 13px;
+  outline: none;
+}
+
+.inventory-fields label,
+.variant-fields label,
+.form-grid label,
+.inventory-card label,
+.inventory-section label {
+  color: #514852;
+  font-size: 11px;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+.inventory-fields input:focus,
+.inventory-fields select:focus,
+.variant-fields input:focus,
+.inventory-filters input:focus,
+.inventory-filters select:focus,
+.form-grid input:focus,
+.form-grid select:focus,
+.inventory-card input:focus,
+.inventory-card select:focus,
+.inventory-section input:focus,
+.inventory-section select:focus {
+  border-color: var(--ms-magenta);
+  box-shadow: 0 0 0 3px rgba(233, 0, 131, .08);
+}
+
+/* ---------- MENSAJES ---------- */
+
+.form-message,
+.inventory-message,
+.inventory-success,
+.inventory-error {
+  padding: 10px 12px;
+  border-radius: 11px;
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.inventory-success {
+  background: var(--ms-success-bg);
+  color: var(--ms-success);
+}
+
+.inventory-error,
+.form-message {
+  background: var(--ms-danger-bg);
+  color: var(--ms-danger);
+}
+
+/* ---------- LISTAS ---------- */
+
+.inventory-list,
+.product-list,
+.sales-list {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.product-row {
+  padding: 11px;
+  border: 1px solid var(--ms-border-light);
+  border-radius: 13px;
+  background: #fff;
+}
+
+/* ---------- COMPACTACIÓN GLOBAL EN MÓVIL ---------- */
+
+@media (max-width: 600px) {
+
+  .app-shell {
+    padding-bottom: 76px;
+  }
+
+  .app-shell > .back-button,
+  .app-shell > .inventory-back {
+    margin-left: var(--ms-page-x);
+  }
+
+  .page-header,
+  .inventory-header {
+    width: calc(100% - (var(--ms-page-x) * 2));
+    margin-bottom: 10px;
+  }
+
+  .page-header h1,
+  .inventory-header h2 {
+    font-size: 21px;
+  }
+
+  .page-header p,
+  .inventory-header p:not(.eyebrow) {
+    font-size: 11px;
+  }
+
+  .inventory-card,
+  .inventory-section,
+  .form-card,
+  .list-card,
+  .inventory-form-card,
+  .inventory-list-card {
+    width: calc(100% - (var(--ms-page-x) * 2));
+    margin-bottom: 10px;
+    padding: 12px;
+    border-radius: 15px;
+  }
+
+  .section-heading,
+  .inventory-section-title {
+    margin-bottom: 8px;
+  }
+
+  .section-heading h2,
+  .section-heading h3,
+  .inventory-section-title h2,
+  .inventory-section-title h3 {
+    font-size: 16px;
+  }
+
+  .section-icon,
+  .inventory-section-title > div > span {
+    width: 34px;
+    height: 34px;
+    min-width: 34px;
+    border-radius: 9px;
+    font-size: 15px;
+  }
+
+  .primary-button,
+  .secondary-button,
+  .danger-button,
+  .inventory-save,
+  .inventory-cancel,
+  .inventory-new-button {
+    min-height: 40px;
+    font-size: 12px;
+    border-radius: 10px;
+  }
+
+  .form-grid,
+  .inventory-fields {
+    gap: 7px;
+  }
+
+  .inventory-fields input,
+  .inventory-fields select,
+  .variant-fields input,
+  .inventory-filters input,
+  .inventory-filters select,
+  .form-grid input,
+  .form-grid select,
+  .inventory-card input,
+  .inventory-card select,
+  .inventory-section input,
+  .inventory-section select {
+    min-height: 40px;
+    height: 40px;
+    font-size: 13px;
+  }
+
+  .inventory-list,
+  .product-list,
+  .sales-list {
+    gap: 6px;
+  }
+
+  .product-row {
+    padding: 9px;
+    border-radius: 11px;
+  }
+
+  .form-message,
+  .inventory-message,
+  .inventory-success,
+  .inventory-error {
+    padding: 9px 10px;
+    font-size: 11px;
+  }
+}
+
+/* ---------- PANTALLAS MUY PEQUEÑAS ---------- */
+
+@media (max-width: 380px) {
+  :root {
+    --ms-page-x: 12px;
+    --ms-card-padding: 11px;
+  }
+
+  .page-header h1,
+  .inventory-header h2 {
+    font-size: 20px;
+  }
+
+  .primary-button,
+  .secondary-button,
+  .danger-button,
+  .inventory-save,
+  .inventory-cancel,
+  .inventory-new-button {
+    padding-left: 11px;
+    padding-right: 11px;
+    font-size: 11px;
+  }
+}
