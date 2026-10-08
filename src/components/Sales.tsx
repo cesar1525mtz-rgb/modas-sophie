@@ -352,11 +352,15 @@ export default function Sales({ userRole, onBack }: SalesProps) {
                   <button
                     type="button"
                     className="primary-button sales-detail-button"
-                    onClick={() =>
-                      selectedSaleId === sale.id
-                        ? closeDetails()
-                        : openSale(sale.id)
-                    }
+                    onClick={(event) => {
+                      event.currentTarget.blur()
+
+                      if (selectedSaleId === sale.id) {
+                        closeDetails()
+                      } else {
+                        openSale(sale.id)
+                      }
+                    }}
                   >
                     {selectedSaleId === sale.id ? 'Ocultar detalle' : 'Ver detalle'}
                   </button>
