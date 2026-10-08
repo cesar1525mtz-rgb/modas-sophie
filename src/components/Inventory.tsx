@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { supabase } from '../lib/supabase'
 
 type InventoryPageProps = {
+  userId: string
   userRole: 'admin' | 'vendedor'
   onBack: () => void
 }
@@ -65,6 +66,7 @@ const categories = [
 ]
 
 export default function Inventory({
+  userId,
   userRole,
   onBack,
 }: InventoryPageProps) {
@@ -126,11 +128,18 @@ export default function Inventory({
       { data: variantData, error: variantError },
       { data: stockData, error: stockError },
     ] = await Promise.all([
-      supabase
-        .from('branches')
-        .select('id, name')
-        .eq('active', true)
-        .order('name'),
+      userRole === 'admin'
+        ? supabase
+            .from('branches')
+            .select('id, name')
+            .eq('active', true)
+            .order('name')
+        : supabase
+            .from('employee_branches')
+            .select('branch_id, branches!inner(id, name)')
+            .eq('user_id', userId)
+            .eq('active', true)
+            .eq('branches.active', true),
 
       supabase
         .from('products')
@@ -153,14 +162,33 @@ export default function Inventory({
     } else if (productError || variantError || stockError) {
       setError('No fue posible cargar el inventario.')
     } else {
-      const safeBranches = (branchData || []) as Branch[]
+      const safeBranches =
+        userRole === 'admin'
+          ? ((branchData || []) as Branch[])
+          : ((branchData || []) as Array<{
+              branch_id: string
+              branches: Branch | Branch[]
+            }>)
+              .map((item) => {
+                const branch = Array.isArray(item.branches)
+                  ? item.branches[0]
+                  : item.branches
+
+                return branch
+              })
+              .filter(Boolean) as Branch[]
 
       setBranches(safeBranches)
       setProducts((productData || []) as Product[])
       setVariants((variantData || []) as Variant[])
       setStock((stockData || []) as Stock[])
 
-      if (!branchId && safeBranches.length > 0) {
+      if (userRole === 'vendedor') {
+        const assignedBranchId = safeBranches[0]?.id || ''
+
+        setBranchId(assignedBranchId)
+        setSelectedProductId(null)
+      } else if (!branchId && safeBranches.length > 0) {
         setBranchId(safeBranches[0].id)
       }
     }
@@ -192,7 +220,7 @@ export default function Inventory({
     return () => {
       window.removeEventListener('modas-sophie-data-updated', handleDataUpdated)
     }
-  }, [])
+  }, [userId, userRole])
 
   function resetForm() {
     setEditingProductId(null)
@@ -1004,7 +1032,7 @@ const inventorySummary = useMemo(() => {
                 />
               </label>
 
-              <label>
+              {userRole === 'admin' && (<label>
                 Sucursal
                 <select
                   value={branchId}
@@ -1021,7 +1049,7 @@ const inventorySummary = useMemo(() => {
                     </option>
                   ))}
                 </select>
-              </label>
+              </label>)}
             </div>
 
 
@@ -1714,6 +1742,72 @@ const inventorySummary = useMemo(() => {
     
 
     <section className="inventory-list-card">
+        {userRole === 'admin' && (
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              gap: 12,
+              flexWrap: 'wrap',
+              marginBottom: 16,
+              padding: 14,
+              background: '#fff7fa',
+              border: '1px solid #ead2dc',
+              borderRadius: 14,
+            }}
+          >
+            <div>
+              <strong
+                style={{
+                  display: 'block',
+                  color: '#552238',
+                  fontSize: 15,
+                  marginBottom: 4,
+                }}
+              >
+                Sucursal
+              </strong>
+              <span
+                style={{
+                  color: '#777',
+                  fontSize: 13,
+                }}
+              >
+                Consulta y administra el inventario de cada sucursal.
+              </span>
+            </div>
+
+            <select
+              value={branchId}
+              onChange={(event) => {
+                setBranchId(event.target.value)
+                setSelectedProductId(null)
+                setError('')
+                setSuccess('')
+              }}
+              style={{
+                minWidth: 190,
+                minHeight: 44,
+                padding: '8px 12px',
+                borderRadius: 10,
+                border: '1px solid #d9a0b8',
+                background: '#ffffff',
+                color: '#552238',
+                fontFamily: 'inherit',
+                fontSize: 15,
+                fontWeight: 600,
+              }}
+            >
+              {branches.map((branch) => (
+                <option key={branch.id} value={branch.id}>
+                  {branch.name}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
+
         <div className="inventory-section-title">
           <div>
             <span>📦</span>
