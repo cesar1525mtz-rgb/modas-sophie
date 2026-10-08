@@ -324,50 +324,52 @@ setSaving(true)
         onBack={onBack}
       />
 
-      <section className="inventory-section">
-        <label htmlFor="caja-branch">
-          Sucursal
-        </label>
+      {userRole === 'admin' && (
+        <section className="inventory-section">
+          <label htmlFor="caja-branch">
+            Sucursal
+          </label>
 
-        <select
-          id="caja-branch"
-          value={branchId}
-          onChange={(event) => {
-            setBranchId(event.target.value)
-            setCashRegister(null)
-            setCashCounted('')
-          }}
-          style={{
-            width: '100%',
-            boxSizing: 'border-box',
-            padding: '14px',
-            borderRadius: '14px',
-            border: '1px solid #ddd',
-            fontSize: '17px',
-          }}
-        >
-          {branches.map((branch) => (
-            <option key={branch.id} value={branch.id}>
-              {branch.name}
-            </option>
-          ))}
-        </select>
+          <select
+            id="caja-branch"
+            value={branchId}
+            onChange={(event) => {
+              setBranchId(event.target.value)
+              setCashRegister(null)
+              setCashCounted('')
+            }}
+            style={{
+              width: '100%',
+              boxSizing: 'border-box',
+              padding: '14px',
+              borderRadius: '14px',
+              border: '1px solid #ddd',
+              fontSize: '17px',
+            }}
+          >
+            {branches.map((branch) => (
+              <option key={branch.id} value={branch.id}>
+                {branch.name}
+              </option>
+            ))}
+          </select>
 
-        <div
-          style={{
-            marginTop: '18px',
-            padding: '18px',
-            borderRadius: '18px',
-            background: '#f7f7fb',
-            border: '1px solid #ead5e0',
-          }}
-        >
-          <strong>Sucursal actual</strong>
-          <div style={{ fontSize: '20px', marginTop: '6px' }}>
-            {branchName}
+          <div
+            style={{
+              marginTop: '18px',
+              padding: '18px',
+              borderRadius: '18px',
+              background: '#f7f7fb',
+              border: '1px solid #ead5e0',
+            }}
+          >
+            <strong>Sucursal actual</strong>
+            <div style={{ fontSize: '20px', marginTop: '6px' }}>
+              {branchName}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {error && (
         <section className="inventory-section">
