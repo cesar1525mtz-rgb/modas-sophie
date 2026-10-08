@@ -10307,10 +10307,31 @@ button {
 .inventory-header,
 .page-header,
 .page-heading,
-.inventory-header,
 .topbar {
   background: var(--ms-surface) !important;
   border-color: var(--ms-border) !important;
+}
+
+.inventory-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 14px 0;
+  margin-bottom: 18px;
+  box-sizing: border-box;
+}
+
+.inventory-header > div {
+  min-width: 0;
+}
+
+.inventory-header h1 {
+  margin: 2px 0 4px;
+}
+
+.inventory-header p {
+  margin: 0;
 }
 
 .inventory-header h1,
@@ -10785,4 +10806,3400 @@ textarea:focus {
 /* =========================================================
    FIN DEL TEMA MAESTRO MODAS SOPHIE
    ========================================================= */
+
+/* =========================================================
+   BOTON MAESTRO DE REGRESO - MODAS SOPHIE
+   ========================================================= */
+
+.inventory-page .inventory-header > div > button.button {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: 42px !important;
+  height: 42px !important;
+  padding: 8px 16px !important;
+  margin: 0 !important;
+  border: 1px solid #e6008c !important;
+  border-radius: 12px !important;
+  background: #e6008c !important;
+  color: #ffffff !important;
+  font-family: inherit !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  line-height: 1.2 !important;
+  box-shadow: 0 6px 16px rgba(230, 0, 140, .20) !important;
+  cursor: pointer !important;
+  box-sizing: border-box !important;
+}
+
+.inventory-page .inventory-header > div > button.button:active {
+  transform: scale(.98) !important;
+}
+
+
+/* ===== BOTON MAESTRO DE REGRESO - MODAS SOPHIE ===== */
+.inventory-page .inventory-header > div > button.button {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: fit-content !important;
+  min-width: 0 !important;
+  min-height: 42px !important;
+  height: 42px !important;
+  padding: 8px 18px !important;
+  margin: 0 !important;
+  border: 1px solid #b85a82 !important;
+  border-radius: 12px !important;
+  background: #8f3d63 !important;
+  color: #ffffff !important;
+  font-family: inherit !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  line-height: 1.2 !important;
+  box-shadow: 0 6px 16px rgba(230, 0, 140, .20) !important;
+  cursor: pointer !important;
+  box-sizing: border-box !important;
+}
+
+.inventory-page .inventory-header > div > button.button:active {
+  transform: scale(.98) !important;
+}
+
+
+/* =========================================================
+   MODAS SOPHIE — AJUSTE FINAL DE PANTALLAS ADMINISTRATIVAS
+   Sucursales · Vendedores · Gastos · Corte de caja
+   ========================================================= */
+
+/* ---------- SUCURSALES ---------- */
+
+.page-sucursales-page {
+  padding: 14px 14px 28px !important;
+  box-sizing: border-box;
+}
+
+.page-sucursales-page .page-header {
+  margin-bottom: 14px !important;
+  padding: 0 !important;
+}
+
+.page-sucursales-page .page-header h1 {
+  margin: 6px 0 4px !important;
+  font-size: 30px !important;
+  line-height: 1.1 !important;
+}
+
+.page-sucursales-page .page-header p {
+  margin: 0 !important;
+  font-size: 16px !important;
+}
+
+.page-sucursales-page .primary-button {
+  min-height: 44px !important;
+  padding: 9px 16px !important;
+  border-radius: 12px !important;
+  font-size: 15px !important;
+  font-weight: 700 !important;
+}
+
+.page-sucursales-page .panel {
+  margin-top: 12px !important;
+  padding: 16px !important;
+  border-radius: 18px !important;
+}
+
+.page-sucursales-page .section-heading {
+  margin-bottom: 12px !important;
+}
+
+.page-sucursales-page .section-heading h2 {
+  margin: 0 !important;
+  font-size: 23px !important;
+  line-height: 1.15 !important;
+}
+
+.page-sucursales-page .section-heading p {
+  margin: 4px 0 0 !important;
+  font-size: 14px !important;
+}
+
+.page-sucursales-page .product-list {
+  gap: 10px !important;
+}
+
+.page-sucursales-page .product-card {
+  padding: 14px !important;
+  border-radius: 16px !important;
+}
+
+.page-sucursales-page .product-main {
+  gap: 10px !important;
+}
+
+.page-sucursales-page .product-info {
+  font-size: 14px !important;
+}
+
+.page-sucursales-page .product-actions {
+  gap: 8px !important;
+  margin-top: 10px !important;
+}
+
+.page-sucursales-page .product-actions button {
+  min-height: 38px !important;
+  padding: 7px 12px !important;
+  border-radius: 10px !important;
+  font-size: 14px !important;
+}
+
+
+/* ---------- VENDEDORES ---------- */
+
+.inventory-page .product-row {
+  gap: 10px !important;
+}
+
+.inventory-page .product-row .product-actions {
+  gap: 8px !important;
+}
+
+.inventory-page .product-row .product-actions button {
+  min-height: 38px !important;
+  padding: 7px 12px !important;
+  border-radius: 10px !important;
+  font-size: 14px !important;
+}
+
+.inventory-page .product-row .product-info {
+  font-size: 14px !important;
+}
+
+.inventory-page .product-row .product-main {
+  gap: 10px !important;
+}
+
+
+/* ---------- GASTOS ---------- */
+
+.inventory-page .inventory-list-card {
+  border-radius: 18px !important;
+}
+
+.inventory-page .inventory-list-card .section-title {
+  margin-bottom: 12px !important;
+}
+
+.inventory-page .inventory-list-card .section-title h2 {
+  margin-bottom: 4px !important;
+  font-size: 23px !important;
+  line-height: 1.15 !important;
+}
+
+.inventory-page .inventory-list-card .section-title p {
+  margin: 0 !important;
+  font-size: 14px !important;
+}
+
+.inventory-page .inventory-list-card .primary-button {
+  min-height: 42px !important;
+  padding: 9px 15px !important;
+  border-radius: 11px !important;
+  font-size: 15px !important;
+}
+
+.inventory-page .inventory-list-card .sales-list {
+  gap: 8px !important;
+}
+
+.inventory-page .inventory-list-card .sale-history-card {
+  padding: 12px !important;
+  border-radius: 13px !important;
+}
+
+
+/* ---------- CORTE DE CAJA ---------- */
+
+.inventory-page.cash-cut-page {
+  padding: 14px 14px 28px !important;
+}
+
+.inventory-page.cash-cut-page .inventory-section {
+  border-radius: 18px !important;
+}
+
+.inventory-page.cash-cut-page h2 {
+  margin-top: 0 !important;
+  margin-bottom: 8px !important;
+  font-size: 24px !important;
+  line-height: 1.15 !important;
+}
+
+.inventory-page.cash-cut-page .stat-card {
+  min-height: 92px !important;
+  padding: 14px !important;
+  border-radius: 16px !important;
+}
+
+.inventory-page.cash-cut-page .stat-card strong {
+  font-size: 25px !important;
+}
+
+.inventory-page.cash-cut-page .dashboard-stats {
+  gap: 9px !important;
+}
+
+.inventory-page.cash-cut-page .sale-detail-summary {
+  border-radius: 16px !important;
+}
+
+.inventory-page.cash-cut-page .inventory-empty {
+  border-radius: 14px !important;
+}
+
+
+/* ---------- BOTONES SECUNDARIOS ---------- */
+
+.page-sucursales-page .secondary-button,
+.inventory-page .secondary-button {
+  border-radius: 10px !important;
+  min-height: 38px !important;
+  padding: 7px 12px !important;
+}
+
+
+/* ---------- MÓVIL ---------- */
+
+@media (max-width: 600px) {
+
+  .page-sucursales-page,
+  .inventory-page.cash-cut-page {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+
+  .page-sucursales-page .page-header h1 {
+    font-size: 29px !important;
+  }
+
+  .page-sucursales-page .panel {
+    padding: 14px !important;
+  }
+
+  .page-sucursales-page .product-card {
+    padding: 13px !important;
+  }
+
+  .inventory-page.cash-cut-page .stat-card {
+    min-height: 84px !important;
+    padding: 12px !important;
+  }
+
+  .inventory-page.cash-cut-page .stat-card strong {
+    font-size: 23px !important;
+  }
+
+}
+
+
+/* =========================================================
+   MODAS SOPHIE — TEMA MAESTRO FINAL
+   Unificación visual de toda la aplicación
+   ========================================================= */
+
+:root {
+  --ms-bg: #fff7fb !important;
+  --ms-white: #ffffff !important;
+  --ms-surface: #ffffff !important;
+
+  --ms-primary: #ec008c !important;
+  --ms-primary-dark: #b5006b !important;
+  --ms-primary-soft: #fde7f3 !important;
+
+  --ms-secondary: #8f3d63 !important;
+  --ms-secondary-dark: #71304e !important;
+
+  --ms-text: #30232b !important;
+  --ms-muted: #80747b !important;
+
+  --ms-border: #eadfe5 !important;
+
+  --ms-success: #3d8a63 !important;
+  --ms-danger: #c94b58 !important;
+  --ms-warning: #c28a27 !important;
+
+  --ms-radius: 18px !important;
+  --ms-radius-small: 12px !important;
+
+  --ms-shadow: 0 8px 24px rgba(111, 52, 82, .09) !important;
+  --ms-shadow-button: 0 8px 22px rgba(236, 0, 140, .18) !important;
+}
+
+/* ---------- BASE ---------- */
+
+html,
+body,
+#root {
+  background: var(--ms-bg) !important;
+  color: var(--ms-text) !important;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-size: 16px !important;
+  line-height: 1.45 !important;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: Arial, Helvetica, sans-serif !important;
+}
+
+/* ---------- ENCABEZADOS ---------- */
+
+.page-header,
+.inventory-header,
+.page-heading,
+.topbar,
+header {
+  color: var(--ms-text) !important;
+}
+
+.page-header h1,
+.inventory-header h1,
+.page-heading h1,
+.page-header h2,
+.inventory-header h2,
+.page-heading h2 {
+  color: var(--ms-text) !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-weight: 700 !important;
+  letter-spacing: -.4px !important;
+}
+
+.page-header p,
+.inventory-header p,
+.page-heading p {
+  color: var(--ms-muted) !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+}
+
+/* ---------- MARCA ---------- */
+
+.brand-mini,
+.brand-small,
+.eyebrow {
+  color: var(--ms-secondary) !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-weight: 700 !important;
+  letter-spacing: .08em !important;
+}
+
+/* ---------- BOTÓN VOLVER ---------- */
+
+.back-button,
+.inventory-back {
+  color: var(--ms-primary) !important;
+  background: transparent !important;
+  border: 0 !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-weight: 700 !important;
+}
+
+.back-button:hover,
+.back-button:active,
+.inventory-back:hover,
+.inventory-back:active {
+  color: var(--ms-primary-dark) !important;
+}
+
+/* ---------- TARJETAS PRINCIPALES ---------- */
+
+.panel,
+.inventory-card,
+.inventory-list-card,
+.inventory-form-card,
+.inventory-entry-card,
+.inventory-variants-section,
+.inventory-form,
+.inventory-section,
+.sale-history-card,
+.sale-detail-card,
+.sale-detail-summary,
+.sale-cart,
+.sale-total,
+.product-card,
+.module-card,
+.stat-card,
+.cash-card,
+.form-card,
+.inventory-empty {
+  background: var(--ms-white) !important;
+  color: var(--ms-text) !important;
+  border: 1px solid var(--ms-border) !important;
+  border-radius: var(--ms-radius) !important;
+  box-shadow: var(--ms-shadow) !important;
+}
+
+/* ---------- TÍTULOS DE SECCIÓN ---------- */
+
+.section-title,
+.section-heading,
+.inventory-section h2,
+.inventory-section h3,
+.section-heading h2,
+.section-heading h3 {
+  color: var(--ms-text) !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-weight: 700 !important;
+}
+
+.section-title p,
+.section-heading p,
+.inventory-section p {
+  color: var(--ms-muted) !important;
+}
+
+/* ---------- BOTONES PRINCIPALES ---------- */
+
+.primary-button,
+button.primary-button {
+  background: var(--ms-primary) !important;
+  color: #ffffff !important;
+  border: 1px solid var(--ms-primary-dark) !important;
+  border-radius: 12px !important;
+  min-height: 44px !important;
+  padding: 10px 18px !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  box-shadow: var(--ms-shadow-button) !important;
+}
+
+.primary-button:hover,
+.primary-button:active {
+  background: var(--ms-primary-dark) !important;
+  color: #ffffff !important;
+}
+
+/* ---------- BOTONES SECUNDARIOS ---------- */
+
+.secondary-button,
+button.secondary-button {
+  background: #ffffff !important;
+  color: var(--ms-secondary) !important;
+  border: 1px solid var(--ms-secondary) !important;
+  border-radius: 12px !important;
+  min-height: 42px !important;
+  padding: 9px 16px !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-size: 15px !important;
+  font-weight: 700 !important;
+}
+
+/* ---------- BOTÓN EDITAR ---------- */
+
+.inventory-edit-button {
+  background: var(--ms-secondary) !important;
+  color: #ffffff !important;
+  border: 1px solid var(--ms-secondary-dark) !important;
+  border-radius: 10px !important;
+  min-height: 38px !important;
+  padding: 7px 14px !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+}
+
+/* ---------- CAMPOS ---------- */
+
+input,
+select,
+textarea {
+  color: var(--ms-text) !important;
+  background: #ffffff !important;
+  border: 1px solid var(--ms-border) !important;
+  border-radius: 12px !important;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none !important;
+  border-color: var(--ms-primary) !important;
+  box-shadow: 0 0 0 3px rgba(236, 0, 140, .10) !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #968b91 !important;
+}
+
+/* ---------- TEXTO SECUNDARIO ---------- */
+
+.page-subtitle,
+.section-subtitle,
+.form-description,
+.inventory-section-title,
+.inventory-section p {
+  color: var(--ms-muted) !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+}
+
+/* ---------- BADGES ---------- */
+
+.badge,
+.stock-badge,
+.inventory-stock-badge {
+  border-radius: 999px !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-weight: 700 !important;
+}
+
+/* ---------- LISTAS Y PRODUCTOS ---------- */
+
+.product-main,
+.product-info,
+.product-row,
+.inventory-product-card {
+  color: var(--ms-text) !important;
+}
+
+.product-info strong,
+.product-name,
+.product-title {
+  color: var(--ms-text) !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-weight: 700 !important;
+}
+
+/* ---------- ESTADOS ---------- */
+
+.inventory-empty {
+  color: var(--ms-muted) !important;
+}
+
+.form-message {
+  font-family: Arial, Helvetica, sans-serif !important;
+}
+
+/* ---------- HISTORIAL ---------- */
+
+.inventory-history-button {
+  background: var(--ms-secondary) !important;
+  color: #ffffff !important;
+  border: 1px solid var(--ms-secondary-dark) !important;
+  border-radius: 10px !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-weight: 700 !important;
+}
+
+/* ---------- ESTADÍSTICAS ---------- */
+
+.stat-card {
+  color: var(--ms-text) !important;
+}
+
+.stat-card strong {
+  color: var(--ms-text) !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+}
+
+/* ---------- RESPONSIVE MÓVIL ---------- */
+
+@media (max-width: 600px) {
+
+  body {
+    font-size: 16px !important;
+  }
+
+  .page-header h1,
+  .inventory-header h1,
+  .page-heading h1 {
+    font-size: 29px !important;
+    line-height: 1.15 !important;
+  }
+
+  .page-header p,
+  .inventory-header p,
+  .page-heading p {
+    font-size: 16px !important;
+    line-height: 1.4 !important;
+  }
+
+  .panel,
+  .inventory-card,
+  .inventory-list-card,
+  .inventory-form-card,
+  .inventory-entry-card,
+  .inventory-section,
+  .sale-history-card,
+  .sale-detail-card,
+  .sale-detail-summary,
+  .cash-card,
+  .form-card {
+    border-radius: 18px !important;
+  }
+
+  .primary-button,
+  .secondary-button {
+    min-height: 44px !important;
+  }
+}
+
+
+/* =========================================================
+   MODAS SOPHIE — UNIFICACIÓN FINAL PANTALLAS ADMINISTRATIVAS
+   GASTOS · VENDEDORES · SUCURSALES
+   ========================================================= */
+
+/* ---------- BASE COMPARTIDA ---------- */
+
+.page-sucursales-page,
+.inventory-page {
+  font-family: Arial, Helvetica, sans-serif !important;
+  color: #30232b !important;
+}
+
+.page-sucursales-page h1,
+.page-sucursales-page h2,
+.page-sucursales-page h3,
+.inventory-page h1,
+.inventory-page h2,
+.inventory-page h3 {
+  color: #30232b !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+}
+
+.page-sucursales-page p,
+.inventory-page p,
+.page-sucursales-page label,
+.inventory-page label,
+.page-sucursales-page input,
+.inventory-page input,
+.page-sucursales-page button,
+.inventory-page button {
+  font-family: Arial, Helvetica, sans-serif !important;
+}
+
+/* ---------- ENCABEZADOS ---------- */
+
+.page-sucursales-page .page-header h1,
+.inventory-page .page-header h1,
+.inventory-page .page-heading h1 {
+  font-size: 29px !important;
+  line-height: 1.15 !important;
+  margin: 0 !important;
+  font-weight: 700 !important;
+}
+
+.page-sucursales-page .page-header p,
+.inventory-page .page-header p,
+.inventory-page .page-heading p {
+  font-size: 16px !important;
+  line-height: 1.4 !important;
+  color: #8a7b83 !important;
+}
+
+.page-sucursales-page .brand-small,
+.inventory-page .brand-small,
+.inventory-page .brand-mini {
+  color: #8f3d63 !important;
+  font-weight: 700 !important;
+  letter-spacing: 1px !important;
+}
+
+/* ---------- TARJETAS ---------- */
+
+.page-sucursales-page .panel,
+.page-sucursales-page .inventory-card,
+.page-sucursales-page .inventory-list-card,
+.inventory-page .inventory-card,
+.inventory-page .inventory-list-card,
+.inventory-page .inventory-form-card,
+.inventory-page .inventory-entry-card,
+.inventory-page .inventory-section,
+.inventory-page .sale-history-card {
+  border-radius: 18px !important;
+  border: 1px solid #ead7e0 !important;
+  background: #ffffff !important;
+  box-shadow: 0 8px 24px rgba(111, 52, 82, 0.09) !important;
+}
+
+/* ---------- BOTÓN PRINCIPAL ---------- */
+
+.page-sucursales-page .primary-button,
+.inventory-page .primary-button {
+  min-height: 44px !important;
+  padding: 10px 18px !important;
+  border-radius: 11px !important;
+  border: 1px solid #e6008c !important;
+  background: #e6008c !important;
+  color: #ffffff !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  line-height: 1.2 !important;
+  box-shadow: 0 8px 18px rgba(230, 0, 140, 0.18) !important;
+}
+
+/* ---------- BOTONES SECUNDARIOS ---------- */
+
+.page-sucursales-page .secondary-button,
+.inventory-page .secondary-button {
+  min-height: 42px !important;
+  padding: 9px 16px !important;
+  border-radius: 10px !important;
+  border: 1px solid #e0c6d2 !important;
+  background: #ffffff !important;
+  color: #8f3d63 !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+}
+
+/* Editar siempre con color del tema */
+
+.page-sucursales-page .product-actions .secondary-button,
+.inventory-page .product-actions .secondary-button {
+  color: #c80079 !important;
+  border-color: #ead7e0 !important;
+  background: #ffffff !important;
+}
+
+/* ---------- GASTOS ---------- */
+
+.inventory-page .inventory-form-grid {
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  gap: 14px !important;
+}
+
+.inventory-page .inventory-form-grid label {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 6px !important;
+  width: 100% !important;
+  color: #30232b !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+}
+
+.inventory-page .inventory-form-grid input {
+  width: 100% !important;
+  min-height: 44px !important;
+  box-sizing: border-box !important;
+  padding: 10px 13px !important;
+  border: 1px solid #e0c6d2 !important;
+  border-radius: 10px !important;
+  background: #ffffff !important;
+  color: #30232b !important;
+  font-size: 16px !important;
+  outline: none !important;
+}
+
+.inventory-page .inventory-form-grid input:focus {
+  border-color: #c80079 !important;
+  box-shadow: 0 0 0 3px rgba(200, 0, 121, 0.10) !important;
+}
+
+.inventory-page .inventory-form-grid + .product-actions,
+.inventory-page .inventory-form-grid ~ .product-actions {
+  margin-top: 6px !important;
+}
+
+/* Historial de gastos */
+
+.inventory-page .sales-list {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+}
+
+.inventory-page .sale-history-card {
+  padding: 14px !important;
+}
+
+/* ---------- VENDEDORES ---------- */
+
+.page-sucursales-page .product-list {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+}
+
+.page-sucursales-page .product-row {
+  min-height: 82px !important;
+  padding: 12px !important;
+  border-radius: 16px !important;
+  box-sizing: border-box !important;
+}
+
+.page-sucursales-page .product-main {
+  min-width: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+}
+
+.page-sucursales-page .product-info {
+  min-width: 0 !important;
+}
+
+.page-sucursales-page .product-info strong {
+  display: block !important;
+  color: #30232b !important;
+  font-size: 17px !important;
+  line-height: 1.25 !important;
+}
+
+.page-sucursales-page .product-info small {
+  display: block !important;
+  margin-top: 3px !important;
+  color: #8a7b83 !important;
+  font-size: 14px !important;
+}
+
+.page-sucursales-page .product-actions {
+  display: flex !important;
+  align-items: center !important;
+  gap: 7px !important;
+  flex-wrap: wrap !important;
+}
+
+/* ---------- SUCURSALES ---------- */
+
+.page-sucursales-page .product-card {
+  padding: 14px !important;
+  border-radius: 16px !important;
+}
+
+.page-sucursales-page .product-card .product-main {
+  align-items: flex-start !important;
+}
+
+.page-sucursales-page .product-card .product-info {
+  flex: 1 !important;
+  min-width: 0 !important;
+}
+
+.page-sucursales-page .product-card .product-info strong {
+  display: block !important;
+  margin-bottom: 5px !important;
+  font-size: 17px !important;
+  line-height: 1.3 !important;
+}
+
+.page-sucursales-page .product-card .product-info small {
+  display: block !important;
+  color: #8a7b83 !important;
+  font-size: 14px !important;
+  line-height: 1.4 !important;
+}
+
+.page-sucursales-page .product-card .product-actions {
+  margin-top: 10px !important;
+  display: flex !important;
+  gap: 7px !important;
+  flex-wrap: wrap !important;
+}
+
+/* ---------- FORMULARIOS DE SUCURSALES ---------- */
+
+.page-sucursales-page .form-grid {
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  gap: 14px !important;
+}
+
+.page-sucursales-page .form-grid label {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 6px !important;
+  color: #30232b !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+}
+
+.page-sucursales-page .form-grid input {
+  width: 100% !important;
+  min-height: 44px !important;
+  box-sizing: border-box !important;
+  padding: 10px 13px !important;
+  border: 1px solid #e0c6d2 !important;
+  border-radius: 10px !important;
+  background: #ffffff !important;
+  color: #30232b !important;
+  font-size: 16px !important;
+}
+
+/* ---------- MÓVIL ---------- */
+
+@media (max-width: 600px) {
+
+  .page-sucursales-page,
+  .inventory-page {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+
+  .page-sucursales-page .page-header,
+  .inventory-page .page-header,
+  .inventory-page .page-heading {
+    margin-bottom: 14px !important;
+  }
+
+  .page-sucursales-page .panel,
+  .page-sucursales-page .inventory-card,
+  .page-sucursales-page .inventory-list-card,
+  .inventory-page .inventory-card,
+  .inventory-page .inventory-list-card,
+  .inventory-page .inventory-form-card,
+  .inventory-page .inventory-entry-card,
+  .inventory-page .inventory-section {
+    padding: 14px !important;
+  }
+
+  .page-sucursales-page .product-row {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 10px !important;
+  }
+
+  .page-sucursales-page .product-main {
+    width: 100% !important;
+  }
+
+  .page-sucursales-page .product-actions {
+    width: 100% !important;
+  }
+
+  .page-sucursales-page .product-actions button {
+    flex: 0 0 auto !important;
+  }
+
+  .page-sucursales-page .product-card .product-actions {
+    width: 100% !important;
+  }
+
+  .inventory-page .primary-button,
+  .page-sucursales-page .primary-button {
+    min-height: 42px !important;
+  }
+}
+
+
+/* ============================================================
+   MODAS SOPHIE — TEMA MAESTRO
+   GASTOS · VENDEDORES · SUCURSALES
+   ============================================================ */
+
+:root {
+  --ms-font: Arial, Helvetica, sans-serif;
+  --ms-primary: #e6008c;
+  --ms-primary-dark: #c90078;
+  --ms-primary-soft: #fff0f8;
+  --ms-bg: #fff7fb;
+  --ms-surface: #ffffff;
+  --ms-text: #30232b;
+  --ms-muted: #8a7b83;
+  --ms-border: #ead7e0;
+  --ms-shadow: 0 8px 24px rgba(111, 52, 82, 0.09);
+}
+
+/* ---------- TIPOGRAFÍA GENERAL ---------- */
+
+.page-gastos,
+.page-vendedores,
+.page-sucursales,
+.gastos-page,
+.vendedores-page,
+.sucursales-page {
+  font-family: var(--ms-font) !important;
+  color: var(--ms-text);
+}
+
+/* ---------- ENCABEZADOS ---------- */
+
+.page-gastos .page-header,
+.page-vendedores .page-header,
+.page-sucursales .page-header {
+  margin-bottom: 18px !important;
+}
+
+.page-gastos .page-header h1,
+.page-vendedores .page-header h1,
+.page-sucursales .page-header h1 {
+  font-family: var(--ms-font) !important;
+  font-size: 30px !important;
+  line-height: 1.15 !important;
+  font-weight: 700 !important;
+  color: var(--ms-text) !important;
+}
+
+.page-gastos .page-header p,
+.page-vendedores .page-header p,
+.page-sucursales .page-header p {
+  font-family: var(--ms-font) !important;
+  font-size: 16px !important;
+  line-height: 1.4 !important;
+  color: var(--ms-muted) !important;
+}
+
+/* ---------- BOTÓN VOLVER ---------- */
+
+.page-gastos .back-button,
+.page-vendedores .back-button,
+.page-sucursales .back-button {
+  font-family: var(--ms-font) !important;
+  color: var(--ms-primary) !important;
+  font-weight: 600 !important;
+}
+
+/* ---------- TARJETAS ---------- */
+
+.page-gastos .inventory-list-card,
+.page-gastos .inventory-card,
+.page-vendedores .panel,
+.page-sucursales .panel {
+  background: var(--ms-surface) !important;
+  border: 1px solid var(--ms-border) !important;
+  border-radius: 18px !important;
+  box-shadow: var(--ms-shadow) !important;
+}
+
+/* ============================================================
+   GASTOS
+   ============================================================ */
+
+.page-gastos .inventory-form-grid {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) !important;
+  gap: 14px !important;
+  width: 100% !important;
+}
+
+.page-gastos .inventory-form-grid label {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 7px !important;
+  width: 100% !important;
+  font-family: var(--ms-font) !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  color: var(--ms-text) !important;
+}
+
+.page-gastos .inventory-form-grid input {
+  width: 100% !important;
+  min-height: 46px !important;
+  box-sizing: border-box !important;
+  padding: 10px 13px !important;
+  border: 1px solid var(--ms-border) !important;
+  border-radius: 11px !important;
+  background: #ffffff !important;
+  color: var(--ms-text) !important;
+  font-family: var(--ms-font) !important;
+  font-size: 16px !important;
+  outline: none !important;
+}
+
+.page-gastos .inventory-form-grid input:focus {
+  border-color: var(--ms-primary) !important;
+  box-shadow: 0 0 0 3px rgba(230, 0, 140, 0.10) !important;
+}
+
+.page-gastos .primary-button {
+  min-height: 44px !important;
+  padding: 10px 18px !important;
+  border-radius: 11px !important;
+  font-family: var(--ms-font) !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  background: var(--ms-primary) !important;
+  color: #ffffff !important;
+  border: 1px solid var(--ms-primary) !important;
+  box-shadow: 0 8px 18px rgba(230, 0, 140, 0.18) !important;
+}
+
+/* Títulos de Gastos */
+
+.page-gastos .section-title h2,
+.page-gastos .inventory-list-card h2 {
+  font-family: var(--ms-font) !important;
+  color: var(--ms-text) !important;
+  font-weight: 700 !important;
+}
+
+/* ============================================================
+   VENDEDORES
+   ============================================================ */
+
+.page-vendedores .product-card {
+  display: flex !important;
+  align-items: center !important;
+  gap: 14px !important;
+  padding: 14px !important;
+  background: #ffffff !important;
+  border: 1px solid var(--ms-border) !important;
+  border-radius: 18px !important;
+  box-shadow: var(--ms-shadow) !important;
+  box-sizing: border-box !important;
+}
+
+.page-vendedores .product-info {
+  min-width: 0 !important;
+  flex: 1 1 auto !important;
+}
+
+.page-vendedores .product-info strong,
+.page-vendedores .product-info small,
+.page-vendedores .product-info span {
+  font-family: var(--ms-font) !important;
+}
+
+.page-vendedores .product-actions {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  flex-wrap: wrap !important;
+  gap: 8px !important;
+}
+
+.page-vendedores .product-actions button,
+.page-vendedores .secondary-button,
+.page-vendedores .primary-button,
+.page-vendedores .danger-button {
+  min-height: 42px !important;
+  padding: 9px 14px !important;
+  border-radius: 11px !important;
+  font-family: var(--ms-font) !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  box-sizing: border-box !important;
+}
+
+.page-vendedores .secondary-button {
+  background: #ffffff !important;
+  color: var(--ms-primary) !important;
+  border: 1px solid var(--ms-primary) !important;
+}
+
+.page-vendedores .danger-button {
+  background: #fff1f4 !important;
+  color: #b44b62 !important;
+  border: 1px solid #e6aab7 !important;
+}
+
+/* ============================================================
+   SUCURSALES
+   ============================================================ */
+
+.page-sucursales .product-list {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+  width: 100% !important;
+}
+
+.page-sucursales .product-card {
+  display: grid !important;
+  grid-template-columns: 52px minmax(0, 1fr) !important;
+  gap: 12px !important;
+  width: 100% !important;
+  padding: 14px !important;
+  box-sizing: border-box !important;
+  background: #ffffff !important;
+  border: 1px solid var(--ms-border) !important;
+  border-radius: 18px !important;
+  box-shadow: var(--ms-shadow) !important;
+}
+
+.page-sucursales .product-icon {
+  width: 52px !important;
+  height: 52px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 14px !important;
+  background: var(--ms-primary-soft) !important;
+}
+
+.page-sucursales .product-info {
+  min-width: 0 !important;
+  width: 100% !important;
+}
+
+.page-sucursales .product-info strong {
+  display: block !important;
+  margin-bottom: 5px !important;
+  font-family: var(--ms-font) !important;
+  font-size: 17px !important;
+  line-height: 1.25 !important;
+  color: var(--ms-text) !important;
+}
+
+.page-sucursales .product-info small {
+  display: block !important;
+  margin-bottom: 7px !important;
+  font-family: var(--ms-font) !important;
+  font-size: 14px !important;
+  line-height: 1.4 !important;
+  color: var(--ms-muted) !important;
+  overflow-wrap: anywhere !important;
+}
+
+.page-sucursales .product-actions {
+  grid-column: 1 / -1 !important;
+  display: flex !important;
+  gap: 8px !important;
+  flex-wrap: wrap !important;
+}
+
+.page-sucursales .product-actions button,
+.page-sucursales .secondary-button,
+.page-sucursales .primary-button,
+.page-sucursales .danger-button {
+  min-height: 42px !important;
+  padding: 9px 14px !important;
+  border-radius: 11px !important;
+  font-family: var(--ms-font) !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+}
+
+/* ============================================================
+   MÓVIL — REGLA PRINCIPAL
+   ============================================================ */
+
+@media (max-width: 600px) {
+
+  .page-gastos,
+  .page-vendedores,
+  .page-sucursales {
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+    box-sizing: border-box !important;
+  }
+
+  .page-gastos .page-header h1,
+  .page-vendedores .page-header h1,
+  .page-sucursales .page-header h1 {
+    font-size: 29px !important;
+  }
+
+  .page-gastos .page-header p,
+  .page-vendedores .page-header p,
+  .page-sucursales .page-header p {
+    font-size: 16px !important;
+  }
+
+  /* Gastos */
+  .page-gastos .inventory-list-card,
+  .page-gastos .inventory-card {
+    padding: 14px !important;
+  }
+
+  .page-gastos .inventory-form-grid {
+    grid-template-columns: 1fr !important;
+    gap: 13px !important;
+  }
+
+  .page-gastos .inventory-form-grid label {
+    gap: 6px !important;
+  }
+
+  .page-gastos .inventory-form-grid input {
+    min-height: 46px !important;
+  }
+
+  .page-gastos .primary-button {
+    width: fit-content !important;
+  }
+
+  /* Vendedores */
+  .page-vendedores .product-card {
+    align-items: flex-start !important;
+    flex-wrap: wrap !important;
+  }
+
+  .page-vendedores .product-info {
+    flex: 1 1 calc(100% - 68px) !important;
+  }
+
+  .page-vendedores .product-actions {
+    width: 100% !important;
+    justify-content: flex-start !important;
+    padding-top: 4px !important;
+  }
+
+  /* Sucursales */
+  .page-sucursales .product-card {
+    grid-template-columns: 48px minmax(0, 1fr) !important;
+    padding: 14px !important;
+  }
+
+  .page-sucursales .product-icon {
+    width: 48px !important;
+    height: 48px !important;
+  }
+
+  .page-sucursales .product-actions {
+    width: 100% !important;
+  }
+}
+
+/* ---------- EVITAR DESBORDAMIENTOS ---------- */
+
+.page-gastos *,
+.page-vendedores *,
+.page-sucursales * {
+  box-sizing: border-box;
+}
+
+
+/* ============================================================
+   GASTOS — FORMULARIO DEFINITIVO
+   ============================================================ */
+
+.expenses-page .expenses-form-grid {
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  gap: 14px !important;
+  width: 100% !important;
+}
+
+.expenses-page .expense-field {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  gap: 6px !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+}
+
+.expenses-page .expense-field label {
+  display: block !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-size: 15px !important;
+  line-height: 1.3 !important;
+  font-weight: 600 !important;
+  color: #30232b !important;
+}
+
+.expenses-page .expense-field input {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  height: 46px !important;
+  min-height: 46px !important;
+  margin: 0 !important;
+  padding: 10px 13px !important;
+  box-sizing: border-box !important;
+  border: 1px solid #ead7e0 !important;
+  border-radius: 11px !important;
+  background: #ffffff !important;
+  color: #30232b !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-size: 16px !important;
+  line-height: 1.2 !important;
+}
+
+.expenses-page .expense-field input:focus {
+  outline: none !important;
+  border-color: #e6008c !important;
+  box-shadow: 0 0 0 3px rgba(230, 0, 140, 0.10) !important;
+}
+
+@media (max-width: 600px) {
+  .expenses-page .expenses-form-grid {
+    grid-template-columns: 1fr !important;
+    gap: 13px !important;
+  }
+
+  .expenses-page .expense-field,
+  .expenses-page .expense-field label,
+  .expenses-page .expense-field input {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+
+/* =========================================================
+   MODAS SOPHIE - VENDEDORES Y SUCURSALES
+   AJUSTE VISUAL MÓVIL
+   ========================================================= */
+
+/* ---------- VENDEDORES ---------- */
+
+.page-vendedores .product-card,
+.page-sucursales .product-card {
+  box-sizing: border-box !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow: hidden !important;
+}
+
+.page-vendedores .product-info,
+.page-sucursales .product-info {
+  min-width: 0 !important;
+  overflow-wrap: anywhere !important;
+}
+
+.page-vendedores .product-info strong,
+.page-vendedores .product-info small,
+.page-vendedores .product-info span,
+.page-sucursales .product-info strong,
+.page-sucursales .product-info small,
+.page-sucursales .product-info span {
+  display: block !important;
+}
+
+/* ---------- BOTONES ---------- */
+
+.page-vendedores .product-actions,
+.page-sucursales .product-actions {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  gap: 8px !important;
+  width: 100% !important;
+  margin-top: 8px !important;
+}
+
+.page-vendedores .product-actions button,
+.page-sucursales .product-actions button {
+  min-height: 42px !important;
+  padding: 9px 15px !important;
+  border-radius: 11px !important;
+  box-sizing: border-box !important;
+  font-family: inherit !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+}
+
+/* Editar */
+
+.page-vendedores .product-actions .secondary-button:first-child,
+.page-sucursales .product-actions .secondary-button:first-child {
+  background: #ffffff !important;
+  color: #c40072 !important;
+  border: 2px solid #d8a2bd !important;
+  box-shadow: 0 3px 8px rgba(196, 0, 114, 0.08) !important;
+}
+
+/* Desactivar / Activar */
+
+.page-vendedores .product-actions button:last-child,
+.page-sucursales .product-actions button:last-child {
+  background: #ffffff !important;
+  color: #30232b !important;
+  border: 1px solid #cfc7cc !important;
+}
+
+/* Cuando el vendedor/sucursal está activo */
+
+.page-vendedores .product-actions .danger-button,
+.page-sucursales .product-actions .danger-button {
+  background: #fff1f6 !important;
+  color: #a4005f !important;
+  border: 1px solid #d98aad !important;
+}
+
+/* ---------- SUCURSALES ---------- */
+
+.page-sucursales .product-card {
+  display: grid !important;
+  grid-template-columns: 48px minmax(0, 1fr) !important;
+  column-gap: 14px !important;
+  row-gap: 8px !important;
+  align-items: start !important;
+}
+
+.page-sucursales .product-icon {
+  width: 48px !important;
+  height: 48px !important;
+  min-width: 48px !important;
+}
+
+.page-sucursales .product-info {
+  width: 100% !important;
+}
+
+.page-sucursales .product-actions {
+  grid-column: 1 / -1 !important;
+}
+
+/* ---------- MÓVIL ---------- */
+
+@media (max-width: 600px) {
+
+  .page-vendedores .product-card,
+  .page-sucursales .product-card {
+    padding: 14px !important;
+  }
+
+  .page-vendedores .product-actions,
+  .page-sucursales .product-actions {
+    justify-content: flex-start !important;
+  }
+
+  .page-vendedores .product-actions button,
+  .page-sucursales .product-actions button {
+    min-height: 42px !important;
+    font-size: 15px !important;
+  }
+
+  .page-sucursales .product-info strong {
+    font-size: 16px !important;
+    line-height: 1.3 !important;
+    margin-bottom: 5px !important;
+  }
+
+  .page-sucursales .product-info small {
+    font-size: 14px !important;
+    line-height: 1.4 !important;
+    margin-bottom: 5px !important;
+  }
+
+  .page-sucursales .product-info span {
+    font-size: 14px !important;
+    line-height: 1.3 !important;
+  }
+}
+
+
+/* =========================================================
+   MODAS SOPHIE - VENDEDORES Y SUCURSALES - AJUSTE FINAL
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  /* ---------- ENCABEZADOS ---------- */
+
+  .page-vendedores .page-header,
+  .page-sucursales .page-header {
+    margin-bottom: 18px !important;
+  }
+
+  .page-vendedores .page-header h1,
+  .page-sucursales .page-header h1 {
+    margin: 4px 0 8px !important;
+    line-height: 1.05 !important;
+  }
+
+  .page-vendedores .page-header p,
+  .page-sucursales .page-header p {
+    margin: 0 !important;
+    line-height: 1.35 !important;
+  }
+
+  /* ---------- TARJETAS ---------- */
+
+  .page-vendedores .product-card,
+  .page-sucursales .product-card {
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+    padding: 14px !important;
+    box-sizing: border-box !important;
+  }
+
+  .page-vendedores .product-info,
+  .page-sucursales .product-info {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+  }
+
+  /* ---------- INFORMACIÓN ---------- */
+
+  .page-vendedores .product-info strong,
+  .page-sucursales .product-info strong {
+    display: block !important;
+    margin: 0 0 5px !important;
+    font-size: 17px !important;
+    line-height: 1.25 !important;
+  }
+
+  .page-vendedores .product-info small,
+  .page-sucursales .product-info small {
+    display: block !important;
+    margin: 0 0 6px !important;
+    font-size: 14px !important;
+    line-height: 1.4 !important;
+  }
+
+  .page-vendedores .product-info span,
+  .page-sucursales .product-info span {
+    display: block !important;
+    margin-top: 3px !important;
+    font-size: 14px !important;
+    line-height: 1.3 !important;
+  }
+
+  /* ---------- BOTONES ---------- */
+
+  .page-vendedores .product-actions,
+  .page-sucursales .product-actions {
+    display: flex !important;
+    align-items: center !important;
+    flex-wrap: wrap !important;
+    gap: 7px !important;
+    width: auto !important;
+    flex: 0 0 auto !important;
+    padding-top: 0 !important;
+  }
+
+  .page-vendedores .product-actions button,
+  .page-sucursales .product-actions button {
+    min-height: 42px !important;
+    height: 42px !important;
+    margin: 0 !important;
+    padding: 8px 12px !important;
+    border-radius: 10px !important;
+    box-sizing: border-box !important;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    white-space: nowrap !important;
+  }
+
+  /* EDITAR - VINO MODAS SOPHIE */
+
+  .page-vendedores .product-actions .secondary-button,
+  .page-sucursales .product-actions .secondary-button {
+    background: #ffffff !important;
+    color: #c00078 !important;
+    border: 2px solid #c00078 !important;
+    box-shadow: 0 3px 8px rgba(192, 0, 120, 0.10) !important;
+  }
+
+  /* DESACTIVAR - ESTILO SECUNDARIO */
+
+  .page-vendedores .product-actions .danger-button,
+  .page-sucursales .product-actions .danger-button {
+    background: #ffffff !important;
+    color: #30232b !important;
+    border: 1px solid #aaa0a5 !important;
+    box-shadow: none !important;
+  }
+
+  /* ACTIVO / INACTIVO */
+
+  .page-vendedores .stock-ok,
+  .page-sucursales .stock-ok {
+    color: #55505a !important;
+  }
+
+  .page-vendedores .stock-low,
+  .page-sucursales .stock-low {
+    color: #8f3d63 !important;
+  }
+}
+
+/* En pantallas pequeñas, los botones bajan debajo de la información
+   solamente cuando ya no caben cómodamente. */
+@media (max-width: 430px) {
+
+  .page-vendedores .product-card,
+  .page-sucursales .product-card {
+    display: grid !important;
+    grid-template-columns: 48px minmax(0, 1fr) !important;
+    align-items: start !important;
+  }
+
+  .page-vendedores .product-actions,
+  .page-sucursales .product-actions {
+    grid-column: 1 / -1 !important;
+    width: 100% !important;
+    justify-content: flex-start !important;
+    padding-top: 4px !important;
+  }
+}
+
+
+
+/* ==========================================================
+   MODAS SOPHIE — VENDEDORES Y SUCURSALES — MOVIL FINAL
+   ========================================================== */
+
+@media (max-width: 600px) {
+
+  .page-vendedores .product-card,
+  .page-sucursales .product-card {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 0 !important;
+    padding: 14px !important;
+    box-sizing: border-box !important;
+  }
+
+  .page-vendedores .product-info,
+  .page-sucursales .product-info {
+    width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .page-vendedores .product-actions,
+  .page-sucursales .product-actions {
+    width: 100% !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 10px !important;
+    margin-top: 12px !important;
+    justify-content: flex-start !important;
+    box-sizing: border-box !important;
+  }
+
+  .page-vendedores .product-actions button,
+  .page-sucursales .product-actions button {
+    flex: 0 0 auto !important;
+    min-height: 42px !important;
+    padding: 10px 18px !important;
+    box-sizing: border-box !important;
+    border-radius: 10px !important;
+  }
+
+  .page-sucursales .product-info strong,
+  .page-sucursales .product-info small,
+  .page-sucursales .product-info span {
+    display: block !important;
+  }
+
+  .page-sucursales .product-info small {
+    line-height: 1.4 !important;
+    overflow-wrap: anywhere !important;
+  }
+}
+
+/* ==========================================================
+   MODAS SOPHIE
+   CORRECCIÓN DEFINITIVA TARJETAS MÓVILES
+   VENDEDORES + SUCURSALES
+   ========================================================== */
+
+@media (max-width: 600px) {
+
+  /* =========================
+     VENDEDORES
+     ========================= */
+
+  .page-vendedores .product-row {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    width: 100% !important;
+    gap: 0 !important;
+    padding: 14px !important;
+    box-sizing: border-box !important;
+  }
+
+  .page-vendedores .product-main {
+    display: flex !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+    box-sizing: border-box !important;
+  }
+
+  .page-vendedores .product-icon {
+    flex: 0 0 58px !important;
+    width: 58px !important;
+    height: 58px !important;
+  }
+
+  .page-vendedores .product-info {
+    flex: 1 1 auto !important;
+    width: auto !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .page-vendedores .product-info strong,
+  .page-vendedores .product-info small,
+  .page-vendedores .product-info span {
+    display: block !important;
+  }
+
+  .page-vendedores .product-info small {
+    line-height: 1.4 !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  .page-vendedores .product-actions {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    width: 100% !important;
+    margin-top: 12px !important;
+    padding-top: 0 !important;
+    gap: 10px !important;
+    box-sizing: border-box !important;
+  }
+
+  .page-vendedores .product-actions button {
+    flex: 0 0 auto !important;
+    min-height: 42px !important;
+    width: auto !important;
+    padding: 10px 18px !important;
+    box-sizing: border-box !important;
+    border-radius: 10px !important;
+  }
+
+
+  /* =========================
+     SUCURSALES
+     ========================= */
+
+  .page-sucursales .product-card {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    width: 100% !important;
+    gap: 0 !important;
+    padding: 14px !important;
+    box-sizing: border-box !important;
+  }
+
+  .page-sucursales .product-icon {
+    flex: 0 0 auto !important;
+    width: 58px !important;
+    height: 58px !important;
+    margin-bottom: 10px !important;
+  }
+
+  .page-sucursales .product-info {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    gap: 6px !important;
+    box-sizing: border-box !important;
+  }
+
+  .page-sucursales .product-info strong {
+    display: block !important;
+    font-size: 17px !important;
+    line-height: 1.3 !important;
+  }
+
+  .page-sucursales .product-info small {
+    display: block !important;
+    line-height: 1.4 !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  .page-sucursales .product-info span {
+    display: block !important;
+    margin-top: 2px !important;
+  }
+
+  .page-sucursales .product-actions {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    width: 100% !important;
+    margin-top: 12px !important;
+    padding-top: 0 !important;
+    gap: 10px !important;
+    box-sizing: border-box !important;
+  }
+
+  .page-sucursales .product-actions button {
+    flex: 0 0 auto !important;
+    min-height: 42px !important;
+    width: auto !important;
+    padding: 10px 18px !important;
+    box-sizing: border-box !important;
+    border-radius: 10px !important;
+  }
+
+}
+
+
+/* =========================================================
+   MODAS SOPHIE — VENDEDORES Y SUCURSALES — MÓVIL FINAL
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  /* ---------- VENDEDORES ---------- */
+
+  .app-shell.vendedores-page {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 16px 30px !important;
+    box-sizing: border-box !important;
+  }
+
+  .app-shell.vendedores-page .page-header {
+    padding: 18px 0 16px !important;
+    margin: 0 !important;
+  }
+
+  .app-shell.vendedores-page .page-header h1 {
+    margin: 8px 0 !important;
+    font-size: 34px !important;
+    line-height: 1.1 !important;
+  }
+
+  .app-shell.vendedores-page .page-header p {
+    margin: 8px 0 0 !important;
+    font-size: 17px !important;
+    line-height: 1.35 !important;
+  }
+
+  .app-shell.vendedores-page .inventory-card {
+    width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 18px !important;
+    margin: 0 !important;
+  }
+
+  .app-shell.vendedores-page .section-heading {
+    margin-bottom: 14px !important;
+  }
+
+  .app-shell.vendedores-page .inventory-list {
+    width: 100% !important;
+  }
+
+  .app-shell.vendedores-page .product-row {
+    width: 100% !important;
+    box-sizing: border-box !important;
+    display: grid !important;
+    grid-template-columns: 52px minmax(0, 1fr) !important;
+    gap: 12px !important;
+    align-items: start !important;
+    padding: 14px !important;
+    margin: 0 0 12px !important;
+  }
+
+  .app-shell.vendedores-page .product-icon {
+    width: 52px !important;
+    height: 52px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .app-shell.vendedores-page .product-info {
+    min-width: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 4px !important;
+  }
+
+  .app-shell.vendedores-page .product-info strong,
+  .app-shell.vendedores-page .product-info small,
+  .app-shell.vendedores-page .product-info span {
+    display: block !important;
+    margin: 0 !important;
+    line-height: 1.35 !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  .app-shell.vendedores-page .product-actions {
+    grid-column: 1 / -1 !important;
+    width: 100% !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+    margin: 4px 0 0 !important;
+    padding: 0 !important;
+  }
+
+  .app-shell.vendedores-page .product-actions button {
+    flex: 0 0 auto !important;
+    width: auto !important;
+    min-height: 42px !important;
+    padding: 9px 16px !important;
+    box-sizing: border-box !important;
+    border-radius: 10px !important;
+  }
+
+
+  /* ---------- SUCURSALES ---------- */
+
+  .page.sucursales-page {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 16px 30px !important;
+    box-sizing: border-box !important;
+  }
+
+  .page.sucursales-page .page-header {
+    padding: 18px 0 16px !important;
+    margin: 0 !important;
+  }
+
+  .page.sucursales-page .page-header h1 {
+    margin: 8px 0 !important;
+    font-size: 34px !important;
+    line-height: 1.1 !important;
+  }
+
+  .page.sucursales-page .page-header p {
+    margin: 8px 0 0 !important;
+    font-size: 17px !important;
+    line-height: 1.35 !important;
+  }
+
+  .page.sucursales-page .panel {
+    width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 18px !important;
+    margin: 0 0 16px !important;
+  }
+
+  .page.sucursales-page .product-list {
+    width: 100% !important;
+  }
+
+  .page.sucursales-page .product-card {
+    width: 100% !important;
+    box-sizing: border-box !important;
+    display: grid !important;
+    grid-template-columns: 52px minmax(0, 1fr) !important;
+    gap: 12px !important;
+    align-items: start !important;
+    padding: 14px !important;
+    margin: 0 0 12px !important;
+  }
+
+  .page.sucursales-page .product-icon {
+    width: 52px !important;
+    height: 52px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .page.sucursales-page .product-info {
+    min-width: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 5px !important;
+  }
+
+  .page.sucursales-page .product-info strong {
+    display: block !important;
+    margin: 0 !important;
+    font-size: 17px !important;
+    line-height: 1.25 !important;
+  }
+
+  .page.sucursales-page .product-info small {
+    display: block !important;
+    margin: 0 !important;
+    font-size: 15px !important;
+    line-height: 1.4 !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  .page.sucursales-page .product-info span {
+    display: block !important;
+    margin: 0 !important;
+    font-size: 14px !important;
+    line-height: 1.3 !important;
+  }
+
+  .page.sucursales-page .product-actions {
+    grid-column: 1 / -1 !important;
+    width: 100% !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+    margin: 4px 0 0 !important;
+    padding: 0 !important;
+  }
+
+  .page.sucursales-page .product-actions button {
+    flex: 0 0 auto !important;
+    width: auto !important;
+    min-height: 42px !important;
+    padding: 9px 16px !important;
+    box-sizing: border-box !important;
+    border-radius: 10px !important;
+  }
+
+  /* Botón editar */
+  .page.sucursales-page .product-actions .secondary-button,
+  .app-shell.vendedores-page .product-actions .secondary-button {
+    color: #c00078 !important;
+    font-weight: 600 !important;
+  }
+
+}
+
+
+/* =========================================================
+   MODAS SOPHIE
+   VENDEDORES + SUCURSALES
+   AJUSTE FINAL DE MARGENES Y ESCALA MOVIL
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  /* =======================================================
+     VENDEDORES
+     ======================================================= */
+
+  .app-shell.vendedores-page {
+    width: calc(100% - 32px) !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    padding: 0 0 30px !important;
+    box-sizing: border-box !important;
+  }
+
+  .app-shell.vendedores-page .page-header {
+    width: 100% !important;
+    padding: 14px 0 18px !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .app-shell.vendedores-page .page-header h1 {
+    font-size: 32px !important;
+    line-height: 1.12 !important;
+    margin: 8px 0 10px !important;
+  }
+
+  .app-shell.vendedores-page .page-header p {
+    font-size: 16px !important;
+    line-height: 1.4 !important;
+    margin: 0 !important;
+  }
+
+  .app-shell.vendedores-page .inventory-card {
+    width: 100% !important;
+    margin: 0 0 16px !important;
+    padding: 18px !important;
+    box-sizing: border-box !important;
+    border-radius: 20px !important;
+  }
+
+  .app-shell.vendedores-page .section-heading {
+    margin: 0 0 14px !important;
+  }
+
+  .app-shell.vendedores-page .section-heading h2 {
+    font-size: 26px !important;
+    line-height: 1.2 !important;
+    margin: 0 0 6px !important;
+  }
+
+  .app-shell.vendedores-page .section-heading p {
+    font-size: 16px !important;
+    margin: 0 !important;
+  }
+
+  .app-shell.vendedores-page .inventory-list {
+    width: 100% !important;
+  }
+
+  .app-shell.vendedores-page .product-row {
+    width: 100% !important;
+    box-sizing: border-box !important;
+    display: grid !important;
+    grid-template-columns: 52px minmax(0, 1fr) !important;
+    gap: 12px !important;
+    padding: 14px !important;
+    margin: 0 !important;
+    border-radius: 16px !important;
+    align-items: start !important;
+  }
+
+  .app-shell.vendedores-page .product-icon {
+    width: 52px !important;
+    height: 52px !important;
+    flex: 0 0 52px !important;
+  }
+
+  .app-shell.vendedores-page .product-info {
+    min-width: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 3px !important;
+  }
+
+  .app-shell.vendedores-page .product-info strong {
+    font-size: 17px !important;
+    line-height: 1.25 !important;
+  }
+
+  .app-shell.vendedores-page .product-info small {
+    font-size: 14px !important;
+    line-height: 1.35 !important;
+  }
+
+  .app-shell.vendedores-page .product-info span {
+    font-size: 13px !important;
+    line-height: 1.3 !important;
+  }
+
+  .app-shell.vendedores-page .product-actions {
+    grid-column: 1 / -1 !important;
+    width: 100% !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+    margin-top: 4px !important;
+    padding: 0 !important;
+  }
+
+  .app-shell.vendedores-page .product-actions button {
+    width: auto !important;
+    min-height: 42px !important;
+    padding: 9px 15px !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+    border-radius: 10px !important;
+    font-size: 15px !important;
+  }
+
+
+  /* =======================================================
+     SUCURSALES
+     ======================================================= */
+
+  .page.sucursales-page {
+    width: calc(100% - 32px) !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    padding: 0 0 30px !important;
+    box-sizing: border-box !important;
+  }
+
+  .page.sucursales-page .page-header {
+    width: 100% !important;
+    padding: 14px 0 18px !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .page.sucursales-page .page-header h1 {
+    font-size: 32px !important;
+    line-height: 1.12 !important;
+    margin: 8px 0 10px !important;
+  }
+
+  .page.sucursales-page .page-header p {
+    font-size: 16px !important;
+    line-height: 1.4 !important;
+    margin: 0 !important;
+  }
+
+  .page.sucursales-page .panel {
+    width: 100% !important;
+    margin: 0 0 16px !important;
+    padding: 18px !important;
+    box-sizing: border-box !important;
+    border-radius: 20px !important;
+  }
+
+  .page.sucursales-page .section-heading {
+    margin-bottom: 14px !important;
+  }
+
+  .page.sucursales-page .section-heading h2 {
+    font-size: 26px !important;
+    line-height: 1.2 !important;
+    margin: 0 0 6px !important;
+  }
+
+  .page.sucursales-page .section-heading p {
+    font-size: 16px !important;
+    margin: 0 !important;
+  }
+
+  .page.sucursales-page .product-list {
+    width: 100% !important;
+  }
+
+  .page.sucursales-page .product-card {
+    width: 100% !important;
+    box-sizing: border-box !important;
+    display: grid !important;
+    grid-template-columns: 52px minmax(0, 1fr) !important;
+    gap: 12px !important;
+    padding: 14px !important;
+    margin: 0 !important;
+    border-radius: 16px !important;
+    align-items: start !important;
+  }
+
+  .page.sucursales-page .product-icon {
+    width: 52px !important;
+    height: 52px !important;
+    flex: 0 0 52px !important;
+  }
+
+  .page.sucursales-page .product-info {
+    min-width: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 4px !important;
+  }
+
+  .page.sucursales-page .product-info strong {
+    font-size: 17px !important;
+    line-height: 1.25 !important;
+  }
+
+  .page.sucursales-page .product-info small {
+    font-size: 14px !important;
+    line-height: 1.4 !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  .page.sucursales-page .product-info span {
+    font-size: 13px !important;
+    line-height: 1.3 !important;
+  }
+
+  .page.sucursales-page .product-actions {
+    grid-column: 1 / -1 !important;
+    width: 100% !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+    margin-top: 4px !important;
+    padding: 0 !important;
+  }
+
+  .page.sucursales-page .product-actions button {
+    width: auto !important;
+    min-height: 42px !important;
+    padding: 9px 15px !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+    border-radius: 10px !important;
+    font-size: 15px !important;
+  }
+
+}
+
+
+/* ==========================================================
+   MODAS SOPHIE - MARGEN UNIFICADO VENDEDORES Y SUCURSALES
+   ========================================================== */
+
+.app-shell.vendedores-page,
+.page.sucursales-page {
+  width: calc(100% - 44px) !important;
+  max-width: 1100px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  box-sizing: border-box !important;
+}
+
+.app-shell.vendedores-page .inventory-card,
+.page.sucursales-page .panel {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.app-shell.vendedores-page .product-list,
+.page.sucursales-page .product-list {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.app-shell.vendedores-page .product-row,
+.page.sucursales-page .product-card {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* En teléfonos mantenemos exactamente el mismo margen */
+@media (max-width: 600px) {
+  .app-shell.vendedores-page,
+  .page.sucursales-page {
+    width: calc(100% - 44px) !important;
+    max-width: none !important;
+    margin-left: 22px !important;
+    margin-right: 22px !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+
+
+/* =========================================================
+   MODAS SOPHIE
+   AJUSTE FINAL VENDEDORAS / SUCURSALES
+   Márgenes, tarjetas y botones
+   ========================================================= */
+
+/* ---------- CONTENEDOR PRINCIPAL ---------- */
+
+.app-shell.vendedores-page,
+.page.sucursales-page {
+  box-sizing: border-box !important;
+  width: calc(100% - 44px) !important;
+  max-width: 1100px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  padding-top: 18px !important;
+}
+
+/* ---------- ENCABEZADO ---------- */
+
+.app-shell.vendedores-page .page-header,
+.page.sucursales-page .page-header {
+  margin-top: 4px !important;
+  margin-bottom: 22px !important;
+  padding: 0 0 4px 0 !important;
+  box-sizing: border-box !important;
+}
+
+/* ---------- TARJETA GRANDE ---------- */
+
+.app-shell.vendedores-page .inventory-card,
+.page.sucursales-page .panel {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  padding: 18px !important;
+  margin: 0 !important;
+  border-radius: 24px !important;
+  overflow: hidden !important;
+}
+
+/* ---------- ENCABEZADO INTERNO ---------- */
+
+.app-shell.vendedores-page .section-heading,
+.page.sucursales-page .section-heading {
+  margin: 0 0 16px 0 !important;
+  padding: 0 !important;
+}
+
+.app-shell.vendedores-page .section-heading h2,
+.page.sucursales-page .section-heading h2 {
+  margin: 0 0 8px 0 !important;
+}
+
+.app-shell.vendedores-page .section-heading p,
+.page.sucursales-page .section-heading p {
+  margin: 0 !important;
+}
+
+/* =========================================================
+   VENDEDORES
+   ========================================================= */
+
+.app-shell.vendedores-page .product-list {
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.app-shell.vendedores-page .product-row {
+  width: 100% !important;
+  box-sizing: border-box !important;
+  display: grid !important;
+  grid-template-columns: 64px minmax(0, 1fr) 150px !important;
+  align-items: center !important;
+  gap: 16px !important;
+  padding: 16px !important;
+  margin: 0 0 12px 0 !important;
+  border-radius: 22px !important;
+  overflow: hidden !important;
+}
+
+.app-shell.vendedores-page .product-icon {
+  width: 56px !important;
+  height: 56px !important;
+  border-radius: 16px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.app-shell.vendedores-page .product-info {
+  min-width: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 4px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.app-shell.vendedores-page .product-info strong,
+.app-shell.vendedores-page .product-info small,
+.app-shell.vendedores-page .product-info span {
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1.35 !important;
+  overflow-wrap: anywhere !important;
+}
+
+.app-shell.vendedores-page .product-actions {
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.app-shell.vendedores-page .product-actions button {
+  width: 100% !important;
+  min-height: 44px !important;
+  box-sizing: border-box !important;
+  border-radius: 14px !important;
+  margin: 0 !important;
+}
+
+/* =========================================================
+   SUCURSALES
+   ========================================================= */
+
+.page.sucursales-page .product-list {
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.page.sucursales-page .product-card {
+  width: 100% !important;
+  box-sizing: border-box !important;
+  display: grid !important;
+  grid-template-columns: 64px minmax(0, 1fr) !important;
+  gap: 16px !important;
+  align-items: start !important;
+  padding: 16px !important;
+  margin: 0 0 12px 0 !important;
+  border-radius: 22px !important;
+  overflow: hidden !important;
+}
+
+.page.sucursales-page .product-icon {
+  width: 56px !important;
+  height: 56px !important;
+  border-radius: 16px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.page.sucursales-page .product-info {
+  min-width: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 5px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.page.sucursales-page .product-info strong,
+.page.sucursales-page .product-info small,
+.page.sucursales-page .product-info span {
+  display: block !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1.4 !important;
+  overflow-wrap: anywhere !important;
+}
+
+.page.sucursales-page .product-actions {
+  grid-column: 1 / -1 !important;
+  width: 100% !important;
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 10px !important;
+  margin: 2px 0 0 0 !important;
+  padding: 0 !important;
+}
+
+.page.sucursales-page .product-actions button {
+  width: 100% !important;
+  min-height: 44px !important;
+  box-sizing: border-box !important;
+  border-radius: 14px !important;
+  margin: 0 !important;
+}
+
+/* ---------- MÓVIL ---------- */
+
+@media (max-width: 600px) {
+
+  .app-shell.vendedores-page,
+  .page.sucursales-page {
+    width: calc(100% - 44px) !important;
+    max-width: none !important;
+    margin-left: 22px !important;
+    margin-right: 22px !important;
+    padding-top: 18px !important;
+  }
+
+  .app-shell.vendedores-page .page-header,
+  .page.sucursales-page .page-header {
+    margin-top: 4px !important;
+    margin-bottom: 20px !important;
+  }
+
+  .app-shell.vendedores-page .inventory-card,
+  .page.sucursales-page .panel {
+    padding: 16px !important;
+    border-radius: 24px !important;
+  }
+
+  .app-shell.vendedores-page .product-row {
+    grid-template-columns: 56px minmax(0, 1fr) !important;
+    gap: 12px !important;
+    padding: 14px !important;
+    border-radius: 20px !important;
+  }
+
+  .app-shell.vendedores-page .product-icon,
+  .page.sucursales-page .product-icon {
+    width: 52px !important;
+    height: 52px !important;
+    border-radius: 15px !important;
+  }
+
+  .app-shell.vendedores-page .product-actions {
+    grid-column: 1 / -1 !important;
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 8px !important;
+    margin-top: 4px !important;
+  }
+
+  .app-shell.vendedores-page .product-actions button,
+  .page.sucursales-page .product-actions button {
+    min-height: 44px !important;
+    border-radius: 13px !important;
+  }
+
+  .page.sucursales-page .product-card {
+    grid-template-columns: 56px minmax(0, 1fr) !important;
+    gap: 12px !important;
+    padding: 14px !important;
+    border-radius: 20px !important;
+  }
+
+}
+
+
+/* =========================================================
+   MODAS SOPHIE
+   AJUSTE FINAL DE MÁRGENES — VENDEDORES Y SUCURSALES
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  /* ---------- CONTENEDORES PRINCIPALES ---------- */
+
+  .app-shell.vendedores-page,
+  .page.sucursales-page {
+    width: calc(100% - 44px) !important;
+    max-width: none !important;
+    margin-left: 22px !important;
+    margin-right: 22px !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    padding-top: 18px !important;
+    box-sizing: border-box !important;
+  }
+
+  /* ---------- ENCABEZADO ---------- */
+
+  .app-shell.vendedores-page .page-header,
+  .page.sucursales-page .page-header {
+    margin-top: 0 !important;
+    margin-bottom: 18px !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .app-shell.vendedores-page .page-header h1,
+  .page.sucursales-page .page-header h1 {
+    margin-top: 12px !important;
+    margin-bottom: 10px !important;
+  }
+
+  .app-shell.vendedores-page .page-header p,
+  .page.sucursales-page .page-header p {
+    margin-bottom: 14px !important;
+  }
+
+  /* ---------- PANELES ---------- */
+
+  .app-shell.vendedores-page .inventory-card,
+  .page.sucursales-page .panel {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 14px 0 0 0 !important;
+    padding: 18px !important;
+    border-radius: 20px !important;
+    box-sizing: border-box !important;
+  }
+
+  /* ---------- TÍTULOS DE SECCIÓN ---------- */
+
+  .app-shell.vendedores-page .section-heading,
+  .page.sucursales-page .section-heading {
+    margin-bottom: 16px !important;
+    padding: 0 !important;
+  }
+
+  .app-shell.vendedores-page .section-heading h2,
+  .page.sucursales-page .section-heading h2 {
+    margin: 0 !important;
+  }
+
+  .app-shell.vendedores-page .section-heading p,
+  .page.sucursales-page .section-heading p {
+    margin: 6px 0 0 0 !important;
+  }
+
+  /* ---------- LISTA ---------- */
+
+  .app-shell.vendedores-page .product-list,
+  .page.sucursales-page .product-list {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  /* ---------- TARJETAS ---------- */
+
+  .app-shell.vendedores-page .product-card,
+  .page.sucursales-page .product-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 0 14px 0 !important;
+    padding: 16px !important;
+    border-radius: 20px !important;
+    box-sizing: border-box !important;
+    display: grid !important;
+    grid-template-columns: 52px minmax(0, 1fr) !important;
+    gap: 12px !important;
+    align-items: start !important;
+  }
+
+  /* ---------- ICONO ---------- */
+
+  .app-shell.vendedores-page .product-icon,
+  .page.sucursales-page .product-icon {
+    width: 52px !important;
+    height: 52px !important;
+    border-radius: 16px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 !important;
+  }
+
+  /* ---------- INFORMACIÓN ---------- */
+
+  .app-shell.vendedores-page .product-info,
+  .page.sucursales-page .product-info {
+    min-width: 0 !important;
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 5px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .app-shell.vendedores-page .product-info strong,
+  .page.sucursales-page .product-info strong {
+    display: block !important;
+    margin: 0 !important;
+    font-size: 17px !important;
+    line-height: 1.3 !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  .app-shell.vendedores-page .product-info small,
+  .page.sucursales-page .product-info small {
+    display: block !important;
+    margin: 0 !important;
+    font-size: 15px !important;
+    line-height: 1.4 !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  .app-shell.vendedores-page .product-info span,
+  .page.sucursales-page .product-info span {
+    display: block !important;
+    margin: 0 !important;
+    font-size: 14px !important;
+    line-height: 1.35 !important;
+  }
+
+  /* ---------- BOTONES ---------- */
+
+  .app-shell.vendedores-page .product-actions,
+  .page.sucursales-page .product-actions {
+    grid-column: 1 / -1 !important;
+    width: 100% !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+    margin: 4px 0 0 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .app-shell.vendedores-page .product-actions button,
+  .page.sucursales-page .product-actions button {
+    flex: 0 0 auto !important;
+    width: auto !important;
+    min-height: 42px !important;
+    padding: 9px 16px !important;
+    margin: 0 !important;
+    border-radius: 12px !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Botón Editar */
+  .app-shell.vendedores-page .product-actions .secondary-button,
+  .page.sucursales-page .product-actions .secondary-button {
+    border-radius: 12px !important;
+  }
+
+  /* ---------- BOTÓN VOLVER ---------- */
+
+  .app-shell.vendedores-page .back-button,
+  .page.sucursales-page .back-button {
+    margin-top: 0 !important;
+    margin-bottom: 4px !important;
+    border-radius: 12px !important;
+  }
+}
+
+
+/* =========================================================
+   MODAS SOPHIE - AJUSTE FINAL VENDEDORES Y SUCURSALES
+   Tarjetas móviles alineadas con el resto de la aplicación
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  /* Página completa */
+  .app-shell.vendedores-page,
+  .page.sucursales-page {
+    width: calc(100% - 44px) !important;
+    max-width: none !important;
+    margin-left: 22px !important;
+    margin-right: 22px !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    padding-top: 18px !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Encabezado */
+  .app-shell.vendedores-page .page-header,
+  .page.sucursales-page .page-header {
+    margin-top: 4px !important;
+    margin-bottom: 20px !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .app-shell.vendedores-page .page-header h1,
+  .page.sucursales-page .page-header h1 {
+    margin-top: 12px !important;
+    margin-bottom: 10px !important;
+  }
+
+  .app-shell.vendedores-page .page-header p,
+  .page.sucursales-page .page-header p {
+    margin-bottom: 14px !important;
+  }
+
+  /* Paneles */
+  .app-shell.vendedores-page .inventory-card,
+  .page.sucursales-page .panel {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 14px 0 0 0 !important;
+    padding: 18px !important;
+    border-radius: 20px !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Lista */
+  .app-shell.vendedores-page .product-list,
+  .page.sucursales-page .product-list {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  /* TARJETA */
+  .app-shell.vendedores-page .product-card,
+  .page.sucursales-page .product-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    display: grid !important;
+    grid-template-columns: 52px minmax(0, 1fr) !important;
+    gap: 12px !important;
+    padding: 16px !important;
+    margin: 0 0 12px 0 !important;
+    border-radius: 20px !important;
+    box-sizing: border-box !important;
+    align-items: start !important;
+    overflow: hidden !important;
+  }
+
+  /* Icono */
+  .app-shell.vendedores-page .product-icon,
+  .page.sucursales-page .product-icon {
+    width: 52px !important;
+    height: 52px !important;
+    min-width: 52px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 15px !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Información */
+  .app-shell.vendedores-page .product-info,
+  .page.sucursales-page .product-info {
+    grid-column: 2 !important;
+    min-width: 0 !important;
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 4px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .app-shell.vendedores-page .product-info strong,
+  .page.sucursales-page .product-info strong {
+    display: block !important;
+    margin: 0 !important;
+    line-height: 1.3 !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  .app-shell.vendedores-page .product-info small,
+  .page.sucursales-page .product-info small {
+    display: block !important;
+    margin: 0 !important;
+    line-height: 1.4 !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  .app-shell.vendedores-page .product-info span,
+  .page.sucursales-page .product-info span {
+    display: block !important;
+    margin: 0 !important;
+    line-height: 1.35 !important;
+  }
+
+  /* BOTONES */
+  .app-shell.vendedores-page .product-actions,
+  .page.sucursales-page .product-actions {
+    grid-column: 1 / -1 !important;
+    width: 100% !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+    margin: 8px 0 0 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .app-shell.vendedores-page .product-actions button,
+  .page.sucursales-page .product-actions button {
+    width: auto !important;
+    min-height: 42px !important;
+    padding: 9px 16px !important;
+    margin: 0 !important;
+    border-radius: 12px !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Botón Editar */
+  .app-shell.vendedores-page .product-actions .secondary-button,
+  .page.sucursales-page .product-actions .secondary-button {
+    border-radius: 12px !important;
+  }
+
+  /* Botón Volver */
+  .app-shell.vendedores-page .back-button,
+  .page.sucursales-page .back-button {
+    margin-top: 0 !important;
+    margin-bottom: 4px !important;
+    border-radius: 12px !important;
+  }
+}
+
+
+/* =========================================================
+   MODAS SOPHIE — SUCURSALES FINAL
+   Diseño móvil aprobado
+   ========================================================= */
+
+/* Página */
+.page.sucursales-page {
+  width: 100% !important;
+  max-width: 1100px !important;
+  margin: 0 auto !important;
+  padding: 22px !important;
+  box-sizing: border-box !important;
+}
+
+/* Margen superior antes de Volver */
+.page.sucursales-page .back-button {
+  margin-top: 8px !important;
+  margin-bottom: 16px !important;
+  border-radius: 14px !important;
+}
+
+/* Encabezado */
+.page.sucursales-page .page-header {
+  margin-top: 0 !important;
+  margin-bottom: 22px !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+}
+
+.page.sucursales-page .page-header h1 {
+  margin-top: 12px !important;
+  margin-bottom: 10px !important;
+}
+
+.page.sucursales-page .page-header p {
+  margin-bottom: 16px !important;
+}
+
+/* Quitar emojis de sucursal */
+.page.sucursales-page .section-icon,
+.page.sucursales-page .product-icon {
+  display: none !important;
+}
+
+/* Panel principal */
+.page.sucursales-page .panel {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 18px 0 0 !important;
+  padding: 20px !important;
+  border-radius: 22px !important;
+  box-sizing: border-box !important;
+}
+
+/* Encabezado de sección */
+.page.sucursales-page .section-heading {
+  margin: 0 0 18px !important;
+  padding: 0 !important;
+}
+
+.page.sucursales-page .section-heading h2 {
+  margin: 0 0 8px !important;
+}
+
+.page.sucursales-page .section-heading p {
+  margin: 0 !important;
+}
+
+/* Lista */
+.page.sucursales-page .product-list {
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+}
+
+/* Tarjeta de sucursal */
+.page.sucursales-page .product-card {
+  width: 100% !important;
+  display: block !important;
+  margin: 0 !important;
+  padding: 18px !important;
+  border-radius: 22px !important;
+  box-sizing: border-box !important;
+}
+
+/* Información */
+.page.sucursales-page .product-info {
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+}
+
+.page.sucursales-page .product-info strong {
+  display: block !important;
+  margin: 0 0 8px !important;
+  font-size: 18px !important;
+  line-height: 1.3 !important;
+}
+
+.page.sucursales-page .product-info small {
+  display: block !important;
+  margin: 0 0 10px !important;
+  font-size: 16px !important;
+  line-height: 1.45 !important;
+  overflow-wrap: anywhere !important;
+}
+
+.page.sucursales-page .product-info span {
+  display: block !important;
+  margin: 0 !important;
+  font-size: 15px !important;
+  line-height: 1.4 !important;
+}
+
+/* Botones separados y alineados */
+.page.sucursales-page .product-actions {
+  width: 100% !important;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  gap: 10px !important;
+  margin: 16px 0 0 !important;
+  padding: 12px 0 0 !important;
+  border-top: 1px solid rgba(143, 61, 99, 0.12) !important;
+  box-sizing: border-box !important;
+}
+
+.page.sucursales-page .product-actions button {
+  width: auto !important;
+  min-height: 44px !important;
+  padding: 9px 16px !important;
+  margin: 0 !important;
+  border-radius: 14px !important;
+  box-sizing: border-box !important;
+}
+
+/* Editar */
+.page.sucursales-page .product-actions .secondary-button {
+  border-radius: 14px !important;
+}
+
+/* MÓVIL */
+@media (max-width: 600px) {
+
+  .page.sucursales-page {
+    width: calc(100% - 44px) !important;
+    max-width: none !important;
+    margin-left: 22px !important;
+    margin-right: 22px !important;
+    padding: 18px 0 40px !important;
+  }
+
+  .page.sucursales-page .back-button {
+    margin-top: 8px !important;
+    margin-bottom: 16px !important;
+  }
+
+  .page.sucursales-page .page-header {
+    margin-bottom: 20px !important;
+  }
+
+  .page.sucursales-page .panel {
+    margin-top: 16px !important;
+    padding: 18px !important;
+    border-radius: 22px !important;
+  }
+
+  .page.sucursales-page .product-card {
+    padding: 16px !important;
+    border-radius: 20px !important;
+  }
+
+  .page.sucursales-page .product-actions {
+    gap: 10px !important;
+  }
+}
+
+/* ===== AJUSTE FINAL - ENTRADA DE MERCANCIA ===== */
+
+.inventory-page .inventory-entry-card {
+  padding: 14px !important;
+  border-radius: 18px !important;
+  box-sizing: border-box !important;
+}
+
+.inventory-page .inventory-entry-card .inventory-section-title {
+  gap: 10px !important;
+  margin-bottom: 10px !important;
+}
+
+.inventory-page .inventory-entry-card .inventory-section-title h3 {
+  margin: 0 !important;
+  font-size: 21px !important;
+  line-height: 1.15 !important;
+}
+
+.inventory-page .inventory-entry-card .inventory-section-title p {
+  margin: 3px 0 0 !important;
+  font-size: 13px !important;
+  line-height: 1.3 !important;
+}
+
+.inventory-page .inventory-entry-card .inventory-form {
+  margin-top: 8px !important;
+  gap: 9px !important;
+}
+
+.inventory-page .inventory-entry-card .inventory-form label {
+  gap: 4px !important;
+  margin-bottom: 0 !important;
+  font-size: 14px !important;
+}
+
+.inventory-page .inventory-entry-card .inventory-form input,
+.inventory-page .inventory-entry-card .inventory-form select,
+.inventory-page .inventory-entry-card .inventory-form textarea {
+  min-height: 44px !important;
+  padding: 9px 12px !important;
+  box-sizing: border-box !important;
+}
+
+.inventory-page .inventory-entry-card .inventory-save {
+  margin-top: 4px !important;
+  min-height: 46px !important;
+  padding: 10px 16px !important;
+}
+
+
+/* =========================================================
+   MODAS SOPHIE - HISTORIAL DE ENTRADAS
+   AJUSTE VISUAL FINAL
+   Solo apariencia - no modifica funcionalidad
+   ========================================================= */
+
+.inventory-page .inventory-history-screen {
+  background: #fff7fb !important;
+  color: #3f2434 !important;
+  padding: 18px !important;
+}
+
+/* Encabezado */
+.inventory-page .inventory-history-header {
+  margin-bottom: 18px !important;
+}
+
+.inventory-page .inventory-history-header h2 {
+  color: #3f2434 !important;
+  font-size: 28px !important;
+  font-weight: 800 !important;
+}
+
+.inventory-page .inventory-history-header p {
+  color: #8b7180 !important;
+}
+
+/* Botón volver */
+.inventory-page .inventory-history-back {
+  background: #ffffff !important;
+  color: #8f3d63 !important;
+  border: 1px solid #d9b4c6 !important;
+  border-radius: 14px !important;
+  box-shadow: 0 2px 8px rgba(80, 35, 58, 0.08) !important;
+  font-weight: 700 !important;
+}
+
+/* Tarjetas del historial */
+.inventory-page .inventory-history-list {
+  gap: 14px !important;
+}
+
+.inventory-page .inventory-history-item {
+  background: #ffffff !important;
+  border: 1px solid #ead6df !important;
+  border-radius: 18px !important;
+  padding: 16px !important;
+  box-shadow: 0 3px 12px rgba(80, 35, 58, 0.07) !important;
+}
+
+/* Nombre del producto */
+.inventory-page .inventory-history-item-top strong {
+  color: #54253d !important;
+  font-size: 18px !important;
+  font-weight: 800 !important;
+}
+
+/* Información secundaria */
+.inventory-page .inventory-history-item-info {
+  color: #8a6a79 !important;
+}
+
+/* Detalles */
+.inventory-page .inventory-history-item-details {
+  color: #5f4654 !important;
+}
+
+/* Cantidad y costo */
+.inventory-page .inventory-history-item-details > div {
+  background: #fff1f7 !important;
+  border-radius: 12px !important;
+  padding: 10px 12px !important;
+}
+
+/* Nota */
+.inventory-page .inventory-history-item-note {
+  background: #fff5f9 !important;
+  border-top: 1px solid #ecd8e2 !important;
+  color: #684d5c !important;
+  border-radius: 0 0 10px 10px !important;
+  padding: 10px 12px !important;
+}
+
+/* Botón ver historial */
+.inventory-page .inventory-history-button {
+  background: #e50087 !important;
+  color: #ffffff !important;
+  border: 0 !important;
+  border-radius: 12px !important;
+  font-weight: 700 !important;
+  box-shadow: 0 4px 12px rgba(229, 0, 135, 0.18) !important;
+}
+
+/* Fondo y contenedor en móvil */
+@media (max-width: 600px) {
+  .inventory-page .inventory-history-screen {
+    padding: 14px !important;
+  }
+
+  .inventory-page .inventory-history-header h2 {
+    font-size: 25px !important;
+  }
+
+  .inventory-page .inventory-history-item {
+    padding: 14px !important;
+    border-radius: 16px !important;
+  }
+}
 

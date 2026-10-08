@@ -437,7 +437,6 @@ function Dashboard({
   if (selected === 'inventario') {
     return (
       <Inventory
-        userId={user.id}
         userRole={user.role}
         onBack={() => setSelected('inicio')}
       />
