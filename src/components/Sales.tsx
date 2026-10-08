@@ -382,10 +382,12 @@ export default function Sales({ userRole, onBack }: SalesProps) {
                     {getSellerName(selectedSale!.seller_id)}
                   </span>
 
-                  <span>
-                    <strong>Sucursal:</strong>{' '}
-                    {getBranchName(selectedSale!.branch_id)}
-                  </span>
+                  {userRole === 'admin' && (
+                    <span>
+                      <strong>Sucursal:</strong>{' '}
+                      {getBranchName(selectedSale!.branch_id)}
+                    </span>
+                  )}
 
                   <span>
                     <strong>Pago:</strong>{' '}
@@ -495,10 +497,12 @@ export default function Sales({ userRole, onBack }: SalesProps) {
               {getSellerName(selectedSale!.seller_id)}
             </span>
 
-            <span>
-              <strong>Sucursal:</strong>{' '}
-              {getBranchName(selectedSale!.branch_id)}
-            </span>
+            {userRole === 'admin' && (
+              <span>
+                <strong>Sucursal:</strong>{' '}
+                {getBranchName(selectedSale!.branch_id)}
+              </span>
+            )}
 
             <span>
               <strong>Pago:</strong>{' '}
