@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { supabase } from '../lib/supabase'
+import PageHeader from "./PageHeader"
 
 type CorteCajaProps = {
   userRole: 'admin' | 'vendedor'
@@ -260,12 +261,7 @@ export default function CorteCaja({ onBack }: CorteCajaProps) {
   const diferencia =
     cashCounted.trim() === '' ? null : contado - efectivoEsperado
 
-  const fecha = new Date().toLocaleDateString('es-MX', {
-    weekday: 'long',
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
-  })
+  
 
   const handleOpenCash = async () => {
     setMessage('')
@@ -384,238 +380,11 @@ export default function CorteCaja({ onBack }: CorteCajaProps) {
 
   return (
     <main className="inventory-page cash-cut-page">
-      <div className="inventory-header">
-        <div>
-          <button type="button" className="back-button" onClick={onBack}>
-            ← Volver
-          </button>
-
-          <span className="eyebrow">MODAS SOPHIE</span>
-          <h1>Corte de caja</h1>
-
-        <section className="inventory-section">
-          <label
-            htmlFor="corte-date"
-            style={{
-              display: 'block',
-              fontWeight: 600,
-              marginBottom: '8px',
-            }}
-          >
-            Fecha del corte
-          </label>
-
-          <input
-            id="corte-date"
-            type="date"
-            value={selectedDate}
-            onChange={(event) => {
-              setSelectedDate(event.target.value)
-              setCashCounted('')
-            }}
-            style={{
-              width: '100%',
-              boxSizing: 'border-box',
-              padding: '14px',
-              borderRadius: '14px',
-              border: '1px solid #ddd',
-              fontSize: '18px',
-            }}
-          />
-
-          <div style={{ marginTop: '8px', color: '#777' }}>
-            Mostrando únicamente las ventas y gastos de esta fecha.
-          </div>
-        </section>
-          <section className="inventory-section">
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                gap: '12px',
-                flexWrap: 'wrap',
-              }}
-            >
-              <div>
-                <h2 style={{ marginBottom: '4px' }}>
-                  {cashRegister ? '🟢 Caja abierta' : '🔴 Caja cerrada'}
-                </h2>
-
-                {cashRegister ? (
-                  <div style={{ color: '#777' }}>
-                    Fondo inicial: <strong>{money(Number(cashRegister.opening_cash))}</strong>
-                    {' · '}
-                    Apertura: {new Date(cashRegister.opened_at).toLocaleString('es-MX')}
-                  </div>
-                ) : (
-                  <div style={{ color: '#777' }}>
-                    Abre la caja para comenzar a registrar ventas y gastos.
-                  </div>
-                )}
-              </div>
-            </div>
-
-            {!cashRegister ? (
-              <div
-                style={{
-                  marginTop: '18px',
-                  padding: '18px',
-                  borderRadius: '14px',
-                  background: '#f7f7f7',
-                  border: '1px solid #e5e5e5',
-                }}
-              >
-                <label
-                  htmlFor="opening-cash"
-                  style={{
-                    display: 'block',
-                    fontWeight: 600,
-                    marginBottom: '8px',
-                  }}
-                >
-                  💵 Fondo inicial de caja
-                </label>
-
-                <input
-                  id="opening-cash"
-                  type="number"
-                  min="0"
-                  step="0.01"
-                  inputMode="decimal"
-                  value={openingCash}
-                  onChange={(event) => setOpeningCash(event.target.value)}
-                  placeholder="Ej. 500"
-                  style={{
-                    width: '100%',
-                    boxSizing: 'border-box',
-                    padding: '14px',
-                    borderRadius: '12px',
-                    border: '1px solid #ddd',
-                    fontSize: '18px',
-                  }}
-                />
-
-                <button
-                  type="button"
-                  onClick={handleOpenCash}
-                  disabled={loading}
-                  style={{
-                    width: '100%',
-                    marginTop: '12px',
-                    padding: '14px',
-                    border: 'none',
-                    borderRadius: '12px',
-                    background: '#198754',
-                    color: '#fff',
-                    fontWeight: 700,
-                    fontSize: '16px',
-                  }}
-                >
-                  {loading ? 'Abriendo caja...' : '🟢 Abrir caja'}
-                </button>
-              </div>
-            ) : (
-              <div
-                style={{
-                  marginTop: '18px',
-                  padding: '18px',
-                  borderRadius: '14px',
-                  background: '#f7f7f7',
-                  border: '1px solid #e5e5e5',
-                }}
-              >
-                <div style={{ marginBottom: '14px' }}>
-                  <strong>Efectivo esperado en caja</strong>
-                  <div style={{ fontSize: '30px', fontWeight: 700, marginTop: '4px' }}>
-                    {money(efectivoEsperado)}
-                  </div>
-                </div>
-
-                <label
-                  htmlFor="cash-counted"
-                  style={{
-                    display: 'block',
-                    fontWeight: 600,
-                    marginBottom: '8px',
-                  }}
-                >
-                  Efectivo contado
-                </label>
-
-                <input
-                  id="cash-counted"
-                  type="number"
-                  min="0"
-                  step="0.01"
-                  inputMode="decimal"
-                  value={cashCounted}
-                  onChange={(event) => setCashCounted(event.target.value)}
-                  placeholder="Ej. 615"
-                  style={{
-                    width: '100%',
-                    boxSizing: 'border-box',
-                    padding: '14px',
-                    borderRadius: '12px',
-                    border: '1px solid #ddd',
-                    fontSize: '18px',
-                  }}
-                />
-
-                {diferencia !== null && (
-                  <div
-                    style={{
-                      marginTop: '16px',
-                      padding: '16px',
-                      borderRadius: '12px',
-                      textAlign: 'center',
-                      background: diferencia === 0 ? '#eaf7ee' : '#fff7e6',
-                      border: '1px solid #ddd',
-                    }}
-                  >
-                    <div style={{ color: '#777' }}>Diferencia del corte</div>
-
-                    <strong style={{ fontSize: '30px' }}>
-                      {diferencia >= 0 ? '+' : ''}
-                      {money(diferencia)}
-                    </strong>
-
-                    <div style={{ marginTop: '6px' }}>
-                      {diferencia === 0
-                        ? '✅ Caja cuadrada'
-                        : diferencia > 0
-                        ? `🟢 Sobrante de ${money(diferencia)}`
-                        : `🔴 Faltante de ${money(Math.abs(diferencia))}`}
-                    </div>
-                  </div>
-                )}
-
-                <button
-                  type="button"
-                  onClick={handleCloseCash}
-                  disabled={loading || cashCounted.trim() === ''}
-                  style={{
-                    width: '100%',
-                    marginTop: '14px',
-                    padding: '14px',
-                    border: 'none',
-                    borderRadius: '12px',
-                    background: '#dc3545',
-                    color: '#fff',
-                    fontWeight: 700,
-                    fontSize: '16px',
-                    opacity: loading || cashCounted.trim() === '' ? 0.6 : 1,
-                  }}
-                >
-                  {loading ? 'Cerrando caja...' : '🔒 Cerrar caja'}
-                </button>
-              </div>
-            )}
-          </section>
-
-          <p>Resumen de movimientos del día.</p>
-        </div>
-      </div>
+      <PageHeader
+        title="Corte de caja"
+        subtitle="Consulta y realiza el corte de caja."
+        onBack={onBack}
+      />
 
       <section className="inventory-section">
         <div
@@ -628,11 +397,26 @@ export default function CorteCaja({ onBack }: CorteCajaProps) {
           }}
         >
           <div>
-            <strong style={{ fontSize: '20px' }}>Corte del día</strong>
-            <div style={{ marginTop: '4px', color: '#777' }}>
-              {fecha}
+            <strong style={{ fontSize: '20px' }}>Fecha del corte</strong>
+            <div style={{ color: '#777', marginTop: '4px' }}>
+              Selecciona el día que deseas consultar.
             </div>
           </div>
+
+          <input
+            id="corte-date"
+            type="date"
+            value={selectedDate}
+            onChange={(event) => setSelectedDate(event.target.value)}
+            style={{
+              minHeight: '44px',
+              padding: '8px 12px',
+              border: '1px solid #ddd',
+              borderRadius: '10px',
+              fontSize: '16px',
+              boxSizing: 'border-box',
+            }}
+          />
 
           <button
             type="button"
@@ -645,6 +429,136 @@ export default function CorteCaja({ onBack }: CorteCajaProps) {
         </div>
       </section>
 
+      {!cashRegister ? (
+        <section className="inventory-section">
+          <h2>Abrir caja</h2>
+          <p>Registra el fondo inicial antes de comenzar a trabajar.</p>
+
+          <div style={{ display: 'grid', gap: '12px', maxWidth: '420px' }}>
+            <label htmlFor="opening-cash">
+              <strong>Fondo inicial</strong>
+            </label>
+
+            <input
+              id="opening-cash"
+              type="number"
+              min="0"
+              step="0.01"
+              inputMode="decimal"
+              value={openingCash}
+              onChange={(event) => setOpeningCash(event.target.value)}
+              placeholder="Ej. 500"
+              style={{
+                minHeight: '48px',
+                padding: '10px 14px',
+                border: '1px solid #ddd',
+                borderRadius: '10px',
+                fontSize: '17px',
+                boxSizing: 'border-box',
+              }}
+            />
+
+            <button
+              type="button"
+              onClick={handleOpenCash}
+              disabled={loading}
+              style={{
+                minHeight: '48px',
+                padding: '10px 18px',
+                border: '0',
+                borderRadius: '12px',
+                background: '#8f3d63',
+                color: '#fff',
+                fontSize: '16px',
+                fontWeight: 600,
+                cursor: 'pointer',
+              }}
+            >
+              Abrir caja
+            </button>
+          </div>
+        </section>
+      ) : (
+        <section className="inventory-section">
+          <h2>Caja abierta</h2>
+
+          <div
+            style={{
+              display: 'grid',
+              gap: '8px',
+              marginBottom: '16px',
+            }}
+          >
+            <div>
+              <strong>Fondo inicial:</strong>{' '}
+              {money(Number(cashRegister.opening_cash ?? 0))}
+            </div>
+
+            <div>
+              <strong>Efectivo esperado:</strong>{' '}
+              {money(efectivoEsperado)}
+            </div>
+          </div>
+
+          <div style={{ display: 'grid', gap: '12px', maxWidth: '420px' }}>
+            <label htmlFor="cash-counted">
+              <strong>Efectivo contado</strong>
+            </label>
+
+            <input
+              id="cash-counted"
+              type="number"
+              min="0"
+              step="0.01"
+              inputMode="decimal"
+              value={cashCounted}
+              onChange={(event) => setCashCounted(event.target.value)}
+              placeholder="Ingresa el efectivo contado"
+              style={{
+                minHeight: '48px',
+                padding: '10px 14px',
+                border: '1px solid #ddd',
+                borderRadius: '10px',
+                fontSize: '17px',
+                boxSizing: 'border-box',
+              }}
+            />
+
+            {diferencia !== null && (
+              <div
+                style={{
+                  padding: '14px',
+                  borderRadius: '12px',
+                  background: diferencia === 0 ? '#e8f7ee' : '#fff4e5',
+                  border: '1px solid #ead5e0',
+                }}
+              >
+                <strong>Diferencia:</strong> {money(diferencia)}
+              </div>
+            )}
+
+            <button
+              type="button"
+              onClick={handleCloseCash}
+              disabled={loading}
+              style={{
+                minHeight: '48px',
+                padding: '10px 18px',
+                border: '0',
+                borderRadius: '12px',
+                background: '#8f3d63',
+                color: '#fff',
+                fontSize: '16px',
+                fontWeight: 600,
+                cursor: 'pointer',
+              }}
+            >
+              Cerrar caja
+            </button>
+          </div>
+        </section>
+      )}
+
       {loading ? (
         <section className="inventory-section">
           <div className="inventory-empty">Cargando corte...</div>
@@ -655,25 +569,25 @@ export default function CorteCaja({ onBack }: CorteCajaProps) {
             <article className="stat-card">
               <span>💰</span>
               <small>Ventas</small>
-              <strong>{money(totalVentas)}</strong>
+              <strong>{money(Number(totalVentas))}</strong>
             </article>
 
             <article className="stat-card">
               <span>💵</span>
               <small>Efectivo</small>
-              <strong>{money(efectivo)}</strong>
+              <strong>{money(Number(efectivo))}</strong>
             </article>
 
             <article className="stat-card">
               <span>💳</span>
               <small>Tarjeta</small>
-              <strong>{money(tarjeta)}</strong>
+              <strong>{money(Number(tarjeta))}</strong>
             </article>
 
             <article className="stat-card">
-              <span>📱</span>
+              <span>🏦</span>
               <small>Transferencia</small>
-              <strong>{money(transferencia)}</strong>
+              <strong>{money(Number(transferencia))}</strong>
             </article>
           </section>
 
@@ -686,11 +600,11 @@ export default function CorteCaja({ onBack }: CorteCajaProps) {
               </span>
 
               <span>
-                <strong>Gastos:</strong> {money(totalGastos)}
+                <strong>Gastos:</strong> {money(Number(totalGastos))}
               </span>
 
               <span>
-                <strong>Otros pagos:</strong> {money(otras)}
+                <strong>Otros pagos:</strong> {money(Number(otras))}
               </span>
             </div>
 
@@ -717,7 +631,6 @@ export default function CorteCaja({ onBack }: CorteCajaProps) {
             </div>
           </section>
 
-
           <section className="inventory-section">
             <h2>Gastos del día</h2>
 
@@ -736,15 +649,18 @@ export default function CorteCaja({ onBack }: CorteCajaProps) {
                     }}
                   >
                     <strong>{expense.description || 'Gasto'}</strong>
-                    <div>{money(Number(expense.amount))}</div>
+
+                    <div>
+                      {money(Number(expense.amount))}
+                    </div>
+
                     <small style={{ color: '#777' }}>
-                      {new Date(expense.created_at).toLocaleTimeString(
-                        'es-MX',
-                        {
-                          hour: '2-digit',
-                          minute: '2-digit',
-                        }
-                      )}
+                      {new Date(
+                        expense.created_at
+                      ).toLocaleTimeString('es-MX', {
+                        hour: '2-digit',
+                        minute: '2-digit',
+                      })}
                     </small>
                   </div>
                 ))}
@@ -754,7 +670,12 @@ export default function CorteCaja({ onBack }: CorteCajaProps) {
         </>
       )}
 
-      {message && <p className="form-message">{message}</p>}
+      {message && (
+        <p className="form-message">
+          {message}
+        </p>
+      )}
     </main>
   )
 }
+

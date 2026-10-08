@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabase'
+import PageHeader from "./PageHeader"
 
 type Role = 'admin' | 'vendedor'
 
@@ -163,17 +164,11 @@ export default function Expenses({ userId, userRole, onBack }: Props) {
 
   return (
     <main className="inventory-page">
-      <div className="inventory-header">
-        <button type="button" className="back-button" onClick={onBack}>
-          ← Volver
-        </button>
-
-        <div>
-          <small>MODAS SOPHIE</small>
-          <h1>Gastos</h1>
-          <p>Control de gastos del negocio.</p>
-        </div>
-      </div>
+      <PageHeader
+        title="Gastos"
+        subtitle="Control de gastos del negocio."
+        onBack={onBack}
+      />
 
       {userRole === 'admin' && (
         <section className="inventory-list-card">
@@ -185,33 +180,72 @@ export default function Expenses({ userId, userRole, onBack }: Props) {
             </div>
           </div>
 
-          <div className="inventory-form-grid">
-            <label>
-              Descripción
-              <input
-                type="text"
-                value={description}
-                onChange={(event) => setDescription(event.target.value)}
-                placeholder="Ej. Pago de luz"
-              />
-            </label>
+          <div
+          className="inventory-form-grid"
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr",
+            gap: "14px",
+            width: "100%",
+            marginTop: "8px",
+          }}
+        >
+          <label
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "7px",
+              width: "100%",
+              fontSize: "16px",
+              lineHeight: "1.2",
+            }}
+          >
+            Descripción
+            <input
+              type="text"
+              value={description}
+              onChange={(event) => setDescription(event.target.value)}
+              placeholder="Ej. Pago de luz"
+              style={{
+                width: "100%",
+                minWidth: 0,
+                height: "46px",
+                boxSizing: "border-box",
+              }}
+            />
+          </label>
 
-            <label>
-              Importe
-              <input
-                type="number"
-                min="0.01"
-                step="0.01"
-                value={amount}
-                onChange={(event) => setAmount(event.target.value)}
-                placeholder="0.00"
-              />
-            </label>
-          </div>
+          <label
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "7px",
+              width: "100%",
+              fontSize: "16px",
+              lineHeight: "1.2",
+            }}
+          >
+            Importe
+            <input
+              type="number"
+              min="0.01"
+              step="0.01"
+              value={amount}
+              onChange={(event) => setAmount(event.target.value)}
+              placeholder="0.00"
+              style={{
+                width: "100%",
+                minWidth: 0,
+                height: "46px",
+                boxSizing: "border-box",
+              }}
+            />
+          </label>
+        </div>
 
-          <button
-            type="button"
-            className="primary-button"
+        <button
+          type="button"
+          className="primary-button"
             onClick={saveExpense}
             disabled={saving} style={{ marginTop: "18px" }}>
             {saving ? 'Guardando...' : 'Registrar gasto'}

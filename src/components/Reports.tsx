@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { supabase } from '../lib/supabase'
+import PageHeader from "./PageHeader"
 
 type ReportsProps = {
   userRole: 'admin' | 'vendedor'
@@ -257,17 +258,11 @@ export default function Reports({ userRole, onBack }: ReportsProps) {
 
   return (
     <main className="inventory-page">
-      <div className="inventory-header">
-        <div>
-          <button type="button" className="back-button" onClick={onBack}>
-            ← Volver
-          </button>
-
-          <span className="eyebrow">MODAS SOPHIE</span>
-          <h1>Reportes</h1>
-          <p>Resultados y resumen del negocio.</p>
-        </div>
-      </div>
+      <PageHeader
+        title="Reportes"
+        subtitle="Resultados y resumen del negocio."
+        onBack={onBack}
+      />
 
       <section className="inventory-list-card">
         <div className="section-title">

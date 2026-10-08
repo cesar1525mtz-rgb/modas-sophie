@@ -61,7 +61,7 @@ const categories = [
   'Otros',
 ]
 
-export default function NewSale({ userId, userRole, onBack }: NewSaleProps) {
+export default function NewSale({ onBack }: NewSaleProps) {
   const [branches, setBranches] = useState<Branch[]>([])
   const [branchId, setBranchId] = useState('')
   const [products, setProducts] = useState<Product[]>([])
@@ -158,18 +158,11 @@ export default function NewSale({ userId, userRole, onBack }: NewSaleProps) {
       { data: variantData, error: variantError },
       { data: stockData, error: stockError },
     ] = await Promise.all([
-      userRole === 'admin'
-        ? supabase
-            .from('branches')
-            .select('id,name')
-            .eq('active', true)
-            .order('name')
-        : supabase
-            .from('employee_branches')
-            .select('branch_id,branches!inner(id,name)')
-            .eq('user_id', userId)
-            .eq('active', true)
-            .eq('branches.active', true),
+      supabase
+        .from('branches')
+        .select('id,name')
+        .eq('active', true)
+        .order('name'),
 
       supabase
         .from('products')
@@ -196,33 +189,14 @@ export default function NewSale({ userId, userRole, onBack }: NewSaleProps) {
         'No fue posible cargar los productos.'
       )
     } else {
-      const safeBranches = userRole === 'admin'
-        ? ((branchData || []) as Branch[])
-        : ((branchData || []) as Array<{
-            branch_id: string
-            branches: Branch | Branch[]
-          }>)
-            .map((item) => {
-              const branch = Array.isArray(item.branches)
-                ? item.branches[0]
-                : item.branches
-
-              return branch
-            })
-            .filter(Boolean) as Branch[]
+      const safeBranches = (branchData || []) as Branch[]
 
       setBranches(safeBranches)
       setProducts((productData || []) as Product[])
       setVariants((variantData || []) as Variant[])
       setStock((stockData || []) as Stock[])
 
-      if (userRole === 'vendedor') {
-        const assignedBranchId = safeBranches[0]?.id || ''
-
-        setBranchId(assignedBranchId)
-        setCart([])
-        clearSelection()
-      } else if (!branchId && safeBranches.length > 0) {
+      if (!branchId && safeBranches.length > 0) {
         setBranchId(safeBranches[0].id)
       }
     }
@@ -232,7 +206,7 @@ export default function NewSale({ userId, userRole, onBack }: NewSaleProps) {
 
   useEffect(() => {
     loadData()
-  }, [userId, userRole])
+  }, [])
 
   const visibleProducts = useMemo(() => {
     const term = search.trim().toLowerCase()
@@ -365,11 +339,7 @@ export default function NewSale({ userId, userRole, onBack }: NewSaleProps) {
     setSaleFolio('')
 
     if (!branchId) {
-      setError(
-        userRole === 'vendedor'
-          ? 'Tu usuario no tiene una sucursal asignada.'
-          : 'Selecciona una sucursal.'
-      )
+      setError('Selecciona una sucursal.')
       return
     }
 
@@ -579,25 +549,23 @@ export default function NewSale({ userId, userRole, onBack }: NewSaleProps) {
         </div>
 
         <div className="inventory-fields">
-          {userRole === 'admin' && (
-            <label>
-              Sucursal
-              <select
-                value={branchId}
-                onChange={(event) => {
-                  setBranchId(event.target.value)
-                  clearSelection()
-                  setCart([])
-                }}
-              >
-                {branches.map((branch) => (
-                  <option key={branch.id} value={branch.id}>
-                    {branch.name}
-                  </option>
-                ))}
-              </select>
-            </label>
-          )}
+          <label>
+            Sucursal
+            <select
+              value={branchId}
+              onChange={(event) => {
+                setBranchId(event.target.value)
+                clearSelection()
+                setCart([])
+              }}
+            >
+              {branches.map((branch) => (
+                <option key={branch.id} value={branch.id}>
+                  {branch.name}
+                </option>
+              ))}
+            </select>
+          </label>
 
           <label>
             Buscar por nombre o SKU
