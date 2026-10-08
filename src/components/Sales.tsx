@@ -351,7 +351,7 @@ export default function Sales({ userRole, onBack }: SalesProps) {
 
                   <button
                     type="button"
-                    className="primary-button sales-detail-button"
+                    className="sales-detail-button"
                     onClick={(event) => {
                       event.currentTarget.blur()
 
