@@ -2132,3 +2132,18 @@ button {
   }
 }
 
+
+/* Botón Ver detalle / Ocultar detalle:
+   mantiene el color de la aplicación incluso después de tocarlo */
+.sales-detail-button,
+.sales-detail-button:hover,
+.sales-detail-button:focus,
+.sales-detail-button:focus-visible,
+.sales-detail-button:active {
+  background-color: #d81b60 !important;
+  color: #ffffff !important;
+  border-color: #d81b60 !important;
+  outline: none;
+  box-shadow: none;
+}
+

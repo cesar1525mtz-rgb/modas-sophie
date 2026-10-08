@@ -351,7 +351,7 @@ export default function Sales({ userRole, onBack }: SalesProps) {
 
                   <button
                     type="button"
-                    className="primary-button"
+                    className="primary-button sales-detail-button"
                     onClick={() =>
                       selectedSaleId === sale.id
                         ? closeDetails()
