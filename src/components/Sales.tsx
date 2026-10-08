@@ -339,8 +339,10 @@ export default function Sales({ userRole, onBack }: SalesProps) {
                   </small>
 
                   <span>
-                    {getSellerName(sale.seller_id)} ·{' '}
-                    {getBranchName(sale.branch_id)}
+                    {getSellerName(sale.seller_id)}
+                    {userRole === 'admin' && (
+                      <> · {getBranchName(sale.branch_id)}</>
+                    )}
                   </span>
 
                   <span>{getPaymentName(sale.payment_method)}</span>
@@ -453,11 +455,7 @@ export default function Sales({ userRole, onBack }: SalesProps) {
               return descuento > 0.009 ? (
                 <div
                   className="sale-detail-total"
-                  style={{
-                    borderTop: '1px solid #ddd',
-                    marginTop: 12,
-                    paddingTop: 12,
-                  }}
+
                 >
                   <span>Descuento</span>
                   <strong>-${descuento.toFixed(2)}</strong>
