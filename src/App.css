@@ -2134,16 +2134,18 @@ button {
 
 
 /* Botón Ver detalle / Ocultar detalle:
-   mantiene el color de la aplicación incluso después de tocarlo */
+   mantiene el magenta de MODAS SOPHIE en todos sus estados */
 .sales-detail-button,
 .sales-detail-button:hover,
 .sales-detail-button:focus,
 .sales-detail-button:focus-visible,
 .sales-detail-button:active {
-  background-color: #d81b60 !important;
+  background: linear-gradient(135deg, #e90083, #f52b91) !important;
   color: #ffffff !important;
-  border-color: #d81b60 !important;
-  outline: none;
-  box-shadow: none;
+  border: 0 !important;
+  border-color: #e90083 !important;
+  outline: none !important;
+  box-shadow: 0 7px 18px rgba(233, 0, 131, 0.18) !important;
+  -webkit-tap-highlight-color: transparent !important;
 }
 
