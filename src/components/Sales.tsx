@@ -352,9 +352,13 @@ export default function Sales({ userRole, onBack }: SalesProps) {
                   <button
                     type="button"
                     className="primary-button"
-                    onClick={() => openSale(sale.id)}
+                    onClick={() =>
+                      selectedSaleId === sale.id
+                        ? closeDetails()
+                        : openSale(sale.id)
+                    }
                   >
-                    Ver detalle
+                    {selectedSaleId === sale.id ? 'Ocultar detalle' : 'Ver detalle'}
                   </button>
             {selectedSale && selectedSale!.id === sale.id && (
               <section className="inventory-list-card sale-detail-card">
