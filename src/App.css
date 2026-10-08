@@ -2149,3 +2149,256 @@ button {
   -webkit-tap-highlight-color: transparent !important;
 }
 
+
+/* =========================================================
+   MODAS SOPHIE — NUEVA VENTA COMPACTA EN MÓVIL
+   Solo afecta Nueva venta en pantallas pequeñas.
+   No modifica lógica ni funcionamiento.
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  /* Menos espacio general en la pantalla de venta */
+  .inventory-page {
+    padding-bottom: 16px;
+  }
+
+  /* Encabezado */
+  .inventory-page .page-header {
+    margin-bottom: 10px !important;
+  }
+
+  /* Mensajes */
+  .inventory-message {
+    margin-bottom: 10px !important;
+    padding: 10px 12px !important;
+    border-radius: 12px !important;
+  }
+
+  /* Tarjeta de búsqueda más compacta */
+  .inventory-page .inventory-form-card {
+    margin-bottom: 10px !important;
+    padding: 12px !important;
+    border-radius: 16px !important;
+  }
+
+  .inventory-page .inventory-form-card .section-title {
+    margin-bottom: 8px !important;
+    gap: 8px !important;
+  }
+
+  .inventory-page .inventory-form-card .section-title h2 {
+    font-size: 18px !important;
+    line-height: 1.15 !important;
+    margin-bottom: 2px !important;
+  }
+
+  .inventory-page .inventory-form-card .section-title p {
+    font-size: 12px !important;
+    line-height: 1.2 !important;
+  }
+
+  /* Buscador y categoría */
+  .inventory-page .inventory-fields {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 7px !important;
+    margin-top: 8px !important;
+  }
+
+  .inventory-page .inventory-fields label {
+    gap: 4px !important;
+    font-size: 12px !important;
+    line-height: 1.15 !important;
+  }
+
+  .inventory-page .inventory-fields input,
+  .inventory-page .inventory-fields select {
+    height: 40px !important;
+    min-height: 40px !important;
+    padding: 0 10px !important;
+    border-radius: 10px !important;
+    font-size: 14px !important;
+  }
+
+  /* Resultados de búsqueda */
+  .sale-product-results {
+    gap: 5px !important;
+    margin-top: 5px !important;
+    margin-bottom: 2px !important;
+  }
+
+  .sale-product-result {
+    min-height: 52px !important;
+    padding: 8px 10px !important;
+    border-radius: 11px !important;
+    gap: 7px !important;
+  }
+
+  .sale-product-result-info {
+    gap: 2px !important;
+  }
+
+  .sale-product-result-info strong {
+    font-size: 13px !important;
+    line-height: 1.2 !important;
+  }
+
+  .sale-product-result-info small {
+    font-size: 10px !important;
+    line-height: 1.2 !important;
+  }
+
+  .sale-product-result-price {
+    font-size: 13px !important;
+  }
+
+  .sale-product-result-arrow {
+    font-size: 20px !important;
+  }
+
+  .sale-product-empty {
+    padding: 9px 10px !important;
+    border-radius: 10px !important;
+    font-size: 12px !important;
+  }
+
+  /* Tarjeta de selección de talla/color */
+  .sale-variant-card {
+    margin-bottom: 10px !important;
+    padding: 11px !important;
+    border-radius: 15px !important;
+  }
+
+  .sale-variant-card button {
+    min-height: 38px !important;
+    padding: 7px 10px !important;
+    border-radius: 9px !important;
+    font-size: 13px !important;
+  }
+
+  /* Carrito */
+  .inventory-page .inventory-list-card {
+    margin-bottom: 10px !important;
+    padding: 12px !important;
+    border-radius: 16px !important;
+  }
+
+  .inventory-page .inventory-list-card .section-title {
+    margin-bottom: 8px !important;
+  }
+
+  .sale-cart {
+    gap: 6px !important;
+  }
+
+  .sale-cart-item {
+    grid-template-columns: minmax(0, 1fr) auto !important;
+    gap: 7px !important;
+    padding: 9px !important;
+    border-radius: 11px !important;
+  }
+
+  .sale-cart-item > div:first-child {
+    gap: 2px !important;
+  }
+
+  .sale-cart-item > div:first-child strong {
+    font-size: 14px !important;
+    line-height: 1.2 !important;
+  }
+
+  .sale-cart-item > div:first-child small {
+    font-size: 11px !important;
+    line-height: 1.25 !important;
+  }
+
+  .sale-cart-controls {
+    gap: 5px !important;
+  }
+
+  .sale-quantity-button {
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px !important;
+    border-radius: 8px !important;
+    font-size: 19px !important;
+  }
+
+  /* Cantidad */
+  .sale-cart-controls span {
+    min-width: 18px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  /* Resumen de venta */
+  .sale-total {
+    gap: 3px !important;
+    padding: 9px 3px !important;
+    margin-top: 7px !important;
+  }
+
+  .sale-total strong {
+    font-size: 13px !important;
+  }
+
+  .sale-total small {
+    font-size: 10px !important;
+  }
+
+  .sale-total input {
+    height: 34px !important;
+    min-height: 34px !important;
+    padding: 0 5px !important;
+    font-size: 12px !important;
+    border-radius: 8px !important;
+  }
+
+  /* Métodos de pago: una sola fila */
+  .sale-payment-buttons {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 5px !important;
+    margin-top: 7px !important;
+  }
+
+  .sale-payment-buttons button {
+    min-height: 42px !important;
+    height: 42px !important;
+    padding: 0 4px !important;
+    border-width: 1px !important;
+    border-radius: 9px !important;
+    font-size: 11px !important;
+    white-space: nowrap !important;
+  }
+
+  .sale-payment-buttons button.selected {
+    transform: none !important;
+  }
+
+  /* Botón registrar venta: sigue siendo grande y fácil de tocar */
+  .new-sale-register-button-final {
+    height: 52px !important;
+    min-height: 52px !important;
+    margin-top: 9px !important;
+    padding: 0 10px !important;
+    border-radius: 12px !important;
+    font-size: 15px !important;
+  }
+}
+
+/* En teléfonos muy pequeños todavía conservamos los 3 métodos
+   en una sola fila para evitar hacer más larga la pantalla. */
+@media (max-width: 360px) {
+
+  .sale-payment-buttons button {
+    font-size: 10px !important;
+    padding: 0 2px !important;
+  }
+
+  .new-sale-register-button-final {
+    font-size: 14px !important;
+  }
+}
+
