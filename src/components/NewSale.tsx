@@ -746,69 +746,67 @@ export default function NewSale({ userId, userRole, onBack }: NewSaleProps) {
                           }`}
                           onClick={() => {
                             setError('')
-                            setSelectedColor(color)
 
-                            if (option) {
-                              setTimeout(() => {
-                                const variant = option.variant
-                                const existing = cart.find(
-                                  (item) =>
-                                    item.variantId === variant.id
-                                )
+                            if (!option) return
 
-                                const newQuantity =
-                                  (existing?.quantity || 0) + 1
+                            const variant = option.variant
+                            const existing = cart.find(
+                              (item) =>
+                                item.variantId === variant.id
+                            )
 
-                                if (
-                                  newQuantity >
-                                  option.available
-                                ) {
-                                  setError(
-                                    `No puedes agregar más de ${option.available} pieza${option.available === 1 ? '' : 's'}.`
-                                  )
-                                  return
-                                }
+                            const newQuantity =
+                              (existing?.quantity || 0) + 1
 
-                                if (existing) {
-                                  setCart((current) =>
-                                    current.map((item) =>
-                                      item.variantId === variant.id
-                                        ? {
-                                            ...item,
-                                            quantity: newQuantity,
-                                          }
-                                        : item
-                                    )
-                                  )
-                                } else {
-                                  setCart((current) => [
-                                    ...current,
-                                    {
-                                      variantId: variant.id,
-                                      productName:
-                                        selectedProduct.name,
-                                      sku:
-                                        selectedProduct.sku || '',
-                                      size:
-                                        variant.size?.trim() ||
-                                        'Sin talla',
-                                      color:
-                                        variant.color?.trim() ||
-                                        'Sin color',
-                                      unitPrice: Number(
-                                        selectedProduct.price
-                                      ),
-                                      quantity: 1,
-                                      available:
-                                        option.available,
-                                    },
-                                  ])
-                                }
-
-                                setSelectedSize('')
-                                setSelectedColor('')
-                              }, 0)
+                            if (
+                              newQuantity >
+                              option.available
+                            ) {
+                              setError(
+                                `No puedes agregar más de ${option.available} pieza${option.available === 1 ? '' : 's'}.`
+                              )
+                              return
                             }
+
+                            if (existing) {
+                              setCart((current) =>
+                                current.map((item) =>
+                                  item.variantId === variant.id
+                                    ? {
+                                        ...item,
+                                        quantity: newQuantity,
+                                      }
+                                    : item
+                                )
+                              )
+                            } else {
+                              setCart((current) => [
+                                ...current,
+                                {
+                                  variantId: variant.id,
+                                  productName:
+                                    selectedProduct.name,
+                                  sku:
+                                    selectedProduct.sku || '',
+                                  size:
+                                    variant.size?.trim() ||
+                                    'Sin talla',
+                                  color:
+                                    variant.color?.trim() ||
+                                    'Sin color',
+                                  unitPrice: Number(
+                                    selectedProduct.price
+                                  ),
+                                  quantity: 1,
+                                  available:
+                                    option.available,
+                                },
+                              ])
+                            }
+
+                            // Después de agregar la variante,
+                            // cerrar completamente la tarjeta de selección.
+                            clearSelection()
                           }}
                         >
                           {color}
