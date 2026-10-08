@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { supabase } from '../lib/supabase'
+import PageHeader from "./PageHeader"
 
 type CajaProps = {
   userId: string
@@ -317,20 +318,11 @@ setSaving(true)
 
   return (
     <main className="inventory-page caja-page">
-      <div className="inventory-header">
-        <div>
-          <button
-            type="button"
-            className="back-button"
-            onClick={onBack}
-          >
-            ← Volver
-          </button>
-
-          <span className="eyebrow">MODAS SOPHIE</span>
-          <h1>Caja</h1>
-        </div>
-      </div>
+      <PageHeader
+        title="Caja"
+        subtitle="Control de caja del negocio."
+        onBack={onBack}
+      />
 
       <section className="inventory-section">
         <label htmlFor="caja-branch">
@@ -410,55 +402,66 @@ setSaving(true)
       )}
 
       {!cashRegister ? (
-        <section className="inventory-section">
-          <h2>🟢 Abrir caja</h2>
+        userRole === 'admin' ? (
+          <section className="inventory-section">
+            <h2>🟢 Abrir caja</h2>
 
-          <p style={{ color: '#777' }}>
-            Introduce el efectivo con el que comienzas a trabajar.
-          </p>
+            <p style={{ color: '#777' }}>
+              Introduce el efectivo con el que comienzas a trabajar.
+            </p>
 
-          <label htmlFor="opening-cash">
-            Efectivo inicial
-          </label>
+            <label htmlFor="opening-cash">
+              Efectivo inicial
+            </label>
 
-          <input
-            id="opening-cash"
-            type="number"
-            min="0"
-            step="0.01"
-            inputMode="decimal"
-            value={openingCash}
-            onChange={(event) => setOpeningCash(event.target.value)}
-            placeholder="0.00"
-            style={{
-              width: '100%',
-              boxSizing: 'border-box',
-              marginTop: '8px',
-              padding: '16px',
-              borderRadius: '14px',
-              border: '1px solid #ddd',
-              fontSize: '22px',
-            }}
-          />
+            <input
+              id="opening-cash"
+              type="number"
+              min="0"
+              step="0.01"
+              inputMode="decimal"
+              value={openingCash}
+              onChange={(event) => setOpeningCash(event.target.value)}
+              placeholder="0.00"
+              style={{
+                width: '100%',
+                boxSizing: 'border-box',
+                marginTop: '8px',
+                padding: '16px',
+                borderRadius: '14px',
+                border: '1px solid #ddd',
+                fontSize: '22px',
+              }}
+            />
 
-          <button
-            type="button"
-            onClick={abrirCaja}
-            disabled={saving}
-            style={{
-              width: '100%',
-              marginTop: '16px',
-              padding: '16px',
-              borderRadius: '14px',
-              border: 'none',
-              fontSize: '18px',
-              fontWeight: 700,
-              cursor: 'pointer',
-            }}
-          >
-            {saving ? 'Abriendo caja...' : '🟢 Abrir caja'}
-          </button>
-        </section>
+            <button
+              type="button"
+              onClick={abrirCaja}
+              disabled={saving}
+              style={{
+                width: '100%',
+                marginTop: '16px',
+                padding: '16px',
+                borderRadius: '14px',
+                border: 'none',
+                fontSize: '18px',
+                fontWeight: 700,
+                cursor: 'pointer',
+              }}
+            >
+              {saving ? 'Abriendo caja...' : '🟢 Abrir caja'}
+            </button>
+          </section>
+        ) : (
+          <section className="inventory-section">
+            <h2>🔒 Caja compartida</h2>
+
+            <p style={{ color: '#777' }}>
+              La caja de esta sucursal es compartida.
+              El administrador es quien abre y cierra la caja.
+            </p>
+          </section>
+        )
       ) : (
         <>
           <section className="inventory-section">
@@ -501,6 +504,7 @@ setSaving(true)
             </div>
           </section>
 
+          {userRole === 'admin' && (
           <section className="inventory-section">
             <h2>🔴 Cerrar caja</h2>
 
@@ -584,6 +588,7 @@ setSaving(true)
               {saving ? 'Cerrando caja...' : '🔴 Cerrar caja'}
             </button>
           </section>
+          )}
         </>
       )}
 
