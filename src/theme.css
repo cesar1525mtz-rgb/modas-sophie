@@ -1,705 +1,35 @@
 /* =========================================================
-   MODAS SOPHIE — TEMA VISUAL MAESTRO
-   Este archivo se carga AL FINAL.
-   Solo modifica presentación. No modifica lógica.
-   ========================================================= */
-
-:root {
-  --ms-bg: #fff7fb;
-  --ms-white: #ffffff;
-  --ms-primary: #E91587;
-  --ms-primary-dark: #8F3D63;
-  --ms-primary-soft: #FCE7F2;
-  --ms-border: #E9DFE5;
-  --ms-text: #302630;
-  --ms-muted: #817580;
-  --ms-success: #3d8a63;
-  --ms-danger: #b44b62;
-  --ms-shadow: 0 6px 22px rgba(48, 38, 48, .06);
-  --ms-radius: 18px;
-}
-
-/* ===== BASE ===== */
-
-html,
-body,
-#root {
-  min-height: 100%;
-}
-
-body {
-  margin: 0 !important;
-  background: var(--ms-bg) !important;
-  color: var(--ms-text) !important;
-}
-
-/* ===== FONDO GENERAL ===== */
-
-.app-shell,
-.inventory-page,
-.cash-page,
-.cash-cut-page,
-.expenses-page,
-.sales-page,
-.reports-page,
-.sucursales-page,
-.vendedores-page,
-.dashboard-page,
-.page {
-  background: var(--ms-bg) !important;
-  color: var(--ms-text) !important;
-}
-
-/* ===== ENCABEZADOS ===== */
-
-.topbar,
-.inventory-header,
-.page-header,
-.page-heading {
-  background: var(--ms-white) !important;
-  border-color: var(--ms-border) !important;
-}
-
-.topbar h1,
-.inventory-header h1,
-.page-header h1,
-.page-heading h1 {
-  color: var(--ms-text) !important;
-}
-
-.topbar span,
-.inventory-header p,
-.page-header p,
-.page-heading p {
-  color: var(--ms-muted) !important;
-}
-
-/* ===== TÍTULOS ===== */
-
-.section-heading h2,
-.section-heading h3,
-.section-title,
-.inventory-section-title {
-  color: var(--ms-text) !important;
-}
-
-.section-heading p {
-  color: var(--ms-muted) !important;
-}
-
-/* ===== TARJETAS ===== */
-
-.module-card,
-.stat-card,
-.inventory-list-card,
-.inventory-form-card,
-.inventory-entry-card,
-.inventory-variants-section,
-.inventory-form,
-.inventory-section,
-.sale-history-card,
-.sale-detail-card,
-.sale-detail-summary,
-.sale-cart,
-.sale-total,
-.panel,
-.product-card,
-.product-row,
-.form-card,
-.empty-state {
-  background: var(--ms-white) !important;
-  border-color: var(--ms-border) !important;
-  border-radius: var(--ms-radius) !important;
-  box-shadow: var(--ms-shadow) !important;
-}
-
-/* ===== DASHBOARD ===== */
-
-.dashboard-content {
-  background: transparent !important;
-}
-
-.date-card {
-  background: var(--ms-white) !important;
-  border-color: var(--ms-border) !important;
-  border-radius: 20px !important;
-  box-shadow: var(--ms-shadow) !important;
-}
-
-.dashboard-stats,
-.stats-grid,
-.module-grid {
-  gap: 12px !important;
-}
-
-.dashboard-stats .stat-card,
-.stats-grid .stat-card {
-  min-height: 104px !important;
-  background: var(--ms-white) !important;
-  border: 1px solid var(--ms-border) !important;
-  border-radius: 18px !important;
-  box-shadow: var(--ms-shadow) !important;
-}
-
-.stat-card small {
-  color: var(--ms-muted) !important;
-}
-
-.stat-card strong {
-  color: var(--ms-text) !important;
-}
-
-.module-card {
-  border: 1px solid var(--ms-border) !important;
-  border-left: 5px solid #ff4dac !important;
-  border-radius: 18px !important;
-  box-shadow: var(--ms-shadow) !important;
-  background: var(--ms-white) !important;
-}
-
-.module-card:hover,
-.module-card:active {
-  background: #fffafd !important;
-  border-left-color: var(--ms-primary) !important;
-}
-
-/* ===== ICONOS ===== */
-
-.module-icon,
-.stat-icon {
-  background: var(--primary-soft, #fff0f7) !important;
-  border-radius: 14px !important;
-}
-
-/* ===== BOTONES PRINCIPALES ===== */
-
-.primary-button,
-.inventory-new-button,
-.inventory-entry-button,
-.inventory-history-button,
-.sale-button,
-.form-button,
-.login-button {
-  background: var(--ms-primary) !important;
-  color: #ffffff !important;
-  border-color: var(--ms-primary) !important;
-  border-radius: 12px !important;
-  font-weight: 700 !important;
-  box-shadow: 0 5px 14px rgba(230, 0, 140, .20) !important;
-}
-
-.primary-button:hover,
-.inventory-new-button:hover,
-.inventory-entry-button:hover,
-.inventory-history-button:hover,
-.sale-button:hover,
-.form-button:hover,
-.login-button:hover {
-  background: var(--ms-primary-dark) !important;
-}
-
-/* ===== BOTONES SECUNDARIOS ===== */
-
-.secondary-button,
-.inventory-cancel,
-.back-button {
-  background: var(--ms-white) !important;
-  color: var(--ms-primary) !important;
-  border-color: var(--ms-border) !important;
-  border-radius: 12px !important;
-  font-weight: 700 !important;
-}
-
-/* ===== FORMULARIOS ===== */
-
-input,
-select,
-textarea,
-.inventory-fields input,
-.inventory-fields select,
-.inventory-fields textarea,
-.inventory-filters input,
-.inventory-filters select,
-.form-grid input,
-.form-grid select,
-.form-grid textarea {
-  background: var(--ms-white) !important;
-  color: var(--ms-text) !important;
-  border-color: var(--ms-border) !important;
-  border-radius: 11px !important;
-}
-
-input:focus,
-select:focus,
-textarea:focus {
-  outline: none !important;
-  border-color: var(--ms-primary) !important;
-  box-shadow: 0 0 0 3px rgba(230, 0, 140, .10) !important;
-}
-
-/* ===== FILTROS ===== */
-
-.inventory-filters {
-  background: var(--ms-white) !important;
-  border-color: var(--ms-border) !important;
-  border-radius: 14px !important;
-}
-
-/* ===== INVENTARIO ===== */
-
-.variant-card,
-.variant-list {
-  background: #fffafd !important;
-  border-color: var(--ms-border) !important;
-}
-
-.inventory-simple-stock,
-.inventory-product-stock {
-  color: var(--ms-primary) !important;
-  font-weight: 800 !important;
-}
-
-/* ===== VENTAS ===== */
-
-.sale-product-result,
-.sale-product-card,
-.sale-variant-card,
-.sale-cart,
-.sale-detail {
-  border-color: var(--ms-border) !important;
-}
-
-.sale-choice-group button,
-.sale-choice-grid button {
-  background: var(--ms-white) !important;
-  color: var(--ms-text) !important;
-  border-color: var(--ms-border) !important;
-  border-radius: 11px !important;
-}
-
-.sale-choice-group button.active,
-.sale-choice-grid button.active,
-.sale-choice-group button.selected,
-.sale-choice-grid button.selected {
-  background: var(--ms-primary-soft) !important;
-  color: var(--ms-primary-dark) !important;
-  border-color: var(--ms-primary) !important;
-}
-
-/* ===== MENSAJES ===== */
-
-.inventory-success,
-.success-message {
-  background: #edf8f1 !important;
-  color: var(--ms-success) !important;
-  border-color: #c9e8d5 !important;
-  border-radius: 11px !important;
-}
-
-.inventory-error,
-.error-message {
-  background: #fff0f3 !important;
-  color: var(--ms-danger) !important;
-  border-color: #f0cbd4 !important;
-  border-radius: 11px !important;
-}
-
-/* ===== LOGIN ===== */
-
-.login-page {
-  background:
-    radial-gradient(circle at top right, #f8ddea 0, transparent 34%),
-    linear-gradient(180deg, #fff7fb 0%, #ffffff 100%) !important;
-}
-
-.login-card {
-  background: var(--ms-white) !important;
-  border-color: var(--ms-border) !important;
-  border-radius: 24px !important;
-  box-shadow: 0 14px 35px rgba(230, 0, 140, .12) !important;
-}
-
-/* ===== MÓVIL ===== */
-
-@media (max-width: 600px) {
-  .dashboard-content {
-    padding-left: 16px !important;
-    padding-right: 16px !important;
-  }
-
-  .inventory-page,
-  .cash-page,
-  .cash-cut-page,
-  .expenses-page,
-  .sales-page,
-  .reports-page,
-  .sucursales-page,
-  .vendedores-page {
-    padding-bottom: 24px !important;
-  }
-
-  .module-card,
-  .stat-card,
-  .inventory-list-card,
-  .inventory-form-card,
-  .inventory-entry-card,
-  .panel,
-  .sale-cart,
-  .sale-history-card {
-    border-radius: 16px !important;
-  }
-
-  .primary-button,
-  .secondary-button,
-  .inventory-new-button,
-  .inventory-entry-button,
-  .inventory-history-button,
-  .sale-button,
-  .form-button {
-    min-height: 42px !important;
-  }
-}
-
-/* =========================================================
-   FIN TEMA MAESTRO
-   ========================================================= */
-
-/* =========================================================
-   MODAS SOPHIE — INVENTARIO
-   DISEÑO UNIFICADO PARA MÓVIL
-   ========================================================= */
-
-.inventory-page {
-  background: #fff7fb !important;
-  color: #30232b !important;
-  min-height: 100%;
-  box-sizing: border-box;
-}
-
-.inventory-page *,
-.inventory-page *::before,
-.inventory-page *::after {
-  box-sizing: border-box;
-}
-
-.inventory-header {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: space-between !important;
-  gap: 12px !important;
-  margin-bottom: 18px !important;
-}
-
-.inventory-header h1,
-.inventory-header h2,
-.inventory-header h3 {
-  color: #30232b !important;
-  margin: 0 !important;
-}
-
-.inventory-back {
-  color: #e6008c !important;
-  font-weight: 700 !important;
-  border: 0 !important;
-  background: transparent !important;
-}
-
-.inventory-new-button,
-.inventory-entry-button,
-.inventory-save,
-.inventory-history-button,
-.product-edit-button-final,
-.inventory-form-actions button {
-  min-height: 42px !important;
-  border-radius: 12px !important;
-  font-weight: 700 !important;
-  font-size: 14px !important;
-  border: 1px solid transparent !important;
-  cursor: pointer !important;
-}
-
-.inventory-new-button,
-.inventory-entry-button,
-.inventory-save,
-.inventory-history-button,
-.product-edit-button-final {
-  background: #e6008c !important;
-  color: #ffffff !important;
-  border-color: #e6008c !important;
-  box-shadow: 0 4px 12px rgba(230, 0, 140, .16) !important;
-}
-
-.inventory-new-button:hover,
-.inventory-entry-button:hover,
-.inventory-save:hover,
-.inventory-history-button:hover,
-.product-edit-button-final:hover {
-  background: #c40078 !important;
-}
-
-.inventory-section-title {
-  color: #e6008c !important;
-  font-weight: 800 !important;
-  margin-bottom: 10px !important;
-}
-
-.inventory-form-card,
-.inventory-entry-card,
-.inventory-list-card,
-.inventory-history-preview,
-.inventory-product-detail,
-.variant-card,
-.product-row {
-  background: #ffffff !important;
-  border: 1px solid #ead9e2 !important;
-  border-radius: 18px !important;
-  box-shadow: 0 5px 18px rgba(230, 0, 140, .08) !important;
-}
-
-.inventory-form-card,
-.inventory-entry-card,
-.inventory-list-card {
-  padding: 16px !important;
-}
-
-.inventory-fields,
-.inventory-filters,
-.variant-fields {
-  gap: 10px !important;
-}
-
-.inventory-fields input,
-.inventory-fields select,
-.inventory-filters input,
-.inventory-filters select,
-.variant-fields input,
-.variant-fields select {
-  min-height: 42px !important;
-  border: 1px solid #dfc9d5 !important;
-  border-radius: 11px !important;
-  background: #ffffff !important;
-  color: #30232b !important;
-  padding: 9px 12px !important;
-}
-
-.inventory-fields input:focus,
-.inventory-fields select:focus,
-.inventory-filters input:focus,
-.inventory-filters select:focus,
-.variant-fields input:focus,
-.variant-fields select:focus {
-  outline: none !important;
-  border-color: #ff4dac !important;
-  box-shadow: 0 0 0 3px rgba(255, 77, 172, .10) !important;
-}
-
-.inventory-simple-stock {
-  background: #fff1f7 !important;
-  border: 1px solid #edcfdd !important;
-  border-radius: 12px !important;
-}
-
-.inventory-success {
-  background: #f1fbf5 !important;
-  color: #287047 !important;
-  border: 1px solid #cce9d7 !important;
-  border-radius: 12px !important;
-  padding: 11px 13px !important;
-}
-
-.inventory-error {
-  background: #fff1f3 !important;
-  color: #a43f52 !important;
-  border: 1px solid #efcbd2 !important;
-  border-radius: 12px !important;
-  padding: 11px 13px !important;
-}
-
-.inventory-list-card {
-  overflow: hidden !important;
-}
-
-.product-row {
-  transition: transform .15s ease, box-shadow .15s ease !important;
-}
-
-.product-row:hover {
-  transform: translateY(-1px) !important;
-  box-shadow: 0 8px 22px rgba(230, 0, 140, .12) !important;
-}
-
-.product-icon {
-  background: #fff0f6 !important;
-  border-radius: 13px !important;
-}
-
-.product-main {
-  color: #30232b !important;
-}
-
-.product-main strong,
-.product-main h3,
-.product-main h4 {
-  color: #30232b !important;
-}
-
-.product-price {
-  color: #e6008c !important;
-  font-weight: 800 !important;
-}
-
-.product-actions {
-  gap: 8px !important;
-}
-
-.inventory-variants-section {
-  background: #fff9fc !important;
-  border: 1px solid #ead9e2 !important;
-  border-radius: 16px !important;
-  padding: 14px !important;
-}
-
-.variant-list {
-  gap: 10px !important;
-}
-
-.variant-card {
-  padding: 13px !important;
-}
-
-.variant-card-header {
-  color: #e6008c !important;
-  font-weight: 800 !important;
-}
-
-.variant-heading {
-  color: #30232b !important;
-  font-weight: 700 !important;
-}
-
-.variant-remove {
-  color: #a43f52 !important;
-  background: #fff1f3 !important;
-  border: 1px solid #efcbd2 !important;
-  border-radius: 10px !important;
-}
-
-.variant-add {
-  color: #e6008c !important;
-  background: #fff1f7 !important;
-  border: 1px solid #e5bfd0 !important;
-  border-radius: 10px !important;
-  font-weight: 700 !important;
-}
-
-.inventory-form-actions {
-  gap: 10px !important;
-  margin-top: 14px !important;
-}
-
-.inventory-form-actions button:not(.inventory-save) {
-  background: #ffffff !important;
-  color: #e6008c !important;
-  border-color: #dcb9ca !important;
-}
-
-.inventory-cancel {
-  background: #ffffff !important;
-  color: #e6008c !important;
-  border: 1px solid #dcb9ca !important;
-  border-radius: 12px !important;
-  min-height: 42px !important;
-  font-weight: 700 !important;
-}
-
-.inventory-empty {
-  background: #ffffff !important;
-  border: 1px dashed #dcb9ca !important;
-  border-radius: 16px !important;
-  color: #8a747e !important;
-  padding: 24px 16px !important;
-}
-
-@media (max-width: 600px) {
-  .inventory-page {
-    padding: 14px 12px 28px !important;
-  }
-
-  .inventory-header {
-    margin-bottom: 14px !important;
-  }
-
-  .inventory-header h1,
-  .inventory-header h2 {
-    font-size: 25px !important;
-  }
-
-  .inventory-new-button,
-  .inventory-entry-button {
-    min-height: 40px !important;
-    padding: 9px 13px !important;
-    font-size: 13px !important;
-  }
-
-  .inventory-form-card,
-  .inventory-entry-card,
-  .inventory-list-card {
-    padding: 13px !important;
-    border-radius: 16px !important;
-  }
-
-  .inventory-fields,
-  .inventory-filters,
-  .variant-fields {
-    gap: 8px !important;
-  }
-
-  .product-row {
-    border-radius: 15px !important;
-    padding: 12px !important;
-  }
-
-  .product-actions {
-    flex-wrap: wrap !important;
-  }
-
-  .inventory-variants-section {
-    padding: 11px !important;
-    border-radius: 14px !important;
-  }
-
-  .variant-card {
-    padding: 11px !important;
-    border-radius: 14px !important;
-  }
-}
-
-
-
-/* =========================================================
-   SISTEMA GLOBAL UNIFICADO — MODAS SOPHIE
-   Fuente única de tokens y acabados compartidos.
-   Se carga después de los estilos de las pantallas.
+   MODAS SOPHIE — TEMA GLOBAL UNIFICADO
+   Cargar después de index.css y App.css.
+   Solo presentación: no modifica la lógica de la aplicación.
    ========================================================= */
 
 :root {
   color-scheme: light;
+
+  /* Marca */
   --ms-primary: #E91587;
   --ms-primary-hover: #CF0D72;
   --ms-primary-dark: #8F3D63;
   --ms-primary-soft: #FCE7F2;
+
+  /* Superficies y texto */
   --ms-bg: #F8F5F7;
   --ms-surface: #FFFFFF;
   --ms-surface-soft: #FBF8FA;
   --ms-text: #302630;
   --ms-muted: #817580;
   --ms-border: #E9DFE5;
+
+  /* Estados */
   --ms-success: #287A55;
   --ms-success-soft: #E8F5EE;
   --ms-danger: #B83F58;
   --ms-danger-soft: #FCECEF;
   --ms-warning: #94651A;
   --ms-warning-soft: #FFF4DB;
+
+  /* Acabados */
   --ms-radius-sm: 10px;
   --ms-radius-md: 14px;
   --ms-radius-lg: 18px;
@@ -708,9 +38,16 @@ textarea:focus {
   --ms-shadow: 0 6px 22px rgba(48, 38, 48, .06);
   --ms-shadow-hover: 0 10px 28px rgba(48, 38, 48, .09);
   --ms-focus-ring: 0 0 0 3px rgba(233, 21, 135, .14);
+
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
 }
 
 html {
@@ -719,6 +56,7 @@ html {
 }
 
 body {
+  margin: 0 !important;
   background: var(--ms-bg) !important;
   color: var(--ms-text) !important;
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
@@ -726,7 +64,10 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-button, input, select, textarea {
+button,
+input,
+select,
+textarea {
   font: inherit;
 }
 
@@ -744,43 +85,58 @@ button {
   overflow-wrap: anywhere;
 }
 
-:where(input, select, textarea) {
-  color: var(--ms-text);
-  background-color: var(--ms-surface);
-  border-color: var(--ms-border);
-  border-radius: var(--ms-radius-sm);
-  transition: border-color .16s ease, box-shadow .16s ease;
+/* Fondos de páginas */
+:where(
+  .app-shell, .inventory-page, .cash-page, .cash-cut-page, .expenses-page,
+  .sales-page, .reports-page, .sucursales-page, .vendedores-page,
+  .dashboard-page, .page
+) {
+  background: var(--ms-bg) !important;
+  color: var(--ms-text) !important;
 }
 
-:where(input, select, textarea):focus {
-  outline: none;
-  border-color: var(--ms-primary) !important;
-  box-shadow: var(--ms-focus-ring) !important;
-}
-
-:where(button, [role="button"], a):focus-visible {
-  outline: 2px solid var(--ms-primary) !important;
-  outline-offset: 2px;
-}
-
-/* Surfaces and cards */
-:where(.module-card, .stat-card, .inventory-list-card, .inventory-form-card,
-.inventory-entry-card, .inventory-variants-section, .inventory-form,
-.inventory-section, .sale-history-card, .sale-detail-card, .sale-detail-summary,
-.sale-cart, .sale-total, .panel, .product-card, .product-row, .form-card,
-.empty-state, .date-card, .dashboard-card, .report-card, .cash-card,
-.expense-card, .seller-card, .branch-card, .login-card) {
+/* Encabezados */
+:where(.topbar, .inventory-header, .page-header, .page-heading) {
   border-color: var(--ms-border) !important;
+}
+
+:where(.topbar h1, .inventory-header h1, .inventory-header h2,
+.inventory-header h3, .page-header h1, .page-heading h1) {
+  color: var(--ms-text) !important;
+  font-weight: 750 !important;
+  letter-spacing: -.035em;
+}
+
+:where(.topbar span, .inventory-header p, .page-header p, .page-heading p) {
+  color: var(--ms-muted) !important;
+}
+
+:where(.section-heading h2, .section-heading h3, .section-title,
+.inventory-section-title) {
+  color: var(--ms-text) !important;
+  font-weight: 750 !important;
+}
+
+:where(.section-heading p) {
+  color: var(--ms-muted) !important;
+}
+
+/* Tarjetas y paneles: un único acabado compartido */
+:where(
+  .module-card, .stat-card, .inventory-list-card, .inventory-form-card,
+  .inventory-entry-card, .inventory-variants-section, .inventory-form,
+  .inventory-section, .sale-history-card, .sale-detail-card,
+  .sale-detail-summary, .sale-cart, .sale-total, .panel, .product-card,
+  .product-row, .form-card, .empty-state, .date-card, .dashboard-card,
+  .report-card, .cash-card, .expense-card, .seller-card, .branch-card,
+  .login-card, .inventory-history-preview, .inventory-product-detail,
+  .sale-product-result, .sale-product-card, .sale-variant-card
+) {
+  background: var(--ms-surface) !important;
+  color: var(--ms-text);
+  border: 1px solid var(--ms-border) !important;
   border-radius: var(--ms-radius-lg) !important;
   box-shadow: var(--ms-shadow) !important;
-}
-
-:where(.module-card, .stat-card, .inventory-list-card, .inventory-form-card,
-.inventory-entry-card, .sale-history-card, .sale-detail-card, .sale-detail-summary,
-.sale-cart, .sale-total, .panel, .product-card, .product-row, .form-card,
-.empty-state, .date-card, .dashboard-card, .report-card, .cash-card,
-.expense-card, .seller-card, .branch-card) {
-  background: var(--ms-surface) !important;
 }
 
 :where(.module-card, .product-card, .product-row, .stat-card, .report-card) {
@@ -793,25 +149,78 @@ button {
   }
 }
 
-/* Primary, secondary and destructive actions */
-:where(.primary-button, .inventory-new-button, .inventory-entry-button,
-.inventory-save, .login-button, .primary-action, .btn-primary) {
+.dashboard-content {
+  background: transparent !important;
+}
+
+:where(.dashboard-stats, .stats-grid, .module-grid) {
+  gap: 12px !important;
+}
+
+:where(.dashboard-stats .stat-card, .stats-grid .stat-card) {
+  min-height: 104px;
+}
+
+:where(.stat-card small) {
+  color: var(--ms-muted) !important;
+}
+
+:where(.stat-card strong) {
+  color: var(--ms-text) !important;
+}
+
+.module-card {
+  border-left: 4px solid var(--ms-primary-soft) !important;
+}
+
+.module-card:hover,
+.module-card:active {
+  background: #FFFAFD !important;
+  border-left-color: var(--ms-primary) !important;
+}
+
+/* Iconos, precios y acentos de marca */
+:where(.module-icon, .stat-icon, .product-icon) {
+  background: var(--ms-primary-soft) !important;
+  color: var(--ms-primary-dark) !important;
+  border-radius: var(--ms-radius-md) !important;
+}
+
+:where(.product-price, .variant-card-header, .section-link, .text-primary,
+.inventory-simple-stock, .inventory-product-stock, .inventory-back) {
+  color: var(--ms-primary) !important;
+}
+
+:where(.product-price, .inventory-simple-stock, .inventory-product-stock) {
+  font-weight: 800 !important;
+}
+
+/* Botones principales */
+:where(
+  .primary-button, .inventory-new-button, .inventory-entry-button,
+  .inventory-history-button, .inventory-save, .sale-button, .form-button,
+  .login-button, .primary-action, .btn-primary, .product-edit-button-final
+) {
   background: var(--ms-primary) !important;
   color: #FFFFFF !important;
-  border-color: var(--ms-primary) !important;
+  border: 1px solid var(--ms-primary) !important;
   border-radius: var(--ms-radius-md) !important;
   font-weight: 700 !important;
   box-shadow: 0 4px 12px rgba(233, 21, 135, .16) !important;
+  cursor: pointer;
 }
 
-:where(.primary-button, .inventory-new-button, .inventory-entry-button,
-.inventory-save, .login-button, .primary-action, .btn-primary):hover:not(:disabled) {
+:where(
+  .primary-button, .inventory-new-button, .inventory-entry-button,
+  .inventory-history-button, .inventory-save, .sale-button, .form-button,
+  .login-button, .primary-action, .btn-primary, .product-edit-button-final
+):hover:not(:disabled) {
   background: var(--ms-primary-hover) !important;
   border-color: var(--ms-primary-hover) !important;
   box-shadow: 0 6px 16px rgba(233, 21, 135, .22) !important;
 }
 
-:where(.secondary-button, .inventory-cancel, .btn-secondary) {
+:where(.secondary-button, .inventory-cancel, .back-button, .btn-secondary) {
   background: var(--ms-surface) !important;
   color: var(--ms-primary-dark) !important;
   border: 1px solid var(--ms-border) !important;
@@ -819,41 +228,158 @@ button {
   font-weight: 650 !important;
 }
 
-:where(.danger-button, .delete-button, .btn-danger) {
+:where(.danger-button, .delete-button, .btn-danger, .variant-remove) {
   color: var(--ms-danger) !important;
   background: var(--ms-danger-soft) !important;
-  border-color: #F0CDD5 !important;
+  border: 1px solid #F0CDD5 !important;
   border-radius: var(--ms-radius-md) !important;
 }
 
-/* Headers and navigation */
-:where(.topbar, .inventory-header, .page-header, .page-heading) {
+/* Formularios y filtros */
+:where(input, select, textarea) {
+  color: var(--ms-text) !important;
+  background-color: var(--ms-surface) !important;
+  border: 1px solid var(--ms-border);
+  border-radius: var(--ms-radius-sm) !important;
+  transition: border-color .16s ease, box-shadow .16s ease;
+}
+
+:where(input, select, textarea):focus {
+  outline: none !important;
+  border-color: var(--ms-primary) !important;
+  box-shadow: var(--ms-focus-ring) !important;
+}
+
+:where(.inventory-fields, .inventory-filters, .variant-fields) {
+  gap: 10px !important;
+}
+
+:where(.inventory-fields input, .inventory-fields select,
+.inventory-fields textarea, .inventory-filters input, .inventory-filters select,
+.variant-fields input, .variant-fields select, .form-grid input,
+.form-grid select, .form-grid textarea) {
+  min-height: 42px;
+  padding: 9px 12px;
+}
+
+.inventory-filters {
+  background: var(--ms-surface) !important;
+  border: 1px solid var(--ms-border) !important;
+  border-radius: var(--ms-radius-md) !important;
+}
+
+/* Inventario y variantes */
+:where(.variant-card, .variant-list) {
+  background: var(--ms-surface-soft) !important;
   border-color: var(--ms-border) !important;
 }
 
-:where(.topbar h1, .inventory-header h1, .page-header h1, .page-heading h1) {
-  color: var(--ms-text) !important;
-  font-weight: 750 !important;
-  letter-spacing: -.035em;
-}
-
-:where(.topbar span, .inventory-header p, .page-header p, .page-heading p) {
-  color: var(--ms-muted) !important;
-}
-
-/* Brand-colored icons, links and price emphasis */
-:where(.product-price, .variant-card-header, .section-link, .text-primary) {
-  color: var(--ms-primary) !important;
-}
-
-:where(.module-icon, .stat-icon, .product-icon) {
+.inventory-simple-stock {
   background: var(--ms-primary-soft) !important;
-  color: var(--ms-primary-dark) !important;
+  border: 1px solid #F0C8DE !important;
   border-radius: var(--ms-radius-md) !important;
 }
 
-/* Tables and data lists */
-:where(table) {
+.variant-card {
+  padding: 13px !important;
+}
+
+.variant-heading {
+  color: var(--ms-text) !important;
+  font-weight: 700 !important;
+}
+
+.variant-add {
+  color: var(--ms-primary-dark) !important;
+  background: var(--ms-primary-soft) !important;
+  border: 1px solid #EFC7DC !important;
+  border-radius: var(--ms-radius-sm) !important;
+  font-weight: 700 !important;
+}
+
+.inventory-empty {
+  background: var(--ms-surface) !important;
+  border: 1px dashed #DDBFD0 !important;
+  border-radius: var(--ms-radius-lg) !important;
+  color: var(--ms-muted) !important;
+  padding: 24px 16px !important;
+}
+
+:where(.product-row) {
+  transition: transform .15s ease, box-shadow .15s ease !important;
+}
+
+.product-main,
+.product-main strong,
+.product-main h3,
+.product-main h4 {
+  color: var(--ms-text) !important;
+}
+
+.product-actions {
+  gap: 8px !important;
+}
+
+/* Ventas: opciones seleccionadas */
+:where(.sale-choice-group button, .sale-choice-grid button) {
+  background: var(--ms-surface) !important;
+  color: var(--ms-text) !important;
+  border: 1px solid var(--ms-border) !important;
+  border-radius: var(--ms-radius-sm) !important;
+}
+
+:where(
+  .sale-choice-group button.active, .sale-choice-grid button.active,
+  .sale-choice-group button.selected, .sale-choice-grid button.selected
+) {
+  background: var(--ms-primary-soft) !important;
+  color: var(--ms-primary-dark) !important;
+  border-color: var(--ms-primary) !important;
+}
+
+/* Mensajes de estado */
+:where(.inventory-success, .success-message) {
+  background: var(--ms-success-soft) !important;
+  color: var(--ms-success) !important;
+  border: 1px solid #C9E5D5 !important;
+  border-radius: var(--ms-radius-sm) !important;
+}
+
+:where(.inventory-error, .error-message) {
+  background: var(--ms-danger-soft) !important;
+  color: var(--ms-danger) !important;
+  border: 1px solid #F0CDD5 !important;
+  border-radius: var(--ms-radius-sm) !important;
+}
+
+:where(.inventory-success, .inventory-error) {
+  padding: 11px 13px !important;
+}
+
+/* Acceso */
+.login-page {
+  background:
+    radial-gradient(circle at top right, #F8DDEA 0, transparent 34%),
+    linear-gradient(180deg, var(--ms-bg) 0%, #FFFFFF 100%) !important;
+}
+
+.login-card {
+  border-radius: var(--ms-radius-xl) !important;
+  box-shadow: 0 14px 35px rgba(143, 61, 99, .12) !important;
+}
+
+/* Accesibilidad */
+:where(button, [role="button"], a):focus-visible {
+  outline: 2px solid var(--ms-primary) !important;
+  outline-offset: 2px;
+}
+
+::selection {
+  color: #FFFFFF;
+  background: var(--ms-primary);
+}
+
+:where(table, td, th) {
   border-color: var(--ms-border);
 }
 
@@ -862,17 +388,75 @@ button {
   font-weight: 700;
 }
 
-:where(td, th) {
-  border-color: var(--ms-border);
-}
+/* Ajustes para móvil */
+@media (max-width: 600px) {
+  .dashboard-content {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
 
-::selection {
-  color: #FFFFFF;
-  background: var(--ms-primary);
+  :where(
+    .inventory-page, .cash-page, .cash-cut-page, .expenses-page,
+    .sales-page, .reports-page, .sucursales-page, .vendedores-page
+  ) {
+    padding-bottom: 24px !important;
+  }
+
+  .inventory-page {
+    padding: 14px 12px 28px !important;
+  }
+
+  .inventory-header {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 12px !important;
+    margin-bottom: 14px !important;
+  }
+
+  :where(.module-card, .stat-card, .inventory-list-card,
+  .inventory-form-card, .inventory-entry-card, .panel, .sale-cart,
+  .sale-history-card, .product-row) {
+    border-radius: var(--ms-radius-md) !important;
+  }
+
+  :where(
+    .primary-button, .secondary-button, .inventory-new-button,
+    .inventory-entry-button, .inventory-history-button, .sale-button,
+    .form-button, .inventory-save, .login-button
+  ) {
+    min-height: 42px !important;
+  }
+
+  :where(.inventory-form-card, .inventory-entry-card, .inventory-list-card) {
+    padding: 13px !important;
+  }
+
+  :where(.inventory-fields, .inventory-filters, .variant-fields) {
+    gap: 8px !important;
+  }
+
+  .product-row {
+    padding: 12px !important;
+  }
+
+  .product-actions {
+    flex-wrap: wrap !important;
+  }
+
+  .inventory-variants-section {
+    padding: 11px !important;
+  }
+
+  .variant-card {
+    padding: 11px !important;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     scroll-behavior: auto !important;
     transition-duration: .01ms !important;
     animation-duration: .01ms !important;
