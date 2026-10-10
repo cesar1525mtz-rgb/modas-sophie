@@ -546,6 +546,8 @@ body {
 
 .sale-payment-buttons button.selected,
 .sale-payment-buttons button[aria-pressed="true"] {
+}  
+
 /* Pantallas pequeñas */
 @media (max-width: 520px) {
   .sale-choice-grid {
