@@ -773,3 +773,403 @@ body,
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ==========================================
+   MODAS SOPHIE POS - AJUSTE VISUAL GLOBAL
+   Mantener funciones y comportamiento actual
+   ========================================== */
+
+:root {
+  --sophie-pink: #d94f87;
+  --sophie-pink-dark: #b9366b;
+  --sophie-pink-soft: #fff0f6;
+  --sophie-bg: #fff8fb;
+  --sophie-card: #ffffff;
+  --sophie-text: #392b34;
+  --sophie-muted: #81717b;
+  --sophie-border: #f0d8e3;
+  --sophie-shadow: 0 4px 16px rgba(150, 65, 105, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--sophie-bg) !important;
+  color: var(--sophie-text);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* Contenedor principal y márgenes */
+.app-shell {
+  width: 100% !important;
+  min-height: 100vh;
+  margin: 0 auto !important;
+  background: var(--sophie-bg) !important;
+}
+
+.dashboard-content,
+.inventory-page,
+.cash-page,
+.cash-cut-page,
+.expenses-page,
+.sales-page,
+.reports-page,
+.sucursales-page,
+.vendedores-page,
+.page {
+  width: 100% !important;
+  max-width: 1200px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding: 22px 20px 36px !important;
+  color: var(--sophie-text);
+}
+
+/* Encabezado */
+.topbar {
+  width: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 14px 20px !important;
+  background: #ffffff !important;
+  border-bottom: 1px solid var(--sophie-border) !important;
+  box-shadow: 0 2px 10px rgba(150, 65, 105, 0.05);
+}
+
+.topbar h1,
+.topbar h2 {
+  color: var(--sophie-pink-dark);
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+/* Títulos y secciones */
+.dashboard-content h1,
+.dashboard-content h2,
+.dashboard-content h3,
+.inventory-page h1,
+.inventory-page h2,
+.cash-page h1,
+.sales-page h1,
+.reports-page h1 {
+  color: var(--sophie-text);
+  overflow-wrap: anywhere;
+}
+
+.welcome,
+.quick-section,
+.section-heading {
+  margin-bottom: 22px !important;
+}
+
+.welcome {
+  padding: 8px 0 !important;
+}
+
+.section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* Distribución de tarjetas */
+.stats-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 14px !important;
+  width: 100% !important;
+  margin: 18px 0 28px !important;
+}
+
+.module-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 14px !important;
+  width: 100% !important;
+}
+
+.stat-card,
+.date-card {
+  min-width: 0;
+  padding: 18px !important;
+  background: var(--sophie-card) !important;
+  color: var(--sophie-text) !important;
+  border: 1px solid var(--sophie-border) !important;
+  border-radius: 16px !important;
+  box-shadow: var(--sophie-shadow) !important;
+  overflow-wrap: anywhere;
+}
+
+/* Tarjetas de los módulos */
+.module-card {
+  display: flex !important;
+  align-items: center !important;
+  gap: 13px !important;
+  width: 100% !important;
+  min-width: 0;
+  min-height: 88px;
+  padding: 16px !important;
+  background: #ffffff !important;
+  color: var(--sophie-text) !important;
+  text-align: left !important;
+  border: 1px solid var(--sophie-border) !important;
+  border-radius: 16px !important;
+  box-shadow: var(--sophie-shadow) !important;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.module-card:hover,
+.module-card:focus-visible {
+  border-color: var(--sophie-pink) !important;
+  box-shadow: 0 5px 18px rgba(217, 79, 135, 0.14) !important;
+}
+
+.module-card.active,
+.module-card.selected {
+  background: var(--sophie-pink-soft) !important;
+  border-color: var(--sophie-pink) !important;
+}
+
+.module-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 46px;
+  height: 46px;
+  border-radius: 13px !important;
+  background: var(--sophie-pink-soft) !important;
+  color: var(--sophie-pink-dark) !important;
+}
+
+.module-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.module-info strong {
+  display: block;
+  color: var(--sophie-text) !important;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.module-info small {
+  display: block;
+  margin-top: 5px;
+  color: var(--sophie-muted) !important;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.module-arrow {
+  flex-shrink: 0;
+  color: var(--sophie-pink) !important;
+}
+
+/* Botones principales */
+.primary-button,
+.submit-button,
+.login-button,
+.inventory-save,
+.inventory-new-button,
+.sales-detail-button,
+.cash-open-button,
+.inventory-entry-button {
+  min-height: 42px;
+  padding: 10px 17px !important;
+  background: var(--sophie-pink) !important;
+  color: #ffffff !important;
+  border: 1px solid var(--sophie-pink) !important;
+  border-radius: 11px !important;
+  font-weight: 700 !important;
+  box-shadow: 0 3px 9px rgba(217, 79, 135, 0.15);
+}
+
+.primary-button:hover,
+.submit-button:hover,
+.login-button:hover,
+.inventory-save:hover,
+.inventory-new-button:hover,
+.sales-detail-button:hover,
+.cash-open-button:hover,
+.inventory-entry-button:hover {
+  background: var(--sophie-pink-dark) !important;
+  border-color: var(--sophie-pink-dark) !important;
+}
+
+.secondary-button,
+.back-button,
+.inventory-cancel,
+.inventory-history-button {
+  min-height: 40px;
+  padding: 9px 15px !important;
+  background: #ffffff !important;
+  color: var(--sophie-pink-dark) !important;
+  border: 1px solid var(--sophie-border) !important;
+  border-radius: 11px !important;
+  font-weight: 600;
+}
+
+.danger-button,
+.cash-close-button {
+  min-height: 40px;
+  padding: 9px 15px !important;
+  background: #fff0f0 !important;
+  color: #b42336 !important;
+  border: 1px solid #f0c7cd !important;
+  border-radius: 11px !important;
+}
+
+.user-button {
+  padding: 9px 13px !important;
+  background: #ffffff !important;
+  color: var(--sophie-pink-dark) !important;
+  border: 1px solid var(--sophie-border) !important;
+  border-radius: 11px !important;
+}
+
+/* Campos de captura */
+input:not([type="checkbox"]):not([type="radio"]):not([type="hidden"]),
+select,
+textarea {
+  max-width: 100%;
+  min-height: 42px;
+  padding: 10px 12px !important;
+  color: var(--sophie-text) !important;
+  background: #ffffff !important;
+  border: 1px solid #e6ced9 !important;
+  border-radius: 10px !important;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid rgba(217, 79, 135, 0.18) !important;
+  border-color: var(--sophie-pink) !important;
+}
+
+label {
+  color: var(--sophie-text);
+  font-weight: 600;
+}
+
+/* Tablas y contenedores */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  background: var(--sophie-pink-soft) !important;
+  color: var(--sophie-pink-dark) !important;
+}
+
+th,
+td {
+  padding: 11px 12px;
+  border-bottom: 1px solid var(--sophie-border);
+  text-align: left;
+  overflow-wrap: anywhere;
+}
+
+tr:hover td {
+  background-color: #fffafd;
+}
+
+/* Imágenes y contenido adaptable */
+img,
+svg {
+  max-width: 100%;
+}
+
+@media (max-width: 600px) {
+  .dashboard-content,
+  .inventory-page,
+  .cash-page,
+  .cash-cut-page,
+  .expenses-page,
+  .sales-page,
+  .reports-page,
+  .sucursales-page,
+  .vendedores-page,
+  .page {
+    padding: 16px 14px 28px !important;
+  }
+
+  .topbar {
+    padding: 12px 14px !important;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+  }
+
+  .module-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 11px !important;
+  }
+
+  .stat-card,
+  .date-card {
+    padding: 13px !important;
+    border-radius: 13px !important;
+  }
+
+  .module-card {
+    min-height: 78px;
+    padding: 13px !important;
+    border-radius: 13px !important;
+  }
+
+  .module-icon {
+    width: 42px;
+    height: 42px;
+  }
+
+  .section-heading {
+    align-items: flex-start;
+  }
+
+  table {
+    font-size: 13px;
+  }
+
+  th,
+  td {
+    padding: 9px 8px;
+  }
+}
+
+@media (max-width: 360px) {
+  .stats-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+}
