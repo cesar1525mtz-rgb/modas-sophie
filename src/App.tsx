@@ -273,6 +273,48 @@ function Login({ onLogin }: { onLogin: (user: AppUser) => void }) {
 
 }
 
+function MobileBottomNav({
+  selected,
+  setSelected,
+  user,
+  setMessage,
+}: {
+  selected: string
+  setSelected: (value: string) => void
+  user: AppUser
+  setMessage: (value: string) => void
+}) {
+  const items = [
+    { key: 'inicio', label: 'Inicio', icon: '⌂' },
+    { key: 'caja', label: 'Caja', icon: '▣' },
+    { key: 'ventas', label: 'Ventas', icon: '🧾' },
+    { key: 'inventario', label: 'Inventario', icon: '▦' },
+    ...(user.role === 'admin'
+      ? [{ key: 'reportes', label: 'Reportes', icon: '▥' }]
+      : []),
+  ]
+
+  return (
+    <nav className="mobile-bottom-nav" aria-label="Navegación principal">
+      {items.map((item) => (
+        <button
+          key={item.key}
+          type="button"
+          className={`mobile-nav-item ${selected === item.key ? 'is-active' : ''}`}
+          onClick={() => {
+            setSelected(item.key)
+            setMessage('')
+          }}
+          aria-current={selected === item.key ? 'page' : undefined}
+        >
+          <span className="mobile-nav-icon" aria-hidden="true">{item.icon}</span>
+          <span>{item.label}</span>
+        </button>
+      ))}
+    </nav>
+  )
+}
+
 function Dashboard({
   user,
   onLogout,
@@ -388,86 +430,113 @@ function Dashboard({
 
   if (selected === 'venta') {
     return (
-      <NewSale
-        userId={user.id}
-        userRole={user.role}
-        onBack={() => setSelected('inicio')}
-      />
+      <>
+        <NewSale
+                userId={user.id}
+                userRole={user.role}
+                onBack={() => setSelected('inicio')}
+              />
+        <MobileBottomNav selected={selected} setSelected={setSelected} user={user} setMessage={setMessage} />
+      </>
     )
   }
 
   if (selected === 'ventas') {
     return (
-      <Sales
-        userRole={user.role}
-        onBack={() => setSelected('inicio')}
-      />
+      <>
+        <Sales
+                userRole={user.role}
+                onBack={() => setSelected('inicio')}
+              />
+        <MobileBottomNav selected={selected} setSelected={setSelected} user={user} setMessage={setMessage} />
+      </>
     )
   }
 
   if (selected === 'corte') {
     return (
-      <CorteCaja
-        userRole={user.role}
-        onBack={() => setSelected('inicio')}
-      />
+      <>
+        <CorteCaja
+                userRole={user.role}
+                onBack={() => setSelected('inicio')}
+              />
+        <MobileBottomNav selected={selected} setSelected={setSelected} user={user} setMessage={setMessage} />
+      </>
     )
   }
 
   if (selected === 'caja') {
     return (
-      <Caja
-        userId={user.id}
-        userRole={user.role}
-        onBack={() => setSelected('inicio')}
-      />
+      <>
+        <Caja
+                userId={user.id}
+                userRole={user.role}
+                onBack={() => setSelected('inicio')}
+              />
+        <MobileBottomNav selected={selected} setSelected={setSelected} user={user} setMessage={setMessage} />
+      </>
     )
   }
 
   if (selected === 'gastos') {
     return (
-      <Expenses
-        userId={user.id}
-        userRole={user.role}
-        onBack={() => setSelected('inicio')}
-      />
+      <>
+        <Expenses
+                userId={user.id}
+                userRole={user.role}
+                onBack={() => setSelected('inicio')}
+              />
+        <MobileBottomNav selected={selected} setSelected={setSelected} user={user} setMessage={setMessage} />
+      </>
     )
   }
 
   if (selected === 'inventario') {
     return (
-      <Inventory
-        userId={user.id}
-        userRole={user.role}
-        onBack={() => setSelected('inicio')}
-      />
+      <>
+        <Inventory
+                userId={user.id}
+                userRole={user.role}
+                onBack={() => setSelected('inicio')}
+              />
+        <MobileBottomNav selected={selected} setSelected={setSelected} user={user} setMessage={setMessage} />
+      </>
     )
   }
 
   if (selected === 'vendedores') {
     return (
-      <Vendedores
-        userRole={user.role}
-        onBack={() => setSelected('inicio')}
-      />
+      <>
+        <Vendedores
+                userRole={user.role}
+                onBack={() => setSelected('inicio')}
+              />
+        <MobileBottomNav selected={selected} setSelected={setSelected} user={user} setMessage={setMessage} />
+      </>
     )
   }
 
   if (selected === 'sucursales') {
     return (
-      <Sucursales
-        userRole={user.role}
-        onBack={() => setSelected('inicio')}
-      />
+      <>
+        <Sucursales
+                userRole={user.role}
+                onBack={() => setSelected('inicio')}
+              />
+        <MobileBottomNav selected={selected} setSelected={setSelected} user={user} setMessage={setMessage} />
+      </>
     )
   }
 
   if (selected === 'reportes') {
     return (
-      <Reports
-        userRole={user.role}
-        onBack={() => setSelected('inicio')}
-      />
+      <>
+        <Reports
+                userRole={user.role}
+                onBack={() => setSelected('inicio')}
+              />
+        <MobileBottomNav selected={selected} setSelected={setSelected} user={user} setMessage={setMessage} />
+      </>
     )
   }
 
@@ -601,31 +670,7 @@ function Dashboard({
         {message && <div className="toast">{message}</div>}
       </section>
 
-      <nav className="mobile-bottom-nav" aria-label="Navegación principal">
-        {[
-          { key: 'inicio', label: 'Inicio', icon: '⌂' },
-          { key: 'caja', label: 'Caja', icon: '▣' },
-          { key: 'venta', label: 'Ventas', icon: '🛍' },
-          { key: 'inventario', label: 'Inventario', icon: '▦' },
-          ...(user.role === 'admin'
-            ? [{ key: 'reportes', label: 'Reportes', icon: '▥' }]
-            : []),
-        ].map((item) => (
-          <button
-            key={item.key}
-            type="button"
-            className={`mobile-nav-item ${selected === item.key || (item.key === 'inicio' && selected === 'inicio') ? 'is-active' : ''}`}
-            onClick={() => {
-              setSelected(item.key === 'inicio' ? 'inicio' : item.key)
-              setMessage('')
-            }}
-            aria-current={selected === item.key ? 'page' : undefined}
-          >
-            <span className="mobile-nav-icon" aria-hidden="true">{item.icon}</span>
-            <span>{item.label}</span>
-          </button>
-        ))}
-      </nav>
+      <MobileBottomNav selected={selected} setSelected={setSelected} user={user} setMessage={setMessage} />
     </main>
   )
 }
