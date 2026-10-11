@@ -1,0 +1,26 @@
+name: Validar aplicación
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - 'mejoras/**'
+
+jobs:
+  validar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar código
+        uses: actions/checkout@v4
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Instalar dependencias
+        run: npm ci
+      - name: Revisar tipos y compilar
+        run: npm run build
+      - name: Revisar lint
+        run: npm run lint
