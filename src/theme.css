@@ -264,3 +264,105 @@ hr { border: 0; border-top: 1px solid var(--ms-border); margin-block: 18px; }
   input:not([type=checkbox]):not([type=radio]):not([type=hidden]), select, textarea { width: 100%; }
   table { font-size: 13px; }
 }
+
+
+/* Componentes compartidos entre pantallas: los módulos solo aportan estructura. */
+.inventory-page, .caja-page, .cash-cut-page, .vendedores-page, .sucursales-page {
+  width: min(100%, 1180px); min-width: 0; margin-inline: auto;
+  padding: clamp(12px, 3vw, 28px) !important;
+  color: var(--ms-text);
+}
+.inventory-section, .inventory-list-card, .inventory-form-card,
+.inventory-card, .inventory-history-preview, .cash-card,
+.cash-message-card, .cash-action-card, .cash-shared-card, .cash-open-card,
+.cash-close-card, .cash-admin-note, .sale-history-card, .sale-detail-card,
+.sale-cart, .sale-variant-card, .panel, .product-card {
+  min-width: 0; padding: clamp(13px, 2.5vw, 20px);
+  border: 1px solid var(--ms-border); border-radius: 18px;
+  background: var(--ms-surface); box-shadow: var(--ms-shadow);
+  margin-block: 12px;
+}
+.inventory-header { flex-wrap: wrap; }
+.inventory-header > div { flex: 1 1 200px; min-width: 0; }
+.inventory-section-title, .section-title, .page-header h1 {
+  color: var(--ms-pink-dark); font-size: clamp(20px, 3.5vw, 28px); font-weight: 850;
+}
+.inventory-fields, .inventory-form-grid, .form-grid, .form-grid,
+.sales-filters, .sale-choice-grid, .sale-payment-buttons, .variant-fields {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px; align-items: end;
+}
+.inventory-fields > *, .inventory-form-grid > *, .form-grid > *,
+.sales-filters > *, .sale-choice-grid > *, .variant-fields > * { min-width: 0; }
+.inventory-form-actions, .product-actions, .cash-action-card, .sale-cart-controls {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 10px;
+}
+.inventory-new-button, .inventory-save, .primary-button, .sales-detail-button,
+.inventory-entry-button, .cash-action-button, .new-sale-register-button-final,
+.variant-add, .product-edit-button {
+  min-height: 42px; padding: 10px 15px !important;
+  border: 0 !important; border-radius: 12px !important;
+  color: #fff !important; background: linear-gradient(135deg,var(--ms-pink),var(--ms-violet)) !important;
+  font-weight: 750; box-shadow: 0 5px 14px rgba(190,24,121,.15);
+}
+.inventory-cancel, .back-button, .secondary-button, .inventory-history-button,
+.variant-remove, .inventory-back {
+  min-height: 40px; padding: 9px 13px !important; border: 1px solid var(--ms-border) !important;
+  border-radius: 12px !important; background: #fff !important; color: var(--ms-pink-dark) !important;
+}
+.inventory-error, .cash-error-message, .inventory-message.error, .form-message.error {
+  color: #a51d3d !important; background: #fff0f2 !important; border-color: #f4c9d3 !important;
+}
+.inventory-success, .cash-success-message, .inventory-message.success {
+  color: #126b4d !important; background: #e9fbf3 !important; border-color: #bdebd8 !important;
+}
+.product-list, .sales-list, .inventory-list, .variant-list, .sale-product-results {
+  display: grid; gap: 10px; min-width: 0;
+}
+.product-row, .product-card, .sale-product-result, .sale-cart-item,
+.sale-detail-item, .sale-history-main, .cash-summary-row {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; min-width: 0; padding: 13px;
+  border: 1px solid var(--ms-border); border-radius: 14px; background: #fff;
+}
+.product-main, .product-info, .sale-product-result-info, .sale-detail-product {
+  flex: 1; min-width: 0; overflow-wrap: anywhere;
+}
+.product-icon { display: grid; place-items: center; flex: 0 0 40px; width: 40px; height: 40px; border-radius: 13px; background: var(--ms-pink-soft); }
+.product-price, .product-stock, .sale-history-total, .sale-total { color: var(--ms-pink-dark); font-weight: 850; }
+.inventory-empty, .empty-state, .sale-product-empty {
+  padding: 22px; border: 1px dashed #e8bfd6; border-radius: 16px;
+  text-align: center; color: var(--ms-muted); background: #fffafd;
+}
+.sale-total { padding: 15px; border-radius: 14px; background: var(--ms-pink-soft); font-size: 22px; }
+.sale-payment, .sale-choice-group { margin-block: 14px; }
+.sale-choice-button, .sale-quantity-button, .payment-button {
+  min-height: 40px; padding: 9px 12px; border: 1px solid var(--ms-border);
+  border-radius: 11px; background: #fff; color: var(--ms-text);
+}
+.sale-choice-button:focus, .sale-choice-button.active, .payment-button.active {
+  border-color: var(--ms-pink); background: var(--ms-pink-soft); color: var(--ms-pink-dark);
+}
+.dashboard-stats { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
+.sale-detail-summary { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; padding: 14px; border-radius: 14px; background: #fff5fa; }
+.cash-branch-current, .cash-status-icon { border-radius: 14px; padding: 12px; background: var(--ms-pink-soft); }
+.cash-summary-list { display: grid; gap: 8px; }
+.cash-summary-row { margin: 0; }
+.cash-close-button, .danger-button, .variant-remove {
+  color: #a51d3d !important; background: #fff0f2 !important; border: 1px solid #f4c9d3 !important;
+}
+.form-message, .inventory-success, .inventory-error, .inventory-message, .toast {
+  padding: 12px 14px; border-radius: 12px; margin-block: 10px;
+  border: 1px solid var(--ms-border); background: #fff5fa; color: var(--ms-pink-dark);
+}
+.page-header, .page-header > div { min-width: 0; }
+@media (max-width: 600px) {
+  .inventory-page, .caja-page, .cash-cut-page, .vendedores-page, .sucursales-page { padding: 12px !important; }
+  .inventory-fields, .inventory-form-grid, .form-grid, .sales-filters,
+  .sale-choice-grid, .sale-payment-buttons, .variant-fields,
+  .dashboard-stats, .sale-detail-summary { grid-template-columns: minmax(0,1fr); }
+  .product-row, .product-card, .sale-product-result, .sale-cart-item { align-items: flex-start; flex-wrap: wrap; }
+  .product-actions { width: 100%; }
+  .product-actions button { flex: 1 1 auto; }
+  .inventory-form-actions > button { flex: 1 1 120px; }
+}
