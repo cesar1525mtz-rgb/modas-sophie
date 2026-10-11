@@ -4622,3 +4622,202 @@ textarea {
     font-size: 11px;
   }
 }
+
+
+/* MODAS SOPHIE — propuesta boutique premium y navegación móvil fija */
+.topbar {
+  position: relative;
+  background: linear-gradient(115deg, #b80f61 0%, #e91587 58%, #f044a0 100%) !important;
+  border-bottom: 0 !important;
+  color: #fff !important;
+  box-shadow: 0 5px 20px rgba(159, 7, 90, .16);
+}
+.topbar-brand h1,
+.topbar-brand span,
+.topbar .user-button {
+  color: #fff !important;
+}
+.topbar .user-button {
+  border: 1px solid rgba(255,255,255,.38);
+  background: rgba(255,255,255,.13);
+  border-radius: 999px;
+}
+.dashboard-content {
+  padding-bottom: 28px;
+}
+.welcome h2 {
+  font-size: clamp(27px, 6vw, 38px) !important;
+  line-height: 1.16 !important;
+  overflow-wrap: anywhere;
+}
+.date-card {
+  gap: 12px;
+  background: #fff !important;
+  border-color: #f1dbe7 !important;
+  box-shadow: 0 7px 24px rgba(74, 27, 52, .045) !important;
+}
+.stat-card,
+.module-card {
+  border-color: #efdfE8 !important;
+  box-shadow: 0 5px 18px rgba(65, 31, 49, .055) !important;
+}
+.stat-icon,
+.module-icon {
+  background: #fde7f2 !important;
+  color: #b80f61 !important;
+}
+.module-card {
+  display: grid !important;
+  grid-template-columns: 42px minmax(0, 1fr) 12px;
+  align-items: center;
+  gap: 10px;
+  text-align: left;
+  min-width: 0;
+}
+.module-info {
+  min-width: 0;
+}
+.module-info strong,
+.module-info small {
+  display: block;
+  overflow-wrap: anywhere;
+}
+.module-info strong {
+  line-height: 1.3;
+}
+.module-info small {
+  margin-top: 4px;
+  line-height: 1.35;
+}
+.module-arrow {
+  justify-self: end;
+  color: #b80f61;
+}
+.mobile-bottom-nav {
+  display: none;
+}
+@media (max-width: 640px) {
+  .app-shell {
+    padding-bottom: calc(78px + env(safe-area-inset-bottom)) !important;
+  }
+  .topbar {
+    min-height: 74px !important;
+    padding: 13px 16px !important;
+  }
+  .topbar-brand h1 {
+    font-size: 16px !important;
+    letter-spacing: .02em !important;
+  }
+  .topbar-brand span {
+    font-size: 11px !important;
+  }
+  .dashboard-content {
+    padding: 20px 14px 24px !important;
+  }
+  .welcome {
+    margin-bottom: 18px !important;
+  }
+  .welcome .eyebrow {
+    color: #b80f61 !important;
+  }
+  .date-card {
+    padding: 14px !important;
+    border-radius: 18px !important;
+    margin-bottom: 18px !important;
+  }
+  .date-card strong {
+    font-size: 14px !important;
+    line-height: 1.4 !important;
+  }
+  .stats-grid {
+    gap: 10px !important;
+    margin-bottom: 26px !important;
+  }
+  .stat-card {
+    min-height: 124px !important;
+    padding: 14px !important;
+    border-radius: 18px !important;
+  }
+  .stat-card h3,
+  .stat-card strong {
+    font-size: clamp(17px, 4.8vw, 22px) !important;
+    overflow-wrap: anywhere;
+  }
+  .stat-card p,
+  .stat-card span {
+    letter-spacing: .35px !important;
+  }
+  .quick-section > h2 {
+    font-size: 21px !important;
+    margin-bottom: 12px !important;
+  }
+  .module-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+  }
+  .module-card {
+    grid-template-columns: 32px minmax(0, 1fr) !important;
+    gap: 8px !important;
+    min-height: 104px !important;
+    padding: 12px !important;
+    border-radius: 17px !important;
+  }
+  .module-icon {
+    width: 32px !important;
+    height: 32px !important;
+    display: grid;
+    place-items: center;
+    border-radius: 11px !important;
+    font-size: 18px !important;
+  }
+  .module-info strong {
+    font-size: 13px !important;
+  }
+  .module-info small {
+    font-size: 11px !important;
+  }
+  .module-arrow {
+    display: none;
+  }
+  .mobile-bottom-nav {
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 3px;
+    padding: 8px 8px calc(8px + env(safe-area-inset-bottom));
+    background: rgba(255,255,255,.96);
+    border-top: 1px solid #f0dce7;
+    box-shadow: 0 -7px 24px rgba(70, 26, 49, .08);
+    backdrop-filter: blur(14px);
+  }
+  .mobile-nav-item {
+    min-width: 0;
+    min-height: 52px;
+    padding: 5px 2px !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    border: 0 !important;
+    border-radius: 13px !important;
+    background: transparent;
+    color: #796b75;
+    font-size: 10px !important;
+    font-weight: 650;
+    line-height: 1.15;
+  }
+  .mobile-nav-icon {
+    font-size: 21px;
+    line-height: 1;
+  }
+  .mobile-nav-item.is-active {
+    color: #b80f61 !important;
+    background: #fde7f2 !important;
+  }
+}
