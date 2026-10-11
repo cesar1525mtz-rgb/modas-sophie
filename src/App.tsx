@@ -600,6 +600,32 @@ function Dashboard({
 
         {message && <div className="toast">{message}</div>}
       </section>
+
+      <nav className="mobile-bottom-nav" aria-label="Navegación principal">
+        {[
+          { key: 'inicio', label: 'Inicio', icon: '⌂' },
+          { key: 'caja', label: 'Caja', icon: '▣' },
+          { key: 'venta', label: 'Ventas', icon: '🛍' },
+          { key: 'inventario', label: 'Inventario', icon: '▦' },
+          ...(user.role === 'admin'
+            ? [{ key: 'reportes', label: 'Reportes', icon: '▥' }]
+            : []),
+        ].map((item) => (
+          <button
+            key={item.key}
+            type="button"
+            className={`mobile-nav-item ${selected === item.key || (item.key === 'inicio' && selected === 'inicio') ? 'is-active' : ''}`}
+            onClick={() => {
+              setSelected(item.key === 'inicio' ? 'inicio' : item.key)
+              setMessage('')
+            }}
+            aria-current={selected === item.key ? 'page' : undefined}
+          >
+            <span className="mobile-nav-icon" aria-hidden="true">{item.icon}</span>
+            <span>{item.label}</span>
+          </button>
+        ))}
+      </nav>
     </main>
   )
 }
