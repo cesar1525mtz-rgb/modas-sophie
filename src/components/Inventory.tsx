@@ -54,16 +54,6 @@ const emptyVariant = (): VariantForm => ({
   minStock: '0',
 })
 
-const categories = [
-  'Ropa para dama',
-  'Ropa para caballero',
-  'PANTALÓN DAMA',
-  'Bolsas y mochilas',
-  'Accesorios',
-  'Regalos',
-  'Calzado',
-  'Otros',
-]
 
 export default function Inventory({
   userId,
@@ -103,6 +93,7 @@ export default function Inventory({
 
   const [search, setSearch] = useState('')
   const [categoryFilter, setCategoryFilter] = useState('Todas')
+  const [showCategoryManager, setShowCategoryManager] = useState(false)
 
   const [name, setName] = useState('')
   const [sku, setSku] = useState('')
@@ -507,6 +498,44 @@ export default function Inventory({
     setSuccess('Entrada de mercancía registrada correctamente.')
     await loadInventory()
     window.setTimeout(() => setSuccess(''), 2500)
+  }
+
+  const categories = useMemo(
+    () =>
+      Array.from(
+        new Set(
+          products
+            .map((product) => product.category?.trim() || '')
+            .filter(Boolean),
+        ),
+      ).sort((a, b) => a.localeCompare(b, 'es')),
+    [products],
+  )
+
+  async function removeCategory(categoryName: string) {
+    if (userRole !== 'admin') return
+
+    const confirmed = window.confirm(
+      `¿Eliminar la categoría "${categoryName}"? Los productos se conservarán, pero quedarán sin categoría.`,
+    )
+    if (!confirmed) return
+
+    setError('')
+    setSuccess('')
+    const { error: updateError } = await supabase
+      .from('products')
+      .update({ category: null })
+      .eq('category', categoryName)
+
+    if (updateError) {
+      setError('No se pudo eliminar la categoría. No se borraron productos.')
+      return
+    }
+
+    setCategoryFilter((current) => current === categoryName ? 'Todas' : current)
+    setShowCategoryManager(false)
+    setSuccess(`Categoría "${categoryName}" eliminada. Los productos se conservaron.`)
+    await loadInventory()
   }
 
   const rows = useMemo(() => {
@@ -1888,6 +1917,73 @@ const inventorySummary = useMemo(() => {
             ))}
           </select>
         </div>
+
+        {userRole === 'admin' && (
+          <div style={{ marginBottom: 16 }}>
+            <button
+              type="button"
+              className="inventory-history-button"
+              onClick={() => setShowCategoryManager((current) => !current)}
+              style={{ minHeight: 42, padding: '10px 16px' }}
+            >
+              {showCategoryManager ? 'Cerrar categorías' : 'Administrar categorías'}
+            </button>
+
+            {showCategoryManager && (
+              <div style={{
+                marginTop: 12,
+                padding: 14,
+                border: '1px solid #ead2dc',
+                borderRadius: 12,
+                background: '#fff7fa',
+              }}>
+                <strong style={{ display: 'block', marginBottom: 6, color: '#552238' }}>
+                  Categorías de tus productos
+                </strong>
+                <p style={{ margin: '0 0 12px', fontSize: 13, color: '#6b5560' }}>
+                  Para crear una categoría, escríbela al registrar un producto. Al eliminar una categoría, los productos se conservan sin categoría.
+                </p>
+                {categories.length === 0 ? (
+                  <span style={{ fontSize: 14, color: '#6b5560' }}>Todavía no hay categorías en uso.</span>
+                ) : (
+                  <div style={{ display: 'grid', gap: 8 }}>
+                    {categories.map((item) => (
+                      <div key={item} style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        gap: 12,
+                        padding: '10px 12px',
+                        borderRadius: 10,
+                        background: '#ffffff',
+                        border: '1px solid #ead2dc',
+                      }}>
+                        <span style={{ overflowWrap: 'anywhere' }}>{item}</span>
+                        <button
+                          type="button"
+                          onClick={() => void removeCategory(item)}
+                          style={{
+                            minHeight: 36,
+                            padding: '6px 10px',
+                            border: '1px solid #c66b82',
+                            borderRadius: 8,
+                            background: '#fff1f2',
+                            color: '#8a263b',
+                            fontWeight: 700,
+                            cursor: 'pointer',
+                            flexShrink: 0,
+                          }}
+                        >
+                          Eliminar
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        )}
 
         {loading ? (
           <div className="inventory-empty">
