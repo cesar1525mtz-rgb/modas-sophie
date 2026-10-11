@@ -198,3 +198,69 @@ tr:hover td { background: #fffafd; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
 }
+
+
+/* Base compartida para todos los módulos: inventario, ventas, caja,
+   gastos, reportes, sucursales y vendedores. */
+.app-shell, .dashboard-content, #root > main { min-width: 0; }
+main:not(.app-shell):not(.login-page) {
+  width: min(100%, 1180px);
+  margin-inline: auto;
+  padding: clamp(14px, 3vw, 28px);
+  color: var(--ms-text);
+}
+.inventory-header {
+  display: flex; align-items: flex-start; gap: 16px;
+  margin: 0 0 24px; padding: 20px;
+  background: linear-gradient(135deg, #fff 0%, #fff0f7 100%);
+  border: 1px solid var(--ms-border); border-radius: 22px;
+  box-shadow: var(--ms-shadow);
+}
+.inventory-header h1 { margin: 3px 0 7px; color: var(--ms-text); font-size: clamp(24px, 4vw, 34px); line-height: 1.15; }
+.inventory-header p { color: var(--ms-muted); }
+.inventory-back, button {
+  transition: transform .16s ease, box-shadow .16s ease, background-color .16s ease;
+}
+button:not(:disabled) { cursor: pointer; }
+button:disabled { cursor: not-allowed; opacity: .55; }
+button:not(.module-card):not(.user-button):not(.inventory-back):not(.danger-button):not(.cash-close-button) {
+  border-radius: 12px;
+}
+.inventory-back, .user-button {
+  min-height: 42px; padding: 9px 14px !important;
+  border: 1px solid var(--ms-border) !important;
+  border-radius: 12px !important; background: #fff !important;
+  color: var(--ms-pink-dark) !important; font-weight: 750;
+}
+button:hover:not(:disabled) { filter: brightness(.99); }
+button:active:not(:disabled) { transform: translateY(1px); }
+form { min-width: 0; }
+form > *, fieldset > * { max-width: 100%; }
+input, select, textarea { min-width: 0; }
+textarea { width: 100%; resize: vertical; }
+input[type="checkbox"], input[type="radio"] { accent-color: var(--ms-pink); }
+fieldset, .card, .panel, .form-card, .inventory-card, .sale-card, .cash-card,
+.report-card, .expense-card, .branch-card, .seller-card {
+  min-width: 0; padding: 16px; border: 1px solid var(--ms-border);
+  border-radius: 18px; background: var(--ms-surface); box-shadow: var(--ms-shadow);
+}
+h1, h2, h3, h4 { color: var(--ms-text); overflow-wrap: anywhere; }
+p { overflow-wrap: anywhere; }
+small { color: var(--ms-muted); }
+table { display: block; max-width: 100%; overflow-x: auto; border: 1px solid var(--ms-border); border-radius: 14px; background: #fff; }
+thead { position: sticky; top: 0; z-index: 1; }
+th { white-space: nowrap; }
+td { min-width: 70px; }
+hr { border: 0; border-top: 1px solid var(--ms-border); margin-block: 18px; }
+.toast, [role="alert"], [role="status"] {
+  padding: 12px 15px; margin-block: 12px;
+  border: 1px solid var(--ms-border); background: #fff5fa; color: var(--ms-pink-dark);
+}
+@media (max-width: 600px) {
+  main:not(.app-shell):not(.login-page) { padding: 12px; }
+  .inventory-header { flex-direction: column; gap: 12px; padding: 15px; border-radius: 17px; }
+  .inventory-header > div { min-width: 0; }
+  form { gap: 10px; }
+  input:not([type=checkbox]):not([type=radio]):not([type=hidden]), select, textarea { width: 100%; }
+  table { font-size: 13px; }
+}
