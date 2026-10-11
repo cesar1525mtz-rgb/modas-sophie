@@ -1,1178 +1,368 @@
-/* =========================================================
-   MODAS SOPHIE — TEMA GLOBAL UNIFICADO
-   Cargar después de index.css y App.css.
-   Solo presentación: no modifica la lógica de la aplicación.
-   ========================================================= */
+/* MODAS SOPHIE — Sistema visual unificado
+   Solo presentación. Conserva componentes, lógica y conexión con Supabase. */
 
 :root {
   color-scheme: light;
-
-  /* Marca */
-  --ms-primary: #E91587;
-  --ms-primary-hover: #CF0D72;
-  --ms-primary-dark: #8F3D63;
-  --ms-primary-soft: #FCE7F2;
-
-  /* Superficies y texto */
-  --ms-bg: #F8F5F7;
-  --ms-surface: #FFFFFF;
-  --ms-surface-soft: #FBF8FA;
-  --ms-text: #302630;
-  --ms-muted: #817580;
-  --ms-border: #E9DFE5;
-
-  /* Estados */
-  --ms-success: #287A55;
-  --ms-success-soft: #E8F5EE;
-  --ms-danger: #B83F58;
-  --ms-danger-soft: #FCECEF;
-  --ms-warning: #94651A;
-  --ms-warning-soft: #FFF4DB;
-
-  /* Acabados */
-  --ms-radius-sm: 10px;
-  --ms-radius-md: 14px;
-  --ms-radius-lg: 18px;
-  --ms-radius-xl: 22px;
-  --ms-shadow-sm: 0 2px 8px rgba(48, 38, 48, .045);
-  --ms-shadow: 0 6px 22px rgba(48, 38, 48, .06);
-  --ms-shadow-hover: 0 10px 28px rgba(48, 38, 48, .09);
-  --ms-focus-ring: 0 0 0 3px rgba(233, 21, 135, .14);
-
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-}
-
-html,
-body,
-#root {
-  min-height: 100%;
-}
-
-html {
-  background: var(--ms-bg);
-  -webkit-text-size-adjust: 100%;
-}
-
-body {
-  margin: 0 !important;
-  background: var(--ms-bg) !important;
-  color: var(--ms-text) !important;
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
-  line-height: 1.45;
-  -webkit-font-smoothing: antialiased;
-}
-
-button,
-input,
-select,
-textarea {
-  font: inherit;
-}
-
-button {
-  transition: background-color .16s ease, border-color .16s ease, color .16s ease,
-    box-shadow .16s ease, transform .16s ease;
-}
-
-:where(h1, h2, h3, h4, h5, h6) {
-  color: var(--ms-text);
-  letter-spacing: -.025em;
-}
-
-:where(p, small, label, .muted, .subtitle, .description) {
-  overflow-wrap: anywhere;
-}
-
-/* Fondos de páginas */
-:where(
-  .app-shell, .inventory-page, .cash-page, .cash-cut-page, .expenses-page,
-  .sales-page, .reports-page, .sucursales-page, .vendedores-page,
-  .dashboard-page, .page
-) {
-  background: var(--ms-bg) !important;
-  color: var(--ms-text) !important;
-}
-
-/* Encabezados */
-:where(.topbar, .inventory-header, .page-header, .page-heading) {
-  border-color: var(--ms-border) !important;
-}
-
-:where(.topbar h1, .inventory-header h1, .inventory-header h2,
-.inventory-header h3, .page-header h1, .page-heading h1) {
-  color: var(--ms-text) !important;
-  font-weight: 750 !important;
-  letter-spacing: -.035em;
-}
-
-:where(.topbar span, .inventory-header p, .page-header p, .page-heading p) {
-  color: var(--ms-muted) !important;
-}
-
-:where(.section-heading h2, .section-heading h3, .section-title,
-.inventory-section-title) {
-  color: var(--ms-text) !important;
-  font-weight: 750 !important;
-}
-
-:where(.section-heading p) {
-  color: var(--ms-muted) !important;
-}
-
-/* Tarjetas y paneles: un único acabado compartido */
-:where(
-  .module-card, .stat-card, .inventory-list-card, .inventory-form-card,
-  .inventory-entry-card, .inventory-variants-section, .inventory-form,
-  .inventory-section, .sale-history-card, .sale-detail-card,
-  .sale-detail-summary, .sale-cart, .sale-total, .panel, .product-card,
-  .product-row, .form-card, .empty-state, .date-card, .dashboard-card,
-  .report-card, .cash-card, .expense-card, .seller-card, .branch-card,
-  .login-card, .inventory-history-preview, .inventory-product-detail,
-  .sale-product-result, .sale-product-card, .sale-variant-card
-) {
-  background: var(--ms-surface) !important;
-  color: var(--ms-text);
-  border: 1px solid var(--ms-border) !important;
-  border-radius: var(--ms-radius-lg) !important;
-  box-shadow: var(--ms-shadow) !important;
-}
-
-:where(.module-card, .product-card, .product-row, .stat-card, .report-card) {
-  transition: box-shadow .18s ease, transform .18s ease, border-color .18s ease;
-}
-
-@media (hover: hover) {
-  :where(.module-card, .product-card, .product-row, .report-card):hover {
-    box-shadow: var(--ms-shadow-hover) !important;
-  }
-}
-
-.dashboard-content {
-  background: transparent !important;
-}
-
-:where(.dashboard-stats, .stats-grid, .module-grid) {
-  gap: 12px !important;
-}
-
-:where(.dashboard-stats .stat-card, .stats-grid .stat-card) {
-  min-height: 104px;
-}
-
-:where(.stat-card small) {
-  color: var(--ms-muted) !important;
-}
-
-:where(.stat-card strong) {
-  color: var(--ms-text) !important;
-}
-
-.module-card {
-  border-left: 4px solid var(--ms-primary-soft) !important;
-}
-
-.module-card:hover,
-.module-card:active {
-  background: #FFFAFD !important;
-  border-left-color: var(--ms-primary) !important;
-}
-
-/* Iconos, precios y acentos de marca */
-:where(.module-icon, .stat-icon, .product-icon) {
-  background: var(--ms-primary-soft) !important;
-  color: var(--ms-primary-dark) !important;
-  border-radius: var(--ms-radius-md) !important;
-}
-
-:where(.product-price, .variant-card-header, .section-link, .text-primary,
-.inventory-simple-stock, .inventory-product-stock, .inventory-back) {
-  color: var(--ms-primary) !important;
-}
-
-:where(.product-price, .inventory-simple-stock, .inventory-product-stock) {
-  font-weight: 800 !important;
-}
-
-/* Botones principales */
-:where(
-  .primary-button, .inventory-new-button, .inventory-entry-button,
-  .inventory-history-button, .inventory-save, .sale-button, .form-button,
-  .login-button, .primary-action, .btn-primary, .product-edit-button-final
-) {
-  background: var(--ms-primary) !important;
-  color: #FFFFFF !important;
-  border: 1px solid var(--ms-primary) !important;
-  border-radius: var(--ms-radius-md) !important;
-  font-weight: 700 !important;
-  box-shadow: 0 4px 12px rgba(233, 21, 135, .16) !important;
-  cursor: pointer;
-}
-
-:where(
-  .primary-button, .inventory-new-button, .inventory-entry-button,
-  .inventory-history-button, .inventory-save, .sale-button, .form-button,
-  .login-button, .primary-action, .btn-primary, .product-edit-button-final
-):hover:not(:disabled) {
-  background: var(--ms-primary-hover) !important;
-  border-color: var(--ms-primary-hover) !important;
-  box-shadow: 0 6px 16px rgba(233, 21, 135, .22) !important;
-}
-
-:where(.secondary-button, .inventory-cancel, .back-button, .btn-secondary) {
-  background: var(--ms-surface) !important;
-  color: var(--ms-primary-dark) !important;
-  border: 1px solid var(--ms-border) !important;
-  border-radius: var(--ms-radius-md) !important;
-  font-weight: 650 !important;
-}
-
-:where(.danger-button, .delete-button, .btn-danger, .variant-remove) {
-  color: var(--ms-danger) !important;
-  background: var(--ms-danger-soft) !important;
-  border: 1px solid #F0CDD5 !important;
-  border-radius: var(--ms-radius-md) !important;
-}
-
-/* Formularios y filtros */
-:where(input, select, textarea) {
-  color: var(--ms-text) !important;
-  background-color: var(--ms-surface) !important;
-  border: 1px solid var(--ms-border);
-  border-radius: var(--ms-radius-sm) !important;
-  transition: border-color .16s ease, box-shadow .16s ease;
-}
-
-:where(input, select, textarea):focus {
-  outline: none !important;
-  border-color: var(--ms-primary) !important;
-  box-shadow: var(--ms-focus-ring) !important;
-}
-
-:where(.inventory-fields, .inventory-filters, .variant-fields) {
-  gap: 10px !important;
-}
-
-:where(.inventory-fields input, .inventory-fields select,
-.inventory-fields textarea, .inventory-filters input, .inventory-filters select,
-.variant-fields input, .variant-fields select, .form-grid input,
-.form-grid select, .form-grid textarea) {
-  min-height: 42px;
-  padding: 9px 12px;
-}
-
-.inventory-filters {
-  background: var(--ms-surface) !important;
-  border: 1px solid var(--ms-border) !important;
-  border-radius: var(--ms-radius-md) !important;
-}
-
-/* Inventario y variantes */
-:where(.variant-card, .variant-list) {
-  background: var(--ms-surface-soft) !important;
-  border-color: var(--ms-border) !important;
-}
-
-.inventory-simple-stock {
-  background: var(--ms-primary-soft) !important;
-  border: 1px solid #F0C8DE !important;
-  border-radius: var(--ms-radius-md) !important;
-}
-
-.variant-card {
-  padding: 13px !important;
-}
-
-.variant-heading {
-  color: var(--ms-text) !important;
-  font-weight: 700 !important;
-}
-
-.variant-add {
-  color: var(--ms-primary-dark) !important;
-  background: var(--ms-primary-soft) !important;
-  border: 1px solid #EFC7DC !important;
-  border-radius: var(--ms-radius-sm) !important;
-  font-weight: 700 !important;
-}
-
-.inventory-empty {
-  background: var(--ms-surface) !important;
-  border: 1px dashed #DDBFD0 !important;
-  border-radius: var(--ms-radius-lg) !important;
-  color: var(--ms-muted) !important;
-  padding: 24px 16px !important;
-}
-
-:where(.product-row) {
-  transition: transform .15s ease, box-shadow .15s ease !important;
-}
-
-.product-main,
-.product-main strong,
-.product-main h3,
-.product-main h4 {
-  color: var(--ms-text) !important;
-}
-
-.product-actions {
-  gap: 8px !important;
-}
-
-/* Ventas: opciones seleccionadas */
-:where(.sale-choice-group button, .sale-choice-grid button) {
-  background: var(--ms-surface) !important;
-  color: var(--ms-text) !important;
-  border: 1px solid var(--ms-border) !important;
-  border-radius: var(--ms-radius-sm) !important;
-}
-
-:where(
-  .sale-choice-group button.active, .sale-choice-grid button.active,
-  .sale-choice-group button.selected, .sale-choice-grid button.selected
-) {
-  background: var(--ms-primary-soft) !important;
-  color: var(--ms-primary-dark) !important;
-  border-color: var(--ms-primary) !important;
-}
-
-/* Mensajes de estado */
-:where(.inventory-success, .success-message) {
-  background: var(--ms-success-soft) !important;
-  color: var(--ms-success) !important;
-  border: 1px solid #C9E5D5 !important;
-  border-radius: var(--ms-radius-sm) !important;
-}
-
-:where(.inventory-error, .error-message) {
-  background: var(--ms-danger-soft) !important;
-  color: var(--ms-danger) !important;
-  border: 1px solid #F0CDD5 !important;
-  border-radius: var(--ms-radius-sm) !important;
-}
-
-:where(.inventory-success, .inventory-error) {
-  padding: 11px 13px !important;
-}
-
-/* Acceso */
-.login-page {
-  background:
-    radial-gradient(circle at top right, #F8DDEA 0, transparent 34%),
-    linear-gradient(180deg, var(--ms-bg) 0%, #FFFFFF 100%) !important;
-}
-
-.login-card {
-  border-radius: var(--ms-radius-xl) !important;
-  box-shadow: 0 14px 35px rgba(143, 61, 99, .12) !important;
-}
-
-/* Accesibilidad */
-:where(button, [role="button"], a):focus-visible {
-  outline: 2px solid var(--ms-primary) !important;
-  outline-offset: 2px;
-}
-
-::selection {
-  color: #FFFFFF;
-  background: var(--ms-primary);
-}
-
-:where(table, td, th) {
-  border-color: var(--ms-border);
-}
-
-:where(th) {
-  color: var(--ms-muted);
-  font-weight: 700;
-}
-
-/* Ajustes para móvil */
-@media (max-width: 600px) {
-  .dashboard-content {
-    padding-left: 16px !important;
-    padding-right: 16px !important;
-  }
-
-  :where(
-    .inventory-page, .cash-page, .cash-cut-page, .expenses-page,
-    .sales-page, .reports-page, .sucursales-page, .vendedores-page
-  ) {
-    padding-bottom: 24px !important;
-  }
-
-  .inventory-page {
-    padding: 14px 12px 28px !important;
-  }
-
-  .inventory-header {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-    gap: 12px !important;
-    margin-bottom: 14px !important;
-  }
-
-  :where(.module-card, .stat-card, .inventory-list-card,
-  .inventory-form-card, .inventory-entry-card, .panel, .sale-cart,
-  .sale-history-card, .product-row) {
-    border-radius: var(--ms-radius-md) !important;
-  }
-
-  :where(
-    .primary-button, .secondary-button, .inventory-new-button,
-    .inventory-entry-button, .inventory-history-button, .sale-button,
-    .form-button, .inventory-save, .login-button
-  ) {
-    min-height: 42px !important;
-  }
-
-  :where(.inventory-form-card, .inventory-entry-card, .inventory-list-card) {
-    padding: 13px !important;
-  }
-
-  :where(.inventory-fields, .inventory-filters, .variant-fields) {
-    gap: 8px !important;
-  }
-
-  .product-row {
-    padding: 12px !important;
-  }
-
-  .product-actions {
-    flex-wrap: wrap !important;
-  }
-
-  .inventory-variants-section {
-    padding: 11px !important;
-  }
-
-  .variant-card {
-    padding: 11px !important;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    scroll-behavior: auto !important;
-    transition-duration: .01ms !important;
-    animation-duration: .01ms !important;
-    animation-iteration-count: 1 !important;
-  }
-}
-/* MODAS SOPHIE — UNIFICACIÓN VISUAL GLOBAL */
-:root {
-  --ms-primary: #d81778;
-  --ms-primary-hover: #b91063;
-  --ms-primary-soft: #fce8f2;
-  --ms-bg: #f8f6f8;
+  --ms-pink: #e91e8f;
+  --ms-pink-dark: #b70f69;
+  --ms-pink-soft: #fff0f7;
+  --ms-violet: #7048e8;
+  --ms-orange: #ff9f43;
+  --ms-yellow: #ffe66d;
+  --ms-mint: #c9f7e5;
+  --ms-bg: #fff8fc;
   --ms-surface: #ffffff;
-  --ms-text: #302832;
-  --ms-muted: #786f79;
-  --ms-border: #e8e1e8;
-  --ms-radius: 16px;
-  --ms-shadow: 0 4px 18px rgba(48, 35, 47, 0.055);
-}
-
-html {
-  background: var(--ms-bg) !important;
-}
-
-body,
-#root {
+  --ms-text: #302238;
+  --ms-muted: #796c7c;
+  --ms-border: #f0dce8;
+  --ms-shadow: 0 8px 24px rgba(114, 39, 86, .08);
+  font-family: Inter, "Segoe UI", system-ui, sans-serif;
   color: var(--ms-text);
-  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", sans-serif !important;
+  background: var(--ms-bg);
 }
 
-.app-shell,
-.dashboard-page,
-.inventory-page,
-.cash-page,
-.cash-cut-page,
-.expenses-page,
-.sales-page,
-.reports-page,
-.sucursales-page,
-.vendedores-page,
-.page {
-  background: var(--ms-bg) !important;
-  color: var(--ms-text) !important;
-}
-
-.topbar {
-  position: relative;
-  background: #fff !important;
-  border-bottom: 1px solid var(--ms-border) !important;
-  box-shadow: 0 2px 12px rgba(48, 35, 47, 0.035);
-}
-
-.dashboard-content,
-.inventory-page,
-.cash-page,
-.cash-cut-page,
-.expenses-page,
-.sales-page,
-.reports-page,
-.sucursales-page,
-.vendedores-page {
+html, body, #root {
   width: 100%;
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-:where(
-  .module-card,
-  .stat-card,
-  .date-card,
-  .panel,
-  .product-card,
-  .product-row,
-  .form-card,
-  .login-card,
-  .inventory-list-card,
-  .inventory-form-card,
-  .inventory-entry-card,
-  .inventory-variants-section,
-  .inventory-form,
-  .inventory-section,
-  .sale-history-card,
-  .sale-detail-card,
-  .sale-detail-summary,
-  .sale-cart,
-  .sale-total,
-  .empty-state,
-  .dashboard-card,
-  .report-card,
-  .cash-card,
-  .expense-card,
-  .seller-card,
-  .branch-card,
-  .inventory-history-preview,
-  .inventory-product-detail,
-  .sale-product-result,
-  .sale-product-card,
-  .sale-variant-card
-) {
-  background: var(--ms-surface) !important;
-  color: var(--ms-text);
-  border: 1px solid var(--ms-border) !important;
-  border-radius: var(--ms-radius) !important;
-  box-shadow: var(--ms-shadow) !important;
-}
-
-:where(
-  .page-header,
-  .page-heading,
-  .inventory-header,
-  .section-heading
-) {
-  margin-bottom: 20px;
-}
-
-:where(
-  .page-header h1,
-  .page-heading h1,
-  .inventory-header h1,
-  .inventory-header h2,
-  .section-heading h2,
-  .welcome h2
-) {
-  color: var(--ms-text) !important;
-  font-weight: 750 !important;
-  letter-spacing: -0.035em;
-}
-
-:where(
-  .page-header p,
-  .page-heading p,
-  .inventory-header p,
-  .section-heading p,
-  .subtitle
-) {
-  color: var(--ms-muted) !important;
-}
-
-:where(
-  button,
-  .login-button,
-  .primary-button,
-  .submit-button
-) {
-  border-radius: 11px;
-  font-weight: 650;
-  transition: background-color .18s ease, box-shadow .18s ease;
-}
-
-:where(
-  .login-button,
-  .primary-button,
-  .submit-button
-) {
-  background: var(--ms-primary) !important;
-  color: #fff !important;
-}
-
-:where(button, input, select, textarea):focus-visible {
-  outline: 2px solid var(--ms-primary) !important;
-  outline-offset: 2px;
-}
-
-:where(input, select, textarea) {
-  max-width: 100%;
-  border-color: var(--ms-border);
-  border-radius: 10px;
-}
-
-:where(input, select, textarea):not([type="checkbox"]):not([type="radio"]) {
-  min-height: 42px;
-}
-
-:where(input, select, textarea):focus {
-  border-color: var(--ms-primary) !important;
-  box-shadow: 0 0 0 3px rgba(216, 23, 120, 0.11) !important;
-}
-
-:where(table) {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-:where(th) {
-  background: #faf6f9;
-  color: var(--ms-muted);
-  font-weight: 700;
-}
-
-:where(th, td) {
-  padding: 12px;
-  border-bottom: 1px solid var(--ms-border);
-  text-align: left;
-}
-
-:where(.module-icon, .stat-icon, .product-icon) {
-  background: var(--ms-primary-soft) !important;
-  color: var(--ms-primary) !important;
-  border-radius: 13px !important;
-}
-
-:where(.module-card, .product-card, .product-row) {
-  min-width: 0;
-  overflow-wrap: anywhere;
-}
-
-.module-card {
-  border-left: 3px solid #f0b5d3 !important;
-}
-
-:where(.login-page) {
-  background: linear-gradient(145deg, #fff1f7, #f8f6f8 65%, #fff) !important;
-}
-
-.login-card {
-  width: min(100%, 430px);
-}
-
-:where(.login-form input) {
-  width: 100%;
-  background: #fff;
-}
-
-:where(.login-error) {
-  border: 1px solid #f2cbd6;
-  border-radius: 11px;
-}
-
-@media (max-width: 700px) {
-  .app-shell {
-    padding-bottom: 90px;
-  }
-
-  .topbar {
-    gap: 8px;
-    padding: 12px;
-  }
-
-  .topbar-brand {
-    gap: 8px;
-  }
-
-  .topbar-brand h1 {
-    font-size: 16px;
-  }
-
-  .dashboard-content,
-  .inventory-page,
-  .cash-page,
-  .cash-cut-page,
-  .expenses-page,
-  .sales-page,
-  .reports-page,
-  .sucursales-page,
-  .vendedores-page {
-    padding-left: 12px !important;
-    padding-right: 12px !important;
-  }
-
-  :where(
-    .module-card,
-    .stat-card,
-    .panel,
-    .product-card,
-    .product-row,
-    .form-card,
-    .inventory-list-card,
-    .inventory-form-card,
-    .sale-cart,
-    .sale-total,
-    .report-card,
-    .cash-card,
-    .expense-card,
-    .seller-card,
-    .branch-card
-  ) {
-    border-radius: 13px !important;
-  }
-
-  :where(.page-header, .page-heading, .inventory-header) {
-    gap: 10px;
-    flex-wrap: wrap;
-  }
-
-  :where(input, select, textarea, button) {
-    max-width: 100%;
-  }
-
-  :where(table) {
-    font-size: 13px;
-  }
-
-  :where(th, td) {
-    padding: 9px 7px;
-  }
-
-  .login-page {
-    padding: 16px !important;
-  }
-
-  .login-card {
-    padding: 26px 18px !important;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    scroll-behavior: auto !important;
-    animation-duration: 0.01ms !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-
-/* ==========================================
-   MODAS SOPHIE POS - AJUSTE VISUAL GLOBAL
-   Mantener funciones y comportamiento actual
-   ========================================== */
-
-:root {
-  --sophie-pink: #d94f87;
-  --sophie-pink-dark: #b9366b;
-  --sophie-pink-soft: #fff0f6;
-  --sophie-bg: #fff8fb;
-  --sophie-card: #ffffff;
-  --sophie-text: #392b34;
-  --sophie-muted: #81717b;
-  --sophie-border: #f0d8e3;
-  --sophie-shadow: 0 4px 16px rgba(150, 65, 105, 0.08);
-}
-
-* {
-  box-sizing: border-box;
-}
-
-html,
-body,
-#root {
-  width: 100%;
+  min-width: 320px;
   min-height: 100%;
   margin: 0;
 }
-
 body {
-  background: var(--sophie-bg) !important;
-  color: var(--sophie-text);
-  font-family: Arial, Helvetica, sans-serif;
+  background:
+    radial-gradient(ellipse at 0% 0%, rgba(255, 230, 109, .22), transparent 30rem),
+    radial-gradient(ellipse at 100% 8%, rgba(233, 30, 143, .10), transparent 28rem),
+    var(--ms-bg);
+  color: var(--ms-text);
 }
+*, *::before, *::after { box-sizing: border-box; }
+button, input, select, textarea { font: inherit; }
+button { cursor: pointer; }
+img, svg { max-width: 100%; }
+:focus-visible { outline: 3px solid rgba(112, 72, 232, .38); outline-offset: 2px; }
 
-button,
-input,
-select,
-textarea {
-  font: inherit;
-}
-
-button {
-  cursor: pointer;
-}
-
-/* Contenedor principal y márgenes */
-.app-shell {
-  width: 100% !important;
-  min-height: 100vh;
-  margin: 0 auto !important;
-  background: var(--sophie-bg) !important;
-}
-
-.dashboard-content,
-.inventory-page,
-.cash-page,
-.cash-cut-page,
-.expenses-page,
-.sales-page,
-.reports-page,
-.sucursales-page,
-.vendedores-page,
-.page {
-  width: 100% !important;
-  max-width: 1200px !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-  padding: 22px 20px 36px !important;
-  color: var(--sophie-text);
-}
-
-/* Encabezado */
-.topbar {
-  width: 100% !important;
+/* Inicio de sesión */
+.login-page {
+  min-height: 100vh !important;
+  padding: 24px !important;
   display: flex !important;
   align-items: center !important;
-  justify-content: space-between !important;
-  flex-wrap: wrap;
-  gap: 12px;
-  padding: 14px 20px !important;
-  background: #ffffff !important;
-  border-bottom: 1px solid var(--sophie-border) !important;
-  box-shadow: 0 2px 10px rgba(150, 65, 105, 0.05);
+  justify-content: center !important;
+  background:
+    radial-gradient(circle at 15% 15%, var(--ms-yellow), transparent 22rem),
+    radial-gradient(circle at 90% 85%, #e9dcff, transparent 24rem),
+    var(--ms-pink-soft) !important;
+}
+.login-card {
+  width: min(100%, 430px) !important;
+  padding: clamp(24px, 6vw, 42px) !important;
+  margin: auto !important;
+  background: rgba(255,255,255,.96) !important;
+  border: 1px solid white !important;
+  border-radius: 30px !important;
+  box-shadow: 0 22px 70px rgba(137, 33, 91, .15) !important;
+  text-align: center;
+}
+.login-logo { margin-bottom: 18px; }
+.login-logo-image { display: block; width: auto; height: auto; max-width: min(100%, 170px) !important; max-height: 125px; object-fit: contain; margin: 0 auto; }
+.login-card h1, .login-page h1 { color: var(--ms-pink-dark) !important; letter-spacing: -.04em; }
+.login-button, .primary-button, .submit-button, .inventory-save,
+.inventory-new-button, .sales-detail-button, .cash-open-button,
+.inventory-entry-button, .new-sale-register-button-final {
+  background: linear-gradient(135deg, var(--ms-pink), var(--ms-violet)) !important;
+  color: #fff !important;
+  border: 0 !important;
+  border-radius: 14px !important;
+  min-height: 46px;
+  font-weight: 750 !important;
+  box-shadow: 0 7px 16px rgba(190, 24, 121, .18) !important;
+}
+.login-button:hover, .primary-button:hover, .submit-button:hover,
+.inventory-save:hover, .inventory-new-button:hover, .cash-open-button:hover {
+  filter: brightness(.96);
+  transform: translateY(-1px);
 }
 
-.topbar h1,
-.topbar h2 {
-  color: var(--sophie-pink-dark);
-  margin-top: 0;
-  margin-bottom: 0;
-}
-
-/* Títulos y secciones */
-.dashboard-content h1,
-.dashboard-content h2,
-.dashboard-content h3,
-.inventory-page h1,
-.inventory-page h2,
-.cash-page h1,
-.sales-page h1,
-.reports-page h1 {
-  color: var(--sophie-text);
-  overflow-wrap: anywhere;
-}
-
-.welcome,
-.quick-section,
-.section-heading {
-  margin-bottom: 22px !important;
-}
-
-.welcome {
-  padding: 8px 0 !important;
-}
-
-.section-heading {
+/* Encabezado y panel */
+.app-shell { width: 100%; min-height: 100vh; background: transparent !important; }
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-/* Distribución de tarjetas */
-.stats-grid {
-  display: grid !important;
-  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-  gap: 14px !important;
-  width: 100% !important;
-  margin: 18px 0 28px !important;
-}
-
-.module-grid {
-  display: grid !important;
-  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-  gap: 14px !important;
-  width: 100% !important;
-}
-
-.stat-card,
-.date-card {
-  min-width: 0;
-  padding: 18px !important;
-  background: var(--sophie-card) !important;
-  color: var(--sophie-text) !important;
-  border: 1px solid var(--sophie-border) !important;
-  border-radius: 16px !important;
-  box-shadow: var(--sophie-shadow) !important;
-  overflow-wrap: anywhere;
-}
-
-/* Tarjetas de los módulos */
-.module-card {
-  display: flex !important;
-  align-items: center !important;
-  gap: 13px !important;
-  width: 100% !important;
-  min-width: 0;
-  min-height: 88px;
-  padding: 16px !important;
-  background: #ffffff !important;
-  color: var(--sophie-text) !important;
-  text-align: left !important;
-  border: 1px solid var(--sophie-border) !important;
-  border-radius: 16px !important;
-  box-shadow: var(--sophie-shadow) !important;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.module-card:hover,
-.module-card:focus-visible {
-  border-color: var(--sophie-pink) !important;
-  box-shadow: 0 5px 18px rgba(217, 79, 135, 0.14) !important;
-}
-
-.module-card.active,
-.module-card.selected {
-  background: var(--sophie-pink-soft) !important;
-  border-color: var(--sophie-pink) !important;
-}
-
-.module-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  width: 46px;
-  height: 46px;
-  border-radius: 13px !important;
-  background: var(--sophie-pink-soft) !important;
-  color: var(--sophie-pink-dark) !important;
-}
-
-.module-info {
-  flex: 1;
-  min-width: 0;
-}
-
-.module-info strong {
-  display: block;
-  color: var(--sophie-text) !important;
-  font-weight: 700;
-  overflow-wrap: anywhere;
-}
-
-.module-info small {
-  display: block;
-  margin-top: 5px;
-  color: var(--sophie-muted) !important;
-  line-height: 1.4;
-  overflow-wrap: anywhere;
-}
-
-.module-arrow {
-  flex-shrink: 0;
-  color: var(--sophie-pink) !important;
-}
-
-/* Botones principales */
-.primary-button,
-.submit-button,
-.login-button,
-.inventory-save,
-.inventory-new-button,
-.sales-detail-button,
-.cash-open-button,
-.inventory-entry-button {
-  min-height: 42px;
-  padding: 10px 17px !important;
-  background: var(--sophie-pink) !important;
-  color: #ffffff !important;
-  border: 1px solid var(--sophie-pink) !important;
-  border-radius: 11px !important;
-  font-weight: 700 !important;
-  box-shadow: 0 3px 9px rgba(217, 79, 135, 0.15);
-}
-
-.primary-button:hover,
-.submit-button:hover,
-.login-button:hover,
-.inventory-save:hover,
-.inventory-new-button:hover,
-.sales-detail-button:hover,
-.cash-open-button:hover,
-.inventory-entry-button:hover {
-  background: var(--sophie-pink-dark) !important;
-  border-color: var(--sophie-pink-dark) !important;
-}
-
-.secondary-button,
-.back-button,
-.inventory-cancel,
-.inventory-history-button {
-  min-height: 40px;
-  padding: 9px 15px !important;
-  background: #ffffff !important;
-  color: var(--sophie-pink-dark) !important;
-  border: 1px solid var(--sophie-border) !important;
-  border-radius: 11px !important;
-  font-weight: 600;
-}
-
-.danger-button,
-.cash-close-button {
-  min-height: 40px;
-  padding: 9px 15px !important;
-  background: #fff0f0 !important;
-  color: #b42336 !important;
-  border: 1px solid #f0c7cd !important;
-  border-radius: 11px !important;
-}
-
-.user-button {
-  padding: 9px 13px !important;
-  background: #ffffff !important;
-  color: var(--sophie-pink-dark) !important;
-  border: 1px solid var(--sophie-border) !important;
-  border-radius: 11px !important;
-}
-
-/* Campos de captura */
-input:not([type="checkbox"]):not([type="radio"]):not([type="hidden"]),
-select,
-textarea {
-  max-width: 100%;
-  min-height: 42px;
-  padding: 10px 12px !important;
-  color: var(--sophie-text) !important;
-  background: #ffffff !important;
-  border: 1px solid #e6ced9 !important;
-  border-radius: 10px !important;
-}
-
-input:focus,
-select:focus,
-textarea:focus {
-  outline: 2px solid rgba(217, 79, 135, 0.18) !important;
-  border-color: var(--sophie-pink) !important;
-}
-
-label {
-  color: var(--sophie-text);
-  font-weight: 600;
-}
-
-/* Tablas y contenedores */
-table {
+  gap: 14px;
   width: 100%;
-  border-collapse: collapse;
+  padding: 14px clamp(14px, 4vw, 34px) !important;
+  background: rgba(255,255,255,.92) !important;
+  border-bottom: 1px solid var(--ms-border) !important;
+  box-shadow: 0 4px 18px rgba(71, 30, 63, .05);
+  backdrop-filter: blur(14px);
 }
-
-th {
-  background: var(--sophie-pink-soft) !important;
-  color: var(--sophie-pink-dark) !important;
+.topbar-brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.topbar-brand .login-logo-image { width: 48px; height: 48px; max-width: 48px !important; max-height: 48px; object-fit: contain; margin: 0; }
+.topbar h1 { margin: 0; color: var(--ms-pink-dark) !important; font-size: clamp(16px, 3vw, 22px); font-weight: 900; letter-spacing: -.035em; }
+.topbar-brand span { color: var(--ms-muted); font-size: 12px; }
+.user-button, .secondary-button, .back-button, .inventory-cancel, .inventory-history-button {
+  min-height: 42px;
+  padding: 9px 15px !important;
+  border: 1px solid var(--ms-border) !important;
+  border-radius: 12px !important;
+  background: white !important;
+  color: var(--ms-pink-dark) !important;
+  font-weight: 700;
 }
-
-th,
-td {
-  padding: 11px 12px;
-  border-bottom: 1px solid var(--sophie-border);
-  text-align: left;
-  overflow-wrap: anywhere;
+.dashboard-content, .inventory-page, .cash-page, .cash-cut-page,
+.expenses-page, .sales-page, .reports-page, .sucursales-page,
+.vendedores-page, .page {
+  width: min(100%, 1180px);
+  margin-inline: auto;
+  padding: clamp(16px, 3vw, 32px) clamp(14px, 3vw, 28px) 100px !important;
+  background: transparent !important;
 }
-
-tr:hover td {
-  background-color: #fffafd;
+.welcome { display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 16px; margin-bottom: 24px !important; }
+.welcome h2 { margin: 4px 0 8px; font-size: clamp(25px, 5vw, 36px); letter-spacing: -.045em; }
+.eyebrow { color: var(--ms-pink-dark) !important; font-size: 11px; font-weight: 900; letter-spacing: .13em; }
+.welcome p:not(.eyebrow) { color: var(--ms-muted); }
+.date-card, .stat-card, .module-card, .inventory-list-card,
+.inventory-form-card, .inventory-history-preview, .sale-history-card,
+.sale-detail-card, .cash-card, .expense-card, .report-card {
+  min-width: 0;
+  border: 1px solid var(--ms-border) !important;
+  border-radius: 20px !important;
+  background: var(--ms-surface) !important;
+  box-shadow: var(--ms-shadow) !important;
 }
+.date-card { display: flex; align-items: center; gap: 12px; padding: 15px 18px !important; }
+.stats-grid { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 12px !important; margin: 18px 0 30px !important; }
+.stat-card { display: flex; align-items: center; gap: 12px; padding: 17px !important; overflow-wrap: anywhere; }
+.stat-icon { display: grid; place-items: center; flex: 0 0 44px; width: 44px; height: 44px; border-radius: 15px; background: var(--ms-pink-soft); font-size: 21px; }
+.stat-card small { display: block; color: var(--ms-muted); font-size: 10px; font-weight: 800; letter-spacing: .06em; }
+.stat-card strong { display: block; margin-top: 5px; font-size: clamp(17px, 3vw, 24px); font-weight: 850; }
+.section-heading { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 16px !important; }
+.section-heading h3 { margin: 4px 0; font-size: 22px; }
+.module-grid { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 14px !important; width: 100%; }
+.module-card { display: flex !important; align-items: center !important; gap: 13px !important; min-height: 100px; width: 100%; padding: 17px !important; text-align: left !important; color: var(--ms-text) !important; transition: transform .18s ease, box-shadow .18s ease; }
+.module-card:hover { transform: translateY(-2px); box-shadow: 0 13px 28px rgba(114,39,86,.12) !important; }
+.module-card:nth-child(4n+2) .module-icon { background: #eee8ff !important; color: var(--ms-violet) !important; }
+.module-card:nth-child(4n+3) .module-icon { background: #fff3d8 !important; }
+.module-card:nth-child(4n) .module-icon { background: #e4fbf1 !important; }
+.module-icon { display: grid; place-items: center; flex: 0 0 46px; width: 46px; height: 46px; border-radius: 16px !important; background: var(--ms-pink-soft) !important; color: var(--ms-pink-dark) !important; font-size: 22px; }
+.module-info { flex: 1; min-width: 0; }
+.module-info strong { display: block; color: var(--ms-text) !important; font-weight: 800; }
+.module-info small { display: block; margin-top: 5px; color: var(--ms-muted) !important; line-height: 1.4; }
+.module-arrow { flex-shrink: 0; color: var(--ms-pink) !important; font-size: 22px; }
 
-/* Imágenes y contenido adaptable */
-img,
-svg {
+/* Formularios y controles compartidos */
+input:not([type=checkbox]):not([type=radio]):not([type=hidden]), select, textarea {
+  width: auto;
   max-width: 100%;
+  min-height: 43px;
+  padding: 10px 12px !important;
+  color: var(--ms-text) !important;
+  background: #fff !important;
+  border: 1px solid #e7cfdf !important;
+  border-radius: 12px !important;
 }
+input:focus, select:focus, textarea:focus { border-color: var(--ms-pink) !important; outline: 3px solid rgba(233,30,143,.12) !important; }
+label { color: var(--ms-text); font-weight: 650; }
+table { width: 100%; border-collapse: collapse; }
+th { background: var(--ms-pink-soft) !important; color: var(--ms-pink-dark) !important; }
+th, td { padding: 11px 12px; border-bottom: 1px solid var(--ms-border); text-align: left; overflow-wrap: anywhere; }
+tr:hover td { background: #fffafd; }
+.danger-button, .cash-close-button { min-height: 42px; padding: 9px 15px !important; background: #fff0f2 !important; color: #ad2846 !important; border: 1px solid #f2c9d3 !important; border-radius: 12px !important; }
+.toast { border-radius: 14px; box-shadow: var(--ms-shadow); }
 
+/* Ajustes táctiles y pantallas pequeñas */
 @media (max-width: 600px) {
-  .dashboard-content,
-  .inventory-page,
-  .cash-page,
-  .cash-cut-page,
-  .expenses-page,
-  .sales-page,
-  .reports-page,
-  .sucursales-page,
-  .vendedores-page,
-  .page {
-    padding: 16px 14px 28px !important;
-  }
-
-  .topbar {
-    padding: 12px 14px !important;
-  }
-
-  .stats-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-    gap: 10px !important;
-  }
-
-  .module-grid {
-    grid-template-columns: minmax(0, 1fr) !important;
-    gap: 11px !important;
-  }
-
-  .stat-card,
-  .date-card {
-    padding: 13px !important;
-    border-radius: 13px !important;
-  }
-
-  .module-card {
-    min-height: 78px;
-    padding: 13px !important;
-    border-radius: 13px !important;
-  }
-
-  .module-icon {
-    width: 42px;
-    height: 42px;
-  }
-
-  .section-heading {
-    align-items: flex-start;
-  }
-
-  table {
-    font-size: 13px;
-  }
-
-  th,
-  td {
-    padding: 9px 8px;
-  }
+  .topbar { padding: 11px 13px !important; }
+  .topbar-brand { gap: 8px; }
+  .topbar-brand .login-logo-image { width: 38px; height: 38px; max-width: 38px !important; max-height: 38px; }
+  .topbar h1 { font-size: 16px; }
+  .user-button { padding: 8px 11px !important; min-height: 40px; }
+  .welcome { display: block; }
+  .date-card { margin-top: 14px; }
+  .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 9px !important; }
+  .stat-card { align-items: flex-start; flex-direction: column; gap: 9px; padding: 13px !important; border-radius: 17px !important; }
+  .stat-icon { width: 38px; height: 38px; flex-basis: 38px; font-size: 19px; }
+  .stat-card small { font-size: 9px; line-height: 1.4; }
+  .stat-card strong { font-size: clamp(16px, 4.8vw, 21px); }
+  .module-grid { grid-template-columns: minmax(0, 1fr) !important; gap: 10px !important; }
+  .module-card { min-height: 78px; padding: 13px !important; border-radius: 17px !important; }
+  .module-icon { width: 42px; height: 42px; flex-basis: 42px; }
+  th, td { padding: 9px 7px; }
 }
-
 @media (max-width: 360px) {
-  .stats-grid {
-    grid-template-columns: minmax(0, 1fr) !important;
-  }
+  .stats-grid { grid-template-columns: minmax(0, 1fr) !important; }
 }
-html body #root main.app-shell > section.dashboard-content {
-  background: #ff00ff !important;
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+}
+
+
+/* Base compartida para todos los módulos: inventario, ventas, caja,
+   gastos, reportes, sucursales y vendedores. */
+.app-shell, .dashboard-content, #root > main { min-width: 0; }
+main:not(.app-shell):not(.login-page) {
+  width: min(100%, 1180px);
+  margin-inline: auto;
+  padding: clamp(14px, 3vw, 28px);
+  color: var(--ms-text);
+}
+.inventory-header {
+  display: flex; align-items: flex-start; gap: 16px;
+  margin: 0 0 24px; padding: 20px;
+  background: linear-gradient(135deg, #fff 0%, #fff0f7 100%);
+  border: 1px solid var(--ms-border); border-radius: 22px;
+  box-shadow: var(--ms-shadow);
+}
+.inventory-header h1 { margin: 3px 0 7px; color: var(--ms-text); font-size: clamp(24px, 4vw, 34px); line-height: 1.15; }
+.inventory-header p { color: var(--ms-muted); }
+.inventory-back, button {
+  transition: transform .16s ease, box-shadow .16s ease, background-color .16s ease;
+}
+button:not(:disabled) { cursor: pointer; }
+button:disabled { cursor: not-allowed; opacity: .55; }
+button:not(.module-card):not(.user-button):not(.inventory-back):not(.danger-button):not(.cash-close-button) {
+  border-radius: 12px;
+}
+.inventory-back, .user-button {
+  min-height: 42px; padding: 9px 14px !important;
+  border: 1px solid var(--ms-border) !important;
+  border-radius: 12px !important; background: #fff !important;
+  color: var(--ms-pink-dark) !important; font-weight: 750;
+}
+button:hover:not(:disabled) { filter: brightness(.99); }
+button:active:not(:disabled) { transform: translateY(1px); }
+form { min-width: 0; }
+form > *, fieldset > * { max-width: 100%; }
+input, select, textarea { min-width: 0; }
+textarea { width: 100%; resize: vertical; }
+input[type="checkbox"], input[type="radio"] { accent-color: var(--ms-pink); }
+fieldset, .card, .panel, .form-card, .inventory-card, .sale-card, .cash-card,
+.report-card, .expense-card, .branch-card, .seller-card {
+  min-width: 0; padding: 16px; border: 1px solid var(--ms-border);
+  border-radius: 18px; background: var(--ms-surface); box-shadow: var(--ms-shadow);
+}
+h1, h2, h3, h4 { color: var(--ms-text); overflow-wrap: anywhere; }
+p { overflow-wrap: anywhere; }
+small { color: var(--ms-muted); }
+table { display: block; max-width: 100%; overflow-x: auto; border: 1px solid var(--ms-border); border-radius: 14px; background: #fff; }
+thead { position: sticky; top: 0; z-index: 1; }
+th { white-space: nowrap; }
+td { min-width: 70px; }
+hr { border: 0; border-top: 1px solid var(--ms-border); margin-block: 18px; }
+.toast, [role="alert"], [role="status"] {
+  padding: 12px 15px; margin-block: 12px;
+  border: 1px solid var(--ms-border); background: #fff5fa; color: var(--ms-pink-dark);
+}
+@media (max-width: 600px) {
+  main:not(.app-shell):not(.login-page) { padding: 12px; }
+  .inventory-header { flex-direction: column; gap: 12px; padding: 15px; border-radius: 17px; }
+  .inventory-header > div { min-width: 0; }
+  form { gap: 10px; }
+  input:not([type=checkbox]):not([type=radio]):not([type=hidden]), select, textarea { width: 100%; }
+  table { font-size: 13px; }
+}
+
+
+/* Componentes compartidos entre pantallas: los módulos solo aportan estructura. */
+.inventory-page, .caja-page, .cash-cut-page, .vendedores-page, .sucursales-page {
+  width: min(100%, 1180px); min-width: 0; margin-inline: auto;
+  padding: clamp(12px, 3vw, 28px) !important;
+  color: var(--ms-text);
+}
+.inventory-section, .inventory-list-card, .inventory-form-card,
+.inventory-card, .inventory-history-preview, .cash-card,
+.cash-message-card, .cash-action-card, .cash-shared-card, .cash-open-card,
+.cash-close-card, .cash-admin-note, .sale-history-card, .sale-detail-card,
+.sale-cart, .sale-variant-card, .panel, .product-card {
+  min-width: 0; padding: clamp(13px, 2.5vw, 20px);
+  border: 1px solid var(--ms-border); border-radius: 18px;
+  background: var(--ms-surface); box-shadow: var(--ms-shadow);
+  margin-block: 12px;
+}
+.inventory-header { flex-wrap: wrap; }
+.inventory-header > div { flex: 1 1 200px; min-width: 0; }
+.inventory-section-title, .section-title, .page-header h1 {
+  color: var(--ms-pink-dark); font-size: clamp(20px, 3.5vw, 28px); font-weight: 850;
+}
+.inventory-fields, .inventory-form-grid, .form-grid, .form-grid,
+.sales-filters, .sale-choice-grid, .sale-payment-buttons, .variant-fields {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px; align-items: end;
+}
+.inventory-fields > *, .inventory-form-grid > *, .form-grid > *,
+.sales-filters > *, .sale-choice-grid > *, .variant-fields > * { min-width: 0; }
+.inventory-form-actions, .product-actions, .cash-action-card, .sale-cart-controls {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 10px;
+}
+.inventory-new-button, .inventory-save, .primary-button, .sales-detail-button,
+.inventory-entry-button, .cash-action-button, .new-sale-register-button-final,
+.variant-add, .product-edit-button {
+  min-height: 42px; padding: 10px 15px !important;
+  border: 0 !important; border-radius: 12px !important;
+  color: #fff !important; background: linear-gradient(135deg,var(--ms-pink),var(--ms-violet)) !important;
+  font-weight: 750; box-shadow: 0 5px 14px rgba(190,24,121,.15);
+}
+.inventory-cancel, .back-button, .secondary-button, .inventory-history-button,
+.variant-remove, .inventory-back {
+  min-height: 40px; padding: 9px 13px !important; border: 1px solid var(--ms-border) !important;
+  border-radius: 12px !important; background: #fff !important; color: var(--ms-pink-dark) !important;
+}
+.inventory-error, .cash-error-message, .inventory-message.error, .form-message.error {
+  color: #a51d3d !important; background: #fff0f2 !important; border-color: #f4c9d3 !important;
+}
+.inventory-success, .cash-success-message, .inventory-message.success {
+  color: #126b4d !important; background: #e9fbf3 !important; border-color: #bdebd8 !important;
+}
+.product-list, .sales-list, .inventory-list, .variant-list, .sale-product-results {
+  display: grid; gap: 10px; min-width: 0;
+}
+.product-row, .product-card, .sale-product-result, .sale-cart-item,
+.sale-detail-item, .sale-history-main, .cash-summary-row {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; min-width: 0; padding: 13px;
+  border: 1px solid var(--ms-border); border-radius: 14px; background: #fff;
+}
+.product-main, .product-info, .sale-product-result-info, .sale-detail-product {
+  flex: 1; min-width: 0; overflow-wrap: anywhere;
+}
+.product-icon { display: grid; place-items: center; flex: 0 0 40px; width: 40px; height: 40px; border-radius: 13px; background: var(--ms-pink-soft); }
+.product-price, .product-stock, .sale-history-total, .sale-total { color: var(--ms-pink-dark); font-weight: 850; }
+.inventory-empty, .empty-state, .sale-product-empty {
+  padding: 22px; border: 1px dashed #e8bfd6; border-radius: 16px;
+  text-align: center; color: var(--ms-muted); background: #fffafd;
+}
+.sale-total { padding: 15px; border-radius: 14px; background: var(--ms-pink-soft); font-size: 22px; }
+.sale-payment, .sale-choice-group { margin-block: 14px; }
+.sale-choice-button, .sale-quantity-button, .payment-button {
+  min-height: 40px; padding: 9px 12px; border: 1px solid var(--ms-border);
+  border-radius: 11px; background: #fff; color: var(--ms-text);
+}
+.sale-choice-button:focus, .sale-choice-button.active, .payment-button.active {
+  border-color: var(--ms-pink); background: var(--ms-pink-soft); color: var(--ms-pink-dark);
+}
+.dashboard-stats { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
+.sale-detail-summary { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; padding: 14px; border-radius: 14px; background: #fff5fa; }
+.cash-branch-current, .cash-status-icon { border-radius: 14px; padding: 12px; background: var(--ms-pink-soft); }
+.cash-summary-list { display: grid; gap: 8px; }
+.cash-summary-row { margin: 0; }
+.cash-close-button, .danger-button, .variant-remove {
+  color: #a51d3d !important; background: #fff0f2 !important; border: 1px solid #f4c9d3 !important;
+}
+.form-message, .inventory-success, .inventory-error, .inventory-message, .toast {
+  padding: 12px 14px; border-radius: 12px; margin-block: 10px;
+  border: 1px solid var(--ms-border); background: #fff5fa; color: var(--ms-pink-dark);
+}
+.page-header, .page-header > div { min-width: 0; }
+@media (max-width: 600px) {
+  .inventory-page, .caja-page, .cash-cut-page, .vendedores-page, .sucursales-page { padding: 12px !important; }
+  .inventory-fields, .inventory-form-grid, .form-grid, .sales-filters,
+  .sale-choice-grid, .sale-payment-buttons, .variant-fields,
+  .dashboard-stats, .sale-detail-summary { grid-template-columns: minmax(0,1fr); }
+  .product-row, .product-card, .sale-product-result, .sale-cart-item { align-items: flex-start; flex-wrap: wrap; }
+  .product-actions { width: 100%; }
+  .product-actions button { flex: 1 1 auto; }
+  .inventory-form-actions > button { flex: 1 1 120px; }
 }
