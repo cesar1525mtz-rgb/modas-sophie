@@ -1173,6 +1173,175 @@ svg {
     grid-template-columns: minmax(0, 1fr) !important;
   }
 }
-html body #root main.app-shell > section.dashboard-content {
-  background: #ff00ff !important;
+
+
+/* =========================================================
+   MODAS SOPHIE — PULIDO RESPONSIVE Y MAGENTA DE MARCA
+   Solo presentación: no modifica la lógica del negocio.
+   ========================================================= */
+:root {
+  --ms-primary: #e91587;
+  --ms-primary-hover: #cf0d72;
+  --ms-primary-dark: #9f075a;
+  --ms-primary-soft: #fde7f2;
+  --ms-bg: #fff7fb;
+  --ms-surface: #ffffff;
+  --ms-surface-soft: #fffafd;
+  --ms-text: #302630;
+  --ms-muted: #786b75;
+  --ms-border: #eadde5;
+  --ms-radius-sm: 12px;
+  --ms-radius-md: 16px;
+  --ms-radius-lg: 22px;
+  --ms-shadow: 0 6px 22px rgba(80, 32, 61, .06);
+  --ms-shadow-hover: 0 10px 28px rgba(80, 32, 61, .10);
+}
+
+/* Evita que los elementos se salgan del ancho del teléfono. */
+html, body, #root, .app-shell, main, section, form {
+  min-width: 0;
+}
+img, input, select, textarea, button {
+  max-width: 100%;
+}
+body {
+  overflow-x: hidden;
+  line-height: 1.5 !important;
+}
+#root {
+  width: 100%;
+  overflow-x: clip;
+}
+
+/* Formularios coherentes en Caja, Gastos, Inventario y módulos secundarios. */
+:where(.cash-page, .cash-cut-page, .expenses-page, .sales-page,
+.inventory-page, .reports-page, .sucursales-page, .vendedores-page,
+.page, .cash-card, .form-card, .inventory-form, .panel) {
+  width: min(100%, 1180px);
+  margin-left: auto;
+  margin-right: auto;
+}
+:where(.cash-page, .cash-cut-page, .expenses-page, .sales-page,
+.inventory-page, .reports-page, .sucursales-page, .vendedores-page,
+.page) {
+  padding: clamp(16px, 3vw, 30px);
+}
+:where(.cash-page, .cash-cut-page, .expenses-page, .sales-page,
+.inventory-page, .reports-page, .sucursales-page, .vendedores-page,
+.page) h1 {
+  font-size: clamp(25px, 5vw, 36px) !important;
+  line-height: 1.15 !important;
+  margin: 0 0 8px !important;
+}
+:where(.cash-page, .cash-cut-page, .expenses-page, .sales-page,
+.inventory-page, .reports-page, .sucursales-page, .vendedores-page,
+.page) h2 {
+  font-size: clamp(20px, 4vw, 27px) !important;
+  line-height: 1.25 !important;
+  margin: 24px 0 12px !important;
+}
+:where(.cash-page, .cash-cut-page, .expenses-page, .sales-page,
+.inventory-page, .reports-page, .sucursales-page, .vendedores-page,
+.page) p {
+  line-height: 1.5 !important;
+  margin: 8px 0 14px;
+}
+:where(.cash-page, .cash-cut-page, .expenses-page, .sales-page,
+.inventory-page, .reports-page, .sucursales-page, .vendedores-page,
+.page) label {
+  display: block;
+  margin: 12px 0 6px;
+  color: var(--ms-text);
+  font-size: 14px !important;
+  font-weight: 650;
+}
+:where(.cash-page, .cash-cut-page, .expenses-page, .sales-page,
+.inventory-page, .reports-page, .sucursales-page, .vendedores-page,
+.page) input:not([type="checkbox"]):not([type="radio"]),
+:where(.cash-page, .cash-cut-page, .expenses-page, .sales-page,
+.inventory-page, .reports-page, .sucursales-page, .vendedores-page,
+.page) select,
+:where(.cash-page, .cash-cut-page, .expenses-page, .sales-page,
+.inventory-page, .reports-page, .sucursales-page, .vendedores-page,
+.page) textarea {
+  width: 100%;
+  min-height: 46px;
+  padding: 11px 13px !important;
+  border: 1px solid var(--ms-border) !important;
+  border-radius: 13px !important;
+  background: #fff !important;
+  font-size: 16px !important;
+}
+:where(.cash-page, .cash-cut-page, .expenses-page, .sales-page,
+.inventory-page, .reports-page, .sucursales-page, .vendedores-page,
+.page) button {
+  min-height: 44px;
+  padding: 10px 15px;
+  border-radius: 13px;
+  font-size: 14px;
+  font-weight: 650;
+}
+:where(.cash-page, .cash-cut-page, .expenses-page, .sales-page,
+.inventory-page, .reports-page, .sucursales-page, .vendedores-page,
+.page) button:not(.secondary-button):not(.danger-button):not(.delete-button) {
+  border-color: var(--ms-primary);
+}
+:where(.cash-page, .cash-cut-page, .expenses-page, .sales-page,
+.inventory-page, .reports-page, .sucursales-page, .vendedores-page,
+.page) table {
+  width: 100%;
+  border-collapse: collapse;
+}
+:where(.cash-page, .cash-cut-page, .expenses-page, .sales-page,
+.inventory-page, .reports-page, .sucursales-page, .vendedores-page,
+.page) :where(.card, .panel, .form-card, .cash-card, .inventory-form-card) {
+  border-radius: var(--ms-radius-lg);
+}
+:focus-visible {
+  outline: 3px solid rgba(233, 21, 135, .28);
+  outline-offset: 2px;
+}
+
+/* En móviles, formularios apilados y tarjetas sin desbordamiento lateral. */
+@media (max-width: 600px) {
+  .dashboard-content {
+    padding: 20px 14px 30px !important;
+  }
+  .stats-grid, .dashboard-stats, .module-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 11px !important;
+  }
+  .stat-card, .module-card {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+  .module-card {
+    min-height: 122px;
+    padding: 14px !important;
+  }
+  .module-info strong {
+    font-size: 14px !important;
+    line-height: 1.3 !important;
+  }
+  .module-info small {
+    font-size: 12px !important;
+    line-height: 1.4 !important;
+  }
+  :where(.cash-page, .cash-cut-page, .expenses-page, .sales-page,
+  .inventory-page, .reports-page, .sucursales-page, .vendedores-page,
+  .page) {
+    padding: 18px 14px 28px !important;
+  }
+  :where(.cash-page, .cash-cut-page, .expenses-page, .sales-page,
+  .inventory-page, .reports-page, .sucursales-page, .vendedores-page,
+  .page) form {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+  }
+  :where(.cash-page, .cash-cut-page, .expenses-page, .sales-page,
+  .inventory-page, .reports-page, .sucursales-page, .vendedores-page,
+  .page) button {
+    width: 100%;
+  }
 }
