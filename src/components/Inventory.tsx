@@ -325,8 +325,8 @@ export default function Inventory({
       return
     }
 
-    if (!name.trim() || !category || !cost || !price) {
-      setError('Completa nombre, categoría, costo y precio.')
+    if (!name.trim() || !cost || !price) {
+      setError('Completa nombre, costo y precio.')
       return
     }
 
@@ -405,7 +405,7 @@ export default function Inventory({
           p_branch_id: branchId,
           p_sku: sku.trim() || null,
           p_name: name.trim(),
-          p_category: category,
+          p_category: category.trim() || null,
           p_cost: numericCost,
           p_price: numericPrice,
           p_variants: variantsPayload,
@@ -414,7 +414,7 @@ export default function Inventory({
           p_branch_id: branchId,
           p_sku: sku.trim() || null,
           p_name: name.trim(),
-          p_category: category,
+          p_category: category.trim() || null,
           p_cost: numericCost,
           p_price: numericPrice,
           p_variants: variantsPayload,
@@ -515,26 +515,27 @@ export default function Inventory({
   async function removeCategory(categoryName: string) {
     if (userRole !== 'admin') return
 
+    const assignedProducts = products.filter(
+      (product) => product.category?.trim() === categoryName,
+    )
+
+    if (assignedProducts.length > 0) {
+      window.alert(
+        `No se puede eliminar la categoría "${categoryName}" porque tiene ${assignedProducts.length} producto(s) asignado(s). Primero edita esos productos y asígnales otra categoría o deja el campo de categoría vacío. También puedes eliminar los productos si ya no los necesitas.`,
+      )
+      return
+    }
+
     const confirmed = window.confirm(
-      `¿Eliminar la categoría "${categoryName}"? Los productos se conservarán, pero quedarán sin categoría.`,
+      `¿Eliminar la categoría "${categoryName}"? Esta acción no eliminará productos.`,
     )
     if (!confirmed) return
 
     setError('')
     setSuccess('')
-    const { error: updateError } = await supabase
-      .from('products')
-      .update({ category: null })
-      .eq('category', categoryName)
-
-    if (updateError) {
-      setError('No se pudo eliminar la categoría. No se borraron productos.')
-      return
-    }
-
     setCategoryFilter((current) => current === categoryName ? 'Todas' : current)
     setShowCategoryManager(false)
-    setSuccess(`Categoría "${categoryName}" eliminada. Los productos se conservaron.`)
+    setSuccess(`Categoría "${categoryName}" eliminada.`)
     await loadInventory()
   }
 
@@ -1941,7 +1942,7 @@ const inventorySummary = useMemo(() => {
                   Categorías de tus productos
                 </strong>
                 <p style={{ margin: '0 0 12px', fontSize: 13, color: '#6b5560' }}>
-                  Para crear una categoría, escríbela al registrar un producto. Al eliminar una categoría, los productos se conservan sin categoría.
+                  Para crear una categoría, escríbela al registrar un producto. No se puede eliminar una categoría mientras tenga productos asignados. Primero cambia esos productos a otra categoría, deja su categoría vacía o elimínalos.
                 </p>
                 {categories.length === 0 ? (
                   <span style={{ fontSize: 14, color: '#6b5560' }}>Todavía no hay categorías en uso.</span>
